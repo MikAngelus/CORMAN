@@ -21,7 +21,10 @@ Route::get('dashboard', 'PagesController@dashboard');
 // @TODO Replace clousure based routes with resource controller routes
 
 Route::get('/groups', function () {
-    return view('Pages.Group.groups');
+    $groups = array("Group 1", "Group 2", "Group 3", "Group 4");
+    $data = array('groups' => $groups);
+    
+    return view('Pages.Group.groups',$data);
 });
 
 Route::get('/pubblication', function () {
@@ -29,7 +32,11 @@ Route::get('/pubblication', function () {
 });
 
 Route::get('/createPubblication', function () {
-    return view('Pages.Pubblication.createPubblication');
+    $authors = array("AAA", "BBB", "CCC", "DDD");
+    $topics = array("top1", "top2", "top3", "top4", "top5");
+    $data = array('authors' => $authors, 'topics' => $topics);
+   
+    return view('Pages.Pubblication.createPubblication',$data);
 });
 
 Route::get('/signUp', function () {
