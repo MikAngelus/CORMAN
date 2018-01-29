@@ -29,8 +29,14 @@ class UserController extends Controller
     public function create()
     {
         //
+        $affiliationList = Affiliation::all()->sortBy('name');
+        $roleList = Role::all();
+        
 
-        return view('Pages.signUp');
+        return view('Pages.signUp',[
+         'affiliations' => $affiliationList,
+         'roles' => $roleList
+        ]);
     }
 
     /**
@@ -42,9 +48,6 @@ class UserController extends Controller
     public function store(Request $request)
     {
         // TODO use laravel's validation to validate fields
-        
-        
-
         $newUser = new User;
 
         $newUser->first_name = $request->input('first_name');
@@ -57,7 +60,7 @@ class UserController extends Controller
         $newUser->picture = "path/to/the default/pic";
         $newUser->reference_link = "path/to/some/domain";
 
-        // TODO handling role and affiliation not in the list
+        // TODO handling affiliation not in the list
 
         //Set and retrieve the associated id with affiliation name (from the form)
         $affiliation = $request->input('affiliation');
@@ -67,8 +70,7 @@ class UserController extends Controller
         $role = $request->input('role');
         $newUser->role_id = Role::where('name',$role)->first()->id;
 
-
-        $newUser->save();
+         $newUser->save();
         
         
     }

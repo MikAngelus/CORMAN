@@ -6,9 +6,10 @@
     <base href="{{ URL::asset('/') }}" target="_blank">
     <link rel="stylesheet" href="{{ url('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url('css/custom/loginform.css') }}">
-    <script src="{{ url('js/jquery-3.3.1.min.js') }}"></script>
-    <script src="{{ url('js/jquery-ui.js') }}"></script> 
+    
 
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
   </head>
   <body>
 
@@ -61,12 +62,12 @@
                 <!-- progressbar -->
                 <ul id="progressbar">
                     <li class="active">Personal Info</li>
-                    <li>Professional Profiles</li>
-                    <li>Sincro Pubblication</li>
+                    <li>Professional info</li>
+                    <li>Pubblications</li>
                 </ul>
                 <!-- fieldsets -->
                 <fieldset>
-                    <h2 class="fs-title">Personal Details</h2>
+                    <h2 class="fs-title">Personal info</h2>
                     <h3 class="fs-subtitle"></h3>
                     <input type="text" name="first_name" placeholder="First Name"/>
                     <input type="text" name="last_name" placeholder="Last Name"/>
@@ -79,16 +80,21 @@
 
                 </fieldset>
                 <fieldset>
-                    <h2 class="fs-title">Professional Profiles</h2>
+                    <h2 class="fs-title">Professional info</h2>
                     <h3 class="fs-subtitle"></h3>
                     <label for="role"> Role </label>
                     <select class="form-control" id="role" name="role">
-                      <option>Researcher</option>
-                      <option>Ordinary Professor</option>
-                      <option>Associate Professor</option>
-                      <option>Assistant Professor</option>
+                        @foreach($roles as $role)
+                            <option>{{$role->name}}</option>
+                        @endforeach
                     </select>
-                    <input type="text" name="affiliation" placeholder="Affiliation"/>
+                    
+                    <select class="form-control" id="affiliation" name="affiliation">
+                        @foreach($affiliations as $affiliation)
+                            <option value="{{$affiliation->name}}">{{$affiliation->name}}</option>
+                        @endforeach
+                    </select>
+                    
                     <input type="text" name="topics" placeholder="Topics"/>
                     <input type="text" name="personalLink" placeholder="Personal Link"/>
                     <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
@@ -203,18 +209,24 @@
     <div class="card-body text-center">
       Quista ete la sezione de fuutter.
 </div>
+    <script src="{{ url('js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ url('js/jquery-ui.js') }}"></script> 
     <script src="{{ url('js/popper.min.js') }}"></script>
     <script src="{{ url('js/bootstrap.min.js') }}"></script>
     <script src="{{ url('js/jqueryform.js') }}"></script>
     <script>
-    $(document).ready(function () {
-  $('body').on('click', '#selectAll', function () {
-    if ($(this).hasClass('allChecked')) {
-        $('input[type="checkbox"]', '#example').prop('checked', false);
-    } else {
-        $('input[type="checkbox"]', '#example').prop('checked', true);
-    }
-    $(this).toggleClass('allChecked');
-  })
-});
-</script>
+        $(document).ready(function () {
+            $('body').on('click', '#selectAll', function () {
+                if ($(this).hasClass('allChecked')) {
+                    $('input[type="checkbox"]', '#example').prop('checked', false);
+                } else {
+                    $('input[type="checkbox"]', '#example').prop('checked', true);
+                }
+                $(this).toggleClass('allChecked');
+            })
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="{{ url('js/custom/signUp.js') }}"></script>
+
+</body>
