@@ -11,10 +11,12 @@
 |
 */
 
+// Controllers
 Route::get('/', 'PagesController@landingPage');
-
 Route::get('dashboard', 'PagesController@dashboard');
 
+//Resource Controllers
+Route::resource('users','UserController');
 
 
 

@@ -55,7 +55,9 @@
     <!-- MultiStep Form -->
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form id="msform">
+            <form id="msform" action="{{ route('users.store')}}" method="post">
+                {{ method_field('POST') }}
+                {{csrf_field()}}
                 <!-- progressbar -->
                 <ul id="progressbar">
                     <li class="active">Personal Info</li>
@@ -66,11 +68,11 @@
                 <fieldset>
                     <h2 class="fs-title">Personal Details</h2>
                     <h3 class="fs-subtitle"></h3>
-                    <input type="text" name="fname" placeholder="First Name"/>
-                    <input type="text" name="lname" placeholder="Last Name"/>
-                    <input type="text" name="phone" placeholder="Birth Date"/>
-                    <input type="text" name="email" placeholder="Email"/>
-                    <input type="password" name="pass" placeholder="Password"/>
+                    <input type="text" name="first_name" placeholder="First Name"/>
+                    <input type="text" name="last_name" placeholder="Last Name"/>
+                    <input type="date" name="birth_date" placeholder="Birth Date"/>
+                    <input type="email" name="email" placeholder="Email"/>
+                    <input type="password" name="password" placeholder="Password"/>
                     <input type="password" name="cpass" placeholder="Confirm Password"/>
                     <input type="file" name="myfile" placeholder="Profile Photo" />
                     <input type="button" name="next" class="next action-button" value="Next"/>
@@ -80,15 +82,15 @@
                     <h2 class="fs-title">Professional Profiles</h2>
                     <h3 class="fs-subtitle"></h3>
                     <label for="role"> Role </label>
-                    <select class="form-control" id="role">
-                      <option>Role 1</option>
-                      <option>Role 2</option>
-                      <option>Role 3</option>
-                      <option>Role 4</option>
+                    <select class="form-control" id="role" name="role">
+                      <option>Researcher</option>
+                      <option>Ordinary Professor</option>
+                      <option>Associate Professor</option>
+                      <option>Assistant Professor</option>
                     </select>
-                    <input type="text" name="twitter" placeholder="Affiliation"/>
-                    <input type="text" name="facebook" placeholder="Topics"/>
-                    <input type="text" name="gplus" placeholder="Personal Link"/>
+                    <input type="text" name="affiliation" placeholder="Affiliation"/>
+                    <input type="text" name="topics" placeholder="Topics"/>
+                    <input type="text" name="personalLink" placeholder="Personal Link"/>
                     <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
                     <input type="button" name="next" class="next action-button" value="Next"/>
                 </fieldset>
