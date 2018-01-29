@@ -1,0 +1,41 @@
+.panel-heading {
+    background-color: cornflowerblue;
+    border: 3px solid cornflowerblue;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.panel-heading h2 {
+    margin: 0;
+}
+
+.panel-footer {
+    background-color: #cacaca;
+    border: 3px solid #cacaca;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    height: 50px;
+}
+
+.panel-footer .btn-primary {
+    margin: 8px;
+}
+
+.panel-body {
+    background-color: #ffddbb;
+}
+
+.panel-primary {
+    margin: 10px 10px;
+}
+
+.breadcrumb {
+    padding: 0;
+    background-color: white;
+}
+#group-box {
+    padding: 0px;
+}
+
+#btn-newgroup {
+}
