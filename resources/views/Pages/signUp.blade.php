@@ -63,7 +63,7 @@
                 <ul id="progressbar">
                     <li class="active">Personal Info</li>
                     <li>Professional info</li>
-                    <li>Pubblications</li>
+                    <li>Publications</li>
                 </ul>
                 <!-- fieldsets -->
                 <fieldset>
@@ -84,12 +84,14 @@
                     <h3 class="fs-subtitle"></h3>
                     <label for="role"> Role </label>
                     <select class="form-control" id="role" name="role">
+                        
                         @foreach($roles as $role)
                             <option>{{$role->name}}</option>
                         @endforeach
                     </select>
                     
                     <select class="form-control" id="affiliation" name="affiliation">
+                    <option value=""></option>
                         @foreach($affiliations as $affiliation)
                             <option value="{{$affiliation->name}}">{{$affiliation->name}}</option>
                         @endforeach

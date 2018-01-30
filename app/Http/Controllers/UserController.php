@@ -62,9 +62,22 @@ class UserController extends Controller
 
         // TODO handling affiliation not in the list
 
-        //Set and retrieve the associated id with affiliation name (from the form)
-        $affiliation = $request->input('affiliation');
-        $newUser->affiliation_id = Affiliation::where('name',$affiliation)->first()->id;
+        //Search and retrieve the affiliation from db
+        $affiliationInput = $request->input('affiliation');
+        $affiliation = Affiliation::where('name',$affiliationInput)->first();
+        //Check if the affiliation is already in the db, otherwise create a new one
+        if( $affiliation != null){
+            $newUser->affiliation_id = $affiliation;
+        }
+        else
+        {
+            $newAffiliation = new Affiliation;
+            $newAffiliation->name = $affiliationInput;
+            $newAffiliation->save();
+            
+            $newUser->affiliation_id = $newAffiliation->id;
+        }
+         
        
         //Set and retrieve the associated id with role name (from the form)
         $role = $request->input('role');
