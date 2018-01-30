@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->date('birth_date');
             $table->string('email',255)->unique();
             $table->string('password',255);
-            $table->string('picture',500)->default('link/to/default/pic'); #replace with default picture path
+            $table->string('picture_path',500)->default('link/to/default/pic'); #replace with default picture path
             $table->integer('affiliation_id')->unsigned();
             $table->integer('role_id')->unsigned();
             $table->string('reference_link',500)->nullable(false);

@@ -75,7 +75,7 @@
                     <input type="email" name="email" placeholder="Email"/>
                     <input type="password" name="password" placeholder="Password"/>
                     <input type="password" name="cpass" placeholder="Confirm Password"/>
-                    <input type="file" name="myfile" placeholder="Profile Photo" />
+                    <input type="file" name="photo" placeholder="Profile Photo" />
                     <input type="button" name="next" class="next action-button" value="Next"/>
 
                 </fieldset>
@@ -83,21 +83,27 @@
                     <h2 class="fs-title">Professional info</h2>
                     <h3 class="fs-subtitle"></h3>
                     <label for="role"> Role </label>
+                    
                     <select class="form-control" id="role" name="role">
-                        
                         @foreach($roles as $role)
                             <option>{{$role->name}}</option>
                         @endforeach
                     </select>
                     
-                    <select class="form-control" id="affiliation" name="affiliation">
-                    <option value=""></option>
+                    <select class="form-control" id="affiliationDropdown" name="affiliation">
+                        <option value=""></option> <!-- needed for selct2.js library don't remove!-->
                         @foreach($affiliations as $affiliation)
                             <option value="{{$affiliation->name}}">{{$affiliation->name}}</option>
                         @endforeach
                     </select>
+
+                    <select class="form-control" id="topicsDropdown" name="topics[]" multiple>
+                        <option value=""></option> <!-- needed for selct2.js library don't remove!-->
+                        @foreach($topics as $topic)
+                            <option value="{{$topic->name}}">{{$topic->name}}</option>
+                        @endforeach
+                    </select>
                     
-                    <input type="text" name="topics" placeholder="Topics"/>
                     <input type="text" name="personalLink" placeholder="Personal Link"/>
                     <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
                     <input type="button" name="next" class="next action-button" value="Next"/>

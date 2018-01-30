@@ -1,7 +1,12 @@
 $(document).ready(function() {
-    $('#affiliation').select2({
-        placeholder: "type your affiliation",
+    $('#affiliationDropdown').select2({
+        placeholder: "type in your affiliation",
         tags:true
     });
-        
+
+    $('#topicsDropdown').select2({
+        placeholder: "type in your research areas",
+        maximumSelectionLength: 5,
+        tags:true
+    });  
 });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Role;
 use App\Affiliation;
+use App\Topic;
 
 use Illuminate\Http\Request;
 
@@ -28,14 +29,16 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        // Retrieve data for signUp view from DB
         $affiliationList = Affiliation::all()->sortBy('name');
         $roleList = Role::all();
+        $topicList = Topic::all();
         
 
         return view('Pages.signUp',[
          'affiliations' => $affiliationList,
-         'roles' => $roleList
+         'roles' => $roleList,
+         'topics' => $topicList
         ]);
     }
 
@@ -60,14 +63,12 @@ class UserController extends Controller
         $newUser->picture = "path/to/the default/pic";
         $newUser->reference_link = "path/to/some/domain";
 
-        // TODO handling affiliation not in the list
-
         //Search and retrieve the affiliation from db
         $affiliationInput = $request->input('affiliation');
         $affiliation = Affiliation::where('name',$affiliationInput)->first();
-        //Check if the affiliation is already in the db, otherwise create a new one
+        //Check if the affiliation is already in the db, otherwise create a new one and attach to the user
         if( $affiliation != null){
-            $newUser->affiliation_id = $affiliation;
+            $newUser->affiliation_id = $affiliation->id;
         }
         else
         {
@@ -78,12 +79,37 @@ class UserController extends Controller
             $newUser->affiliation_id = $newAffiliation->id;
         }
          
-       
         //Set and retrieve the associated id with role name (from the form)
-        $role = $request->input('role');
-        $newUser->role_id = Role::where('name',$role)->first()->id;
+        $roleInput = $request->input('role');
+        $newUser->role_id = Role::where('name',$roleInput)->first()->id;
 
-         $newUser->save();
+        $newUser->save();
+
+        // Handling topics  
+        $topicInputList = $request->input('topics');
+        foreach( $topicInputList as $topicKey => $topicInput ){
+            //Search and retrieve the topic from db
+            $topic = Topic::where('name', $topicInput)->first();
+            //Check if the topic is already in the db, otherwise create a new one and attach to the user
+            if($topic != null){
+                $newUser->topics()->attach($topic->id);
+            }
+            else{
+                $newTopic = new Topic;
+                $newTopic->name = $topicInput;
+                $newTopic->save();
+
+                $newUser->topics()->attach($newTopic->id);
+            }
+
+        }
+        
+        
+        
+        
+        
+        
+        
         
         
     }
