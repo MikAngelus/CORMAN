@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTopicPubblicationTable extends Migration
+class CreateTopicPublicationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateTopicPubblicationTable extends Migration
      */
     public function up()
     {
-        Schema::create('topic_pubblication', function (Blueprint $table) {
+        Schema::create('topic_publication', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('topic_id')->unsigned();
             $table->foreign('topic_id')->references('id')->on('topics');
-            $table->integer('pubblication_id')->unsigned();
-            $table->foreign('pubblication_id')->references('id')->on('pubblications');
+            $table->integer('publication_id')->unsigned();
+            $table->foreign('publication_id')->references('id')->on('publications');
         });
     }
 
@@ -29,6 +29,6 @@ class CreateTopicPubblicationTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('topic_pubblication');
+        Schema::dropIfExists('topic_publication');
     }
 }

@@ -27,8 +27,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function pubblications(){
-        return $this->belongsToMany('App\Pubblication','user_pubblication');
+    public function publications(){
+        return $this->belongsToMany('App\Publication','user_publication');
     }
 
     public function topics(){

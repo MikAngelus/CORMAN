@@ -14,7 +14,7 @@ class CreateEditorshipsTable extends Migration
     public function up()
     {
         Schema::create('editorships', function (Blueprint $table) {
-            $table->integer('pubblication_id')->unsigned();
+            $table->integer('publication_id')->unsigned();
             
             $table->text('abstract');
             $table->string('volume',255);
@@ -26,7 +26,7 @@ class CreateEditorshipsTable extends Migration
             $table->string('ee',255)->nullable(true);
             $table->string('url',255)->nullable(true);
 
-            $table->foreign('pubblication_id')->references('id')->on('pubblications');
+            $table->foreign('publication_id')->references('id')->on('publications');
         });
     }
 

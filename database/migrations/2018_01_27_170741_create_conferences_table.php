@@ -14,7 +14,7 @@ class CreateConferencesTable extends Migration
     public function up()
     {
         Schema::create('conferences', function (Blueprint $table) {
-            $table->integer('pubblication_id')->unsigned();
+            $table->integer('publication_id')->unsigned();
             
             $table->text('abstract');
             $table->string('pages',50);
@@ -26,7 +26,7 @@ class CreateConferencesTable extends Migration
             $table->string('ee',255)->nullable(true);
             $table->string('url',255)->nullable(true);
 
-            $table->foreign('pubblication_id')->references('id')->on('pubblications');
+            $table->foreign('publication_id')->references('id')->on('publications');
         });
     }
 
