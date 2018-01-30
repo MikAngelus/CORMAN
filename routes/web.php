@@ -11,10 +11,12 @@
 |
 */
 
+// Controllers
 Route::get('/', 'PagesController@landingPage');
-
 Route::get('dashboard', 'PagesController@dashboard');
 
+//Resource Controllers
+Route::resource('users','UserController');
 
 
 
@@ -27,16 +29,16 @@ Route::get('/groups', function () {
     return view('Pages.Group.groups',$data);
 });
 
-Route::get('/pubblication', function () {
-    return view('Pages.Pubblication.pubblication');
+Route::get('/publication', function () {
+    return view('Pages.Publication.publication');
 });
 
-Route::get('/createPubblication', function () {
+Route::get('/createPublication', function () {
     $authors = array("AAA", "BBB", "CCC", "DDD");
     $topics = array("top1", "top2", "top3", "top4", "top5");
     $data = array('authors' => $authors, 'topics' => $topics);
    
-    return view('Pages.Pubblication.createPubblication',$data);
+    return view('Pages.Publication.createPublication',$data);
 });
 
 Route::get('/signUp', function () {

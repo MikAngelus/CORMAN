@@ -9,7 +9,7 @@ class PagesController extends Controller
     /*
      This controller is meant for handling pages request,
      not every page is handled by this controller, because some of them
-     (eg.createPubblication,createGroup...) are handled in the respective resource controller
+     (eg.createPublication,createGroup...) are handled in the respective resource controller
     */
 
     public function landingPage(){
