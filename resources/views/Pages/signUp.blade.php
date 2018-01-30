@@ -56,7 +56,7 @@
     <!-- MultiStep Form -->
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form id="msform" action="{{ route('users.store')}}" method="post">
+            <form id="msform" action="{{ route('users.store')}}" method="post" enctype="multipart/form-data">
                 {{ method_field('POST') }}
                 {{csrf_field()}}
                 <!-- progressbar -->
@@ -75,7 +75,7 @@
                     <input type="email" name="email" placeholder="Email"/>
                     <input type="password" name="password" placeholder="Password"/>
                     <input type="password" name="cpass" placeholder="Confirm Password"/>
-                    <input type="file" name="photo" placeholder="Profile Photo" />
+                    <input type="file" name="profilePic" placeholder="Profile Photo" />
                     <input type="button" name="next" class="next action-button" value="Next"/>
 
                 </fieldset>

@@ -58,10 +58,21 @@ class UserController extends Controller
         $newUser->birth_date = $request->input('birth_date');
         $newUser->email = $request->input('email');
         $newUser->password = $request->input('password');
-        
-        // TODO replace with default path
-        $newUser->picture = "path/to/the default/pic";
         $newUser->reference_link = "path/to/some/domain";
+        
+        //Handling Profile picture
+        if( $request->hasfile('profilePic') ){
+            $file = $request->file('profilePic');
+            
+            if( $file->isValid() ){
+                $path = $file->store('/','profilePicturesDisk');
+                $newUser->picture_path = $path;
+
+            }
+            
+        }
+        
+        
 
         //Search and retrieve the affiliation from db
         $affiliationInput = $request->input('affiliation');
