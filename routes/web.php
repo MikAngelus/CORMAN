@@ -11,6 +11,9 @@
 |
 */
 
+use App\Publication;
+use App\User;
+
 // Controllers
 Route::get('/', 'PagesController@landingPage');
 Route::get('dashboard', 'PagesController@dashboard');
@@ -37,12 +40,13 @@ Route::get('/createGroup', function () {
     return view('Pages.Group.createGroup');
 });
 
-Route::get('/createPublication', function () {
-    $authors = array("AAA", "BBB", "CCC", "DDD");
-    $topics = array("top1", "top2", "top3", "top4", "top5");
-    $data = array('authors' => $authors, 'topics' => $topics);
-   
-    return view('Pages.Publication.createPublication',$data);
+Route::get('/createPublication', function () {   
+    return view('Pages.Publication.createPublication');
+});
+
+Route::get('/publications', function () {
+    $publication_list = (new User)::find(1)->publications;
+    return view('Pages.Publication.publications', $dataPub=array('publication_list'=>$publication_list));
 });
 
 Route::get('/signUp', function () {
