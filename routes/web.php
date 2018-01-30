@@ -43,8 +43,13 @@ Route::get('/signUp', function () {
     return view('Pages.signUp');
 });
 
+Route::get('/tutorial', function () {
+    return view('Pages.tutorial');
+});
 
-
+Route::get('/about', function () {
+    return view('Pages.about');
+});
 
 Route::get('/testSeedingDB', function () {
     
