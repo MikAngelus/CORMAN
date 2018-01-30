@@ -1,2 +1,3 @@
+@extends('Layout.head')
 
- <link rel="stylesheet" href="{{ url('css/custom/groups.css')}}">
+<link rel="stylesheet" href="{{ url('css/custom/creategroup.css')}}">

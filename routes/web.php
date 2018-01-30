@@ -31,6 +31,10 @@ Route::get('/pubblication', function () {
     return view('Pages.Pubblication.pubblication');
 });
 
+Route::get('/createGroup', function () {
+    return view('Pages.Group.createGroup');
+});
+
 Route::get('/createPubblication', function () {
     $authors = array("AAA", "BBB", "CCC", "DDD");
     $topics = array("top1", "top2", "top3", "top4", "top5");

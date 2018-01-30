@@ -6,9 +6,20 @@
 }
 
 .panel-heading h2 {
-    margin: 0;
+    display: inline-block;
+    margin-left: 20%;
 }
 
+.panel {
+}
+
+.fa-users {
+    padding: 15px;
+}
+
+.fa-eye, .fa-pencil {
+    padding: 5px;
+}
 .panel-footer {
     background-color: #cacaca;
     border: 3px solid #cacaca;
