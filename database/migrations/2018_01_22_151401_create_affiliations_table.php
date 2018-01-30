@@ -16,7 +16,7 @@ class CreateAffiliationsTable extends Migration
         Schema::create('affiliations', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('name')->unique()->nullable('false');
+            $table->string('name')->unique();
             $table->string('link',255)->nullable();
             
             $table->timestamps();
