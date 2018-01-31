@@ -27,9 +27,5 @@ class DatabaseSeeder extends Seeder
         $this->call(TopicPublicationTableSeeder::class);
         //$this->call(PublicationGroupTableSeeder::class);
 
-
-
-
-
     }
 }
