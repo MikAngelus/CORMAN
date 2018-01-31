@@ -19,7 +19,7 @@ class CreateTopicGroupTable extends Migration
             $table->integer('topic_id')->unsigned();
             $table->integer('group_id')->unsigned();
             
-            //Foreigns
+            //Constraints
             $table->foreign('topic_id')->references('id')->on('topics');
             $table->foreign('group_id')->references('id')->on('groups');
         });
