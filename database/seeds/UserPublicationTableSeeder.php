@@ -12,7 +12,7 @@ class UserPublicationTableSeeder extends Seeder
      * @return void
      */
     public function run()
-    {    	
+    {
         $faker = Faker::create();
 
     	$publication_list = App\Publication::all();

@@ -5,15 +5,15 @@
 <!--<script type="text/javascript" src="{{ url('js/publications.js')}}"></script>
 <link rel="stylesheet" href="{{ url('css/publications.css')}}">-->
 
-<div class="container">
+<div class="row">
+    <button class="btn btn-sm btn-primary">New Publication</button>
+</div>
 
-    <div class="row">
-        @foreach($publication_list as $publication)
-            @include('Pages.Publication.publicationSingle', ['pub'=>$publication])
-        @endforeach
-    </div>
-</div>
 <div class="container">
-    <button id="btn-newgroup" class="btn-primary">New Publication</button>
+    @foreach($publication_list as $publication)
+            @include('Pages.Publication.publicationSingle', ['pub'=>$publication])
+            <br>
+    @endforeach
 </div>
+
 @endsection

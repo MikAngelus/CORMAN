@@ -14,6 +14,6 @@ $factory->define(App\Editorship::class, function (Faker $faker) {
         'doi' => $faker->slug,
         'ee' => $faker->slug,
         'url' => $faker->url
-        
+
     ];
 });

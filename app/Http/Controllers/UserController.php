@@ -57,7 +57,12 @@ class UserController extends Controller
     {
         // TODO use laravel's validation to validate fields
         // TODO fix form resubmission due to form error, now the inpt values doesn't persist
+<<<<<<< HEAD
     
+=======
+
+
+>>>>>>> 13bfd9263180c3a2924905bda03f848ee9bfbb87
         $request->validate([
             'first_name' => ['bail','required','regex:/^[A-Za-z\- ]+$/','max:255'], //Don't remove the space!
             'last_name' => ['bail','required','regex:/^[A-Za-z\- ]+$/','max:255'], //Don't remove the space!
@@ -70,7 +75,7 @@ class UserController extends Controller
             'affiliation' => 'required|filled',
             'topics.*' => 'filled|max:50',
             'personal_link' => 'bail|nullable|url|max:1620'
-            
+
         ]);
 
 
@@ -87,11 +92,11 @@ class UserController extends Controller
         //TODO replace default path in database table
         //TODO implement image thumbnailization with some php library to save space
         if( $request->hasfile('profilePic') ){
-            
+
             $file = $request->file('profilePic');
             if( $file->isValid() ){
                 $newUser->picture_path = $file->store('/','profilePicturesDisk'); // store method return the stored file's name
-            }  
+            }
         }
 
         //Search and retrieve the affiliation from db

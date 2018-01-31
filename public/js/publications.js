@@ -6,4 +6,4 @@ $(document).ready(function() {
                 '<button type="button" id="close" class="close" onclick="$(&quot;#example&quot;).popover(&quot;hide&quot;);">&times;</button>',
         content : 'test'
     });
-});  
+});

@@ -19,6 +19,7 @@ Route::get('/', 'PagesController@landingPage');
 Route::get('dashboard', 'PagesController@dashboard');
 Route::get('/publications', 'PagesController@publications');
 Route::get('/groups', 'PagesController@groups');
+Route::get('/groupDetail', 'PagesController@groupDetail');
 
 //Resource Controllers
 Route::resource('users','UserController');
@@ -33,7 +34,13 @@ Route::get('/createGroup', function () {
     return view('Pages.Group.createGroup');
 });
 
-Route::get('/createPublication', function () {   
+
+
+Route::get('/editProfile', function () {
+    return view('Pages.editProfile');
+});
+
+Route::get('/createPublication', function () {
     return view('Pages.Publication.createPublication');
 });
 
