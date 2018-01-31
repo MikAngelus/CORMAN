@@ -101,7 +101,7 @@ class AffiliationTableSeeder extends Seeder
 
     	$affiliation18 = new Affiliation;
     	$affiliation18->name = 'Utrecht University';
-       	$affiliation18->link = 'https://www.uu.nl/en'; 	
+      $affiliation18->link = 'https://www.uu.nl/en'; 	
     	$affiliation18->save();
 
     	$affiliation19 = new Affiliation;

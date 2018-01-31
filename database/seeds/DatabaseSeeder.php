@@ -11,20 +11,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-    	$this->call(AffiliationTableSeeder::class);
-    	$this->call(RoleTableSeeder::class);
-        $this->call(UsersTableSeeder::class);
-        $this->call(PublicationsTableSeeder::class);
         $this->call(TopicsTableSeeder::class);
         $this->call(GroupsTableSeeder::class);
+        $this->call([
+            AffiliationTableSeeder::class,
+            RoleTableSeeder::class,
+            UsersTableSeeder::class,
+            PublicationsTableSeeder::class,
+            TopicsTableSeeder::class,
+            GroupsTableSeeder::class,
+            UserGroupTableSeeder::class,
+            UserTopicTableSeeder::class,
+            TopicGroupTableSeeder::class,
+            TopicPublicationTableSeeder::class,
+            UserPublicationTableSeeder::class
+        ]);
+    	
+     
+/*
+        //TODO Seeder to implement
         //$this->call(JournalsTableSeeder::class);
         //$this->call(ConferencesTableSeeder::class);
         //$this->call(EditorshipsTableSeeder::class);
-        $this->call(UserPublicationTableSeeder::class);
-        $this->call(UserGroupTableSeeder::class);
-        $this->call(UserTopicTableSeeder::class);
-        $this->call(TopicGroupTableSeeder::class);
-        $this->call(TopicPublicationTableSeeder::class);
         //$this->call(PublicationGroupTableSeeder::class);
 
     }
