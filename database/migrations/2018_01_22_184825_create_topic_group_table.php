@@ -15,9 +15,12 @@ class CreateTopicGroupTable extends Migration
     {
         Schema::create('topic_group', function (Blueprint $table) {
             $table->increments('id');
+            
             $table->integer('topic_id')->unsigned();
-            $table->foreign('topic_id')->references('id')->on('topics');
             $table->integer('group_id')->unsigned();
+            
+            //Constraints
+            $table->foreign('topic_id')->references('id')->on('topics');
             $table->foreign('group_id')->references('id')->on('groups');
         });
     }

@@ -53,10 +53,20 @@
   @yield('content')
 
   <div class="container">
+    <!-- Handling Form errors -->
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <!-- MultiStep Form -->
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form id="msform" action="{{ route('users.store')}}" method="post">
+            <form id="msform" action="{{ route('users.store')}}" method="post" enctype="multipart/form-data">
                 {{ method_field('POST') }}
                 {{csrf_field()}}
                 <!-- progressbar -->
@@ -74,8 +84,8 @@
                     <input type="date" name="birth_date" placeholder="Birth Date"/>
                     <input type="email" name="email" placeholder="Email"/>
                     <input type="password" name="password" placeholder="Password"/>
-                    <input type="password" name="cpass" placeholder="Confirm Password"/>
-                    <input type="file" name="photo" placeholder="Profile Photo" />
+                    <input type="password" name="password_confirmation" placeholder="Confirm Password"/>
+                    <input type="file" name="profilePic" placeholder="Profile Photo" />
                     <input type="button" name="next" class="next action-button" value="Next"/>
 
                 </fieldset>
@@ -91,7 +101,7 @@
                     </select>
                     
                     <select class="form-control" id="affiliationDropdown" name="affiliation">
-                        <option value=""></option> <!-- needed for selct2.js library don't remove!-->
+                        <option value=""></option> <!-- needed for select2.js library don't remove!-->
                         @foreach($affiliations as $affiliation)
                             <option value="{{$affiliation->name}}">{{$affiliation->name}}</option>
                         @endforeach
@@ -104,7 +114,7 @@
                         @endforeach
                     </select>
                     
-                    <input type="text" name="personalLink" placeholder="Personal Link"/>
+                    <input type="text" name="personal_link" placeholder="Personal Link"/>
                     <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
                     <input type="button" name="next" class="next action-button" value="Next"/>
                 </fieldset>

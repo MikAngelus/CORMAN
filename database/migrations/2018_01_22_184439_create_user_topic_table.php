@@ -15,9 +15,12 @@ class CreateUserTopicTable extends Migration
     {
         Schema::create('user_topic', function (Blueprint $table) {
             $table->increments('id');
+            
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
             $table->integer('topic_id')->unsigned();
+
+            //Constraints
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('topic_id')->references('id')->on('topics');
         });
     }

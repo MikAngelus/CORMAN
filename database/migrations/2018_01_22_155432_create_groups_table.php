@@ -15,10 +15,12 @@ class CreateGroupsTable extends Migration
     {
         Schema::create('groups', function (Blueprint $table) {
             $table->increments('id');
+            
             $table->string('name',255)->nullable(false)->unique();
-            $table->integer('subscribers_count',false,true);
-            $table->text('description')->nullable();
-            $table->string('picture',500);
+            $table->integer('subscribers_count',false,true)->default(0); // no auto increment and unisgned integer column
+            $table->text('description');
+            $table->string('picture_path',500);
+            
             $table->timestamps();
         });
     }

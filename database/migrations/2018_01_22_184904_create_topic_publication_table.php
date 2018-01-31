@@ -15,9 +15,12 @@ class CreateTopicPublicationTable extends Migration
     {
         Schema::create('topic_publication', function (Blueprint $table) {
             $table->increments('id');
+           
             $table->integer('topic_id')->unsigned();
-            $table->foreign('topic_id')->references('id')->on('topics');
             $table->integer('publication_id')->unsigned();
+
+            //Constraints
+            $table->foreign('topic_id')->references('id')->on('topics');
             $table->foreign('publication_id')->references('id')->on('publications');
         });
     }

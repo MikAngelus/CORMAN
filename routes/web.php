@@ -52,24 +52,3 @@ Route::get('/publicationModal', function () {
 Route::get('/about', function () {
     return view('Pages.about');
 });
-
-Route::get('/testSeedingDB', function () {
-    
-    $u = new App\User;
-
-    $u->first_name = 'Giovanni';
-    $u->last_name = 'Semeraro';
-    $u->birth_date = '1978-10-23';
-    
-    $u->email = 'gsem@uniba.it';
-    $u->password ='sasasnaisnasnpasiao';
-
-    $u->picture ='path/to/somewhere';
-    $u->affiliation_id = 1;
-    $u->role_id = 2;
-
-    $u->reference_link = 'http://www.goooooogle.com';
-
-    $u->save();
-});
-
