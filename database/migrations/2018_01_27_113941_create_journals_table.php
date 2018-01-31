@@ -14,19 +14,19 @@ class CreateJournalsTable extends Migration
     public function up()
     {
         Schema::create('journals', function (Blueprint $table) {
-            $table->integer('pubblication_id')->unsigned();
-           
-            $table->text('abstract');
-            $table->string('volume',255);
-            $table->integer('number');
-            $table->string('pages',50);
-            $table->date('year');
+            
+            $table->integer('publication_id')->unsigned();
+            $table->text('abstract')->nullable(true);
+            $table->string('volume',255)->nullable(true);
+            $table->integer('number')->nullable(true);
+            $table->string('pages',50)->nullable(true);
             $table->string('key',255)->nullable(true);
             $table->string('doi',255)->nullable(true);
             $table->string('ee',255)->nullable(true);
             $table->string('url',255)->nullable(true);
-
-            $table->foreign('pubblication_id')->references('id')->on('pubblications');
+        
+            //Foreigns
+            $table->foreign('publication_id')->references('id')->on('publications');
         });
 
 

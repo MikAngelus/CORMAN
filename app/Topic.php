@@ -11,8 +11,8 @@ class Topic extends Model
         return $this->belongsToMany('App\User','user_topic');
     }
     
-    public function pubblications(){
-        return $this->belongsToMany('App\Pubblication','topic_pubblication');
+    public function publications(){
+        return $this->belongsToMany('App\Publication','topic_publication');
     }
 
     public function groups(){

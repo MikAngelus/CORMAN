@@ -6,9 +6,10 @@
     <base href="{{ URL::asset('/') }}" target="_blank">
     <link rel="stylesheet" href="{{ url('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url('css/custom/loginform.css') }}">
-    <script src="{{ url('js/jquery-3.3.1.min.js') }}"></script>
-    <script src="{{ url('js/jquery-ui.js') }}"></script> 
+    
 
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
   </head>
   <body>
 
@@ -55,40 +56,55 @@
     <!-- MultiStep Form -->
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form id="msform">
+            <form id="msform" action="{{ route('users.store')}}" method="post" enctype="multipart/form-data">
+                {{ method_field('POST') }}
+                {{csrf_field()}}
                 <!-- progressbar -->
                 <ul id="progressbar">
                     <li class="active">Personal Info</li>
-                    <li>Professional Profiles</li>
-                    <li>Sincro Pubblication</li>
+                    <li>Professional info</li>
+                    <li>Publications</li>
                 </ul>
                 <!-- fieldsets -->
                 <fieldset>
-                    <h2 class="fs-title">Personal Details</h2>
+                    <h2 class="fs-title">Personal info</h2>
                     <h3 class="fs-subtitle"></h3>
-                    <input type="text" name="fname" placeholder="First Name"/>
-                    <input type="text" name="lname" placeholder="Last Name"/>
-                    <input type="text" name="phone" placeholder="Birth Date"/>
-                    <input type="text" name="email" placeholder="Email"/>
-                    <input type="password" name="pass" placeholder="Password"/>
+                    <input type="text" name="first_name" placeholder="First Name"/>
+                    <input type="text" name="last_name" placeholder="Last Name"/>
+                    <input type="date" name="birth_date" placeholder="Birth Date"/>
+                    <input type="email" name="email" placeholder="Email"/>
+                    <input type="password" name="password" placeholder="Password"/>
                     <input type="password" name="cpass" placeholder="Confirm Password"/>
-                    <input type="file" name="myfile" placeholder="Profile Photo" />
+                    <input type="file" name="profilePic" placeholder="Profile Photo" />
                     <input type="button" name="next" class="next action-button" value="Next"/>
 
                 </fieldset>
                 <fieldset>
-                    <h2 class="fs-title">Professional Profiles</h2>
+                    <h2 class="fs-title">Professional info</h2>
                     <h3 class="fs-subtitle"></h3>
                     <label for="role"> Role </label>
-                    <select class="form-control" id="role">
-                      <option>Role 1</option>
-                      <option>Role 2</option>
-                      <option>Role 3</option>
-                      <option>Role 4</option>
+                    
+                    <select class="form-control" id="role" name="role">
+                        @foreach($roles as $role)
+                            <option>{{$role->name}}</option>
+                        @endforeach
                     </select>
-                    <input type="text" name="twitter" placeholder="Affiliation"/>
-                    <input type="text" name="facebook" placeholder="Topics"/>
-                    <input type="text" name="gplus" placeholder="Personal Link"/>
+                    
+                    <select class="form-control" id="affiliationDropdown" name="affiliation">
+                        <option value=""></option> <!-- needed for selct2.js library don't remove!-->
+                        @foreach($affiliations as $affiliation)
+                            <option value="{{$affiliation->name}}">{{$affiliation->name}}</option>
+                        @endforeach
+                    </select>
+
+                    <select class="form-control" id="topicsDropdown" name="topics[]" multiple>
+                        <option value=""></option> <!-- needed for selct2.js library don't remove!-->
+                        @foreach($topics as $topic)
+                            <option value="{{$topic->name}}">{{$topic->name}}</option>
+                        @endforeach
+                    </select>
+                    
+                    <input type="text" name="personalLink" placeholder="Personal Link"/>
                     <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
                     <input type="button" name="next" class="next action-button" value="Next"/>
                 </fieldset>
@@ -201,18 +217,24 @@
     <div class="card-body text-center">
       Quista ete la sezione de fuutter.
 </div>
+    <script src="{{ url('js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ url('js/jquery-ui.js') }}"></script> 
     <script src="{{ url('js/popper.min.js') }}"></script>
     <script src="{{ url('js/bootstrap.min.js') }}"></script>
     <script src="{{ url('js/jqueryform.js') }}"></script>
     <script>
-    $(document).ready(function () {
-  $('body').on('click', '#selectAll', function () {
-    if ($(this).hasClass('allChecked')) {
-        $('input[type="checkbox"]', '#example').prop('checked', false);
-    } else {
-        $('input[type="checkbox"]', '#example').prop('checked', true);
-    }
-    $(this).toggleClass('allChecked');
-  })
-});
-</script>
+        $(document).ready(function () {
+            $('body').on('click', '#selectAll', function () {
+                if ($(this).hasClass('allChecked')) {
+                    $('input[type="checkbox"]', '#example').prop('checked', false);
+                } else {
+                    $('input[type="checkbox"]', '#example').prop('checked', true);
+                }
+                $(this).toggleClass('allChecked');
+            })
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="{{ url('js/custom/signUp.js') }}"></script>
+
+</body>

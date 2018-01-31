@@ -4,22 +4,22 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Pubblication extends Model
+class Publication extends Model
 {
     //
     public function users(){
-        return $this->belongsToMany('App\User','user_pubblication');
+        return $this->belongsToMany('App\User','user_publication');
     }
 
     public function topics(){
-        return $this->belongsToMany('App\Topic','topic_pubblication');
+        return $this->belongsToMany('App\Topic','topic_publication');
     }
 
     public function details(){
         /*
-            Since we must join the pubblications table with one of the
+            Since we must join the publications table with one of the
             journals/conference/editorship table (based on type column' value)
-            to retrieve pubblication'details,  we "aggregate" the 3 alternatives in this method.
+            to retrieve publication'details,  we "aggregate" the 3 alternatives in this method.
         */
         switch ($this->type){
             case 'journal':

@@ -16,6 +16,8 @@
                 Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. 
                 Nulla consequat massa quis enim.</div>
                 <div class="panel-footer">
+                    <i class="fa fa-eye fa-2x"></i>
+                    <i class="fa fa-pencil fa-2x"></i>
                     <button class="btn-primary pull-right">View More</button>
                 </div>
             </div>

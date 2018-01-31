@@ -15,21 +15,23 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            
+         
             $table->string('first_name',50)->nullable(false);
             $table->string('last_name',50)->nullable(false);
             $table->date('birth_date');
-            $table->string('email',255)->unique();
-            $table->string('password',255);
-            $table->string('picture',500)->default('link/to/default/pic'); #replace with default picture path
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->string('picture_path')->default('link/to/default/pic'); #replace with default picture path
             $table->integer('affiliation_id')->unsigned();
             $table->integer('role_id')->unsigned();
-            $table->string('reference_link',500)->nullable(false);
-
+            $table->string('reference_link',1620)->nullable(false);
+            
+            $table->timestamps();
+            //Constraints
             $table->foreign('affiliation_id')->references('id')->on('affiliations'); #foreign for 1-m relation with affiliations table
             $table->foreign('role_id')->references('id')->on('roles'); #foreign for 1-m relation with roles table
             
-            $table->timestamps();
+            
         });
     }
 
