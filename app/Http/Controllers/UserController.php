@@ -79,8 +79,8 @@ class UserController extends Controller
         $newUser->first_name = ucwords($request->input('first_name'));
         $newUser->last_name = ucwords($request->input('last_name'));
         $newUser->birth_date = $request->input('birth_date');
-        $newUser->email = $request->input('email');
-        $newUser->password = $request->input('password');
+        $newUser->email = $request->strtolower(input('email'));
+        $newUser->password = bcrypt($request->input('password'));
         $newUser->reference_link = $request->input('personal_link');
         
         //Handling Profile picture  
