@@ -20,8 +20,8 @@ class CreateUserPublicationTable extends Migration
             $table->integer('publication_id')->unsigned();
 
             $table->timestamps();
-                        
-            //Foreigns
+
+            //Constraints
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('publication_id')->references('id')->on('publications');
         });

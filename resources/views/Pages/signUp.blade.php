@@ -53,6 +53,16 @@
             @yield('content')
 
             <div class="container">
+                <!-- Handling Form errors -->
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
                 <!-- MultiStep Form -->
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
@@ -74,7 +84,7 @@
                                 <input type="date" name="birth_date" placeholder="Birth Date"/>
                                 <input type="email" name="email" placeholder="Email"/>
                                 <input type="password" name="password" placeholder="Password"/>
-                                <input type="password" name="cpass" placeholder="Confirm Password"/>
+                                <input type="password" name="password_confirmation" placeholder="Confirm Password"/>
                                 <input type="file" name="profilePic" placeholder="Profile Photo" />
                                 <input type="button" name="next" class="next action-button" value="Next"/>
 
@@ -91,7 +101,7 @@
                                 </select>
 
                                 <select class="form-control" id="affiliationDropdown" name="affiliation">
-                                    <option value=""></option> <!-- needed for selct2.js library don't remove!-->
+                                    <option value=""></option> <!-- needed for select2.js library don't remove!-->
                                     @foreach($affiliations as $affiliation)
                                     <option value="{{$affiliation->name}}">{{$affiliation->name}}</option>
                                     @endforeach
@@ -104,7 +114,7 @@
                                     @endforeach
                                 </select>
 
-                                <input type="text" name="personalLink" placeholder="Personal Link"/>
+                                <input type="text" name="personal_link" placeholder="Personal Link"/>
                                 <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
                                 <input type="button" name="next" class="next action-button" value="Next"/>
                             </fieldset>
@@ -205,36 +215,29 @@
                         <div class="dme_link">
                             <p><a href="http://designify.me/code-snippets-js/" target="_blank">More Code Snippets</a></p>
                         </div>
-                        <!-- /.link to designify.me code snippets -->
+                        <script src="{{ url('js/jquery-3.3.1.min.js') }}"></script>
+                        <script src="{{ url('js/jquery-ui.js') }}"></script>
+                        <script src="{{ url('js/popper.min.js') }}"></script>
+                        <script src="{{ url('js/bootstrap.min.js') }}"></script>
+                        <script src="{{ url('js/jqueryform.js') }}"></script>
+                        <script>
+                            $(document).ready(function () {
+                                $('body').on('click', '#selectAll', function () {
+                                    if ($(this).hasClass('allChecked')) {
+                                        $('input[type="checkbox"]', '#example').prop('checked', false);
+                                    } else {
+                                        $('input[type="checkbox"]', '#example').prop('checked', true);
+                                    }
+                                    $(this).toggleClass('allChecked');
+                                })
+                            });
+                        </script>
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+                        <script src="{{ url('js/custom/signUp.js') }}"></script>
                     </div>
                 </div>
             </div>
-
-        </div>
-
-        {{-- footer --}}
-        <div class="card">
-            <div class="card-body text-center">
-                Quista ete la sezione de fuutter.
-            </div>
-            <script src="{{ url('js/jquery-3.3.1.min.js') }}"></script>
-            <script src="{{ url('js/jquery-ui.js') }}"></script>
-            <script src="{{ url('js/popper.min.js') }}"></script>
-            <script src="{{ url('js/bootstrap.min.js') }}"></script>
-            <script src="{{ url('js/jqueryform.js') }}"></script>
-            <script>
-                $(document).ready(function () {
-                    $('body').on('click', '#selectAll', function () {
-                        if ($(this).hasClass('allChecked')) {
-                            $('input[type="checkbox"]', '#example').prop('checked', false);
-                        } else {
-                            $('input[type="checkbox"]', '#example').prop('checked', true);
-                        }
-                        $(this).toggleClass('allChecked');
-                    })
-                });
-            </script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-            <script src="{{ url('js/custom/signUp.js') }}"></script>
         </div>
     </body>
+
+

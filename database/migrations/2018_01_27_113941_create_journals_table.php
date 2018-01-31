@@ -25,7 +25,7 @@ class CreateJournalsTable extends Migration
             $table->string('ee',255)->nullable(true);
             $table->string('url',255)->nullable(true);
         
-            //Foreigns
+            //Constraints
             $table->foreign('publication_id')->references('id')->on('publications');
         });
 

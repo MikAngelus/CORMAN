@@ -18,8 +18,8 @@ class CreateTopicPublicationTable extends Migration
            
             $table->integer('topic_id')->unsigned();
             $table->integer('publication_id')->unsigned();
-            
-            //Foreigns
+
+            //Constraints
             $table->foreign('topic_id')->references('id')->on('topics');
             $table->foreign('publication_id')->references('id')->on('publications');
         });

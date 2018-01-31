@@ -51,6 +51,37 @@ class UserController extends Controller
     public function store(Request $request)
     {
         // TODO use laravel's validation to validate fields
+        // TODO fix form resubmission due to form error, now the inpt values doesn't persist
+
+
+        $request->validate([
+            'first_name' => ['bail','required','regex:/^[A-Za-z\-]+$/','max:255'],
+            'last_name' => ['bail','required','regex:/^[A-Za-z\-]+$/','max:255'],
+            'birth_date' => 'bail|required|date|after:01/01/1900|',
+            'email' => 'bail|required|email|unique:users|max:255',
+            'password' => 'bail|required|confirmed|max:255',
+            'password_confirmation' => 'bail|required',
+            'profilePic' => 'bail|image|max:15000',
+            'role' => 'required|exists:roles,name',
+            'affiliation' => 'required|filled',
+            'topics.*' => 'filled|max:50',
+            'personal_link' => 'bail|nullable|url|max:1620'
+
+        ]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         $newUser = new User;
 
         $newUser->first_name = $request->input('first_name');
@@ -58,21 +89,17 @@ class UserController extends Controller
         $newUser->birth_date = $request->input('birth_date');
         $newUser->email = $request->input('email');
         $newUser->password = $request->input('password');
-        $newUser->reference_link = "path/to/some/domain";
+        $newUser->reference_link = $request->input('personal_link');
         
-        //Handling Profile picture
+        //Handling Profile picture  TODO replace default path in database table
+        //TODO implement image thumbnailization with some php library to save space
         if( $request->hasfile('profilePic') ){
-            $file = $request->file('profilePic');
-            // TODO replace default path 
-            if( $file->isValid() ){
-                $path = $file->store('/','profilePicturesDisk');
-                $newUser->picture_path = $path;
 
+            $file = $request->file('profilePic');
+            if( $file->isValid() ){
+                $newUser->picture_path = $file->store('/','profilePicturesDisk'); // store method return the stored file's name
             }
-            
         }
-        
-        
 
         //Search and retrieve the affiliation from db
         $affiliationInput = $request->input('affiliation');
@@ -112,17 +139,7 @@ class UserController extends Controller
 
                 $newUser->topics()->attach($newTopic->id);
             }
-
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
     }
 
     /**

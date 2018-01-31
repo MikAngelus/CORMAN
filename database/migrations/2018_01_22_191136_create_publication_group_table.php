@@ -21,7 +21,7 @@ class CreatePublicationGroupTable extends Migration
 
             $table->timestamps();
             
-            //Foreigns
+            //Constraints
             $table->primary(['publication_id', 'group_id']);
             $table->foreign('publication_id')->references('id')->on('publications');
             $table->foreign('group_id')->references('id')->on('groups');
