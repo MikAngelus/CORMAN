@@ -10,3 +10,5 @@
  <link rel="stylesheet" href="{{ url('css/custom/groups.css') }}">
  <link rel="stylesheet" href="{{ url('css/custom/creategroup.css') }}">
  <link rel="stylesheet" href="{{ url('css/custom/footer.css') }}">
+ <link rel="stylesheet" href="{{ url('css/custom/header.css') }}">
+ <link rel="stylesheet" href="{{ url('css/custom/editProfile.css') }}">

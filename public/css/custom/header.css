@@ -1,3 +1,29 @@
 #searchBox {
-    width: 60%;
+    background-color: white;
+    color: cornflowerblue;
+    border-color: cornflowerblue;
+}
+
+#searchBox:hover {
+    background-color: cornflowerblue;
+    color: white;
+    border-color: white;
+}
+
+#searchBox:focus {
+    background-color: cornflowerblue;
+    color: white;
+    border-color: white;
+}
+
+#brand, #menuIcon {
+    color: cornflowerblue;
+}
+
+.navbar-toggler {
+    background-color: cornflowerblue;
+}
+
+.navbar-toggler-icon {
+    color: white;
 }
