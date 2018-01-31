@@ -1,4 +1,4 @@
-<div class="row">
+<div class="container">
     <div class="col-sm-11">{{$pub->title}}</div>
     <div class="col-sm-1">{{$pub->details->year}}</div>
 
@@ -21,5 +21,5 @@
         </ul>
         <!--sistemare lo spazio che lascia dopo le liste-->
     </div>    
-    <div class="col-sm-1">Mod</div>
+    <div class="col-sm-1"><i class="fa fa-pencil fa-2x" href="#"></i></div>
 </div>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Group;
 
 class PagesController extends Controller
 {
@@ -22,4 +24,13 @@ class PagesController extends Controller
         return view('Pages.dashboard');
     }
 
+    public function publications(){
+        $publication_list = (new User)::find(1)->publications;
+        return view('Pages.Publication.publications', $dataPublication=array('publication_list'=>$publication_list));
+    }
+
+    public function groups(){
+        $group_list = (new Group)::all();
+        return view('Pages.Group.groups', $dataGroup=array('group_list'=>$group_list));
+    }
 }

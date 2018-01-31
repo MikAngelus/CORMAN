@@ -60,7 +60,7 @@ class UserController extends Controller
         $newUser->password = $request->input('password');
         
         // TODO replace with default path
-        $newUser->picture = "path/to/the default/pic";
+        $newUser->picture_path = "path/to/the default/pic";
         $newUser->reference_link = "path/to/some/domain";
 
         //Search and retrieve the affiliation from db

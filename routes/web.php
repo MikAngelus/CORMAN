@@ -17,6 +17,8 @@ use App\User;
 // Controllers
 Route::get('/', 'PagesController@landingPage');
 Route::get('dashboard', 'PagesController@dashboard');
+Route::get('/publications', 'PagesController@publications');
+Route::get('/groups', 'PagesController@groups');
 
 //Resource Controllers
 Route::resource('users','UserController');
@@ -25,16 +27,7 @@ Route::resource('users','UserController');
 
 // @TODO Replace clousure based routes with resource controller routes
 
-Route::get('/groups', function () {
-    $groups = array("Group 1", "Group 2", "Group 3", "Group 4");
-    $data = array('groups' => $groups);
-    
-    return view('Pages.Group.groups',$data);
-});
 
-Route::get('/publication', function () {
-    return view('Pages.Publication.publication');
-});
 
 Route::get('/createGroup', function () {
     return view('Pages.Group.createGroup');
@@ -44,17 +37,16 @@ Route::get('/createPublication', function () {
     return view('Pages.Publication.createPublication');
 });
 
-Route::get('/publications', function () {
-    $publication_list = (new User)::find(1)->publications;
-    return view('Pages.Publication.publications', $dataPub=array('publication_list'=>$publication_list));
-});
-
 Route::get('/signUp', function () {
     return view('Pages.signUp');
 });
 
 Route::get('/tutorial', function () {
     return view('Pages.tutorial');
+});
+
+Route::get('/publicationModal', function () {
+    return view('Pages.publicationModal');
 });
 
 Route::get('/about', function () {
