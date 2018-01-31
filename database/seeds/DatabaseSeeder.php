@@ -11,8 +11,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(TopicsTableSeeder::class);
-        $this->call(GroupsTableSeeder::class);
         $this->call([
             AffiliationTableSeeder::class,
             RoleTableSeeder::class,
@@ -35,5 +33,6 @@ class DatabaseSeeder extends Seeder
         //$this->call(EditorshipsTableSeeder::class);
         //$this->call(PublicationGroupTableSeeder::class);
 
+*/
     }
 }
