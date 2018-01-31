@@ -47,16 +47,20 @@ class UserController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     * 
+     * 
+     * NOTES: 
+     * -ucwords() is used for auto-capitalize strings for data normalization.
+     * -strtolower() is used for data normalization.
      */
     public function store(Request $request)
     {
         // TODO use laravel's validation to validate fields
         // TODO fix form resubmission due to form error, now the inpt values doesn't persist
     
-
         $request->validate([
-            'first_name' => ['bail','required','regex:/^[A-Za-z\-]+$/','max:255'],
-            'last_name' => ['bail','required','regex:/^[A-Za-z\-]+$/','max:255'],
+            'first_name' => ['bail','required','regex:/^[A-Za-z\- ]+$/','max:255'], //Don't remove the space!
+            'last_name' => ['bail','required','regex:/^[A-Za-z\- ]+$/','max:255'], //Don't remove the space!
             'birth_date' => 'bail|required|date|after:01/01/1900|',
             'email' => 'bail|required|email|unique:users|max:255',
             'password' => 'bail|required|confirmed|max:255',
@@ -70,28 +74,17 @@ class UserController extends Controller
         ]);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
         $newUser = new User;
 
-        $newUser->first_name = $request->input('first_name');
-        $newUser->last_name = $request->input('last_name');
+        $newUser->first_name = ucwords($request->input('first_name'));
+        $newUser->last_name = ucwords($request->input('last_name'));
         $newUser->birth_date = $request->input('birth_date');
         $newUser->email = $request->input('email');
         $newUser->password = $request->input('password');
         $newUser->reference_link = $request->input('personal_link');
         
-        //Handling Profile picture  TODO replace default path in database table
+        //Handling Profile picture  
+        //TODO replace default path in database table
         //TODO implement image thumbnailization with some php library to save space
         if( $request->hasfile('profilePic') ){
             
@@ -102,7 +95,7 @@ class UserController extends Controller
         }
 
         //Search and retrieve the affiliation from db
-        $affiliationInput = $request->input('affiliation');
+        $affiliationInput = ucwords($request->input('affiliation'));
         $affiliation = Affiliation::where('name',$affiliationInput)->first();
         //Check if the affiliation is already in the db, otherwise create a new one and attach to the user
         if( $affiliation != null){
@@ -126,6 +119,7 @@ class UserController extends Controller
         // Handling topics  
         $topicInputList = $request->input('topics');
         foreach( $topicInputList as $topicKey => $topicInput ){
+            $topicInput = strtolower($topicInput);
             //Search and retrieve the topic from db
             $topic = Topic::where('name', $topicInput)->first();
             //Check if the topic is already in the db, otherwise create a new one and attach to the user
