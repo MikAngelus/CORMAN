@@ -37,9 +37,6 @@ Route::get('/createPublication', function () {
     return view('Pages.Publication.createPublication');
 });
 
-Route::get('/signUp', function () {
-    return view('Pages.signUp');
-});
 
 Route::get('/tutorial', function () {
     return view('Pages.tutorial');

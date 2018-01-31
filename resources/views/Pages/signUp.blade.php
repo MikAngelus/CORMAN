@@ -245,6 +245,7 @@
         });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.12.0/validate.min.js"></script>
     <script src="{{ url('js/custom/signUp.js') }}"></script>
 
 </body>
