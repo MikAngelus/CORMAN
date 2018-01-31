@@ -15,11 +15,15 @@ class CreateUserPublicationTable extends Migration
     {
         Schema::create('user_publication', function (Blueprint $table) {
             $table->increments('id');
+            
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
             $table->integer('publication_id')->unsigned();
-            $table->foreign('publication_id')->references('id')->on('publications');
 
+            $table->timestamps();
+                        
+            //Foreigns
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('publication_id')->references('id')->on('publications');
         });
     }
 

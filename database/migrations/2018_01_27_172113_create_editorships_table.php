@@ -16,11 +16,9 @@ class CreateEditorshipsTable extends Migration
         Schema::create('editorships', function (Blueprint $table) {
             $table->integer('publication_id')->unsigned();
             
-            $table->text('abstract');
-            $table->string('volume',255);
-            $table->string('publisher',255);
-            $table->date('year');
-            
+            $table->text('abstract')->nullable(true);
+            $table->string('volume',255)->nullable(true);
+            $table->string('publisher',255)->nullable(true);
             $table->string('key',255)->nullable(true);
             $table->string('doi',255)->nullable(true);
             $table->string('ee',255)->nullable(true);

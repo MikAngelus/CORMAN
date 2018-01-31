@@ -16,10 +16,12 @@ class CreatePublicationsTable extends Migration
         Schema::create('publications', function (Blueprint $table) {
             $table->increments('id');
             
-            $table->string('title', 300)->nullable(false);
+            //Setting  a very broad length based on; http://vocaro.com/trevor/blog/2006/09/12/top-ten-longest-titles-of-research-papers/
+            $table->string('title',500)->nullable(false); 
             $table->enum('type', ['journal','conference','editorship'])->nullable(false);
-            $table->string('venue', 200)->nullable(false);
-            $table->string('multimedia', 500)->nullable(false);
+            $table->string('venue')->nullable(false);
+            $table->date('year');
+            $table->string('multimedia_path')->nullable(false);
             $table->boolean('public')->default('1');
             
             $table->timestamps();

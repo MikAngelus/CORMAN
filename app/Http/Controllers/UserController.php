@@ -63,7 +63,7 @@ class UserController extends Controller
         //Handling Profile picture
         if( $request->hasfile('profilePic') ){
             $file = $request->file('profilePic');
-            
+            // TODO replace default path 
             if( $file->isValid() ){
                 $path = $file->store('/','profilePicturesDisk');
                 $newUser->picture_path = $path;
