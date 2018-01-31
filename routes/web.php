@@ -33,7 +33,11 @@ Route::get('/createGroup', function () {
     return view('Pages.Group.createGroup');
 });
 
-Route::get('/createPublication', function () {   
+Route::get('/editProfile', function () {
+    return view('Pages.editProfile');
+});
+
+Route::get('/createPublication', function () {
     return view('Pages.Publication.createPublication');
 });
 
