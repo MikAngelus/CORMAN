@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
 use Faker\Factory as Faker;
 
-class UserPublicationTableSeeder extends Seeder
+
+class UserTopicTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,19 +12,19 @@ class UserPublicationTableSeeder extends Seeder
      * @return void
      */
     public function run()
-    {    	
+    {
         $faker = Faker::create();
 
-    	$publication_list = App\Publication::all();
+        $topic_list = App\Topic::all();
 
-    	foreach ($publication_list as $pub) {
+        foreach ($topic_list as $top) {
             //$save=0;
             $a =array_fill(0, $save=$faker->randomDigitNotNull($min=1, $max=10), 0);
             for($i=0; $i<$save; $i++){
-                $a[$i]=$faker->randomDigitNotNull($min=1, $max=50);
+                $a[$i]=$faker->randomDigitNotNull($min=1, $max=20);
             }
-            $pub->users()->attach($a);
-    	}
+            $top->users()->attach($a);
+        }
 
     }
 }
