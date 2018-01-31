@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
             UserGroupTableSeeder::class,
             UserTopicTableSeeder::class,
             TopicGroupTableSeeder::class,
-            TopicPublicationTableSeeder::class
+            TopicPublicationTableSeeder::class,
+            UserPublicationTableSeeder::class
         ]);
     	
      
