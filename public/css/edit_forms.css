@@ -21,7 +21,7 @@ body {
   }
   
   .button.save {
-    background: tomato;
+    background: rgb(255, 38, 0);
     border: none;
     color: #fff;
     cursor: pointer;
@@ -30,12 +30,12 @@ body {
   }
   
   a.button:hover {
-    background: RebeccaPurple; /* Best. color name. Ever. */
+    background: rgb(0, 160, 0); /* Best. color name. Ever. */
   }
   
   a.edit {
     cursor: pointer;
-    color: tomato;
+    color: rgb(255, 38, 0);
   }
   
   a.edit:hover {

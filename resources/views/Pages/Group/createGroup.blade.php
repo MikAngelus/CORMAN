@@ -14,14 +14,16 @@
                     <input type="text" name="invite-users" placeholder="Invite Users"/>
                     <input type="file" class="custom-file-input" id="upload">
                     <input type="text" name="topics" placeholder="Add Topics"/>
-                    <div id="radioGroup" class="btn-group" data-toggle="group-privacy">
-                    <label id="visibilityLabel" for="visibility" class="col-form-label col-lg-4">Visibility Group</label>
-                        <label id="visibilityRadio" class="btn btn-default active col-lg-12">
-                            <input type="radio" id="#" name="privacy-btn" value="public" checked="checked"/> Public
-                        </label>
-                        <label id="visibilityRadio" class="btn btn-default col-lg-12">
-                            <input type="radio" id="#" name="privacy-btn" value="private"/> Private
-                        </label>
+                    <div id="radioGroup" class="btn-group col-lg-12" data-toggle="group-privacy">
+                        <label id="visibilityLabel" for="visibility" class="col-form-label col-lg-3">Visibility</label>  
+                        <div class="col-lg-3">
+                            <label id="visibilityRadio" class="btn btn-default active col-lg-12">
+                                <input type="radio" id="#" name="privacy-btn" value="public" checked="checked"/> Public
+                            </label>
+                            <label id="visibilityRadio" class="btn btn-default col-lg-12">
+                                <input type="radio" id="#" name="privacy-btn" value="private"/> Private
+                            </label>
+                        </div>
                     </div>
                     <input type="button" name="previous" class="previous action-button-previous" value="Back"/>
                     <input type="button" name="next" class="next action-button" value="Create"/>
