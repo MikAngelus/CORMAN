@@ -12,7 +12,13 @@
         <div class="navbar-nav">
             <a id="menuIcon" class="nav-item nav-link fa fa-user-circle fa-2x" href="#"><span class="sr-only">(current)</span></a>
             <a id="menuIcon" class="nav-item nav-link fa fa-bell fa-2x" href="#"></a>
-            <a id="menuIcon" class="nav-item nav-link fa fa-sign-out fa-2x" href="#"></a>
+            <!-- Hack for laravel due to HTTP post type request-->
+            <a id="menuIcon" class="nav-item nav-link fa fa-sign-out fa-2x" href="{{route('logout')}}"
+            onclick = "event.preventDefault();
+                        document.getElementById('logout-form').submit()"></a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                {{ csrf_field() }}
+            </form>
         </div>
     </div>
 </nav>
