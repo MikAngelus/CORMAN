@@ -1,4 +1,4 @@
-<div class="panel panel-primary col-lg-12 col-md-12">
+<div class="panel panel-primary col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
     <div class="panel-heading">
         <i class="fa fa-users fa-2x" aria-hidden="true"></i>
         <h2>{{$gro->name}}</h2>

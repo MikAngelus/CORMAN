@@ -16,7 +16,7 @@ use App\User;
 
 // Controllers
 Route::get('/', 'PagesController@landingPage');
-Route::get('dashboard', 'PagesController@dashboard');
+Route::get('/dashboard', 'PagesController@dashboard');
 Route::get('/publications', 'PagesController@publications');
 Route::get('/groups', 'PagesController@groups');
 Route::get('/groupDetail', 'PagesController@groupDetail');

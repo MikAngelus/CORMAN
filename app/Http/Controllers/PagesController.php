@@ -20,8 +20,9 @@ class PagesController extends Controller
     }
 
     public function dashboard(){
-        
-        return view('Pages.dashboard');
+        $publ_lis = (new User)::find(1)->publications;
+        $gro_lis = (new Group)::all();
+        return view('Pages.dashboard', ['publ_lis'=>$publ_lis, 'gro_lis'=>$gro_lis]);
     }
 
     public function publications(){
