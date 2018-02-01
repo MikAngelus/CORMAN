@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Role;
+use App\Affiliation;
+use App\Topic;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -27,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/dashboard';
 
     /**
      * Create a new controller instance.
@@ -48,10 +52,35 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'first_name' => ['bail','required','regex:/^[A-Za-z\- ]+$/','max:255'], //Don't remove the space!
+            'last_name' => ['bail','required','regex:/^[A-Za-z\- ]+$/','max:255'], //Don't remove the space!
+            'birth_date' => 'bail|required|date|after:01/01/1900|',
+            'email' => 'bail|required|email|unique:users|max:255',
+            'password' => 'bail|required|confirmed|max:255',
+            'password_confirmation' => 'bail|required',
+            'profilePic' => 'bail|image|max:15000',
+            'role' => 'required|exists:roles,name',
+            'affiliation' => 'required|filled',
+            'topics.*' => 'filled|max:50',
+            'personal_link' => 'bail|nullable|url|max:1620'
         ]);
+    }
+
+
+    // Method overriding for custom form, (original method in Illuminate\Foundation\Auth\RegistersUsers;)
+    public function showRegistrationForm(){
+
+         // Retrieve data for register view from DB
+         $affiliationList = Affiliation::all()->sortBy('name');
+         $roleList = Role::all();
+         $topicList = Topic::all();
+         
+ 
+        return view('auth.registration',[
+          'affiliations' => $affiliationList,
+          'roles' => $roleList,
+          'topics' => $topicList
+         ]);
     }
 
     /**
@@ -60,12 +89,70 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function create(array $formData)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        $newUser = new User;
+        
+        // Fill User Model fields
+        $newUser->first_name = ucwords($formData['first_name']);
+        $newUser->last_name = ucwords($formData['last_name']);
+        $newUser->birth_date = $formData['birth_date'];
+        $newUser->email = strtolower($formData['email']);
+        $newUser->password = bcrypt($formData['password']);
+        $newUser->reference_link = $formData['personal_link'];
+        
+        //Handling Profile picture  
+        //TODO replace default path in database table
+        //TODO implement image thumbnailization with some php library to save space
+        
+/*      //TODO fix the upload file issue
+        $file =$formData['profilePic'];
+        if( $file->isValid() ){
+            $newUser->picture_path = $file->store('/','profilePicturesDisk'); // store method return the stored file's name
+        }
+ */    
+
+        //Search and retrieve the affiliation from db
+        $affiliationInput = ucwords($formData['affiliation']);
+        $affiliation = Affiliation::where('name',$affiliationInput)->first();
+        //Check if the affiliation is already in the db, otherwise create a new one and attach to the user
+        if( $affiliation != null){
+            $newUser->affiliation_id = $affiliation->id;
+        }
+        else
+        {
+            $newAffiliation = new Affiliation;
+            $newAffiliation->name = $affiliationInput;
+            $newAffiliation->save();
+            
+            $newUser->affiliation_id = $newAffiliation->id;
+        }
+        
+        //Set and retrieve the associated id with role name (from the form)
+        $roleInput = $formData['role'];
+        $newUser->role_id = Role::where('name',$roleInput)->first()->id;
+
+        $newUser->save();
+
+        // Handling topics  
+        $topicInputList = $formData['topics'];
+        foreach( $topicInputList as $topicKey => $topicInput ){
+            $topicInput = strtolower($topicInput);
+            //Search and retrieve the topic from db
+            $topic = Topic::where('name', $topicInput)->first();
+            //Check if the topic is already in the db, otherwise create a new one and attach to the user
+            if($topic != null){
+                $newUser->topics()->attach($topic->id);
+            }
+            else{
+                $newTopic = new Topic;
+                $newTopic->name = $topicInput;
+                $newTopic->save();
+
+                $newUser->topics()->attach($newTopic->id);
+            }
+        }
+
+        return $newUser;
     }
 }

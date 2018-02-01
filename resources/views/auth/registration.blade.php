@@ -66,7 +66,7 @@
                 <!-- MultiStep Form -->
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
-                        <form id="msform" action="{{ route('users.store')}}" method="post" enctype="multipart/form-data">
+                        <form id="msform" action="{{ route('register')}}" method="post" enctype="multipart/form-data">
                             {{ method_field('POST') }}
                             {{csrf_field()}}
                             <!-- progressbar -->
@@ -238,6 +238,35 @@
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+  </div>
 
+  </div>
 
+  {{-- footer --}}
+  <div class="card">
+    <div class="card-body text-center">
+      Quista ete la sezione de fuutter.
+</div>
+    <script src="{{ url('js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ url('js/jquery-ui.js') }}"></script> 
+    <script src="{{ url('js/popper.min.js') }}"></script>
+    <script src="{{ url('js/bootstrap.min.js') }}"></script>
+    <script src="{{ url('js/jqueryform.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $('body').on('click', '#selectAll', function () {
+                if ($(this).hasClass('allChecked')) {
+                    $('input[type="checkbox"]', '#example').prop('checked', false);
+                } else {
+                    $('input[type="checkbox"]', '#example').prop('checked', true);
+                }
+                $(this).toggleClass('allChecked');
+            })
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.12.0/validate.min.js"></script>
+    <script src="{{ url('js/custom/signUp.js') }}"></script>
+
+</body>

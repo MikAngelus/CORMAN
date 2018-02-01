@@ -24,6 +24,9 @@
         </div>
     -->    
         @include('Layout.header_landing')
+        <div>
+            <a href="{{route('register')}}"> REGISTRATION</a>
+        </div>
         <div class="col-sm-12">
             <div class="row" id="back_1">
                 <div class="col-sm-12">
