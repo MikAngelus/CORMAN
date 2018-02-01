@@ -8,6 +8,7 @@ use App\Affiliation;
 use App\Topic;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -16,10 +17,16 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
-        //
-        return 'all users here';
+        $publ_lis = Auth::user()->publications;
+        $gro_lis = Auth::user()->groups;
+        return view('Pages.dashboard', ['publ_lis'=>$publ_lis, 'gro_lis'=>$gro_lis]);
     }
 
     /**
@@ -41,7 +48,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('Pages.editProfile');
     }
 
     /**
