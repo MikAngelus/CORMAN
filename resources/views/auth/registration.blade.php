@@ -66,7 +66,7 @@
                 <!-- MultiStep Form -->
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
-                        <form id="msform" action="{{ route('users.store')}}" method="post" enctype="multipart/form-data">
+                        <form id="msform" action="{{ route('register')}}" method="post" enctype="multipart/form-data">
                             {{ method_field('POST') }}
                             {{csrf_field()}}
                             <!-- progressbar -->
@@ -238,7 +238,6 @@
                 </div>
             </div>
         </div>
-<<<<<<< HEAD
     </div>
   </div>
 
@@ -271,8 +270,3 @@
     <script src="{{ url('js/custom/signUp.js') }}"></script>
 
 </body>
-=======
-    </body>
-
-
->>>>>>> 13bfd9263180c3a2924905bda03f848ee9bfbb87
