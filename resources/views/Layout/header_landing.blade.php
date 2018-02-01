@@ -15,9 +15,4 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-2"> 
-        <div class="panel-footer">
-            <button class="btn-primary pull-right">Login</button>
-        </div>
-    </div>
 </div>

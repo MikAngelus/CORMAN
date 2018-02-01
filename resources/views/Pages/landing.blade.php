@@ -51,20 +51,14 @@
                     <br><br><br><br>
                     <center>
                         <div class="panel-footer" id="back_3_button">
-                                <button class="btn-primary pull-right">JOIN US</button>
+                                <button>
+                                    <a href=" {{route('login')}}">Log In</a>
+                                </button>
                         </div>
                     </center>        
                     <br>
                 </div>
             </div>
-
-            <form action=" {{route('login')}} " method="post">
-                {{ csrf_field() }}
-                <input type="text" name="email" placeholder="email" required autofocus>
-                <input type="text" name="password" placeholder ="password" required>
-                <input type="checkbox" name="remember" value="remember me" {{ old('remember') ? 'checked' : '' }}>
-                <input type="submit" value="submit">
-            </form>
         </div>
     </div>
 </body>
