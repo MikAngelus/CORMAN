@@ -13,8 +13,9 @@ class CreatePublicationGroupTable extends Migration
      */
     public function up()
     {
-        Schema::create('publication_group', function (Blueprint $table) {
+        Schema::create('publication_groups', function (Blueprint $table) {
 
+            $table->increments('id');
             $table->integer('publication_id')->unsigned();
             $table->integer('group_id')->unsigned();
             $table->integer('user_id')->unsigned();
@@ -22,10 +23,12 @@ class CreatePublicationGroupTable extends Migration
             $table->timestamps();
             
             //Constraints
-            $table->primary(['publication_id', 'group_id']);
+            $table->unique(['publication_id', 'group_id']);
+
             $table->foreign('publication_id')->references('id')->on('publications');
-            $table->foreign('group_id')->references('id')->on('groups');
             $table->foreign('user_id')->references('id')->on('users');
+
+            $table->foreign('group_id')->references('id')->on('groups');
 
            
 

@@ -30,4 +30,5 @@ class RoleTableSeeder extends Seeder
     	$role4->save();
     }
 
+
 }
