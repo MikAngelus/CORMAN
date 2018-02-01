@@ -15,17 +15,54 @@ class PublicationGroupTableSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        $user_list = App\User::all();
+        $group_list = App\Group::all();
+        $pg_list = array();
 
-        foreach ($user_list as $use) {
-            //$save=0;
-            $a =array_fill(0, $save=$faker->randomDigitNotNull($min=1, $max=10), 0);
+        for($i=0; $i<count($group_list); $i++){
 
-            for($i=0; $i<$save; $i++){
-                $a[$i]=$faker->randomDigitNotNull($min=1, $max=50);
-            }
-            $use->publications()->attach($a, ['created_at'=>$faker->date($format = 'Y-m-d', $max = 'now'),'updated_at'=>$faker->date($format = 'Y-m-d', $max = 'now')]);
+            $pg = new App\PublicationGroup();
+            $pg_list[$i]->add($pg);
+        }
+
+        foreach ($group_list as $g) {
+            
+
+        }
+        /*
+         *
+            $pg = new App\PublicationGroup();
+            $pg->publication_id=3;
+            $pg->group_id=3;
+            $pg->user_id=3;
+            $pg->save();
+
+        *
+        */
+
+        foreach ($group_list as $g) {
+            $pg = new App\PublicationGroup();
+
+            $use = $faker->randomDigitNotNull($min = 1, $max = 3);
+
+            do {
+                $pub = $faker->randomDigitNotNull($min = 1, $max = 3);
+
+            } while (array_unique([$g->id,$pub]));
+
+
+            $pg->publication_id = $pub;
+            $pg->group_id = $g->id;
+            $pg->user_id = $use;
+            $pg->created_at = $faker->dateTime($max = 'now', $timezone = null);
+            $pg->updated_at = $faker->dateTime($max = 'now', $timezone = null);
+            $pg->save();
+
+
+            //App\PublicationGroup::create(['publication_id' => $pub, 'group_id' => $g->id, 'user_id' => $use, 'created_at' => $faker->dateTime($max = 'now', $timezone = null), 'updated_at' => $faker->dateTime($max = 'now', $timezone = null)]);
+
+
         }
 
     }
+
 }

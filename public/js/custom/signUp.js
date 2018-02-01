@@ -16,8 +16,8 @@ $(document).ready(function() {
 });
 
 var constraints = {
-    username: {
-        presence: true
+    first_name: {
+        presence: true,
     },
 
     password: {

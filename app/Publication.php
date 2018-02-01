@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Publication extends Model
 {
     //
+    protected $fillable = ([
+        'id'
+    ]);
+
     public function users(){
         return $this->belongsToMany('App\User','user_publication');
     }
@@ -36,5 +40,4 @@ class Publication extends Model
 
         }
     }
-
 }
