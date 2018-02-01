@@ -14,6 +14,7 @@
 .panel-footer {
     height: 50px;
     float: left;
+    width: 100%;
 }
 
 .panel-footer .btn-primary {
@@ -44,11 +45,4 @@
 .breadcrumb {
     padding: 0;
     background-color: white;
-}
-
-#group-box {
-    padding: 0px;
-}
-
-#btn-newgroup {
 }
