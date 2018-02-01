@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use App\User;
 use App\Group;
 
@@ -20,8 +22,8 @@ class PagesController extends Controller
     }
 
     public function dashboard(){
-        $publ_lis = (new User)::find(1)->publications;
-        $gro_lis = (new Group)::all();
+        $publ_lis = Auth::user()->publications;
+        $gro_lis = Auth::user()->groups;
         return view('Pages.dashboard', ['publ_lis'=>$publ_lis, 'gro_lis'=>$gro_lis]);
     }
 
