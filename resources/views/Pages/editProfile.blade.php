@@ -18,7 +18,7 @@
                 <a href="#" class="fa fa-pencil-square-o" aria-hidden="true"></a>
             </div>
             <div class="h5">personalsite.com
-                <a href="#"class="fa fa-pencil-square-o" aria-hidden="true"></a>
+                <a href="#" class="fa fa-pencil-square-o" aria-hidden="true"></a>
             </div>
         </div>
     </div>

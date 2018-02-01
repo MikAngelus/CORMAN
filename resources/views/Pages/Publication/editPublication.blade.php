@@ -9,53 +9,97 @@
 <script src="{{ url('js/about.js') }}"></script>
 
     <div class="row">
-        <div id="formContainer" class="col-lg-6 col-md-10 col-sm-12">
-            <form id="msform">
-                <!-- fieldsets -->
-                <fieldset>
-                    <h2 class="fs-title">Edit Publication</h2>
-                    <h3 class="fs-subtitle">Insert some informations about the group</h3>
-                    
-                    <textarea rows="4" placeholder="Group Description"></textarea>
-                    <input type="text" name="invite-users" placeholder="Invite Users"/>
-                    <input type="file" class="custom-file-input" id="upload">
-                    <input type="text" name="topics" placeholder="Add Topics"/>
-                    <div id="radioGroup" class="btn-group" data-toggle="group-privacy">
-                    <label id="visibilityLabel" for="visibility" class="col-form-label col-lg-4">Visibility Group</label>
-                        <label id="visibilityRadio" class="btn btn-default active col-lg-12">
-                            <input type="radio" id="#" name="privacy-btn" value="public" checked="checked"/> Public
-                        </label>
-                        <label id="visibilityRadio" class="btn btn-default col-lg-12">
-                            <input type="radio" id="#" name="privacy-btn" value="private"/> Private
-                        </label>
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <form id="msform">
+            <!-- progressbar -->
+            <ul id="progressbar">
+                <li class="active">General Info</li>
+                <li>Journal/Articles Details</li>
+                <li>Conference/Workshop Details</li>
+                <li>Editorship</li>
+                <li>Media</li>
+            </ul>
+            <!-- fieldsets -->
+            <fieldset>
+                <h2 class="fs-title">General Info</h2>
+                <h3 class="fs-subtitle">Insert general informations about the publication here</h3>
+                
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-12 col-md-3 col-lg-2">Title</label>
+                        <input class="col-sm-12 col-md-9 col-lg-7 editable-field" type="text" placeholder="Enter phone number" />
+                        <a class="edit col-lg-1">Edit</a>
+                        <a class="button save hidden col-lg-1">Save</a>
                     </div>
-                    <input type="button" name="previous" class="previous action-button-previous" value="Back"/>
-                    <input type="button" name="next" class="next action-button" value="Create"/>
-                </fieldset>
-            </form>
-        </div>
+                </div>
+                
+                <input type="text" name="co_authors" placeholder="Co-Authors"/>
+                <input type="date" name="pub_date" placeholder="Publication Date"/>
+                <input type="text" name="venue" placeholder="Venue"/>
+                <select class="form-control" id="pub-type">
+                    <option>Journal/Article</option>
+                    <option>Conference/Workshop</option>
+                    <option>Editorship</option>
+                </select>
+                <input type="button" name="next" class="next action-button" value="Next"/>
+            </fieldset>
+            <fieldset id="">
+                <h2 class="fs-title">Journal/Articles Details</h2>
+                <h3 class="fs-subtitle">Insert here some info about Journal</h3>
+                <input type="text" name="abstract" placeholder="Abstract"/>
+                <input type="text" name="volume" placeholder="Volume"/>
+                <input type="text" name="number" placeholder="Number"/>
+                <input type="text" name="pages" placeholder="Pages"/>
+                <input type="text" name="key" placeholder="Key"/>
+                <input type="text" name="doi" placeholder="DOI"/>
+                <input type="text" name="ee" placeholder="EE"/>
+                <input type="text" name="url" placeholder="URL"/>
+                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                <input type="button" name="next" class="next action-button" value="Next"/>
+            </fieldset>
+            <fieldset id="">
+                <h2 class="fs-title">Conference/Workshop Details</h2>
+                <h3 class="fs-subtitle">Insert here some info about Conference</h3>
+                <input type="text" name="abstract" placeholder="Abstract"/>
+                <input type="text" name="pages" placeholder="Pages"/> <!--RANGE-->
+                <input type="text" name="days" placeholder="Days"/>
+                <input type="text" name="key" placeholder="Key"/>
+                <input type="text" name="doi" placeholder="DOI"/>
+                <input type="text" name="ee" placeholder="EE"/>
+                <input type="text" name="url" placeholder="URL"/>
+                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                <input type="button" name="next" class="next action-button" value="Next"/>
+            </fieldset>
+            <fieldset id="">
+                <h2 class="fs-title">Editorship</h2>
+                <h3 class="fs-subtitle">Insert here some info about Editorship</h3>
+                <input type="text" name="abstract" placeholder="Abstract"/>
+                <input type="text" name="volume" placeholder="Volume"/>
+                <input type="text" name="publisher" placeholder="Publisher"/>
+                <input type="text" name="key" placeholder="Key"/>
+                <input type="text" name="doi" placeholder="DOI"/>
+                <input type="text" name="ee" placeholder="EE"/>
+                <input type="text" name="url" placeholder="URL"/>
+                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                <input type="button" name="next" class="next action-button" value="Next"/>
+            </fieldset>
+            <fieldset>
+                <h2 class="fs-title">Media</h2>
+                <h3 class="fs-subtitle">Add here some media about the publication</h3>
+                <label class="btn btn-default btn-file row">
+                    Add PDF <input type="file" style="display: none;">
+                    <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                </label>
+                <label class="btn btn-default btn-file row">
+                    Add Media <input type="file" style="display: none;">
+                    <i class="fa fa-upload" aria-hidden="true"></i>
+                </label>
+                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                <input type="submit" name="submit" class="submit action-button" value="Create"/>
+            </fieldset>
+        </form>
     </div>
-
-    <form>
-  <div class="form-group">
-    <input class="editable-field" type="text" placeholder="Enter name" />
-    <a class="button edit">Edit</a>
-    <a class="button save hidden">Save</a>
-  </div>
-
-  <div class="form-group">
-    <input class="editable-field" type="text" placeholder="Enter phone number" />
-    <a class="edit">Edit</a>
-    <a class="button save hidden">Save</a>
-  </div>
-  
-  <div class="form-group">
-      <input class="editable-field" type="text" placeholder="Enter email" />
-      <a class="edit">Edit</a>
-      <a class="button save hidden">Save</a>
-  </div>
-  
-</form>
+    </div>
 
     <script>
     var disabledState = true;

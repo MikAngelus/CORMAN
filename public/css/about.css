@@ -45,7 +45,7 @@ body {
   }
   
   input.disabled {
-    background: gray;
+    background: lightgray;
     cursor: not-allowed;
     border: none;
   }
