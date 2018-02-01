@@ -3,7 +3,7 @@
     <div class="col-sm-1">{{$pub->details->year}}</div>
 
     <div class="col-sm-12">
-        <ul class="list-inline">    
+        <ul class="list-inline">
             @foreach($pub->topics as $topic)
                 <li class="list-inline-item">{{$topic->name}}</li>
             @endforeach
@@ -20,6 +20,6 @@
             @endforeach
         </ul>
         <!--sistemare lo spazio che lascia dopo le liste-->
-    </div>    
+    </div>
     <div class="col-sm-1"><i class="fa fa-pencil fa-2x" href="#"></i></div>
 </div>

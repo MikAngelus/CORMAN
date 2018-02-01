@@ -26,8 +26,8 @@ class DatabaseSeeder extends Seeder
             PublicationGroupTableSeeder::class
 
         ]);
-    	
-     
+
+
 /*
         //TODO Seeder to implement
         //$this->call(JournalsTableSeeder::class);

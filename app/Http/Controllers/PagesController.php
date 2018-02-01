@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use App\User;
 use App\Group;
 
@@ -20,8 +22,9 @@ class PagesController extends Controller
     }
 
     public function dashboard(){
-        
-        return view('Pages.dashboard');
+        $publ_lis = Auth::user()->publications;
+        $gro_lis = Auth::user()->groups;
+        return view('Pages.dashboard', ['publ_lis'=>$publ_lis, 'gro_lis'=>$gro_lis]);
     }
 
     public function publications(){
@@ -32,5 +35,11 @@ class PagesController extends Controller
     public function groups(){
         $group_list = (new Group)::all();
         return view('Pages.Group.groups', $dataGroup=array('group_list'=>$group_list));
+    }
+
+    public function groupDetail(){
+        $publ_list = (new User)::find(1)->publications;
+        $gro_list = (new Group)::all();
+        return view('Pages.Group.groupDetail', ['publ_list'=>$publ_list, 'gro_list'=>$gro_list]);
     }
 }

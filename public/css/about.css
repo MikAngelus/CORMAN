@@ -1,0 +1,51 @@
+body {
+    font-family: Helvetica, Arial;
+  }
+  
+  input {
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    margin: 10px 0;
+  }
+  
+  input:focus {
+    outline: none;
+    border-bottom: 1px solid tomato;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .button.save {
+    background: tomato;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding:10px;
+    font-family: Helvetica, arial;
+  }
+  
+  a.button:hover {
+    background: RebeccaPurple; /* Best. color name. Ever. */
+  }
+  
+  a.edit {
+    cursor: pointer;
+    color: tomato;
+  }
+  
+  a.edit:hover {
+    cursor: pointer;
+    background: none;
+    text-decoration: underline;
+  }
+  
+  input.disabled {
+    background: gray;
+    cursor: not-allowed;
+    border: none;
+  }

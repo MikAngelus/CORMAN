@@ -24,6 +24,9 @@
         </div>
     -->    
         @include('Layout.header_landing')
+        <div>
+            <a href="{{route('register')}}"> REGISTRATION</a>
+        </div>
         <div class="col-sm-12">
             <div class="row" id="back_1">
                 <div class="col-sm-12">
@@ -54,6 +57,14 @@
                     <br>
                 </div>
             </div>
+
+            <form action=" {{route('login')}} " method="post">
+                {{ csrf_field() }}
+                <input type="text" name="email" placeholder="email" required autofocus>
+                <input type="text" name="password" placeholder ="password" required>
+                <input type="checkbox" name="remember" value="remember me" {{ old('remember') ? 'checked' : '' }}>
+                <input type="submit" value="submit">
+            </form>
         </div>
     </div>
 </body>

@@ -1,3 +1,54 @@
 #searchBox {
-    width: 60%;
+    background-color: white;
+    color: cornflowerblue;
+    border-color: cornflowerblue;
+}
+
+#searchBox:hover {
+    background-color: cornflowerblue;
+    color: white;
+    border-color: white;
+}
+
+#searchBox:focus {
+    background-color: cornflowerblue;
+    color: white;
+    border-color: white;
+}
+
+#brand, #menuIcon {
+    color: cornflowerblue;
+}
+
+.navbar-toggler {
+    background-color: cornflowerblue;
+}
+
+.navbar-toggler-icon {
+    color: white;
+}
+
+/* ----------- iPad Pro ----------- */
+/* Portrait and Landscape */
+@media only screen
+  and (min-device-width: 1024px)
+  and (max-device-width: 1366px)
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+}
+
+/* Portrait */
+@media only screen
+  and (min-device-width: 1024px)
+  and (max-device-width: 1366px)
+  and (orientation: portrait)
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+}
+
+/* Landscape */
+@media only screen
+  and (min-device-width: 1024px)
+  and (max-device-width: 1366px)
+  and (orientation: landscape)
+  and (-webkit-min-device-pixel-ratio: 1.5) {
+
 }

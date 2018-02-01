@@ -7,8 +7,8 @@
             <form id="msform">
                 <!-- fieldsets -->
                 <fieldset>
-                    <h2 class="fs-title">Create Group</h2>
-                    <h3 class="fs-subtitle">Insert some informations about the group</h3>
+                    <h2 class="fs-title">Edit Group</h2>
+                    <h3 class="fs-subtitle">Edit informations of the group</h3>
                     <input type="text" name="group-name" placeholder="Group Name"/>
                     <textarea rows="4" placeholder="Group Description"></textarea>
                     <input type="text" name="invite-users" placeholder="Invite Users"/>
