@@ -8,7 +8,7 @@ class Group extends Model
 {
     //
     protected $fillable = ([
-        'id'
+    'id'
     ]);
 
     public function users(){
@@ -28,6 +28,7 @@ class Group extends Model
     public function shares(){
         return $this->hasMany(
             'App\PublicationGroup'
-    );
+        );
     }
 }
+

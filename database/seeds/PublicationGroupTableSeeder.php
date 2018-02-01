@@ -16,30 +16,53 @@ class PublicationGroupTableSeeder extends Seeder
         $faker = Faker::create();
 
         $group_list = App\Group::all();
-        $pg_list[] = App\PublicationGroup()::all();
-        $pg = new App\PublicationGroup();
+        $pg_list = array();
 
+        for($i=0; $i<count($group_list); $i++){
+
+            $pg = new App\PublicationGroup();
+            $pg_list[$i]->add($pg);
+        }
 
         foreach ($group_list as $g) {
-                $save=$faker->randomDigitNotNull($min=1, $max=10);
-                $pub =array_fill(0, $save, 0);
-                $use =array_fill(0, $save, 0);
+            
 
-                for($i=0; $i<$save; $i++){
-                    do {
+        }
+        /*
+         *
+            $pg = new App\PublicationGroup();
+            $pg->publication_id=3;
+            $pg->group_id=3;
+            $pg->user_id=3;
+            $pg->save();
 
-                        $pub[$i]=$faker->randomDigitNotNull($min=1, $max=5);
+        *
+        */
 
-                    }while(($g->id)==$pub[$i]);
+        foreach ($group_list as $g) {
+            $pg = new App\PublicationGroup();
 
-                    $use[$i]=$faker->randomDigitNotNull($min=1, $max=5);
+            $use = $faker->randomDigitNotNull($min = 1, $max = 3);
 
-                    $caramel=array(['publication_id' => $pub[$i], 'group_id' => $g->id, 'user_id' => $use[$i], 'created_at' => $faker->dateTime($max = 'now', $timezone = null),'updated_at' => $faker->dateTime($max = 'now', $timezone = null)]);
+            do {
+                $pub = $faker->randomDigitNotNull($min = 1, $max = 3);
 
-                    $g->shares()->save($caramel);
-                }
+            } while (array_unique([$g->id,$pub]));
 
-            }
+
+            $pg->publication_id = $pub;
+            $pg->group_id = $g->id;
+            $pg->user_id = $use;
+            $pg->created_at = $faker->dateTime($max = 'now', $timezone = null);
+            $pg->updated_at = $faker->dateTime($max = 'now', $timezone = null);
+            $pg->save();
+
+
+            //App\PublicationGroup::create(['publication_id' => $pub, 'group_id' => $g->id, 'user_id' => $use, 'created_at' => $faker->dateTime($max = 'now', $timezone = null), 'updated_at' => $faker->dateTime($max = 'now', $timezone = null)]);
+
+
+        }
 
     }
+
 }
