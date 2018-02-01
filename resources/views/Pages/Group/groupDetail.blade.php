@@ -11,18 +11,18 @@
     @foreach($publ_list as $publication)
                     @include('Pages.Publication.publicationSingle', ['pub'=>$publication])
                     <br>
-            @endforeach       
+            @endforeach
     </div>
     <div class="col-lg-4 col-md-2">
-        
+
         @foreach($gro_list as $group)
         <div class="col-lg-12">
-        
+
             @include('Pages.Group.groupSingle', ['gro'=>$group])
             </div>
         @endforeach
 
-   
+
     </div>
     </div>
 </div>

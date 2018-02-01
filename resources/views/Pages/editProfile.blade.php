@@ -33,4 +33,4 @@
     <div class="container"><button id="save" class="btn btn-primary btn-lg pull-right lg-3">Save</button>
     </div>
 
-@endsection
+<q></q>@endsection

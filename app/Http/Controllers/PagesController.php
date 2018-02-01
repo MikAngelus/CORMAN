@@ -33,7 +33,7 @@ class PagesController extends Controller
         $group_list = (new Group)::all();
         return view('Pages.Group.groups', $dataGroup=array('group_list'=>$group_list));
     }
-    
+
     public function groupDetail(){
         $publ_list = (new User)::find(1)->publications;
         $gro_list = (new Group)::all();

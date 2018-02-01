@@ -5,7 +5,7 @@
     <div id="2" class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">{{$pub->year}}</div>
 
     <div id="3" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-        <ul class="list-inline">    
+        <ul class="list-inline">
             @foreach($pub->topics as $topic)
                 <li class="list-inline-item">{{$topic->name}}</li>
             @endforeach
@@ -22,7 +22,7 @@
             @endforeach
         </ul>
         <!--sistemare lo spazio che lascia dopo le liste-->
-    </div>    
+    </div>
     <div id="6" class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
         <i class="fa fa-pencil fa-2x" href="#"></i>
     </div>
