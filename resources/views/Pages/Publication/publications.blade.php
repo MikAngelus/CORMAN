@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="{{ url('css/publications.css')}}">-->
 
 <div class="row">
-    <button class="btn btn-sm btn-primary">New Publication</button>
+    <a href="/createPublication" id="btn-newgroup" class="btn btn-primary pull-right" role="button">New Publication</a>
 </div>
 
 <div class="container">

@@ -1,6 +1,6 @@
 @extends('Layout.main')
-@section('content')
 
+@section('content')
 
 <div id="box" class="container-fluid col-lg-6 col-md-10 col-sm-12 mt-5">
     <div class="container p-0 pt-3 ml-1" id="personalInfo">
@@ -33,4 +33,5 @@
     <div class="container"><button id="save" class="btn btn-primary btn-lg pull-right lg-3">Save</button>
     </div>
 
-<q></q>@endsection
+<q></q>
+@endsection

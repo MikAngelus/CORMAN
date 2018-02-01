@@ -28,10 +28,16 @@ Route::resource('users','UserController');
 
 // @TODO Replace clousure based routes with resource controller routes
 
-
+Route::get('/editPublication', function() {
+    return view('Pages.Publication.editPublication');
+});
 
 Route::get('/createGroup', function () {
     return view('Pages.Group.createGroup');
+});
+
+Route::get('/editGroup', function () {
+    return view('Pages.Group.editGroup');
 });
 
 

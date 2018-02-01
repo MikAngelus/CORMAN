@@ -19,6 +19,11 @@ sagittis lacus vel augue laoreet rutrum faucibus.">Click
     </div>
 </div>
 
+
+
+
+
+
 <script src="{{ url('js/bootstrap.bundle.js') }}"></script>
     <script>
     $(function () {
