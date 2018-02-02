@@ -24,7 +24,7 @@
         <!--sistemare lo spazio che lascia dopo le liste-->
     </div>
     <div id="6" class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
-        <a href="/editPublication"><i class="fa fa-pencil fa-2x"></i></a>
+        <a href="{{route('publications.edit', ['id'=>$publication->id])}}"><i class="fa fa-pencil fa-2x"></i></a>
     </div>
 </div>
 

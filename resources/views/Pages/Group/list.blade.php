@@ -4,8 +4,7 @@
 
 <div class="container">
     <div class="row">
-
-            @foreach($groupList as $group)
+        @foreach($groupList as $group)
             <div id="group-box" class="col-12 col-sm-12 col-md-6 col-lg-4">
                 @include('Pages.Group.single', ['group'=>$group])
             </div>
