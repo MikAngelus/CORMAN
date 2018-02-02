@@ -25,6 +25,11 @@ class DatabaseSeeder extends Seeder
             TopicGroupTableSeeder::class,
             TopicPublicationTableSeeder::class,
             UserPublicationTableSeeder::class,
+
+            JournalsTableSeeder::class,
+            ConferencesTableSeeder::class,
+            EditorshipsTableSeeder::class,
+
             PublicationGroupTableSeeder::class
 
         ]);
@@ -32,9 +37,7 @@ class DatabaseSeeder extends Seeder
 
 /*
         //TODO Seeder to implement
-        //$this->call(JournalsTableSeeder::class);
-        //$this->call(ConferencesTableSeeder::class);
-        //$this->call(EditorshipsTableSeeder::class);
+
 
 */
     }
