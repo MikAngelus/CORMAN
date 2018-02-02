@@ -106,7 +106,7 @@
                                     <option value="{{$affiliation->name}}">{{$affiliation->name}}</option>
                                     @endforeach
                                 </select>
-
+                                <br>
                                 <select class="form-control" id="topicsDropdown" name="topics[]" multiple>
                                     <option value=""></option> <!-- needed for selct2.js library don't remove!-->
                                     @foreach($topics as $topic)

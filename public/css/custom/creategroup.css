@@ -12,12 +12,6 @@ input .form-control {
     cursor: pointer;
 }
 
-html {
-    height: 100%;
-    background: #6441A5; /* fallback for old browsers */
-    background: -webkit-linear-gradient(to left, #6441A5, #2a0845); /* Chrome 10-25, Safari 5.1-6 */
-
-}
 
 #radioGroup {
     padding: 0;
@@ -107,7 +101,8 @@ body {
 }
 
 #formContainer {
-    margin: 0 auto;
+    margin: 3% auto;
+
 }
 
 label input {
