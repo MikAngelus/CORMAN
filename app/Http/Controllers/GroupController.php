@@ -20,8 +20,9 @@ class GroupController extends Controller
     
     public function index()
     {
-        $groups = Auth::user()->groups;
-        return view('Pages.Group.groups',[ 'group_list' => $groups ] );
+        /* vedere todo dashboard pubblicazioni*/
+        $groupList = Auth::user()->groups;
+        return view('Pages.Group.list', [ 'groupList' => $groupList ] );
     }
 
     /**
@@ -31,7 +32,7 @@ class GroupController extends Controller
      */
     public function create()
     {
-        return view('Pages.Group.createGroup');
+        return view('Pages.Group.create');
     }
 
     /**
@@ -53,10 +54,10 @@ class GroupController extends Controller
      */
     public function show($id)
     {
-        // Replace with shares
-        $publ_list = Auth::user()->publications;
-        $gro_list = Auth::user()->groups;
-        return view('Pages.Group.groupDetail', ['publ_list'=>$publ_list, 'gro_list'=>$gro_list]);
+        // Replace with shares of publication-group-model
+        $publicationList = Auth::user()->publications;
+        $groupList = Auth::user()->groups;
+        return view('Pages.Group.detail', ['publicationList'=>$publicationList, 'groupList'=>$groupList]);
     }
 
     /**
@@ -66,8 +67,9 @@ class GroupController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        return view('Pages.Group.editGroup');
+    {   
+        $group = Auth::user()->groups->where('id',$id);
+        return view('Pages.Group.edit');
     }
 
     /**
