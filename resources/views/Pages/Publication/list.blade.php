@@ -1,7 +1,11 @@
 @extends ('Layout.main')
 
-@section('content')
+@section('head')
+<link rel="stylesheet" href="{{ public_path('css/publications.css') }}">
+@endsection
 
+
+@section('content')
 <div class="container">
     <div class="row">
         <a href="{{route('publications.create')}}" id="btn-newgroup" class="btn btn-primary pull-right" role="button">New Publication</a>
@@ -15,5 +19,8 @@
             @include('Pages.Publication.single', ['publication'=>$publication])
     @endforeach
 </div>
+@endsection
+
+@section('script')
 
 @endsection

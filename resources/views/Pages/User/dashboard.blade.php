@@ -1,7 +1,11 @@
 @extends ('Layout.main')
 
-@section('content')
+@section('head')
 
+@endsection
+
+
+@section('content')
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-8 col-md-10">
@@ -21,21 +25,24 @@
         </div>
         <div class="col-lg-4 col-md-2">
         <center><h1>Last from Groups</h1></center>
-            <div class="row">
-                <div>
-                    <a href="{{ route('groups.create')}}" id="btn-newgroup" class="btn btn-primary pull-right" role="button">New Group</a>
-                </div>
-                <div>
-                    <a href="{{ route('groups.index')}}" id="btn-newgroup" class="btn btn-primary pull-right" role="button">View All</a>
-                </div>
+        <div class="row">
+            <div>
+                <a href="{{ route('groups.create')}}" id="btn-newgroup" class="btn btn-primary pull-right" role="button">New Group</a>
             </div>
-            @foreach($groupList as $group)
-            <div class="col-lg-12">
-                @include('Pages.Group.single', ['group'=>$group])
+            <div>
+                <a href="{{ route('groups.index')}}" id="btn-newgroup" class="btn btn-primary pull-right" role="button">View All</a>
             </div>
-            @endforeach
+        </div>
+        @foreach($groupList as $group)
+        <div class="col-lg-12">
+            @include('Pages.Group.single', ['group'=>$group])
+        </div>
+        @endforeach
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
 
 @endsection

@@ -2,29 +2,35 @@
 
 @section('content')
 
-<!--<script type="text/javascript" src="{{ url('js/publications.js')}}"></script>
-<link rel="stylesheet" href="{{ url('css/publications.css')}}">-->
-
 <div class="container-fluid">
-<div class="row">
-    <div class="col-lg-8 col-md-10">
-    @foreach($publicationList as $publication)
-                    @include('Pages.Publication.single', ['publication'=>$publication])
-                    <br>
-            @endforeach
-    </div>
-    <div class="col-lg-4 col-md-2">
+    <div class="row">
 
-        @foreach($groupList as $group)
-        <div class="col-lg-12">
-
-            @include('Pages.Group.single', ['group'=>$group])
+        <div class="col-lg-8 col-md-10">
+            <div class="row">
+                <div class="col-lg-3">
+                    <i class="fa-7x fa-users"></i>
+                </div>
+                <div class="col-lg-6">
+                    <h1>{{$group->name}}</h1>
+                    <p>{{$group->description}}</p>
+                </div>
+                <div class="col-lg-3"></div>
             </div>
-        @endforeach
-
-
-    </div>
+            <div class="row">
+                @foreach($publicationList as $publication)
+                    @include('Pages.Publication.single', ['publication'=>$publication])
+                @endforeach
+            </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-2">
+            @foreach($groupList as $groupSingle)
+                <div class="col-lg-12">
+                    @include('Pages.Group.single', ['groupSingle'=>$groupSingle])
+                </div>
+            @endforeach
+        </div>
+    
     </div>
 </div>
-
 @endsection

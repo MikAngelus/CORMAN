@@ -18,7 +18,7 @@
         </div>
         <div class="modal-body">
             
-                @include('Pages.Publication.single', ['publication'=>$publication])
+                @include('Pages.Publication.modal', ['publication'=>$publication])
 
         </div>
       </div>
