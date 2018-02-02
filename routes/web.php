@@ -16,6 +16,8 @@ use App\User;
 
 // Controllers
 Route::get('/', 'PagesController@landingPage');
+Route::get('/tutorial', 'PagesController@tutorial');
+Route::get('/about', 'PagesController@about');
 
 
 // Resource Controllers routes
