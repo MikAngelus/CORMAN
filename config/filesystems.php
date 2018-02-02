@@ -63,14 +63,14 @@ return [
             'bucket' => env('AWS_BUCKET'),
         ],
 
-        'profilePicturesDisk' => [
+        'profileDisk' => [
             'driver' => 'local',
             'root' => storage_path('app/public/user_profile_pictures'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
 
-        'publicationMediaDisk' => [
+        'mediaDisk' => [
             'driver' => 'local',
             'root' => storage_path('app/public/publication_media'),
             'url' => env('APP_URL').'/storage',
