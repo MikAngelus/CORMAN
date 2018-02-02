@@ -1,6 +1,7 @@
 .panel-heading h3 {
     display: inline-block;
     line-height: 1;
+    font-size: 1.50rem;
 }
 
 .panel-heading {

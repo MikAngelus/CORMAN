@@ -7,7 +7,7 @@
 @section('content')
 
     <div class="row">
-        <div id="formContainer" class="col-lg-6 col-md-10 col-sm-12">
+        <div id="formContainer" class=" col-xl-6 col-lg-7 col-md-9 col-sm-10 col-12">
             <form id="msform">
                 <!-- fieldsets -->
                 <fieldset>

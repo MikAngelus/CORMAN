@@ -9,10 +9,10 @@
 @section('content')
 <!-- MultiStep Form -->
 <div class="row">
-    <div class="col-md-6 col-md-offset-3">
+    <div id="box" class="col-md-6 col-md-offset-3">
         <form id="msform">
             <!-- progressbar -->
-            <ul id="progressbar">
+            <ul id="progressbar" class="pt-2">
                 <li class="active">General Info</li>
                 <li>Journal/Articles Details</li>
                 <li>Conference/Workshop Details</li>
