@@ -8,6 +8,10 @@ class Autor extends Model
 {
 
     public function publications(){
-        return $this->belongsTo('App\Publication');
+        return $this->belongsToMany('App\Publication', 'autor_publication');
+    }
+
+    public function user(){
+        return $this->hasOne('App\User');
     }
 }

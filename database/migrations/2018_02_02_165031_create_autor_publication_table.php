@@ -19,8 +19,8 @@ class CreateAutorPublicationTable extends Migration
             $table->integer('publication_id')->unsigned();
 
             //Constraints
-            $table->foreign('autor_id')->references('id')->on('autor');
-            $table->foreign('publication_id')->references('id')->on('publication_');
+            $table->foreign('autor_id')->references('id')->on('autors');
+            $table->foreign('publication_id')->references('id')->on('publications');
         });
     }
 

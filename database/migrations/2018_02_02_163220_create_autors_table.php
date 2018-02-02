@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAutorTable extends Migration
+class CreateAutorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,17 @@ class CreateAutorTable extends Migration
      */
     public function up()
     {
-        Schema::create('autor', function (Blueprint $table) {
+        Schema::create('autors', function (Blueprint $table) {
             $table->increments('id');
             $table->string('first_name')->nullable(false);
             $table->string('last_name')->nullable(false);
-            $table->integer('user_id');
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
 
             // Constraints
             $table->unique(['first_name','last_name']);
 
-            $table->foreign('user_id')->references('id')->on('user'); #foreign for 1-m relation with user table
-
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -35,6 +34,6 @@ class CreateAutorTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('autor');
+        Schema::dropIfExists('autors');
     }
 }
