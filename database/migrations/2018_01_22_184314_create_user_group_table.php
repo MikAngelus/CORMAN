@@ -19,7 +19,9 @@ class CreateUserGroupTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('group_id')->unsigned();
             $table->enum('role', ['admin', 'member'])->default('member');
-        
+            $table->enum('state',['accepted','pending'])->nullable();
+
+
             $table->timestamps();
 
             //Constraints

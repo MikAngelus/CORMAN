@@ -40,4 +40,8 @@ class Publication extends Model
 
         }
     }
+
+    public function autors(){
+        return $this->belongsTo('App\Autor');
+    }
 }
