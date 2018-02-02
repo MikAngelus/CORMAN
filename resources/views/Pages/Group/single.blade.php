@@ -9,6 +9,6 @@
     <div class="panel-footer">
         <a href=""><i class="fa fa-eye fa-2x"></i></a>
         <a href="{{route('groups.edit', ['id'=>$group->id])}}"><i class="fa fa-pencil fa-2x"></i></a>
-        <a href="{{route('groups.detail', ['id'=>$group->id])}}" id="btn-newgroup" class="btn btn-primary pull-right" role="button">View More</a>
+        <a href="{{route('groups.show', ['id'=>$group->id])}}" id="btn-newgroup" class="btn btn-primary pull-right" role="button">View More</a>
     </div>
 </div>

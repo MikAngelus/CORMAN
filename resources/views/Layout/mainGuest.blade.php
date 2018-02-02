@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="container-fluid">
-        @include('Layout.header')
+        @include('Layout.headerGuest')
         @yield('content')
         @include('Layout.footer')
     </div>
@@ -23,8 +23,6 @@
     <script src="{{ url('js/bootstrap.min.js') }}"></script>
     <script src="{{ url('js/popper.min.js') }}"></script>
     @yield('script')
-
-    
-                        
+            
 </body>
 </html>

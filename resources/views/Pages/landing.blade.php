@@ -23,7 +23,7 @@
             </div>
         </div>
     -->    
-        @include('Layout.header_landing')
+        @include('Layout.headerGuest')
         <div>
             <a href="{{route('register')}}"> REGISTRATION</a>
         </div>

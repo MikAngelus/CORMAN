@@ -15,7 +15,7 @@ $(document).ready(function() {
     
 });
 
-
+/*
 (function() {
     // Before using it we must add the parse and format functions
     // Here is a sample implementation using moment.js
@@ -203,3 +203,4 @@ $(document).ready(function() {
         alert("Success!");
     }
 })();
+*/

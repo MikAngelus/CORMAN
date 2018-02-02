@@ -21,7 +21,7 @@
 
 <div class="form-group">
     <label class="col-sm-12 col-md-3 col-lg-2">Doi</label>
-    <div id="1" class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">{{$publication->details->doi\}}</div>
+    <div id="1" class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">{{$publication->details->doi}}</div>
 </div>
 
 <div class="form-group">

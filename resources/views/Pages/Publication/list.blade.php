@@ -1,7 +1,7 @@
 @extends ('Layout.main')
 
 @section('head')
-<link rel="stylesheet" href="{{ public_path('css/publications.css') }}">
+<link rel="stylesheet" href="{{ url('css/publications.css') }}">
 @endsection
 
 

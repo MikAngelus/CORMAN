@@ -28,7 +28,7 @@ class UserController extends Controller
         $publicationList = Auth::user()->publications->sortByDesc('year');
         /* TODO: vedere come ordinare gruppi (prima quelli di cui è admin, poi utente, ecc)*/
         $groupList = Auth::user()->groups;
-        return view('Pages.dashboard', ['publicationList'=>$publicationList, 'groupList'=>$groupList]);
+        return view('Pages.User.dashboard', ['publicationList'=>$publicationList, 'groupList'=>$groupList]);
     }
 
     /**
@@ -50,7 +50,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('Pages.editProfile');
+        return view('Pages.editUser');
     }
 
     /**

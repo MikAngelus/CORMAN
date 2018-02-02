@@ -1,7 +1,7 @@
 @extends('Layout.main')
 
 @section('head')
-    <link rel="stylesheet" href="{{ public_path('css/edit_forms.css') }}">
+    <link rel="stylesheet" href="{{ url('css/edit_forms.css') }}">
 @endsection
 
 @section('content')
@@ -61,8 +61,8 @@
 </div>
 
 @section('script')
-<script src="{{ public_path('js/jquery-ui.js') }}"></script>
-<script src="{{ public_path('js/jqueryform.js') }}"></script>
+<script src="{{ url('js/jquery-ui.js') }}"></script>
+<script src="{{ url('js/jqueryform.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-<script src="{{ public_path('js/editFieldsForm.js') }}"></script>
+<script src="{{ url('js/editFieldsForm.js') }}"></script>
 @endsection

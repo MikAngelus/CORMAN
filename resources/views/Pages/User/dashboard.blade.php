@@ -4,7 +4,6 @@
 
 @endsection
 
-
 @section('content')
 <div class="container-fluid">
     <div class="row">
@@ -34,9 +33,9 @@
             </div>
         </div>
         @foreach($groupList as $group)
-        <div class="col-lg-12">
-            @include('Pages.Group.single', ['group'=>$group])
-        </div>
+            <div class="col-lg-12">
+                @include('Pages.Group.single', ['group'=>$group])
+            </div>
         @endforeach
         </div>
     </div>
