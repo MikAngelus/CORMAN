@@ -2,29 +2,39 @@
 
 @section('content')
 
-<!--<script type="text/javascript" src="{{ url('js/publications.js')}}"></script>
-<link rel="stylesheet" href="{{ url('css/publications.css')}}">-->
-
 <div class="container-fluid">
-<div class="row">
-    <div class="col-lg-8 col-md-10">
-    <center><h1>Last Publications</h1></center>
-    @foreach($publ_lis as $publication)
-                    @include('Pages.Publication.publicationSingle', ['pub'=>$publication])
-                    <br>
-            @endforeach
-    </div>
-    <div class="col-lg-4 col-md-2">
-    <center><h1>Last from Groups</h1></center>
-        @foreach($gro_lis as $group)
-        <div class="col-lg-12">
-
-            @include('Pages.Group.groupSingle', ['gro'=>$group])
+    <div class="row">
+        <div class="col-lg-8 col-md-10">
+            <center><h1>Last Publications</h1></center>
+            <div class="row">
+                <div>
+                    <a href="{{ route('publications.create')}}" id="btn-newgroup" class="btn btn-primary pull-right" role="button">New Publication</a>
+                </div>
+                <div>
+                    <a href="{{ route('publications.index')}}" id="btn-newgroup" class="btn btn-primary pull-right" role="button">View All</a>
+                </div>
             </div>
-        @endforeach
-
-
-    </div>
+            <br>
+            @foreach($publicationList as $publication)
+                @include('Pages.Publication.single', ['publication'=>$publication])
+            @endforeach
+        </div>
+        <div class="col-lg-4 col-md-2">
+        <center><h1>Last from Groups</h1></center>
+            <div class="row">
+                <div>
+                    <a href="{{ route('groups.create')}}" id="btn-newgroup" class="btn btn-primary pull-right" role="button">New Group</a>
+                </div>
+                <div>
+                    <a href="{{ route('groups.index')}}" id="btn-newgroup" class="btn btn-primary pull-right" role="button">View All</a>
+                </div>
+            </div>
+            @foreach($groupList as $group)
+            <div class="col-lg-12">
+                @include('Pages.Group.single', ['group'=>$group])
+            </div>
+            @endforeach
+        </div>
     </div>
 </div>
 

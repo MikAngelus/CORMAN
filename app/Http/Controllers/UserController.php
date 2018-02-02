@@ -23,10 +23,12 @@ class UserController extends Controller
     }
     
     public function index()
-    {
-        $publ_lis = Auth::user()->publications;
-        $gro_lis = Auth::user()->groups;
-        return view('Pages.dashboard', ['publ_lis'=>$publ_lis, 'gro_lis'=>$gro_lis]);
+    {   
+        /* TODO: tenere conto che bisogna passare i dati dell'utente (immagine, ecc)*/
+        $publicationList = Auth::user()->publications->sortByDesc('year');
+        /* TODO: vedere come ordinare gruppi (prima quelli di cui è admin, poi utente, ecc)*/
+        $groupList = Auth::user()->groups;
+        return view('Pages.dashboard', ['publicationList'=>$publicationList, 'groupList'=>$groupList]);
     }
 
     /**

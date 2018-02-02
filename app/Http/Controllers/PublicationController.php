@@ -20,8 +20,8 @@ class PublicationController extends Controller
     
     public function index()
     {
-        $publication_list = Auth::user()->publications;
-        return view('Pages.Publication.publications', ['publication_list'=>$publication_list] );
+        $publicationList = Auth::user()->publications->sortByDesc('year');
+        return view('Pages.Publication.list', ['publicationList'=>$publicationList] );
     }
 
     /**
@@ -31,7 +31,7 @@ class PublicationController extends Controller
      */
     public function create()
     {
-        return view('Pages.Publication.createPublication');
+        return view('Pages.Publication.create');
     }
 
     /**
@@ -53,7 +53,8 @@ class PublicationController extends Controller
      */
     public function show($id)
     {
-        return view('Pages.publicationModal');
+        $publication = Auth::user()->publication->where('id',$id);
+        return view('Pages.Publication.modal', ['publication'=>$publication] );
     }
 
     /**
@@ -64,7 +65,8 @@ class PublicationController extends Controller
      */
     public function edit($id)
     {
-        return view('Pages.Publication.editPublication');
+        $publication = Auth::user()->publication->where('id',$id);
+        return view('Pages.Publication.edit', ['publication'=>$publication] );
     }
 
     /**
