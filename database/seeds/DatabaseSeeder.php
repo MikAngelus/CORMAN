@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
             RoleTableSeeder::class,
             UsersTableSeeder::class,
             PublicationsTableSeeder::class,
+            AutorTableSeeder::class,
+            AutorPublicationTableSeeder::class,
             TopicsTableSeeder::class,
             GroupsTableSeeder::class,
             UserGroupTableSeeder::class,
