@@ -16,53 +16,31 @@ class PublicationGroupTableSeeder extends Seeder
         $faker = Faker::create();
 
         $group_list = App\Group::all();
-        $pg_list = array();
 
-        for($i=0; $i<count($group_list); $i++){
+        foreach ($group_list as $group) {
 
-            $pg = new App\PublicationGroup();
-            $pg_list[$i]->add($pg);
-        }
+            $number_of_publications = $faker->randomDigitNotNull($min = 1, $max = 50);
+            $pub = array_fill(0,$number_of_publications,0);
 
-        foreach ($group_list as $g) {
-            
+            for ($i = 0; $i < $number_of_publications; $i++) {
 
-        }
-        /*
-         *
-            $pg = new App\PublicationGroup();
-            $pg->publication_id=3;
-            $pg->group_id=3;
-            $pg->user_id=3;
-            $pg->save();
+                $pub[$i] = $faker->randomDigitNotNull($min = 1, $max = 50);
+            }
 
-        *
-        */
+            $pub = array_unique($pub);
 
-        foreach ($group_list as $g) {
-            $pg = new App\PublicationGroup();
+            for ($i = 0; $i < count($pub); $i++) {
 
-            $use = $faker->randomDigitNotNull($min = 1, $max = 3);
-
-            do {
-                $pub = $faker->randomDigitNotNull($min = 1, $max = 3);
-
-            } while (array_unique([$g->id,$pub]));
-
-
-            $pg->publication_id = $pub;
-            $pg->group_id = $g->id;
-            $pg->user_id = $use;
-            $pg->created_at = $faker->dateTime($max = 'now', $timezone = null);
-            $pg->updated_at = $faker->dateTime($max = 'now', $timezone = null);
-            $pg->save();
-
-
-            //App\PublicationGroup::create(['publication_id' => $pub, 'group_id' => $g->id, 'user_id' => $use, 'created_at' => $faker->dateTime($max = 'now', $timezone = null), 'updated_at' => $faker->dateTime($max = 'now', $timezone = null)]);
-
+                $pg = new App\PublicationGroup();
+                $pg->publication_id = $pub[$i];
+                $pg->group_id = $group->id;
+                $pg->user_id = $faker->randomDigitNotNull($min = 1, $max = 50);
+                $pg->created_at = $faker->dateTime($max = 'now', $timezone = null);
+                $pg->updated_at = $faker->dateTime($max = 'now', $timezone = null);
+                $pg->save();
+            }
 
         }
 
     }
-
 }
