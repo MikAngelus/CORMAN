@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="{{ url('css/publications.css')}}">
-
 <div class="row publication">
     <div id="1" class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">{{$publication->title}}</div>
     <div id="2" class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">{{$publication->year}}</div>

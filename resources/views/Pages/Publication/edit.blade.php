@@ -1,14 +1,12 @@
 @extends('Layout.main')
 
+@section('head')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<link href="{{public_path('css/edit_forms.css')}}" rel="stylesheet" />
+@endsection
+
 @section('content')
-
-<script src="{{ url('js/jquery-3.3.1.min.js') }}"></script>
-<link rel="stylesheet" href="{{ url('css/bootstrap.min.css') }}">
-<link rel="stylesheet" href="{{ url('css/edit_forms.css') }}">
-<script src="{{ url('js/bootstrap.bundle.js') }}"></script>
-<script src="{{ url('js/about.js') }}"></script>
-
-    <div class="row">
+<div class="row">
     <div class="col-sm-12 col-md-12 col-lg-12">
         <form id="msform">
             <!-- progressbar -->
@@ -225,33 +223,14 @@
             </fieldset>
         </form>
     </div>
-    </div>
-
-<script>
-    var disabledState = true;
-
-    $('input.editable-field').prop('readonly', true)
-    $('input.editable-field').addClass('disabled')
-    $('input.button').val('Edit')
-
-    $('a.edit').on('click', function(e){
-        e.preventDefault(); // Prevent browser refresh
-        // Check to see if input is disabled or not...
-        $(this).hide();
-        $(this).next('a.save').show();
-        $(this).closest('.form-group').find('.editable-field').prop('readonly', false);
-        $(this).closest('.form-group').find('.editable-field').removeClass('disabled');
-        $(this).closest('.form-group').find('.editable-field').focus();  
-    })
-
-    $('a.save').on('click', function(e){
-        e.preventDefault(); // Prevent browser refresh
-        $(this).hide();
-        $(this).prev('a.edit').show();
-        $(this).closest('.form-group').find('.editable-field').prop('readonly', true);
-        $(this).closest('.form-group').find('.editable-field').addClass('disabled');
-        disabledState = true;
-    })
-</script>
-
+</div>
 @endsection
+
+@section('script')
+<script src="{{ public_path('js/jquery-ui.js') }}"></script>
+<script src="{{ public_path('js/jqueryform.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script src="{{ public_path('js/editFieldsForm.js') }}"></script>
+@endsection
+
+
