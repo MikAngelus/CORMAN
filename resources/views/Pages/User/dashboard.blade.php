@@ -1,7 +1,11 @@
 @extends ('Layout.main')
 
-@section('content')
+@section('head')
 
+@endsection
+
+
+@section('content')
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-8 col-md-10">
@@ -37,5 +41,8 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
 
 @endsection

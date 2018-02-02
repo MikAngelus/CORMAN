@@ -1,7 +1,10 @@
 @extends('Layout.main')
 
-@section('content')
+@section('head')
 
+@endsection
+
+@section('content')
 <div class="container">
     <div class="row">
         @foreach($groupList as $group)
@@ -14,7 +17,8 @@
 <div class="container">
     <a href="/createGroup" id="btn-newgroup" class="btn-primary" role="button">New Group</a>
 </div>
+@endsection
 
-
+@section('script')
 
 @endsection

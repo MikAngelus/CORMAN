@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Image;
 use App\User;
 use App\Role;
 use App\Affiliation;
@@ -10,6 +10,7 @@ use App\Topic;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Storage;
 
 class RegisterController extends Controller
 {
@@ -49,6 +50,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -64,8 +66,9 @@ class RegisterController extends Controller
             'topics.*' => 'filled|max:50',
             'personal_link' => 'bail|nullable|url|max:1620'
         ]);
+       
     }
-
+ 
 
     // Method overriding for custom form, (original method in Illuminate\Foundation\Auth\RegistersUsers;)
     public function showRegistrationForm(){
@@ -91,6 +94,7 @@ class RegisterController extends Controller
      */
     protected function create(array $formData)
     {
+        //dd($formData);
         $newUser = new User;
         
         // Fill User Model fields
@@ -102,15 +106,20 @@ class RegisterController extends Controller
         $newUser->reference_link = $formData['personal_link'];
         
         //Handling Profile picture  
-        //TODO replace default path in database table
-        //TODO implement image thumbnailization with some php library to save space
-        
-/*      //TODO fix the upload file issue
-        $file =$formData['profilePic'];
-        if( $file->isValid() ){
-            $newUser->picture_path = $file->store('/','profilePicturesDisk'); // store method return the stored file's name
+        if( isset($formData['profilePic'])){
+            $file = $formData['profilePic'];
+            if( $file->isValid() ){
+                
+                $hashName =  "/".md5($file->path().date('c'));
+                $fileName = $hashName . "." . $file->getClientOriginalExtension();
+                $filePath = storage_path('app/public/user_profile_pictures') . $fileName;
+                Image::make($file)->fit(200)->save($filePath);
+                $newUser->picture_path = $fileName;
+            }
+        }else{
+            $newUser->picture_path = "default"; //TODO replace default path in database table
         }
- */    
+  
 
         //Search and retrieve the affiliation from db
         $affiliationInput = ucwords($formData['affiliation']);

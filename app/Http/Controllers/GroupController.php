@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\User;
+use App\Topic;
+use App\Group;
+
+
 class GroupController extends Controller
 {
     /**
@@ -32,7 +37,10 @@ class GroupController extends Controller
      */
     public function create()
     {
-        return view('Pages.Group.create');
+         // Retrieve data from DB
+        $topicList = Topic::all();
+         
+        return view('Pages.Group.create', ['topicList' => $topicList]);
     }
 
     /**
@@ -43,7 +51,18 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newGroup = new Group;
+
+        $newGroup->name = $request->input('name');
+        $newGroup->description = $request->input('description');
+       // TODO handling private field $newGroup->isPrivate = 
+        // Handling user invitations
+
+
+        // Handling user as admin
+
+        // Handling users invitation tagging
+
     }
 
     /**

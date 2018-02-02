@@ -20,7 +20,8 @@ class CreateGroupsTable extends Migration
             $table->integer('subscribers_count',false,true)->default(0); // no auto increment and unisgned integer column
             $table->text('description');
             $table->string('picture_path',500);
-            
+            $table->enum('public',['public','private'])->default('public');
+
             $table->timestamps();
         });
     }

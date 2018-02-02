@@ -1,4 +1,10 @@
-@extends('Layout.main')
+@extends ('Layout.main')
+
+@section('head')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<link href="{{public_path('css/createPublication.css')}}" rel="stylesheet" />
+@endsection
+
 
 @section('content')
 <!-- MultiStep Form -->
@@ -87,4 +93,10 @@
     </div>
     </div>
 <!-- /.MultiStep Form -->
+@endsection
+
+@section('script')
+<script src="{{ public_path('js/jquery-ui.js') }}"></script>
+<script src="{{ public_path('js/jqueryform.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 @endsection
