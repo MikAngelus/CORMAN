@@ -106,18 +106,18 @@ class RegisterController extends Controller
         $newUser->reference_link = $formData['personal_link'];
         
         //Handling Profile picture  
-        //TODO replace default path in database table
-        //TODO implement image thumbnailization with some php library to save space
-        
-        //TODO fix the upload file issue
-        $file = $formData['profilePic'];
-        if( $file->isValid() ){
-            
-            $hashName =  "/".md5($file->path().date('c'));
-            $fileName = $hashName . "." . $file->getClientOriginalExtension();
-            $filePath = storage_path('app/public/user_profile_pictures') . $fileName;
-            Image::make($file)->fit(200)->save($filePath);
-            $newUser->picture_path = $fileName;
+        if( isset($formData['profilePic'])){
+            $file = $formData['profilePic'];
+            if( $file->isValid() ){
+                
+                $hashName =  "/".md5($file->path().date('c'));
+                $fileName = $hashName . "." . $file->getClientOriginalExtension();
+                $filePath = storage_path('app/public/user_profile_pictures') . $fileName;
+                Image::make($file)->fit(200)->save($filePath);
+                $newUser->picture_path = $fileName;
+            }
+        }else{
+            $newUser->picture_path = "default"; //TODO replace default path in database table
         }
   
 

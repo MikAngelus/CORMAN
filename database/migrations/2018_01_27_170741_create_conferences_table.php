@@ -23,6 +23,7 @@ class CreateConferencesTable extends Migration
             $table->string('doi',255)->nullable(true);
             $table->string('ee',255)->nullable(true);
             $table->string('url',255)->nullable(true);
+            $table->timestamps();
 
             $table->foreign('publication_id')->references('id')->on('publications');
         });

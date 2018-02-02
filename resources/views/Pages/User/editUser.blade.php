@@ -1,7 +1,10 @@
-@extends('Layout.main')
+@extends ('Layout.main')
+
+@section('head')
+    <link rel="stylesheet" href="{{ public_path('css/User/editUser.css') }}">
+@endsection
 
 @section('content')
-
 <div id="box" class="container-fluid col-lg-6 col-md-10 col-sm-12 mt-5">
     <div class="container p-0 pt-3 ml-1" id="personalInfo">
         <div class="col-lg-4" id="profilePhoto">
@@ -34,5 +37,8 @@
     </div>
 
 <q></q>
+@endsection
 
+@section('script')
+    <!-- Inserire eventuale script per la gestione dei campi  -->
 @endsection

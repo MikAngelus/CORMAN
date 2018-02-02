@@ -53,7 +53,7 @@ class PublicationController extends Controller
      */
     public function show($id)
     {
-        $publication = Auth::user()->publication->where('id',$id);
+        $publication = Auth::user()->publications->where('id',$id);
         return view('Pages.Publication.modal', ['publication'=>$publication] );
     }
 
@@ -65,7 +65,7 @@ class PublicationController extends Controller
      */
     public function edit($id)
     {
-        $publication = Auth::user()->publication->where('id',$id);
+        $publication = Auth::user()->publications->where('id',$id);
         return view('Pages.Publication.edit', ['publication'=>$publication] );
     }
 
