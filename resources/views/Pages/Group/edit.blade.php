@@ -43,7 +43,7 @@
                     <label class="col-sm-12 col-md-3 col-lg-2">Add Topics</label>
                     <select class="form-control" id="topicsDropdown" name="topics[]" multiple>
                         <option value=""></option> <!-- needed for selct2.js library don't remove!-->
-                            @foreach($topic as $topic)
+                            @foreach($topicList as $topic)
                                 <option value="{{$topic->name}}">{{$topic->name}}</option>
                             @endforeach
                     </select>
