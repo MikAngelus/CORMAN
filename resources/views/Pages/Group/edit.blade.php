@@ -1,9 +1,10 @@
 @extends('Layout.main')
 
 @section('head')
+    <link href="{{ url('css/Group/createGroup.css') }}" rel="stylesheet"/>
+    <link href="{{ url('css/Group/groups.css') }}" rel="stylesheet"/>
+    <link href="{{ url('css/form.css') }}" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-    <link href="{{url('css/edit_forms.css')}}" rel="stylesheet"/>
-    <link href="{{url('css/form.css')}}" rel="stylesheet" />
 @endsection
 
 @section('content')
