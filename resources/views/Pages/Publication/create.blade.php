@@ -3,6 +3,7 @@
 @section('head')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 <link href="{{url('css/form.css')}}" rel="stylesheet" />
+<link href="{{url('css/edit_froms.css')}}" rel="stylesheet" />
 @endsection
 
 
@@ -18,29 +19,29 @@
                 <li>Media</li>
             </ul>
             <!-- fieldsets -->
-            <fieldset>
+            <fieldset id="primary">
                 <h2 class="fs-title">General Info</h2>
                 <h3 class="fs-subtitle">Insert general informations about the publication here</h3>
                 <input type="text" name="title" placeholder="Title"/>
-                
+
                 <select class="form-control" id="authorsDropdown" name="authors[]" multiple>
                     <option value="author->id"></option> <!-- needed for selct2.js library don't remove!-->
                     @foreach($authorList as $author)
                         <option>{{$author->last_name}} {{$author->first_name}}</option>
                     @endforeach
                 </select>
-                
+
                 <input type="date" name="publication_date" placeholder="Publication Date"/>
                 <input type="text" name="venue" placeholder="Venue"/>
-                
+
                 <select class="form-control" id="topicsDropdown" name="topics[]" multiple>
                         <option value=""></option> <!-- needed for selct2.js library don't remove!-->
                         @foreach($topicList as $topic)
                         <option value="{{$topic->name}}">{{$topic->name}}</option>
                         @endforeach
                 </select>
-               
-                <select class="form-control" id="pub-type">
+
+                <select class="form-control" id="pub-type" name="pub-type">
                     <option>Journal/Article</option>
                     <option>Conference/Workshop</option>
                     <option>Editorship</option>
@@ -58,8 +59,8 @@
                 <input type="text" name="doi" placeholder="DOI"/>
                 <input type="text" name="ee" placeholder="EE"/>
                 <input type="text" name="url" placeholder="URL"/>
-                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
-                <input type="button" name="next" class="next action-button" value="Next"/>
+                <a href='#' class="fake_btn" data-role='button'>previous</a>
+              <a href='#' class="fake_btn" data-role='button'>next</a>
             </fieldset>
             <fieldset id="conferenceFieldset">
                 <h2 class="fs-title">Conference/Workshop Details</h2>
@@ -71,23 +72,25 @@
                 <input type="text" name="doi" placeholder="DOI"/>
                 <input type="text" name="ee" placeholder="EE"/>
                 <input type="text" name="url" placeholder="URL"/>
-                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
-                <input type="button" name="next" class="next action-button" value="Next"/>
+                <a href='#' class="fake_btn" data-role='button'>previous</a>
+                <a href='#' class="fake_btn" data-role='button'>next</a>
             </fieldset>
             <fieldset id="editorshipFieldset">
                 <h2 class="fs-title">Editorship</h2>
                 <h3 class="fs-subtitle">Insert here some info about Editorship</h3>
                 <input type="text" name="abstract" placeholder="Abstract"/>
                 <input type="text" name="volume" placeholder="Volume"/>
+
                 <input type="text" name="publisher" placeholder="Publisher"/>
                 <input type="text" name="key" placeholder="Key"/>
                 <input type="text" name="doi" placeholder="DOI"/>
                 <input type="text" name="ee" placeholder="EE"/>
                 <input type="text" name="url" placeholder="URL"/>
-                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
-                <input type="button" name="next" class="next action-button" value="Next"/>
+                <a href='#' class="fake_btn" data-role='button'>previous</a>
+                <a href='#' class="fake_btn" data-role='button'>next</a>
             </fieldset>
-            <fieldset>
+
+            <fieldset id="media">
                 <h2 class="fs-title">Media</h2>
                 <h3 class="fs-subtitle">Add here some media about the publication</h3>
                 <label class="btn btn-default btn-file row">
