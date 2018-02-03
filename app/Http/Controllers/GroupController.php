@@ -39,8 +39,9 @@ class GroupController extends Controller
     {
         // Retrieve data from DB
         $topicList = Topic::all();
-        $userList = User::all();
-        return view('Pages.Group.create', ['topicList' => $topicList, 'userList'=> $userList]);
+        $userList = User::where('id', '!=', Auth::id())->get()->sortBy('last_name');
+
+        return view('Pages.Group.create', ['topicList' => $topicList, 'userList'=>$userList]);
     }
 
     /**
@@ -81,7 +82,7 @@ class GroupController extends Controller
         }
 
         // Adding the list of members
-        $userINList = $request->input('members[]');
+        $userINList = $request->input('users[]');
         foreach ($userINList as $userIN) {
             $userIN = str_replace(' ', '', $userIN);
             $userDBList = User::all();
@@ -93,7 +94,7 @@ class GroupController extends Controller
                 }
             }
         }
-
+        return redirect(route('Group.show', ['id'=>$newGroup->id]));
         // TODO handling private field $newGroup->isPrivate =
         // Handling user invitations
 
