@@ -13,21 +13,21 @@
                 <fieldset>
                     <h2 class="fs-title">Create Group</h2>
                     <h3 class="fs-subtitle">Insert some informations about the group</h3>
-                    
+
                     <input type="text" name="name" placeholder="Group Name"/>
                     <textarea rows="4" name="description" placeholder="Description" ></textarea>
-                    
+
                     <select type="text" name="topics[]" placeholder="Add Topics"/>
 
                     </select>
 
                     <input type="text" name="members[]" placeholder="Invite Users"/>
-                    
-                    </select>              
-                   
-                   
-                    <input type="file" name="picture "class="group_picture" id="upload">
-                   
+
+                    </select>
+
+
+                    <input type="file" class="group_picture" id="upload">
+
                     <div id="radioGroup" class="btn-group col-lg-12" data-toggle="group-privacy">
                         <label id="visibilityLabel" for="visibility" class="col-form-label col-lg-3">Visibility</label>  
                         <div class="col-lg-3">

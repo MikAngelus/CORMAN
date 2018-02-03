@@ -15,7 +15,7 @@
     </div>
 </div>
 <div class="container">
-    <a href="/groups/create" id="btn-newgroup" class="btn-primary" role="button">New Group</a>
+    <a href="/createGroup" id="btn-newgroup" class="btn-primary" role="button">New Group</a>
 </div>
 @endsection
 

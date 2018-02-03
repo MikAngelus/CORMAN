@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="{{ url('css/publications.css')}}">
-
 <div class="row">
 <!-- common fields -->
     <div class="form-group">
@@ -44,12 +42,13 @@
     @switch($publication->type)
         @case('journal')
             @include('Pages.Publication.journalFields', ['publication'=>$publication]);
-        @endcase
+        @break
         @case('conference')
             @include('Pages.Publication.conferenceFields', ['publication'=>$publication]);
-        @endcase
+        @break
         @case('editorship')
             @include('Pages.Publication.editorshipFields', ['publication'=>$publication]);
+        @break
     @endswitch
 
 </div>
