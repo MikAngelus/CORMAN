@@ -39,7 +39,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return view('Pages.User.dashboard');
     }
 
     /**
@@ -50,7 +50,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('Pages.editUser');
+        return view('Pages.User.editUser');
     }
 
     /**
