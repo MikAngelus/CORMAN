@@ -15,7 +15,7 @@
                 <a class="nav-link" href="#">Features</a>
             </li>
         </ul>
-        <button class="btn btn-primary mr-3">Join Us</button>
-        <button class="btn btn-primary">Login</button>
+        <a href="{{ url('signUp') }}"><button class="btn btn-primary mr-3">Join Us</button></a>
+        <a href=" {{ url('login') }} ")><button class="btn btn-primary">Log In</button></a>
     </div>
 </nav>
