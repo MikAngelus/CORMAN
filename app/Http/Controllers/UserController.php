@@ -50,7 +50,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('Pages.User.editUser');
+        return view('Pages.User.editUser', ['user' => $user]);
     }
 
     /**
@@ -62,7 +62,16 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $user->last_name = $request->input('last_name');
+        $user->first_name = $request->input('first_name');
+        $user->birth_date = $request->input('birth_date');
+        $user->email = $request->input('email');
+        $user->password = $request->input('password');
+        $user->picture_path = $request->input('picture_path');
+        $user->affiliation_id = $request->input('affiliation_id');
+        $user->role_id = $request->input('role_id');
+        $user->reference_link = $request->input('reference_link');
+
     }
 
     /**

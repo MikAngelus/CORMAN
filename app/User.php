@@ -53,6 +53,6 @@ class User extends Authenticatable
 */
     //TODO fix this function!!
     public function author(){
-        return $this->belongsTo('App\Author');
+        return $this->hasOne('App\Author');
     }
 }

@@ -162,6 +162,7 @@ class RegisterController extends Controller
             }
         }
 
+        // TODO is the below line needed?
         return $newUser;
     }
 }

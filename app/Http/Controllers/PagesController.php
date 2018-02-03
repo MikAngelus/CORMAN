@@ -25,7 +25,7 @@ class PagesController extends Controller
     }
 
     public function tutorial(){
-        $publication=Auth::user()->publications->where('id',1)->first();
+        $publication=Auth::user()->publications->first();
         return view('Pages.tutorial', ['publication' => $publication]);
     }
 
