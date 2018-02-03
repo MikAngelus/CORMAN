@@ -39,8 +39,8 @@ class GroupController extends Controller
     {
         // Retrieve data from DB
         $topicList = Topic::all();
-
-        return view('Pages.Group.create', ['topicList' => $topicList]);
+        $userList = User::all();
+        return view('Pages.Group.create', ['topicList' => $topicList, 'userList'=> $userList]);
     }
 
     /**
