@@ -11,6 +11,7 @@
     <div class="row">
         <div id="formContainer" class=" col-xl-6 col-lg-7 col-md-9 col-sm-10 col-12">
             <form id="msform" action="{{ route('groups.store')}}" method="post" enctype="multipart/form-data">
+                {{csrf_field()}}
                 <!-- fieldsets -->
                 <fieldset>
                     <h2 class="fs-title">Create Group</h2>
