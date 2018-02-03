@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,7 +42,7 @@ class GroupController extends Controller
         $topicList = Topic::all();
         $userList = User::where('id', '!=', Auth::id())->get()->sortBy('last_name');
 
-        return view('Pages.Group.create', ['topicList' => $topicList, 'userList'=>$userList]);
+        return view('Pages.Group.create', ['topicList' => $topicList, 'userList' => $userList]);
     }
 
     /**
@@ -52,19 +53,40 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->all());
         $newGroup = new Group;
 
         $newGroup->name = $request->input('name');
         $newGroup->description = $request->input('description');
-        $newGroup->picture_path = $request->input('picture');
+        //$newGroup->picture_path = $request->input('picture');
+
+        if (($request->hasFile('picture'))) {
+            $file = $request->file('picture');
+            if ($file->isValid()) {
+
+                $hashName = "/" . md5($file->path() . date('c'));
+                $fileName = $hashName . "." . $file->getClientOriginalExtension();
+                $filePath = public_path('images/groups') . $fileName;
+                Image::make($file)->fit(200)->save($filePath);
+                $newGroup->picture_path = $fileName;
+            }
+        } else {
+            $newGroup->picture_path = public_path('images/groups/group_icon.png');
+            //TODO replace default path in database table
+        }
+
+
         $newGroup->public = $request->input('privacy-btn');
+
+        //Increment count for the first member
+        $newGroup->subscribers_count = 1;
         $newGroup->save();
 
         // Adding the creator as admin of the group.
         $newGroup->users()->attach(Auth::id(), ['group_id' => $newGroup->id, 'role' => 'admin', 'state' => 'accepted', 'created_at' => now(), 'updated_at' => now()]);
 
         // Adding the list of topic
-        $topicINList = $request->input('topic[]');
+        $topicINList = $request->input('topics');
         foreach ($topicINList as $topicKey => $topicInput) {
             $topicInput = strtolower($topicInput);
             //Search and retrieve the topic from db
@@ -82,7 +104,7 @@ class GroupController extends Controller
         }
 
         // Adding the list of members
-        $userINList = $request->input('users[]');
+        $userINList = $request->input('users');
         foreach ($userINList as $userIN) {
             $userIN = str_replace(' ', '', $userIN);
             $userDBList = User::all();
@@ -94,7 +116,7 @@ class GroupController extends Controller
                 }
             }
         }
-        return redirect(route('Group.show', ['id'=>$newGroup->id]));
+        return redirect()->route('groups.show', ['id' => $newGroup->id]);
         // TODO handling private field $newGroup->isPrivate =
         // Handling user invitations
 
