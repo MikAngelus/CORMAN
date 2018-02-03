@@ -7,10 +7,23 @@
 
 
 @section('content')
+<div class="row" id="formErrors">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+</div>
+
 <!-- MultiStep Form -->
 <div class="row">
     <div id="box" class="col-md-6 col-md-offset-3">
-        <form id="msform">
+        <form id="msform" action="{{route('publications.store')}}" method="post">
+            {{ csrf_field() }}
             <!-- progressbar -->
             <ul id="progressbar" class="pt-2">
                 <li class="active">General Info</li>
@@ -21,10 +34,11 @@
             <fieldset>
                 <h2 class="fs-title">General Info</h2>
                 <h3 class="fs-subtitle">Insert general informations about the publication here</h3>
-                <input type="text" name="title" placeholder="Title"/>
+                
+                <input type="text" name="title" placeholder=""/>
                 
                 <select class="form-control" id="authorsDropdown" name="authors[]" multiple>
-                    <option value="author->id"></option> <!-- needed for selct2.js library don't remove!-->
+                    <option value=""></option> <!-- needed for selct2.js library don't remove!-->
                     @foreach($authorList as $author)
                         <option>{{$author->last_name}} {{$author->first_name}}</option>
                     @endforeach
@@ -40,13 +54,15 @@
                         @endforeach
                 </select>
                
-                <select class="form-control" id="pub-type">
-                    <option>Journal/Article</option>
-                    <option>Conference/Workshop</option>
-                    <option>Editorship</option>
+                <select class="form-control" id="pub-type" name="type">
+                    <option value="journal" >Journal/Article</option>
+                    <option value="conference" >Conference/Workshop</option>
+                    <option value="editorship" >Editorship</option>
                 </select>
+
                 <input type="button" name="next" class="next action-button" value="Next"/>
             </fieldset>
+            <!--
             <fieldset id="journalFieldset">
                 <h2 class="fs-title">Journal/Articles Details</h2>
                 <h3 class="fs-subtitle">Insert here some info about Journal</h3>
@@ -65,7 +81,7 @@
                 <h2 class="fs-title">Conference/Workshop Details</h2>
                 <h3 class="fs-subtitle">Insert here some info about Conference</h3>
                 <input type="text" name="abstract" placeholder="Abstract"/>
-                <input type="text" name="pages" placeholder="Pages"/> <!--RANGE-->
+                <input type="text" name="pages" placeholder="Pages"/> 
                 <input type="text" name="days" placeholder="Days"/>
                 <input type="text" name="key" placeholder="Key"/>
                 <input type="text" name="doi" placeholder="DOI"/>
@@ -88,6 +104,7 @@
                 <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
                 <input type="button" name="next" class="next action-button" value="Next"/>
             </fieldset>
+            -->
             <fieldset>
                 <h2 class="fs-title">Media</h2>
                 <h3 class="fs-subtitle">Add here some media about the publication</h3>
@@ -102,10 +119,10 @@
                 <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
                 <input type="submit" name="submit" class="submit action-button" value="Create"/>
             </fieldset>
+            
         </form>
     </div>
-    </div>
-<!-- /.MultiStep Form -->
+</div>
 @endsection
 
 @section('script')
