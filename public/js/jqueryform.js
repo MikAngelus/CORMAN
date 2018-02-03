@@ -5,15 +5,15 @@ var choice;
 var left, opacity, scale; //fieldset properties which we will animate
 var animating; //flag to prevent quick multi-click glitches
 
-$('select[name=pub-type]').change(function(){
-    if($(this).val() == 'Journal/Article') {
+$('select[name=type]').change(function(){
+    if($(this).val() == 'journal') {
         choice = $('#journalFieldset');
 
       }
-      if($(this).val() == 'Conference/Workshop') {
+      if($(this).val() == 'conference') {
           choice = $('#conferenceFieldset');
       }
-      if($(this).val() == 'Editorship') {
+      if($(this).val() == 'editorship') {
         choice = $('#editorshipFieldset');
 
       }

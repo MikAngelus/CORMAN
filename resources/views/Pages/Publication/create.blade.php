@@ -3,7 +3,7 @@
 @section('head')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 <link href="{{url('css/form.css')}}" rel="stylesheet" />
-<link href="{{url('css/edit_froms.css')}}" rel="stylesheet" />
+<link href="{{url('css/edit_forms.css')}}" rel="stylesheet" />
 @endsection
 
 
@@ -36,8 +36,6 @@
                 <h2 class="fs-title">General Info</h2>
                 <h3 class="fs-subtitle">Insert general informations about the publication here</h3>
                 
-                <input type="text" name="title" placeholder=""/>
-
                 <input type="text" name="title" placeholder="Title"/>
 
                 <select class="form-control" id="authorsDropdown" name="authors[]" multiple>
@@ -62,18 +60,13 @@
                     <option value="journal" >Journal/Article</option>
                     <option value="conference" >Conference/Workshop</option>
                     <option value="editorship" >Editorship</option>
-
-
-                <select class="form-control" id="pub-type" name="pub-type">
-                    <option>Journal/Article</option>
-                    <option>Conference/Workshop</option>
-                    <option>Editorship</option>
-
                 </select>
+
+
 
                 <input type="button" name="next" class="next action-button" value="Next"/>
             </fieldset>
-            <!--
+   
             <fieldset id="journalFieldset">
                 <h2 class="fs-title">Journal/Articles Details</h2>
                 <h3 class="fs-subtitle">Insert here some info about Journal</h3>
@@ -88,6 +81,8 @@
                 <a href='#' class="fake_btn" data-role='button'>previous</a>
               <a href='#' class="fake_btn" data-role='button'>next</a>
             </fieldset>
+
+
             <fieldset id="conferenceFieldset">
                 <h2 class="fs-title">Conference/Workshop Details</h2>
                 <h3 class="fs-subtitle">Insert here some info about Conference</h3>
@@ -101,6 +96,8 @@
                 <a href='#' class="fake_btn" data-role='button'>previous</a>
                 <a href='#' class="fake_btn" data-role='button'>next</a>
             </fieldset>
+
+
             <fieldset id="editorshipFieldset">
                 <h2 class="fs-title">Editorship</h2>
                 <h3 class="fs-subtitle">Insert here some info about Editorship</h3>
@@ -115,9 +112,6 @@
                 <a href='#' class="fake_btn" data-role='button'>previous</a>
                 <a href='#' class="fake_btn" data-role='button'>next</a>
             </fieldset>
-
-            -->
-            <fieldset>
 
             <fieldset id="media">
                 <h2 class="fs-title">Media</h2>
