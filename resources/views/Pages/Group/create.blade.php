@@ -1,7 +1,10 @@
 @extends('Layout.main')
 
 @section('head')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <link href="{{ url('css/Group/createGroup.css') }}" rel="stylesheet"/>
+    <link href="{{ url('css/Group/groups.css') }}" rel="stylesheet"/>
+    <link href="{{ url('css/form.css') }}" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 @endsection
 
 @section('content')
@@ -16,9 +19,12 @@
 
                     <input type="text" name="name" placeholder="Group Name"/>
                     <textarea rows="4" name="description" placeholder="Description" ></textarea>
-
-                    <select type="text" name="topics[]" placeholder="Add Topics"/>
-
+                    
+                    <select class="form-control" id="topicsDropdown" name="topics[]" multiple>
+                        <option value=""></option> <!-- needed for selct2.js library don't remove!-->
+                        @foreach($topicList as $topic)
+                        <option value="{{$topic->name}}">{{$topic->name}}</option>
+                        @endforeach
                     </select>
 
                     <input type="text" name="members[]" placeholder="Invite Users"/>
