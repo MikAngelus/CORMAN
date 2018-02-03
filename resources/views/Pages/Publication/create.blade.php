@@ -35,14 +35,11 @@
             <fieldset id="primary">
                 <h2 class="fs-title">General Info</h2>
                 <h3 class="fs-subtitle">Insert general informations about the publication here</h3>
-<<<<<<< HEAD
                 
                 <input type="text" name="title" placeholder=""/>
-                
-=======
+
                 <input type="text" name="title" placeholder="Title"/>
 
->>>>>>> 178cb26d14852533889d7a23525ee6d3ffa3062f
                 <select class="form-control" id="authorsDropdown" name="authors[]" multiple>
                     <option value=""></option> <!-- needed for selct2.js library don't remove!-->
                     @foreach($authorList as $author)
@@ -59,19 +56,19 @@
                         <option value="{{$topic->name}}">{{$topic->name}}</option>
                         @endforeach
                 </select>
-<<<<<<< HEAD
+
                
                 <select class="form-control" id="pub-type" name="type">
                     <option value="journal" >Journal/Article</option>
                     <option value="conference" >Conference/Workshop</option>
                     <option value="editorship" >Editorship</option>
-=======
+
 
                 <select class="form-control" id="pub-type" name="pub-type">
                     <option>Journal/Article</option>
                     <option>Conference/Workshop</option>
                     <option>Editorship</option>
->>>>>>> 178cb26d14852533889d7a23525ee6d3ffa3062f
+
                 </select>
 
                 <input type="button" name="next" class="next action-button" value="Next"/>
@@ -118,13 +115,11 @@
                 <a href='#' class="fake_btn" data-role='button'>previous</a>
                 <a href='#' class="fake_btn" data-role='button'>next</a>
             </fieldset>
-<<<<<<< HEAD
+
             -->
             <fieldset>
-=======
 
             <fieldset id="media">
->>>>>>> 178cb26d14852533889d7a23525ee6d3ffa3062f
                 <h2 class="fs-title">Media</h2>
                 <h3 class="fs-subtitle">Add here some media about the publication</h3>
                 <label class="btn btn-default btn-file row">
