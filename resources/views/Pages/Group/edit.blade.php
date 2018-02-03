@@ -41,7 +41,12 @@
                 </div>
                 <div class="form-group">
                     <label class="col-sm-12 col-md-3 col-lg-2">Add Topics</label>
-                    <input class="col-sm-12 col-md-9 col-lg-6 editable-field" name="topics" type="text" placeholder=""/>
+                    <select class="form-control" id="topicsDropdown" name="topics[]" multiple>
+                        <option value=""></option> <!-- needed for selct2.js library don't remove!-->
+                            @foreach($topicList as $topic)
+                                <option value="{{$topic->name}}">{{$topic->name}}</option>
+                            @endforeach
+                    </select>
                     <a class="edit col-lg-1">Edit</a>
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
@@ -66,6 +71,6 @@
 @section('script')
     <script src="{{ url('js/jquery-ui.js') }}"></script>
     <script src="{{ url('js/jqueryform.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="{{ url('js/editFieldsForm.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 @endsection
