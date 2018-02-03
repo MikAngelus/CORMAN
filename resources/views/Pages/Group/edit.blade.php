@@ -21,26 +21,28 @@
                     <a class="edit col-lg-1">Edit</a>
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
+                
                 <div class="form-group">
                     <label class="col-sm-12 col-md-3 col-lg-2">Description</label>
                     <input class="col-sm-12 col-md-9 col-lg-6 editable-field" rows="4" name="description" type="text" placeholder=""/>
                     <a class="edit col-lg-1">Edit</a>
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
+                
                 <div class="form-group">
-                    <label class="col-sm-12 col-md-3 col-lg-2">Invite Users</label>
-                    <input class="col-sm-12 col-md-9 col-lg-6 editable-field" name="invite_users" type="text" placeholder=""/>
+                    <label class="col-sm-12 col-md-3 col-lg-2">Edit Members</label>
+                    <select class="form-control" id="usersDropdown" name="users[]" multiple>
+                        <option value=""></option> <!-- needed for selct2.js library don't remove!-->
+                            @foreach($userList as $user)
+                                <option value="{{$user->first_name}}">{{$user->last_name}} {{$user->first_name}}</option>
+                            @endforeach
+                    </select>
                     <a class="edit col-lg-1">Edit</a>
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
+
                 <div class="form-group">
-                    <label class="col-sm-12 col-md-3 col-lg-2">Profile Photo</label>
-                    <input class="col-sm-12 col-md-9 col-lg-6 editable-field custom-file-input" id="upload" name="profile_photo" type="file" placeholder=""/>
-                    <a class="edit col-lg-1">Edit</a>
-                    <a class="button save hidden col-lg-1">Save</a>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-12 col-md-3 col-lg-2">Add Topics</label>
+                    <label class="col-sm-12 col-md-3 col-lg-2">Edit Topics</label>
                     <select class="form-control" id="topicsDropdown" name="topics[]" multiple>
                         <option value=""></option> <!-- needed for selct2.js library don't remove!-->
                             @foreach($topicList as $topic)
@@ -50,6 +52,7 @@
                     <a class="edit col-lg-1">Edit</a>
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
+                
                 <div id="radioGroup" class="btn-group col-lg-12" data-toggle="group-privacy">
                     <label id="visibilityLabel" for="visibility" class="col-form-label col-lg-3">Visibility</label>  
                     <div class="col-lg-3">
@@ -73,4 +76,5 @@
     <script src="{{ url('js/jqueryform.js') }}"></script>
     <script src="{{ url('js/editFieldsForm.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="{{ url('js/Group/editGroup.js') }}"></script>
 @endsection
