@@ -7,7 +7,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-    <a href="{{ route('groups.create')}}" id="btn-newgroup" class="btn btn-primary" role="button">New Group</a>
+        <a href="{{route('groups.create')}}" id="btn-newgroup" class="btn btn-primary" role="button">New Group</a>
     </div>
     <div class="row">
         @foreach($groupList as $group)

@@ -1,13 +1,13 @@
 $(document).ready(function() {
     // Initialize selct2 components
-    $('#authorsDropdown').select2({
-        placeholder: "tag the authors",
+    $('#usersDropdown').select2({
+        placeholder: "invite members",
         maximumSelectionLength: 10,
         tags:true
     });
 
     $('#topicsDropdown').select2({
-        placeholder: "add topics to your publication",
+        placeholder: "add topics to your group",
         maximumSelectionLength: 5,
         tags:true
     });

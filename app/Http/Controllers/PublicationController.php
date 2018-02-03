@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 use App\Publication;
 use App\Author;
@@ -35,9 +36,10 @@ class PublicationController extends Controller
      */
     public function create()
     {
-        $authorList = Author::all();
-        $topicList = Topic::all();
-        return view('Pages.Publication.create', ['authorList' => $authorList, 'topicList' => $topicList]);
+        $authorList = Author::all()->sortBy('last_name');
+        $topicList = Topic::all()->sortBy('title');
+        $selfAuthor = Auth::user();
+        return view('Pages.Publication.create', ['authorList' => $authorList, 'topicList' => $topicList, 'selfAutor' => $selfAuthor]);
     }
 
     /**
@@ -48,20 +50,50 @@ class PublicationController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->all());
         /*
         *Create new publications
         * for all fields of the form fill the field of database
         * for all elements of the author field form input 
-        */
+        */ 
+        // TODO resolve the resubmission
+        $validator = Validator::make($request->all(), [
+            'title' => 'bail|required|filled|max:255',
+            'publication_date' => 'bail|required|date',
+            'venue' => 'bail|required|filled|max:255',
+            'type' => 'bail|required|alpha|in:journal,conference,editorship|max:255',
+            //'profilePic' => 'bail|image|max:15000',
+            
+            'authors.*' => 'required|filled',
+            'topics.*' => 'filled|max:50',
+        ]);
+
+
+
+        if ($validator->fails()) {
+            return redirect('/publications/create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+
 
         $newPublication = new Publication;
 
         $newPublication->title = ucwords($request->input('title'));
         $newPublication->year = $request->input('publication_date');
         $newPublication->venue = ucwords($request->input('venue'));
+        $newPublication->type = $request->input('type');
+        //$newPublication->ispublic = $request->input('ispublic'); add to the form in create.blade.php
+        
+        //Handling Media
+        $newPublication->multimedia_path = "path/to/multimedia";
 
 
+        $newPublication->save();
+        // Handling Publication Details
 
+        
         // Handling topics  
         $topicInputList = $request->input('topics');
         foreach( $topicInputList as $topicKey => $topicInput ){
@@ -81,27 +113,46 @@ class PublicationController extends Controller
             }
         }
 
+        // Handling Authors 
+        //Add the auth as self author
+        $newPublication->users()->attach(Auth::user()->id);
 
-        // Handling Authors TOFO continue to implemnt, make sure to extraxct from input the name
-        // and last name and add 2 where clauses in and
+        //
         $authorInputList = $request->input('authors');
         foreach( $authorInputList as $authorKey => $authorInput ){
-            $authorInput = strtolower($authorInput);
-            //Search and retrieve the topic from db
-            $author = Topic::where('name', $authorInput)->first();
-            //Check if the topic is already in the db, otherwise create a new one and attach to the user
-            if($topic != null){
-                $newPublication->topics()->attach($topic->id);
+            $authorInput = explode(' ',strtolower($authorInput),2); // split the string for first name and last name, conventions: last name after!
+            
+            //Search and retrieve the author from db
+            $author = Author::where('last_name', $authorInput[0])->where('first_name',$authorInput[1])->first();
+               
+            
+            //Check if the author is already in the db, otherwise create a new one and attach to the user
+            if($author != null){
+                $newPublication->authors()->attach($author->id);
             }
             else{
-                $newTopic = new Topic;
-                $newTopic->name = $topicInput;
-                $newTopic->save();
+                $newAuthor = new Author;
+                $newAuthor->first_name = $authorInput[1];
+                $newAuthor->last_name = $authorInput[0];
+                $newAuthor->save();
 
-                $newPublication->topics()->attach($newTopic->id);
+                $newPublication->authors()->attach($newAuthor->id);
             }
         }
+
+        return redirect('/publications');
+
+       
     }
+
+
+
+
+
+
+
+
+
 
     /**
      * Display the specified resource.

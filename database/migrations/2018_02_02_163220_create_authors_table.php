@@ -17,7 +17,7 @@ class CreateAuthorsTable extends Migration
             $table->increments('id');
             $table->string('first_name')->nullable(false);
             $table->string('last_name')->nullable(false);
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned()->nullable(true);
             $table->timestamps();
 
             // Constraints

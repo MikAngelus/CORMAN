@@ -80,9 +80,9 @@ class RegisterController extends Controller
          
  
         return view('auth.registration',[
-          'affiliations' => $affiliationList,
-          'roles' => $roleList,
-          'topics' => $topicList
+          'affiliationList' => $affiliationList,
+          'roleList' => $roleList,
+          'topicList' => $topicList
          ]);
     }
 
@@ -162,6 +162,7 @@ class RegisterController extends Controller
             }
         }
 
+        // TODO is the below line needed?
         return $newUser;
     }
 }
