@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\Publication;
+use App\Author;
+use App\Topic;
+
 class PublicationController extends Controller
 {
     /**
@@ -20,7 +24,7 @@ class PublicationController extends Controller
     
     public function index()
     {
-        $publicationList = Auth::user()->publications->sortByDesc('year');
+        $publicationList = Auth::user()->publications->where('public',1)->sortByDesc('year')->take(5);
         return view('Pages.Publication.list', ['publicationList'=>$publicationList] );
     }
 
@@ -31,7 +35,9 @@ class PublicationController extends Controller
      */
     public function create()
     {
-        return view('Pages.Publication.create');
+        $authorList = Author::all();
+        $topicList = Topic::all();
+        return view('Pages.Publication.create', ['authorList' => $authorList, 'topicList' => $topicList]);
     }
 
     /**
@@ -42,7 +48,59 @@ class PublicationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        /*
+        *Create new publications
+        * for all fields of the form fill the field of database
+        * for all elements of the author field form input 
+        */
+
+        $newPublication = new Publication;
+
+        $newPublication->title = ucwords($request->input('title'));
+        $newPublication->year = $request->input('publication_date');
+        $newPublication->venue = ucwords($request->input('venue'));
+
+
+
+        // Handling topics  
+        $topicInputList = $request->input('topics');
+        foreach( $topicInputList as $topicKey => $topicInput ){
+            $topicInput = strtolower($topicInput);
+            //Search and retrieve the topic from db
+            $topic = Topic::where('name', $topicInput)->first();
+            //Check if the topic is already in the db, otherwise create a new one and attach to the user
+            if($topic != null){
+                $newPublication->topics()->attach($topic->id);
+            }
+            else{
+                $newTopic = new Topic;
+                $newTopic->name = $topicInput;
+                $newTopic->save();
+
+                $newPublication->topics()->attach($newTopic->id);
+            }
+        }
+
+
+        // Handling Authors TOFO continue to implemnt, make sure to extraxct from input the name
+        // and last name and add 2 where clauses in and
+        $authorInputList = $request->input('authors');
+        foreach( $authorInputList as $authorKey => $authorInput ){
+            $authorInput = strtolower($authorInput);
+            //Search and retrieve the topic from db
+            $author = Topic::where('name', $authorInput)->first();
+            //Check if the topic is already in the db, otherwise create a new one and attach to the user
+            if($topic != null){
+                $newPublication->topics()->attach($topic->id);
+            }
+            else{
+                $newTopic = new Topic;
+                $newTopic->name = $topicInput;
+                $newTopic->save();
+
+                $newPublication->topics()->attach($newTopic->id);
+            }
+        }
     }
 
     /**

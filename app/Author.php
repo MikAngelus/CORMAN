@@ -4,11 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Autor extends Model
+class Author extends Model
 {
 
     public function publications(){
-        return $this->belongsToMany('App\Publication', 'autor_publication');
+        return $this->belongsToMany('App\Publication', 'author_publication');
     }
 
     public function user(){

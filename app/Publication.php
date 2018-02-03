@@ -41,7 +41,7 @@ class Publication extends Model
         }
     }
 
-    public function autors(){
-        return $this->belongsToMany('App\Autor', 'autor_publication');
+    public function authors(){
+        return $this->belongsToMany('App\Author', 'author_publication');
     }
 }

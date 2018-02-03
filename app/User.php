@@ -51,8 +51,8 @@ class User extends Authenticatable
         return $this->hasMany('App\PublicationGroup');
     }
 */
-
-    public function autor(){
-        return $this->hasOne('App\Autor');
+    //TODO fix this function!!
+    public function author(){
+        return $this->belongsTo('App\Author');
     }
 }

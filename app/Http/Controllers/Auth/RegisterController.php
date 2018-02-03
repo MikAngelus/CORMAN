@@ -112,7 +112,7 @@ class RegisterController extends Controller
                 
                 $hashName =  "/".md5($file->path().date('c'));
                 $fileName = $hashName . "." . $file->getClientOriginalExtension();
-                $filePath = storage_path('app/public/user_profile_pictures') . $fileName;
+                $filePath = public_path('images/profilePictures') . $fileName;
                 Image::make($file)->fit(200)->save($filePath);
                 $newUser->picture_path = $fileName;
             }

@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Autor::class, function (Faker $faker) {
+$factory->define(App\Author::class, function (Faker $faker) {
     return [
 
         'first_name' => $faker->firstName($gender = 'male'|'female'),
