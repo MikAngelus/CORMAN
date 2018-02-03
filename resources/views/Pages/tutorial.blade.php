@@ -2,9 +2,7 @@
 
 @section('content')
 
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
-    Launch demo modal
-  </button>
+  <h1 data-toggle="modal" data-target="#exampleModalLong">Click for modal</h1>
 
   <!-- Modal -->
   <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">

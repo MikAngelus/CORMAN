@@ -25,7 +25,11 @@
 }
 
 .navbar-toggler-icon {
-    color: white;
+    color: cornflowerblue;
+}
+
+.nav-link{
+  color: cornflowerblue !important;
 }
 
 /* ----------- iPad Pro ----------- */

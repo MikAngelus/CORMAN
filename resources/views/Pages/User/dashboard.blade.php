@@ -1,7 +1,7 @@
 @extends ('Layout.main')
 
 @section('head')
-
+    <link rel="stylesheet" href="{{ url('css/Publication/publications.css') }}">
 @endsection
 
 @section('content')
@@ -10,11 +10,11 @@
         <div class="col-lg-8 col-md-8">
             <center><h1>Last Publications</h1></center>
             <div class="row">
-                <div>
-                    <a href="{{ route('publications.create')}}" id="btn-newgroup" class="btn btn-primary pull-right" role="button">New Publication</a>
+                <div class="col-lg-10 col-md-8">
+                    <a href="{{ route('publications.create')}}" id="btn-newgroup" class="btn btn-primary" role="button">New Publication</a>
                 </div>
-                <div>
-                    <a href="{{ route('publications.index')}}" id="btn-newgroup" class="btn btn-primary pull-right" role="button">View All</a>
+                <div class="col-lg-2 col-md-4">
+                    <a href="{{ route('publications.index')}}" id="btn-newgroup" class="btn btn-primary" role="button">View All</a>
                 </div>
             </div>
             <br>
@@ -25,11 +25,11 @@
         <div class="col-lg-4 col-md-4">
         <center><h1>Last from Groups</h1></center>
         <div class="row">
-            <div>
-                <a href="{{ route('groups.create')}}" id="btn-newgroup" class="btn btn-primary pull-right" role="button">New Group</a>
+            <div class="col-lg-8 col-md-6">
+                <a href="{{ route('groups.create')}}" id="btn-newgroup" class="btn btn-primary" role="button">New Group</a>
             </div>
-            <div>
-                <a href="{{ route('groups.index')}}" id="btn-newgroup" class="btn btn-primary pull-right" role="button">View All</a>
+            <div class="col-lg-4 col-md-6">
+                <a href="{{ route('groups.index')}}" id="btn-newgroup" class="btn btn-primary" role="button">View All</a>
             </div>
         </div>
         @foreach($groupList as $group)

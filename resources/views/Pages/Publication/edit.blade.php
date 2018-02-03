@@ -1,15 +1,16 @@
 @extends('Layout.main')
 
 @section('head')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-<link href="{{url('css/edit_forms.css')}}" rel="stylesheet"/>
-<link href="{{url('css/form.css')}}" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <link href="{{url('css/edit_forms.css')}}" rel="stylesheet"/>
+    <link href="{{url('css/form.css')}}" rel="stylesheet" />
 @endsection
 
 @section('content')
 <div class="row">
     <div class="col-sm-12 col-md-12 col-lg-12">
         <form id="msform">
+            
             <!-- progressbar -->
             <ul id="progressbar">
                 <li class="active">General Info</li>
@@ -18,6 +19,7 @@
                 <li>Editorship</li>
                 <li>Media</li>
             </ul>
+
             <!-- fieldsets -->
             <fieldset class="col-sm-12 col-md-12 col-lg-12">
                 <h2 class="fs-title">General Info</h2>
@@ -181,7 +183,7 @@
                     <a class="edit col-lg-1">Edit</a>
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
-                <div class="form-group">
+                <div class="form-group"></script>
                     <label class="col-sm-12 col-md-3 col-lg-2">Key</label>
                     <input class="col-sm-12 col-md-9 col-lg-6 editable-field" name="key" type="text" placeholder=""/>
                     <a class="edit col-lg-1">Edit</a>
@@ -228,10 +230,10 @@
 @endsection
 
 @section('script')
-<script src="{{ url('js/jquery-ui.js') }}"></script>
-<script src="{{ url('js/jqueryform.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-<script src="{{ url('js/editFieldsForm.js') }}"></script>
+    <script src="{{ url('js/jquery-ui.js') }}"></script>
+    <script src="{{ url('js/jqueryform.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="{{ url('js/editFieldsForm.js') }}"></script>
 @endsection
 
 
