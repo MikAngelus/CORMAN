@@ -42,3 +42,4 @@
 @section('script')
     <!-- Inserire eventuale script per la gestione dei campi  -->
 @endsection
+</div>
