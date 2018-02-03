@@ -26,7 +26,7 @@
                     </select>              
                    
                    
-                    <input type="file" class="group_picture" id="upload">
+                    <input type="file" name="picture "class="group_picture" id="upload">
                    
                     <div id="radioGroup" class="btn-group col-lg-12" data-toggle="group-privacy">
                         <label id="visibilityLabel" for="visibility" class="col-form-label col-lg-3">Visibility</label>  
