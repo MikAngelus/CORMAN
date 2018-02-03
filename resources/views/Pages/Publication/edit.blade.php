@@ -10,6 +10,7 @@
 <div class="row">
     <div class="col-sm-12 col-md-12 col-lg-12">
         <form id="msform">
+            
             <!-- progressbar -->
             <ul id="progressbar">
                 <li class="active">General Info</li>
@@ -18,6 +19,7 @@
                 <li>Editorship</li>
                 <li>Media</li>
             </ul>
+
             <!-- fieldsets -->
             <fieldset class="col-sm-12 col-md-12 col-lg-12">
                 <h2 class="fs-title">General Info</h2>
@@ -228,10 +230,10 @@
 @endsection
 
 @section('script')
-<script src="{{ url('js/jquery-ui.js') }}"></script>
-<script src="{{ url('js/jqueryform.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-<script src="{{ url('js/editFieldsForm.js') }}"></script>
+    <script src="{{ url('js/jquery-ui.js') }}"></script>
+    <script src="{{ url('js/jqueryform.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="{{ url('js/editFieldsForm.js') }}"></script>
 @endsection
 
 
