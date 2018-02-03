@@ -1,4 +1,13 @@
 /*.container {padding:20px;}*/
 .publication{
   border: 1px solid rgb(0, 110, 255) !important;
+  padding: 10px;
+}
+
+#title{
+  font-weight: bold;
+}
+
+#authors{
+  font-style: italic;
 }

@@ -1,9 +1,9 @@
 @extends('Layout.main')
 
 @section('head')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-<link href="{{url('css/edit_forms.css')}}" rel="stylesheet"/>
-<link href="{{url('css/form.css')}}" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <link href="{{url('css/edit_forms.css')}}" rel="stylesheet"/>
+    <link href="{{url('css/form.css')}}" rel="stylesheet" />
 @endsection
 
 @section('content')
@@ -181,7 +181,7 @@
                     <a class="edit col-lg-1">Edit</a>
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
-                <div class="form-group">
+                <div class="form-group"></script>
                     <label class="col-sm-12 col-md-3 col-lg-2">Key</label>
                     <input class="col-sm-12 col-md-9 col-lg-6 editable-field" name="key" type="text" placeholder=""/>
                     <a class="edit col-lg-1">Edit</a>

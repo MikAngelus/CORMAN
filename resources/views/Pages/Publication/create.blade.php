@@ -79,7 +79,6 @@
                 <h3 class="fs-subtitle">Insert here some info about Editorship</h3>
                 <input type="text" name="abstract" placeholder="Abstract"/>
                 <input type="text" name="volume" placeholder="Volume"/>
-                
                 <input type="text" name="publisher" placeholder="Publisher"/>
                 <input type="text" name="key" placeholder="Key"/>
                 <input type="text" name="doi" placeholder="DOI"/>
