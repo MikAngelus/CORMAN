@@ -60,9 +60,9 @@ class GroupController extends Controller
         $newGroup->save();
 
         // Adding the creator as admin of the group.
-        $newGroup->users()->attach(Auth::id(),['group_id'=>$newGroup->id, 'role'=>'admin', 'state'=>'accepted', 'created_at'=>now(), 'updated_at'=>now()]);
+        $newGroup->users()->attach(Auth::id(), ['group_id' => $newGroup->id, 'role' => 'admin', 'state' => 'accepted', 'created_at' => now(), 'updated_at' => now()]);
 
-        // ading the list of topic
+        // Adding the list of topic
         $topicINList = $request->input('topic[]');
         foreach ($topicINList as $topicKey => $topicInput) {
             $topicInput = strtolower($topicInput);
@@ -89,7 +89,7 @@ class GroupController extends Controller
                 $name = $userDB->last_name . $userDB->first_name;
                 $name = str_replace(' ', '', $name);
                 if (strcmp($name, $userIN) == 0) {
-                    $newGroup->users()->attach($userDB->id, ['role' => 'member' , 'state' => 'pending']);
+                    $newGroup->users()->attach($userDB->id, ['role' => 'member', 'state' => 'pending']);
                 }
             }
         }
@@ -127,8 +127,10 @@ class GroupController extends Controller
      */
     public function edit($id)
     {
-        $group = Auth::user()->groups->where(['id', $id]);
-        return view('Pages.Group.edit');
+        $topicList = Topic::all();
+        $group = Auth::user()->groups->where('id', $id);
+        return view('Pages.Group.edit', ['topicList' => $topicList, 'group' => $group]);
+
     }
 
     /**
