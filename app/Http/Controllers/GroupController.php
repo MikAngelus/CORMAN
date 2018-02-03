@@ -165,7 +165,9 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+        return redirect()->route('groups.show', ['id' => id]);
+
     }
 
     /**
