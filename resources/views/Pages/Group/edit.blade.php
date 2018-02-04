@@ -64,6 +64,7 @@
                     <a class="edit col-lg-1">Edit</a>
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
+                
                 <div class="form-group">
                     <label class="col-sm-12 col-md-3 col-lg-2">Visibility</label>
                     <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="visibility" name="visibility">
