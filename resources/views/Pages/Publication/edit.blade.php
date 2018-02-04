@@ -21,8 +21,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-12 col-md-3 col-lg-2">Co-Authors</label>
-                    <input class="col-sm-12 col-md-9 col-lg-6 editable-field" name="co_authors" type="text" placeholder="#"/>
+                    <label class="col-sm-12 col-md-3 col-lg-2">Authors</label>
+
+                    <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="authorsDropdown" name="users[]" multiple>
+                        @foreach($authors as $author)
+                            <option value="{{$author->first_name}}">{{$author->last_name}} {{$author->first_name}}</option>
+                        @endforeach
+                    </select>
                     <a class="edit col-lg-1">Edit</a>
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
@@ -37,6 +42,18 @@
                 <div class="form-group">
                     <label class="col-sm-12 col-md-3 col-lg-2">Venue</label>
                     <input class="col-sm-12 col-md-9 col-lg-6 editable-field" name="venue" type="text" placeholder="{{$publication->venue}}" value="{{$publication->venue}}"/>
+                    <a class="edit col-lg-1">Edit</a>
+                    <a class="button save hidden col-lg-1">Save</a>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-12 col-md-3 col-lg-2">Edit Topics</label>
+                    <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="topicsDropdown" name="topics[]" multiple>
+                        <option value=""></option> <!-- needed for selct2.js library don't remove!-->
+                            @foreach($topicList as $topic)
+                                <option value="{{$topic->name}}">{{$topic->name}}</option>
+                            @endforeach
+                    </select>
                     <a class="edit col-lg-1">Edit</a>
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
@@ -72,6 +89,7 @@
 @endsection
 
 @section('script')
+    <script src="{{ url('js/Publication/editPublication.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="{{ url('js/editFieldsForm.js') }}"></script>
 @endsection

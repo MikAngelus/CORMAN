@@ -227,8 +227,10 @@ class PublicationController extends Controller
      */
     public function edit($id)
     {
+        $topicList = Topic::all();
+        $authors = Auth::user()->publications->find($id)->first()->authors;
         $publication = Auth::user()->publications->where('id',$id)->first();
-        return view('Pages.Publication.edit', ['publication'=>$publication] );
+        return view('Pages.Publication.edit', ['publication'=>$publication, 'authors'=>$authors, 'topicList'=>$topicList] );
     }
 
     /**
