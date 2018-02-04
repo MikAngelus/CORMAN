@@ -13,8 +13,8 @@
                     <i class="fa fa-users fa-5x"></i>
                 </div>
                 <div class="col-lg-7">
-                    <h1>{{$group->name}}</h1>
-                    <p>{{$group->description}}</p>
+                    <h1>{{$theGroup->name}}</h1>
+                    <p>{{$theGroup->description}}</p>
                 </div>
                 <div class="col-lg-3">
                     <i class="fa fa-eye fa-2x col-lg-3"></i>
@@ -38,9 +38,9 @@
         </div>
         
         <div class="col-lg-3 col-md-2">
-            @foreach($groupList as $groupSingle)
+            @foreach($groupList as $group)
                 <div class="col-lg-12">
-                    @include('Pages.Group.single', ['groupSingle'=>$groupSingle])
+                    @include('Pages.Group.single', ['group'=>$group])
                 </div>
             @endforeach
         </div>
