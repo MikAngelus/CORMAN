@@ -10,7 +10,11 @@
 @section('content')
 <div class="row">
     <div id="formContainer" class="col-lg-10 col-md-10 col-sm-12">
-        <form id="msform">
+
+        <form id="msform" action="{{ route('groups.update', ['id'=>$group->id])}}" method="post" enctype="multipart/form-data">
+        {{csrf_field()}}
+        {{ method_field('PUT') }}
+        <!-- fieldsets HEAD-->
             <fieldset class="col-lg-12 col-md-12 col-sm-12">
                 <h2 class="fs-title">Edit Group</h2>
                 <h3 class="fs-subtitle">Edit informations of the group</h3>
@@ -44,6 +48,9 @@
                 </div>
                 <div class="form-group">
                     <label class="col-sm-12 col-md-3 col-lg-2">Profile Photo</label>
+                    <div class="form-group">
+                        <img src="{{url($group->picture_path)}}" alt="">
+                    </div>
                     <input class="col-sm-12 col-md-9 col-lg-6 editable-field custom-file-input" id="upload" name="profile_photo" type="file" placeholder="{{$group->picture_path}}" value="{{$group->picture_path}}"/>
 
                     <a class="edit col-lg-1">Edit</a>
@@ -73,7 +80,7 @@
                         </label>
                     </div>
                 </div>
-                <input type="button" name="next" class="next action-button" value="Create"/>
+                <input type="submit" name="submit" class="next action-button" value="Update"/>
             </fieldset>
         </form>
     </div>
