@@ -19,11 +19,27 @@ class Publication extends Model
         return $this->belongsToMany('App\Topic','topic_publication');
     }
 
+    public function journal(){
+        return $this->$this->hasOne('App\Journal');
+    }
+
+    public function conference(){
+        return $this->$this->hasOne('App\Conference');
+    }
+
+    public function editorship(){
+        return $this->$this->hasOne('App\Editorship');
+    }
+
     public function details(){
         /*
             Since we must join the publications table with one of the
             journals/conference/editorship table (based on type column' value)
             to retrieve publication'details,  we "aggregate" the 3 alternatives in this method.
+
+            this method is useful for retrieving from db, 
+            for insertions, the 3 methods above ( journal(),conference(),editorship())
+            should be used
         */
         switch ($this->type){
             case 'journal':

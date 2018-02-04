@@ -57,7 +57,7 @@
 
                
                 <select class="form-control" id="pub-type" name="type">
-                    <option disabled value="" >select publication type</option>
+                    <option value="" disabled selected>Select your publication category</option>
                     <option value="journal" >Journal/Article</option>
                     <option value="conference" >Conference/Workshop</option>
                     <option value="editorship" >Editorship</option>
@@ -71,29 +71,30 @@
             <fieldset id="journalFieldset">
                 <h2 class="fs-title">Journal/Articles Details</h2>
                 <h3 class="fs-subtitle">Insert here some info about Journal</h3>
-                <textarea rows="4" name="abstract" placeholder="Abstract"> Abstract</textarea>
-                <input type="text" name="volume" placeholder="Volume"/>
-                <input type="text" name="number" placeholder="Number"/>
-                <input type="text" name="pages" placeholder="Pages"/>
-                <input type="text" name="key" placeholder="Key"/>
-                <input type="text" name="doi" placeholder="DOI"/>
-                <input type="text" name="ee" placeholder="EE"/>
-                <input type="text" name="url" placeholder="URL"/>
+                <input type="text" name="journal_abstract" placeholder="Abstract"/>
+                <input type="text" name="journal_volume" placeholder="Volume"/>
+                <input type="text" name="journal_number" placeholder="Number"/>
+                <input type="text" name="journal_pages" placeholder="Pages"/>
+                <input type="text" name="journal_key" placeholder="Key"/>
+                <input type="text" name="journal_doi" placeholder="DOI"/>
+                <input type="text" name="journal_ee" placeholder="EE"/>
+                <input type="text" name="journal_url" placeholder="URL"/>
+                
                 <a href='#' class="fake_btn" data-role='button'>previous</a>
-              <a href='#' class="fake_btn" data-role='button'>next</a>
+                <a href='#' class="fake_btn" data-role='button'>next</a>
             </fieldset>
 
 
             <fieldset id="conferenceFieldset">
                 <h2 class="fs-title">Conference/Workshop Details</h2>
                 <h3 class="fs-subtitle">Insert here some info about Conference</h3>
-                <input type="text" name="abstract" placeholder="Abstract"/>
-                <input type="text" name="pages" placeholder="Pages"/> 
-                <input type="text" name="days" placeholder="Days"/>
-                <input type="text" name="key" placeholder="Key"/>
-                <input type="text" name="doi" placeholder="DOI"/>
-                <input type="text" name="ee" placeholder="EE"/>
-                <input type="text" name="url" placeholder="URL"/>
+                <input type="text" name="conference_abstract" placeholder="Abstract"/>
+                <input type="text" name="conference_pages" placeholder="Pages"/> 
+                <input type="text" name="conference_days" placeholder="Days"/>
+                <input type="text" name="conference_key" placeholder="Key"/>
+                <input type="text" name="conference_doi" placeholder="DOI"/>
+                <input type="text" name="conference_ee" placeholder="EE"/>
+                <input type="text" name="conference_url" placeholder="URL"/>
                 <a href='#' class="fake_btn" data-role='button'>previous</a>
                 <a href='#' class="fake_btn" data-role='button'>next</a>
             </fieldset>
@@ -102,14 +103,14 @@
             <fieldset id="editorshipFieldset">
                 <h2 class="fs-title">Editorship</h2>
                 <h3 class="fs-subtitle">Insert here some info about Editorship</h3>
-                <input type="text" name="abstract" placeholder="Abstract"/>
-                <input type="text" name="volume" placeholder="Volume"/>
-
-                <input type="text" name="publisher" placeholder="Publisher"/>
-                <input type="text" name="key" placeholder="Key"/>
-                <input type="text" name="doi" placeholder="DOI"/>
-                <input type="text" name="ee" placeholder="EE"/>
-                <input type="text" name="url" placeholder="URL"/>
+                <input type="text" name="editorship_abstract" placeholder="Abstract"/>
+                <input type="text" name="editorship_volume" placeholder="Volume"/>
+                <input type="text" name="editorship_publisher" placeholder="Publisher"/>
+                <input type="text" name="editorship_key" placeholder="Key"/>
+                <input type="text" name="editorship_doi" placeholder="DOI"/>
+                <input type="text" name="editorship_ee" placeholder="EE"/>
+                <input type="text" name="editorship_url" placeholder="URL"/>
+                
                 <a href='#' class="fake_btn" data-role='button'>previous</a>
                 <a href='#' class="fake_btn" data-role='button'>next</a>
             </fieldset>
@@ -135,7 +136,7 @@
 
 @section('script')
 <script src="{{ url('js/jquery-ui.js') }}"></script>
-<script src="{{ url('js/jqueryform.js') }}"></script>
+<script src="{{ url('js/jqueryformPublication.js') }}"></script>
 <script src="{{ url('js/Publication/createPublication.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 @endsection

@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 use App\Publication;
+use App\Journal;
+use App\Conference;
+use App\Editorship;
 use App\Author;
 use App\Topic;
 
@@ -57,6 +60,8 @@ class PublicationController extends Controller
         * for all elements of the author field form input 
         */ 
         // TODO resolve the resubmission
+       
+        // Validation
         $validator = Validator::make($request->all(), [
             'title' => 'bail|required|filled|max:255',
             'publication_date' => 'bail|required|date',
@@ -67,9 +72,7 @@ class PublicationController extends Controller
             'authors.*' => 'required|filled',
             'topics.*' => 'filled|max:50',
         ]);
-
-
-
+        
         if ($validator->fails()) {
             return redirect('/publications/create')
                         ->withErrors($validator)
@@ -78,6 +81,7 @@ class PublicationController extends Controller
 
 
 
+        // Create new publication
         $newPublication = new Publication;
 
         $newPublication->title = ucwords($request->input('title'));
@@ -86,12 +90,61 @@ class PublicationController extends Controller
         $newPublication->type = $request->input('type');
         //$newPublication->ispublic = $request->input('ispublic'); add to the form in create.blade.php
         
-        //Handling Media
+        // TODO Handling Media
         $newPublication->multimedia_path = "path/to/multimedia";
 
 
         $newPublication->save();
+
         // Handling Publication Details
+        switch ($newPublication->type){
+            case 'journal':
+                $newJournal = new Journal;
+                
+                $newJournal->abstract = $request->input('journal_abstract');
+                $newJournal->volume = $request->input('journal_volume');
+                $newJournal->number = $request->input('journal_number');
+                $newJournal->pages = $request->input('journal_pages');
+                $newJournal->key = $request->input('journal_key');
+                $newJournal->doi = $request->input('journal_doi');
+                $newJournal->ee = $request->input('journal_ee');
+                $newJournal->url = $request->input('journal_url');
+                
+                $newJournal->publication_id = $newPublication->id;
+                $newJournal->save();
+                break;
+
+            case 'conference':
+                $newConference = new Conference;
+            
+                $newConference->abstract = $request->input('conference_abstract');
+                $newConference->pages = $request->input('conference_pages');
+                $newConference->days = $request->input('conference_days');
+                $newConference->key = $request->input('conference_key');
+                $newConference->doi = $request->input('conference_doi');
+                $newConference->ee = $request->input('conference_ee');
+                $newConference->url = $request->input('conference_url');
+                
+                $newConference->publication_id = $newPublication->id;
+                $newConference->save();
+                break;
+
+            case 'editorship':
+                $newEditorship = new Editorship;
+            
+                $newEditorship->abstract = $request->input('editorship_abstract');
+                $newEditorship->volume = $request->input('editorship_volume');
+                $newEditorship->publisher = $request->input('editorship_publisher');
+                $newEditorship->key = $request->input('editorship_key');
+                $newEditorship->doi = $request->input('editorship_doi');
+                $newEditorship->ee = $request->input('editorship_ee');
+                $newEditorship->url = $request->input('editorship_url');
+                
+                $newEditorship->publication_id = $newPublication->id;
+                $newEditorship->save();
+                break;
+        }
+
 
         
         // Handling topics  
@@ -140,7 +193,7 @@ class PublicationController extends Controller
             }
         }
 
-        return redirect('/publications');
+        return redirect()->route('publications.index');
 
        
     }
