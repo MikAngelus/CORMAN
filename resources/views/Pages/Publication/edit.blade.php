@@ -56,7 +56,7 @@
                 <h2 class="fs-title">Media</h2>
                 <h3 class="fs-subtitle">Add here some media about the publication</h3>
                 <label class="row btn btn-default btn-file">
-                    Add PDF <input type="file" style="display: none;">
+                    Add PDF <input type="file" multiple style="display: none;">
                     <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                 </label>
                 <label class="row btn btn-default btn-file">
