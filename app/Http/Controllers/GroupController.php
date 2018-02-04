@@ -156,7 +156,8 @@ class GroupController extends Controller
         $group = Auth::user()->groups->where('id', $id)->first();
         $userList = User::where('id', '!=', Auth::id())->get()->sortBy('last_name');
         $memberList = Group::find($id)->users->where('id', '!=', Auth::id());
-        return view('Pages.Group.detail', ['publicationList' => $publicationList, 'groupList' => $groupList, 'group' => $group, 'userList'=>$userList, 'memberList'=>$memberList]);
+        $topicList = Group::find($id)->topics;
+        return view('Pages.Group.edit', ['topicList' => $topicList, 'publicationList' => $publicationList, 'groupList' => $groupList, 'group' => $group, 'userList'=>$userList, 'memberList'=>$memberList]);
     }
 
     /**
