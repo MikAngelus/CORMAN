@@ -36,9 +36,6 @@
                     <label class="col-sm-12 col-md-3 col-lg-2">Invite Users</label>
 
                     <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="usersDropdown" name="users[]" multiple>
-                        @foreach($memberList as $member)
-                            <option value="{{$member->first_name}}">{{$member->last_name}} {{$member->first_name}}</option> <!-- needed for selct2.js library don't remove!-->
-                        @endforeach
                         @foreach($userList as $user)
                             <option value="{{$user->first_name}}">{{$user->last_name}} {{$user->first_name}}</option>
                         @endforeach
@@ -66,15 +63,6 @@
                     </select>
                     <a class="edit col-lg-1">Edit</a>
                     <a class="button save hidden col-lg-1">Save</a>
-                </div>
-                
-                <div class="form-group"></div> 
-                    <label class="col-sm-12 col-md-3 col-lg-3" id="visibilityRadio" class="btn btn-default active">
-                        <input type="radio" id="is_public" name="privacy-btn" checked="checked"/>Public
-                    </label>
-                    <label class="col-sm-12 col-md-3 col-lg-3" id="visibilityRadio" class="btn btn-default">
-                        <input type="radio" id="is_public" name="privacy-btn"/>Private
-                    </label>
                 </div>
                 <input type="submit" name="submit" class="next action-button" value="Update"/>
             </fieldset>
