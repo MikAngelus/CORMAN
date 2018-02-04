@@ -88,8 +88,14 @@ class PublicationController extends Controller
         $newPublication->year = $request->input('publication_date');
         $newPublication->venue = ucwords($request->input('venue'));
         $newPublication->type = $request->input('type');
-        //$newPublication->ispublic = $request->input('ispublic'); add to the form in create.blade.php
         
+        if($request->input('visibility') == 'Public'){
+            $newPublication->public = 1;
+        }
+        else{
+            $newPublication->public = 0;
+        }
+                
         // TODO Handling Media
         $newPublication->multimedia_path = "path/to/multimedia";
 
@@ -245,14 +251,19 @@ class PublicationController extends Controller
         // TODO add validators
         
 
-        // Create new publication
+        // Retrieve the publication
         $publication = Publication::find($id);
         
         $publication->title = ucwords($request->input('title'));
         $publication->year = $request->input('pub_date');
         $publication->venue = ucwords($request->input('venue'));
         
-        //$publication->ispublic = $request->input('is_public'); add to the form in create.blade.php
+        if($request->input('visibility') == 'Public'){
+            $publication->public = 1;
+        }
+        else{
+            $publication->public = 0;
+        }
         
         // TODO Handling Media
         $publication->multimedia_path = "path/to/multimedia";
