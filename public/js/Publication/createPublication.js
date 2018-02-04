@@ -1,5 +1,5 @@
 $(document).ready(function() {
-   
+  
     // Initialize selct2 components
     $('#authorsDropdown').select2({
         placeholder: "tag the authors",

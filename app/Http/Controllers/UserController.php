@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image;
 
 class UserController extends Controller
 {
@@ -54,7 +55,9 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $roleList = Role::all();
-        return view('Pages.User.editUser', ['user' => $user, 'roleList' => $roleList]);
+        $affiliationList = Affiliation::all();
+        return view('Pages.User.editUser', ['user' => $user, 'roleList' => $roleList,
+                                                    'affiliationList' => $affiliationList]);
     }
 
     /**
@@ -84,33 +87,37 @@ class UserController extends Controller
 
         $user->last_name = $request->input('last_name');
         $user->first_name = $request->input('first_name');
-        //$user->birth_date = $request->input('birth_date');
+        $user->birth_date = $request->input('dob');
         $user->email = $request->input('email');
         if ($request->input('password') != null) {
-            $user->password = $request->input('password');
+            $user->password = bcrypt($request->input('password'));
         } else {
             $user->password = $user->password;
         }
 
-        if ($request->hasFile('picture_path')) {
-            $file = $request->input('picture_path');
+
+        if ($request->hasFile('user_pic')) {
+
+            $file = $request->file('user_pic');
 
             if ($file->isValid()) {
-                unlink($user->picture_path);
+                //unlink(public_path('images/profilePictures').$user)
                 $hashName = "/" . md5($file->path() . date('c'));
                 $fileName = $hashName . "." . $file->getClientOriginalExtension();
-                $filePath = public_path('images/profilePictures') . $fileName;
+                //TODO CONTROLLARE PATH
+                $filePath = '../images/profilePictures/' . $fileName;
                 Image::make($file)->fit(200)->save($filePath);
-                $user->picture_path = $fileName;
+                $user->picture_path = $filePath;
             }
         }
 
-        $roleid = DB::table('roles')->select('name')->where('id', $request->input('role_id'))->get();
-
-        //handling affiliation
-        //$user->affiliation_id = $request->input('affiliation_id');
+        $roleid = Role::where('name',$request->input('role'))->first()->id;
         $user->role_id = $roleid;
-        $user->reference_link = $request->input('reference_link');
+
+        $affiliationid = Affiliation::where('name', $request->input('affiliation'))->first()->id;
+        $user->affiliation_id = $affiliationid;
+
+        $user->reference_link = $request->input('url');
 
         $user->save();
 

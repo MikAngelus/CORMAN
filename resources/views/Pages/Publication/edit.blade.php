@@ -15,7 +15,7 @@
                 <h3 class="fs-subtitle">Modify general informations about the publication here</h3>
                 <div class="form-group">
                     <label class="col-sm-12 col-md-3 col-lg-2">Title</label>
-                    <input class="col-sm-12 col-md-9 col-lg-6 editable-field" name="title" type="text" placeholder="#"/>
+                    <input class="col-sm-12 col-md-9 col-lg-6 editable-field" name="title" type="text" placeholder="{{$publication->title}}" value="{{$publication->title}}"/>
                     <a class="edit col-lg-1">Edit</a>
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
@@ -29,27 +29,27 @@
         
                 <div class="form-group">
                     <label class="col-sm-12 col-md-3 col-lg-2">Date</label>
-                    <input class="col-sm-12 col-md-9 col-lg-6 editable-field" name="pub_date" type="date" placeholder="#"/>
+                    <input class="col-sm-12 col-md-9 col-lg-6 editable-field" name="pub_date" type="date" placeholder="{{$publication->year}}" value="{{$publication->year}}"/>
                     <a class="edit col-lg-1">Edit</a>
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-12 col-md-3 col-lg-2">Venue</label>
-                    <input class="col-sm-12 col-md-9 col-lg-6 editable-field" name="venue" type="text" placeholder="#"/>
+                    <input class="col-sm-12 col-md-9 col-lg-6 editable-field" name="venue" type="text" placeholder="{{$publication->venue}}" value="{{$publication->venue}}"/>
                     <a class="edit col-lg-1">Edit</a>
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
                 <br> 
                 @switch($publication->type)
                     @case('journal')
-                        @include('Pages.Publication.editJournal', ['publication'=>$publication])
+                        @include('Pages.Publication.editJournal', ['details'=>$publication->details])
                     @break
                     @case('conference')
-                        @include('Pages.Publication.editConference', ['publication'=>$publication])
+                        @include('Pages.Publication.editConference', ['details'=>$publication->details])
                     @break
                     @case('editorship')
-                        @include('Pages.Publication.editEditorship', ['publication'=>$publication])
+                        @include('Pages.Publication.editEditorship', ['details'=>$publication->details])
                     @break
                 @endswitch
                 <br>

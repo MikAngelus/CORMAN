@@ -32,4 +32,10 @@ $(document).ready(function () {
         maximumSelectionLength: 1,
         tags: true
     });
+
+    $('#affiliationDropdown').select2({
+        placeholder: "Modify the affiliation",
+        maximumSelectionLength: 1,
+        tags: true
+    });
 });
