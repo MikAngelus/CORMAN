@@ -53,6 +53,21 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'bail|required|unique|filled|max:255',
+            'description' => 'bail|nullable',
+            'picture_path' => 'bail|image|nullable|max:255',
+
+            'members.*' => 'required|filled',
+            'topics.*' => 'filled|max:50',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/groups/create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         //dd($request->all());
         $newGroup = new Group;
 
@@ -152,12 +167,12 @@ class GroupController extends Controller
     {
         // Replace with shares of publication-group-model
         $publicationList = Auth::user()->publications;
-        $groupList = Auth::user()->groups;
+        //$groupList = Auth::user()->groups;
         $group = Auth::user()->groups->where('id', $id)->first();
         $userList = User::where('id', '!=', Auth::id())->get()->sortBy('last_name');
         $memberList = Group::find($id)->users->where('id', '!=', Auth::id());
         $topicList = Group::find($id)->topics;
-        return view('Pages.Group.edit', ['topicList' => $topicList, 'publicationList' => $publicationList, 'groupList' => $groupList, 'group' => $group, 'userList'=>$userList, 'memberList'=>$memberList]);
+        return view('Pages.Group.edit', ['topicList' => $topicList, 'publicationList' => $publicationList, /*'groupList' => $groupList, */ 'group' => $group, 'userList'=>$userList, 'memberList'=>$memberList]);
     }
 
     /**
@@ -197,7 +212,7 @@ class GroupController extends Controller
 
         $group->save();
 
-        return redirect()->route('Pages.Groups.show', ['id' => $group->$id]);
+        return redirect()->route('groups.show', ['id' => $group->id]);
 
     }
 
