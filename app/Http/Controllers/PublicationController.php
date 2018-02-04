@@ -53,7 +53,7 @@ class PublicationController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
+        dd($request->all());
         /*
         *Create new publications
         * for all fields of the form fill the field of database
@@ -61,7 +61,7 @@ class PublicationController extends Controller
         */ 
         // TODO resolve the resubmission
        
-        // Validation
+        // TODO completeValidation
         $validator = Validator::make($request->all(), [
             'title' => 'bail|required|filled|max:255',
             'publication_date' => 'bail|required|date',
@@ -215,7 +215,7 @@ class PublicationController extends Controller
      */
     public function show($id)
     {
-        $publication = Auth::user()->publications->where('id',$id);
+        $publication = Auth::user()->publications->where('id',$id)->first();
         return view('Pages.Publication.modal', ['publication'=>$publication] );
     }
 
@@ -227,7 +227,7 @@ class PublicationController extends Controller
      */
     public function edit($id)
     {
-        $publication = Auth::user()->publications->where('id',$id);
+        $publication = Auth::user()->publications->where('id',$id)->first();
         return view('Pages.Publication.edit', ['publication'=>$publication] );
     }
 

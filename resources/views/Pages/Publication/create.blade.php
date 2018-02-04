@@ -57,7 +57,7 @@
 
                
                 <select class="form-control" id="pub-type" name="type">
-                    <option value="" disabled selected>Select your publication category</option>
+                    <option value="" selected disabled>Select your publication category</option>
                     <option value="journal" >Journal/Article</option>
                     <option value="conference" >Conference/Workshop</option>
                     <option value="editorship" >Editorship</option>
@@ -119,12 +119,13 @@
                 <h2 class="fs-title">Media</h2>
                 <h3 class="fs-subtitle">Add here some media about the publication</h3>
                 <label class="btn btn-default btn-file row">
-                    Add PDF <input type="file" style="display: none;">
-                    <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                    Add PDF <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                    <input type="file" name="pdf_file" style="display: all;">
                 </label>
                 <label class="btn btn-default btn-file row">
-                    Add Media <input type="file" style="display: none;">
-                    <i class="fa fa-upload" aria-hidden="true"></i>
+                    Add Media <i class="fa fa-upload" aria-hidden="true"></i>
+                    <input type="file" name="media_file[]" multiple style="display: all;">
+                    
                 </label>
                 <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
                 <input type="submit" name="submit" class="submit action-button" value="Create"/>

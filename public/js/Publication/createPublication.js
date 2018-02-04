@@ -1,8 +1,7 @@
 $(document).ready(function() {
-   
+  
     // Initialize selct2 components
     $('#authorsDropdown').select2({
-        data:data,
         placeholder: "tag the authors",
         maximumSelectionLength: 10,
         tags:true,
