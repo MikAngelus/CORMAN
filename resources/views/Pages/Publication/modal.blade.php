@@ -41,13 +41,13 @@
      
     @switch($publication->type)
         @case('journal')
-            @include('Pages.Publication.journalFields', ['publication'=>$publication]);
+            @include('Pages.Publication.journalFields', ['publication'=>$publication])
         @break
         @case('conference')
-            @include('Pages.Publication.conferenceFields', ['publication'=>$publication]);
+            @include('Pages.Publication.conferenceFields', ['publication'=>$publication])
         @break
         @case('editorship')
-            @include('Pages.Publication.editorshipFields', ['publication'=>$publication]);
+            @include('Pages.Publication.editorshipFields', ['publication'=>$publication])
         @break
     @endswitch
 
