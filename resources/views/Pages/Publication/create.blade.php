@@ -57,6 +57,7 @@
 
                
                 <select class="form-control" id="pub-type" name="type">
+                    <option disabled value="" >select publication type</option>
                     <option value="journal" >Journal/Article</option>
                     <option value="conference" >Conference/Workshop</option>
                     <option value="editorship" >Editorship</option>
@@ -127,7 +128,6 @@
                 <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
                 <input type="submit" name="submit" class="submit action-button" value="Create"/>
             </fieldset>
-            
         </form>
     </div>
 </div>

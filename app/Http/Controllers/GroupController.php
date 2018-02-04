@@ -150,10 +150,13 @@ class GroupController extends Controller
      */
     public function edit($id)
     {
-        $topicList = Topic::all();
-        $group = Auth::user()->groups->where('id', $id);
-        return view('Pages.Group.edit', ['topicList' => $topicList, 'group' => $group]);
-
+        // Replace with shares of publication-group-model
+        $publicationList = Auth::user()->publications;
+        $groupList = Auth::user()->groups;
+        $group = Auth::user()->groups->where('id', $id)->first();
+        $userList = User::where('id', '!=', Auth::id())->get()->sortBy('last_name');
+        $memberList = Group::find($id)->users->where('id', '!=', Auth::id());
+        return view('Pages.Group.detail', ['publicationList' => $publicationList, 'groupList' => $groupList, 'group' => $group, 'userList'=>$userList, 'memberList'=>$memberList]);
     }
 
     /**
@@ -165,7 +168,7 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         return redirect()->route('groups.show', ['id' => id]);
 
     }
