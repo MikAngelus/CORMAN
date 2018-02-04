@@ -28,7 +28,7 @@ class PublicationController extends Controller
     
     public function index()
     {
-        $publicationList = Auth::user()->publications->where('public',1)->sortByDesc('year')->take(5);
+        $publicationList = Auth::user()->publications->sortByDesc('year')->take(5);
         return view('Pages.Publication.list', ['publicationList'=>$publicationList] );
     }
 

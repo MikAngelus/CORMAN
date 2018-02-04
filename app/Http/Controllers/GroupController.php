@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 use App\User;
 use App\Topic;
@@ -52,7 +53,7 @@ class GroupController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {/*
         $validator = Validator::make($request->all(), [
             'name' => 'bail|required|unique|filled|max:255',
             'description' => 'bail|nullable',
@@ -67,7 +68,7 @@ class GroupController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-
+*/
         //dd($request->all());
         $newGroup = new Group;
 
@@ -90,8 +91,13 @@ class GroupController extends Controller
             //TODO replace default path in database table
         }
 
-
-        $newGroup->public = $request->input('privacy-btn');
+        if($request->input('visibility') == 'Public'){
+            $newGroup->public = 'public';
+        }
+        else{
+            $newGroup->public = 'private';
+        }
+        
 
         //Increment count for the first member
         $newGroup->subscribers_count = 1;
@@ -152,8 +158,9 @@ class GroupController extends Controller
     {
         // Replace with shares of publication-group-model
         $publicationList = Auth::user()->publications;
-        $groupList = Auth::user()->groups->where('id', '!=', $id);
+        $groupList = Auth::user()->groups->where('id', '<>', $id);
         $group = Auth::user()->groups->where('id', $id)->first();
+        
         return view('Pages.Group.detail', ['publicationList' => $publicationList, 'groupList' => $groupList, 'group' => $group]);
     }
 
