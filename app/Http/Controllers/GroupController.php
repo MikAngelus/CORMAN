@@ -185,13 +185,19 @@ class GroupController extends Controller
                 Image::make($file)->fit(200)->save($filePath);
                 $group->picture_path = $fileName;
             }
-        } else {
-            $group->picture_path = public_path('images/groups/group_icon.png');
-            //TODO replace default path in database table
         }
 
+        // Adding the list of topic
+        $topicList = Group::find($id)->topics;
 
-        return redirect()->route('groups.show', ['id' => id]);
+
+        // Adding the list of members
+        $memberList = Group::find($id)->users->where('id', '!=', Group::find($id));
+
+
+        $group->save();
+
+        return redirect()->route('Pages.Groups.show', ['id' => $group->$id]);
 
     }
 

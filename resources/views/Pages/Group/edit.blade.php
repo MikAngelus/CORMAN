@@ -1,17 +1,20 @@
 @extends('Layout.main')
 
 @section('head')
-    <link href="{{ url('css/Group/createGroup.css') }}" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <link href="{{ url('css/edit_forms.css') }}" rel="stylesheet"/>
     <link href="{{ url('css/Group/groups.css') }}" rel="stylesheet"/>
     <link href="{{ url('css/form.css') }}" rel="stylesheet"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 @endsection
 
 @section('content')
 <div class="row">
     <div id="formContainer" class="col-lg-10 col-md-10 col-sm-12">
-        <form id="msform">
-            <!-- fieldsets -->
+
+        <form id="msform" action="{{ route('groups.update', ['id'=>$group->id])}}" method="post" enctype="multipart/form-data">
+        {{csrf_field()}}
+        {{ method_field('PUT') }}
+        <!-- fieldsets HEAD-->
             <fieldset class="col-lg-12 col-md-12 col-sm-12">
                 <h2 class="fs-title">Edit Group</h2>
                 <h3 class="fs-subtitle">Edit informations of the group</h3>
@@ -32,7 +35,7 @@
                 <div class="form-group">
                     <label class="col-sm-12 col-md-3 col-lg-2">Invite Users</label>
 
-                    <select class="form-control" id="usersDropdown" name="users[]" multiple>
+                    <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="usersDropdown" name="users[]" multiple>
                         @foreach($memberList as $member)
                             <option value="{{$member->first_name}}">{{$member->last_name}} {{$member->first_name}}</option> <!-- needed for selct2.js library don't remove!-->
                         @endforeach
@@ -45,15 +48,17 @@
                 </div>
                 <div class="form-group">
                     <label class="col-sm-12 col-md-3 col-lg-2">Profile Photo</label>
+                    <div class="form-group">
+                        <img src="{{url($group->picture_path)}}" alt="">
+                    </div>
                     <input class="col-sm-12 col-md-9 col-lg-6 editable-field custom-file-input" id="upload" name="profile_photo" type="file" placeholder="{{$group->picture_path}}" value="{{$group->picture_path}}"/>
-
                     <a class="edit col-lg-1">Edit</a>
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-12 col-md-3 col-lg-2">Edit Topics</label>
-                    <select class="form-control" id="topicsDropdown" name="topics[]" multiple>
+                    <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="topicsDropdown" name="topics[]" multiple>
                         <option value=""></option> <!-- needed for selct2.js library don't remove!-->
                             @foreach($topicList as $topic)
                                 <option value="{{$topic->name}}">{{$topic->name}}</option>
@@ -63,28 +68,23 @@
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
                 
-                <div id="radioGroup" class="btn-group col-lg-12" data-toggle="group-privacy">
-                    <label id="visibilityLabel" for="visibility" class="col-form-label col-lg-3">Visibility</label>  
-                    <div class="col-lg-3">
-                        <label id="visibilityRadio" class="btn btn-default active col-lg-12">
-                            <input type="radio" id="#" name="privacy-btn" value="public" checked="checked"/> Public
-                        </label>
-                        <label id="visibilityRadio" class="btn btn-default col-lg-12">
-                            <input type="radio" id="#" name="privacy-btn" value="private"/> Private
-                        </label>
-                    </div>
+                <div class="form-group"></div> 
+                    <label class="col-sm-12 col-md-3 col-lg-3" id="visibilityRadio" class="btn btn-default active">
+                        <input type="radio" id="is_public" name="privacy-btn" checked="checked"/>Public
+                    </label>
+                    <label class="col-sm-12 col-md-3 col-lg-3" id="visibilityRadio" class="btn btn-default">
+                        <input type="radio" id="is_public" name="privacy-btn"/>Private
+                    </label>
                 </div>
-                <input type="button" name="previous" class="previous action-button-previous" value="Back"/>
-                <input type="button" name="next" class="next action-button" value="Create"/>
+                <input type="submit" name="submit" class="next action-button" value="Update"/>
             </fieldset>
         </form>
     </div>
 </div>
+@endsection
 
 @section('script')
-    <script src="{{ url('js/jquery-ui.js') }}"></script>
-    <script src="{{ url('js/jqueryform.js') }}"></script>
-    <script src="{{ url('js/editFieldsForm.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="{{ url('js/Group/editGroup.js') }}"></script>
+    <script src="{{ url('js/editFieldsForm.js') }}"></script>
 @endsection
