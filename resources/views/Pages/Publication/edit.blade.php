@@ -9,7 +9,9 @@
 @section('content')
 <div class="row">
     <div id="formContainer" class="col-lg-10 col-md-10 col-sm-12">
-        <form id="msform">
+    <form id="msform" action="{{route('publications.update',['id' => $publication->id])}}" method="post">
+            {{ csrf_field() }}
+            {{ method_field('PUT') }}
             <fieldset class="col-sm-12 col-md-12 col-lg-12">
                 <h2 class="fs-title">General Info</h2>
                 <h3 class="fs-subtitle">Modify general informations about the publication here</h3>
