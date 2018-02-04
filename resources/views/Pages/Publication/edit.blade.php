@@ -9,7 +9,9 @@
 @section('content')
 <div class="row">
     <div id="formContainer" class="col-lg-10 col-md-10 col-sm-12">
-        <form id="msform">
+    <form id="msform" action="{{route('publications.update',['id' => $publication->id])}}" method="post">
+            {{ csrf_field() }}
+            {{ method_field('PUT') }}
             <fieldset class="col-sm-12 col-md-12 col-lg-12">
                 <h2 class="fs-title">General Info</h2>
                 <h3 class="fs-subtitle">Modify general informations about the publication here</h3>
@@ -57,15 +59,19 @@
                     <a class="edit col-lg-1">Edit</a>
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
-                <div class="form-group"> 
-                    <label class="col-sm-12 col-md-3 col-lg-3" id="visibilityRadio" class="btn btn-default active">
-                        <input type="radio" id="is_public" name="privacy-btn" checked="checked"/>Public
-                    </label>
-                    <label class="col-sm-12 col-md-3 col-lg-3" id="visibilityRadio" class="btn btn-default">
-                        <input type="radio" id="is_public" name="privacy-btn"/>Private
-                    </label>
+
+                <div class="form-group">
+                    <label class="col-sm-12 col-md-3 col-lg-2">Visibility</label>
+                    <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="visibility" name="visibility">
+                        <option selected value="public" >Public</option>
+                        <option value="private" >Private</option>
+                    </select>
+                    <a class="edit col-lg-1">Edit</a>
+                    <a class="button save hidden col-lg-1">Save</a>
                 </div>
-                <br> 
+
+                
+                
                 @switch($publication->type)
                     @case('journal')
                         @include('Pages.Publication.editJournal', ['details'=>$publication->details])
