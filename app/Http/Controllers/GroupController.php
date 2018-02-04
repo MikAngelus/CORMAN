@@ -170,6 +170,27 @@ class GroupController extends Controller
     public function update(Request $request, $id)
     {
 
+        $group = Group::find($id);
+        $group->name = $request->input('group_name');
+        $group->description = $request->input('description');
+
+
+        if (($request->hasFile('picture'))) {
+            $file = $request->file('picture');
+            if ($file->isValid()) {
+
+                $hashName = "/" . md5($file->path() . date('c'));
+                $fileName = $hashName . "." . $file->getClientOriginalExtension();
+                $filePath = public_path('images/groups') . $fileName;
+                Image::make($file)->fit(200)->save($filePath);
+                $group->picture_path = $fileName;
+            }
+        } else {
+            $group->picture_path = public_path('images/groups/group_icon.png');
+            //TODO replace default path in database table
+        }
+
+
         return redirect()->route('groups.show', ['id' => id]);
 
     }
