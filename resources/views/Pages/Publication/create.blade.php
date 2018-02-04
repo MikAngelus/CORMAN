@@ -57,7 +57,7 @@
 
                
                 <select class="form-control" id="pub-type" name="type">
-                    <option value="" disabled selected>Select your publication category</option>
+                    <option value="" selected disabled>Select your publication category</option>
                     <option value="journal" >Journal/Article</option>
                     <option value="conference" >Conference/Workshop</option>
                     <option value="editorship" >Editorship</option>
