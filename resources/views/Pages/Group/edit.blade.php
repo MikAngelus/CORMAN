@@ -17,26 +17,36 @@
                 <h3 class="fs-subtitle">Edit informations of the group</h3>
                 <div class="form-group">
                     <label class="col-sm-12 col-md-3 col-lg-2">Group Name</label>
-                    <input class="col-sm-12 col-md-9 col-lg-6 editable-field" name="group_name" type="text" placeholder=""/>
+                    <input class="col-sm-12 col-md-9 col-lg-6 editable-field" name="group_name" type="text" placeholder="{{$group->name}}" value="{{$group->name}}"/>
                     <a class="edit col-lg-1">Edit</a>
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
                 
                 <div class="form-group">
                     <label class="col-sm-12 col-md-3 col-lg-2">Description</label>
-                    <input class="col-sm-12 col-md-9 col-lg-6 editable-field" rows="4" name="description" type="text" placeholder=""/>
+                    <input class="col-sm-12 col-md-9 col-lg-6 editable-field" rows="4" name="description" type="text" placeholder="{{$group->description}}" value="{{$group->description}}"/>
                     <a class="edit col-lg-1">Edit</a>
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
                 
                 <div class="form-group">
-                    <label class="col-sm-12 col-md-3 col-lg-2">Edit Members</label>
+                    <label class="col-sm-12 col-md-3 col-lg-2">Invite Users</label>
+
                     <select class="form-control" id="usersDropdown" name="users[]" multiple>
-                        <option value=""></option> <!-- needed for selct2.js library don't remove!-->
-                            @foreach($userList as $user)
-                                <option value="{{$user->first_name}}">{{$user->last_name}} {{$user->first_name}}</option>
-                            @endforeach
+                        @foreach($memberList as $member)
+                            <option value="{{$member->first_name}}">{{$member->last_name}} {{$member->first_name}}</option> <!-- needed for selct2.js library don't remove!-->
+                        @endforeach
+                        @foreach($userList as $user)
+                            <option value="{{$user->first_name}}">{{$user->last_name}} {{$user->first_name}}</option>
+                        @endforeach
                     </select>
+                    <a class="edit col-lg-1">Edit</a>
+                    <a class="button save hidden col-lg-1">Save</a>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-12 col-md-3 col-lg-2">Profile Photo</label>
+                    <input class="col-sm-12 col-md-9 col-lg-6 editable-field custom-file-input" id="upload" name="profile_photo" type="file" placeholder="{{$group->picture_path}}" value="{{$group->picture_path}}"/>
+
                     <a class="edit col-lg-1">Edit</a>
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>

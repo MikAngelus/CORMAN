@@ -9,13 +9,13 @@
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" href="#">How it works<span class="sr-only">(current)</span></a>
+                <a class="nav-link text-center" href="#">How it works<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
+                <a class="nav-link text-center" href="#">Features</a>
             </li>
         </ul>
-        <a href="{{ url('signUp') }}"><button class="btn btn-primary mr-3">Join Us</button></a>
-        <a href=" {{ url('login') }} ")><button class="btn btn-primary">Log In</button></a>
+        <a href="{{ url('signUp') }}"><button class="btn btn-success">Join Us</button></a>
+        <a href=" {{ url('login') }} ")><button class="btn btn-primary ml-2">Log In</button></a>
     </div>
 </nav>

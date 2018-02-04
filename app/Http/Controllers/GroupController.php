@@ -156,7 +156,8 @@ class GroupController extends Controller
         $group = Auth::user()->groups->where('id', $id)->first();
         $userList = User::where('id', '!=', Auth::id())->get()->sortBy('last_name');
         $memberList = Group::find($id)->users->where('id', '!=', Auth::id());
-        return view('Pages.Group.detail', ['publicationList' => $publicationList, 'groupList' => $groupList, 'group' => $group, 'userList'=>$userList, 'memberList'=>$memberList]);
+        $topicList = Group::find($id)->topics;
+        return view('Pages.Group.edit', ['topicList' => $topicList, 'publicationList' => $publicationList, 'groupList' => $groupList, 'group' => $group, 'userList'=>$userList, 'memberList'=>$memberList]);
     }
 
     /**
@@ -168,6 +169,27 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $group = Group::find($id);
+        $group->name = $request->input('group_name');
+        $group->description = $request->input('description');
+
+
+        if (($request->hasFile('picture'))) {
+            $file = $request->file('picture');
+            if ($file->isValid()) {
+
+                $hashName = "/" . md5($file->path() . date('c'));
+                $fileName = $hashName . "." . $file->getClientOriginalExtension();
+                $filePath = public_path('images/groups') . $fileName;
+                Image::make($file)->fit(200)->save($filePath);
+                $group->picture_path = $fileName;
+            }
+        } else {
+            $group->picture_path = public_path('images/groups/group_icon.png');
+            //TODO replace default path in database table
+        }
+
 
         return redirect()->route('groups.show', ['id' => id]);
 

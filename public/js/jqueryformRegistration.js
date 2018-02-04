@@ -1,23 +1,8 @@
 $(document).ready(function() {
   //jQuery time
   var current_fs, next_fs, previous_fs; //fieldsets
-  var choice;
   var left, opacity, scale; //fieldset properties which we will animate
   var animating; //flag to prevent quick multi-click glitches
-
-  $('select[name=type]').change(function() {
-      if ($(this).val() == 'journal') {
-          choice = $('#journalFieldset');
-
-      }
-      if ($(this).val() == 'conference') {
-          choice = $('#conferenceFieldset');
-      }
-      if ($(this).val() == 'editorship') {
-          choice = $('#editorshipFieldset');
-
-      }
-  });
 
 
   $(".next").click(function() {
@@ -25,7 +10,7 @@ $(document).ready(function() {
       animating = true;
 
       current_fs = $(this).parent();
-      next_fs = choice;
+      next_fs = $(this).parent().next();
 
       console.log(current_fs);
       console.log(next_fs);

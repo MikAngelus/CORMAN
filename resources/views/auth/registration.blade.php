@@ -40,6 +40,7 @@
                     <input type="password" name="password" placeholder="Password"/>
                     <input type="password" name="password_confirmation" placeholder="Confirm Password"/>
                     <input type="file" name="profilePic" placeholder="Profile Photo" />
+                   
                     <input type="button" name="next" class="next action-button" value="Next"/>
                 </fieldset>
 
@@ -48,13 +49,13 @@
                     <h3 class="fs-subtitle"></h3>
                     <label for="role"> Role </label>
                     <select class="form-control" id="role" name="role">
-                        @foreach($roles as $role)
+                        @foreach($roleList as $role)
                         <option>{{$role->name}}</option>
                         @endforeach
                     </select>
                     <select class="form-control" id="affiliationDropdown" name="affiliation">
                         <option value=""></option> <!-- needed for select2.js library don't remove!-->
-                        @foreach($affiliations as $affiliation)
+                        @foreach($affiliationList as $affiliation)
                         <option value="{{$affiliation->name}}">{{$affiliation->name}}</option>
                         @endforeach
                     </select>
@@ -65,11 +66,14 @@
                         @endforeach
                     </select>
                     <input type="text" name="personal_link" placeholder="Personal Link"/>
+                    
                     <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
                     <input type="button" name="next" class="next action-button" value="Next"/>
                 </fieldset>
                 
                 <fieldset>
+                    <h2 class="fs-title">Publications</h2>
+                    <h3 class="fs-subtitle"></h3>
                     <button type="button" id="selectAll" class="btn btn-primary"> <span class="sub"></span> Select</button>
                     <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
                     <input type="submit" name="submit" class="submit action-button" value="Submit"/>
@@ -81,7 +85,7 @@
 
 @section('script')
     <script src="{{ url('js/jquery-ui.js') }}"></script>
-    <script src="{{ url('js/jqueryform.js') }}"></script>
+    <script src="{{ url('js/jqueryformRegistration.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/validate.js/0.12.0/validate.min.js"></script>
     <script src="{{ url('js/User/signUp.js') }}"></script>
