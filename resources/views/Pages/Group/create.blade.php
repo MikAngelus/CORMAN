@@ -18,6 +18,7 @@
                     <h3 class="fs-subtitle">Insert some informations about the group</h3>
 
                     <input type="text" name="name" placeholder="Group Name"/>
+                    
                     <textarea rows="4" name="description" placeholder="Description" ></textarea>
                     
                     <select class="form-control" id="topicsDropdown" name="topics[]" multiple>
@@ -33,7 +34,9 @@
                             <option value="{{$user->first_name}}">{{$user->last_name}} {{$user->first_name}}</option>
                         @endforeach
                     </select>
+
                     <input type="file" class="group_picture" id="upload" name="picture">
+                    
                     <div id="radioGroup" class="btn-group col-lg-12" data-toggle="group-privacy">
                         <label id="visibilityLabel" for="visibility" class="col-form-label col-lg-3">Visibility</label>  
                         <div class="col-lg-3">
@@ -45,6 +48,7 @@
                             </label>
                         </div>
                     </div>
+                    
                     <input type="button" name="previous" class="previous action-button-previous" value="Back"/>
                     <input type="submit" name="next" class="next action-button" value="Create"/>
                 </fieldset>
