@@ -53,10 +53,26 @@
                         <a class="button save hidden col-sm-1 col-md-1 col-lg-1">Save</a>
                     </div>
                     <div class="form-group">
+                        <label class="col-sm-8 col-md-3 col-lg-3">Date</label>
+                        <input class="col-sm-6 col-md-6 col-lg-6 editable-field" name="dob" type="date"
+                               placeholder="{{ $user->birth_date }}" value="{{ $user->birth_date}}"/>
+                        <a class="edit col-sm-1 col-md-1 col-lg-1">Edit</a>
+                        <a class="button save hidden col-sm-1 col-md-1 col-lg-1">Save</a>
+                    </div>
+                    <div class="form-group">
                         <select class="form-control"  id="roleDropdown" name="role[]" multiple>
                             <option value=""></option> <!-- needed for selct2.js library don't remove!-->
                             @foreach($roleList as $role)
                                 <option value="{{$role->name}}">{{$role->name}}</option>
+                            @endforeach
+                        </select>
+
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control"  id="affiliationDropdown" name="affiliation[]" multiple>
+                            <option value=""></option> <!-- needed for selct2.js library don't remove!-->
+                            @foreach($affiliationList as $affiliation)
+                                <option value="{{$affiliation->name}}">{{$affiliation->name}}</option>
                             @endforeach
                         </select>
 
