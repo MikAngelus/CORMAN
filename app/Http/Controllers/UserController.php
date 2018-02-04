@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image;
 
 class UserController extends Controller
 {
@@ -97,15 +98,16 @@ class UserController extends Controller
 
         if ($request->hasFile('user_pic')) {
 
-            $file = $request->input('user_pic');
+            $file = $request->file('user_pic');
 
             if ($file->isValid()) {
-                unlink($user->picture_path);
+                //unlink(public_path('images/profilePictures').$user)
                 $hashName = "/" . md5($file->path() . date('c'));
                 $fileName = $hashName . "." . $file->getClientOriginalExtension();
-                $filePath = public_path('images/profilePictures') . $fileName;
+                //TODO CONTROLLARE PATH
+                $filePath = '../images/profilePictures/' . $fileName;
                 Image::make($file)->fit(200)->save($filePath);
-                $user->picture_path = $fileName;
+                $user->picture_path = $filePath;
             }
         }
 
