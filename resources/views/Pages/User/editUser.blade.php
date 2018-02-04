@@ -12,8 +12,8 @@
     <div class="row">
         <div class="col-lg-9">
             <div class="form-group">
-                <label class="col-sm-3 col-md-3 col-lg-3">First Name</label>
-                <input class="col-sm-6 col-md-6 col-lg-6 editable-field" name="group_pic" type="file" placeholder="Choose a new group pic"/>
+                <label class="col-sm-3 col-md-3 col-lg-3">User Picture</label>
+                <input class="col-sm-6 col-md-6 col-lg-6 editable-field" name="user_pic" type="file" placeholder="Choose a new pic"/>
                 <a class="edit col-sm-1 col-md-1 col-lg-1">Edit</a>
                 <a class="button save hidden col-sm-1 col-md-1 col-lg-1">Save</a>
                 <a href=""><i class="fa fa-user fa-7x"></i></a>
