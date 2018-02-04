@@ -52,7 +52,6 @@
                         <img src="{{url($group->picture_path)}}" alt="">
                     </div>
                     <input class="col-sm-12 col-md-9 col-lg-6 editable-field custom-file-input" id="upload" name="profile_photo" type="file" placeholder="{{$group->picture_path}}" value="{{$group->picture_path}}"/>
-
                     <a class="edit col-lg-1">Edit</a>
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
@@ -69,16 +68,13 @@
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
                 
-                <div id="radioGroup" class="btn-group col-lg-12" data-toggle="group-privacy">
-                    <label id="visibilityLabel" for="visibility" class="col-form-label col-lg-3">Visibility</label>  
-                    <div class="col-lg-3">
-                        <label id="visibilityRadio" class="btn btn-default active col-lg-12">
-                            <input type="radio" id="#" name="privacy-btn" value="public" checked="checked"/> Public
-                        </label>
-                        <label id="visibilityRadio" class="btn btn-default col-lg-12">
-                            <input type="radio" id="#" name="privacy-btn" value="private"/> Private
-                        </label>
-                    </div>
+                <div class="form-group"></div> 
+                    <label class="col-sm-12 col-md-3 col-lg-3" id="visibilityRadio" class="btn btn-default active">
+                        <input type="radio" id="is_public" name="privacy-btn" checked="checked"/>Public
+                    </label>
+                    <label class="col-sm-12 col-md-3 col-lg-3" id="visibilityRadio" class="btn btn-default">
+                        <input type="radio" id="is_public" name="privacy-btn"/>Private
+                    </label>
                 </div>
                 <input type="submit" name="submit" class="next action-button" value="Update"/>
             </fieldset>

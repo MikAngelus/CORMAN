@@ -57,6 +57,14 @@
                     <a class="edit col-lg-1">Edit</a>
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
+                <div class="form-group"> 
+                    <label class="col-sm-12 col-md-3 col-lg-3" id="visibilityRadio" class="btn btn-default active">
+                        <input type="radio" id="is_public" name="privacy-btn" checked="checked"/>Public
+                    </label>
+                    <label class="col-sm-12 col-md-3 col-lg-3" id="visibilityRadio" class="btn btn-default">
+                        <input type="radio" id="is_public" name="privacy-btn"/>Private
+                    </label>
+                </div>
                 <br> 
                 @switch($publication->type)
                     @case('journal')

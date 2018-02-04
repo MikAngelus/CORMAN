@@ -63,9 +63,16 @@
                     <option value="editorship" >Editorship</option>
                 </select>
 
+                <div class="col-lg-12">
+                    <label class="col-sm-12 col-md-3 col-lg-3" id="visibilityRadio" class="btn btn-default active">
+                        <input type="radio" id="is_public" name="privacy-btn" checked="checked"/>Public
+                    </label>
+                    <label class="col-sm-12 col-md-3 col-lg-3" id="visibilityRadio" class="btn btn-default">
+                        <input type="radio" id="is_public" name="privacy-btn"/>Private
+                    </label>
+                </div>
 
-
-                <input type="button" name="next" class="next action-button" value="Next"/>
+                <input type="button" name="next" class="next action-button col-lg-" value="Next"/>
             </fieldset>
    
             <fieldset id="journalFieldset">
@@ -125,7 +132,6 @@
                 <label class="btn btn-default btn-file row">
                     Add Media <i class="fa fa-upload" aria-hidden="true"></i>
                     <input type="file" name="media_file[]" multiple style="display: all;">
-                    
                 </label>
                 <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
                 <input type="submit" name="submit" class="submit action-button" value="Create"/>
