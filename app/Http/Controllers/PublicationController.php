@@ -53,7 +53,7 @@ class PublicationController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
+        dd($request->all());
         /*
         *Create new publications
         * for all fields of the form fill the field of database
