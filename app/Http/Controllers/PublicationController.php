@@ -227,7 +227,7 @@ class PublicationController extends Controller
      */
     public function edit($id)
     {
-        $publication = Auth::user()->publications->where('id',$id);
+        $publication = Auth::user()->publications->where('id',$id)->first();
         return view('Pages.Publication.edit', ['publication'=>$publication] );
     }
 

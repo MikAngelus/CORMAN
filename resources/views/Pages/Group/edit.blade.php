@@ -34,7 +34,7 @@
 
                     <select class="form-control" id="usersDropdown" name="users[]" multiple>
                         @foreach($memberList as $member)
-                            <option value="{{$member->first_name}}"></option> <!-- needed for selct2.js library don't remove!-->
+                            <option value="{{$member->first_name}}">{{$member->last_name}} {{$member->first_name}}</option> <!-- needed for selct2.js library don't remove!-->
                         @endforeach
                         @foreach($userList as $user)
                             <option value="{{$user->first_name}}">{{$user->last_name}} {{$user->first_name}}</option>
@@ -45,7 +45,7 @@
                 </div>
                 <div class="form-group">
                     <label class="col-sm-12 col-md-3 col-lg-2">Profile Photo</label>
-                    <input class="col-sm-12 col-md-9 col-lg-6 editable-field custom-file-input" id="upload" name="profile_photo" type="file" placeholder=""/>
+                    <input class="col-sm-12 col-md-9 col-lg-6 editable-field custom-file-input" id="upload" name="profile_photo" type="file" placeholder="{{$group->picture_path}}" value="{{$group->picture_path}}"/>
 
                     <a class="edit col-lg-1">Edit</a>
                     <a class="button save hidden col-lg-1">Save</a>
