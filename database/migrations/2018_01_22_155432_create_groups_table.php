@@ -18,7 +18,7 @@ class CreateGroupsTable extends Migration
             
             $table->string('name',255)->nullable(false)->unique();
             $table->integer('subscribers_count',false,true)->default(0); // no auto increment and unisgned integer column
-            $table->text('description');
+            $table->text('description')->nullable(true);
             $table->string('picture_path',500);
             $table->enum('public',['public','private'])->default('public');
 

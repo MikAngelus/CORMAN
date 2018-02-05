@@ -8,6 +8,18 @@
 @endsection
 
 @section('content')
+    <!-- Handling Form errors -->
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+@section('content')
 <div class="row">
     <div id="formContainer" class="col-lg-10 col-md-10 col-sm-12">
 
