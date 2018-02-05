@@ -102,7 +102,7 @@
                     <i class="fa fa-upload" aria-hidden="true"></i>
                 </label>
                 
-                <input type="submit" name="submit" class="submit action-button" value="Create"/>
+                <input type="submit" name="submit" class="submit action-button" value="Update"/>
             </fieldset>
         </form>
     </div>

@@ -1,4 +1,4 @@
-<div class="row publication">
+<div class="row col-lg-12" id="publication_row">
     <div id="title" class="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-10">{{$publication->title}}</div>
     <div id="year" class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">{{$publication->year}}</div>
 
