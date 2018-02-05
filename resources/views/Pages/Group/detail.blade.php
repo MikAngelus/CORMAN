@@ -2,6 +2,7 @@
 
 @section('head')
     <link rel="stylesheet" href="{{ url('css/Group/groups.css') }}">
+    <link rel="stylesheet" href="{{ url('css/Publication/publications.css') }}">
 @endsection
 
 @section('content')
