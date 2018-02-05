@@ -6,19 +6,20 @@
 
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-10">
+    <div class="container-fluid">
+        <div id="navbar" class="row col-lg-12">
+            <div class="col-lg-11">
                 <a href="{{route('publications.create')}}" id="btn-newgroup" class="btn btn-primary" role="button">New Publication</a>
             </div>
-            <div class="col-lg-2">
+            <div class="col-lg-1">
                 <i class="fa fa-filter fa-2x pull-right" data-container="body" data-toggle="popover" data-html="true" data-placement="bottom" data-content="@include('Pages.filter')"></i>
             </div>
         </div>
-        <br>
-        @foreach($publicationList as $publication)
-                @include('Pages.Publication.single', ['publication'=>$publication])
-        @endforeach
+        <div id="list_container" class="row col-lg-12">
+            @foreach($publicationList as $publication)
+                    @include('Pages.Publication.single', ['publication'=>$publication])
+            @endforeach
+        </div>
     </div>
 @endsection
 
