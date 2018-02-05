@@ -82,22 +82,21 @@ class GroupController extends Controller
 
                 $hashName = "/" . md5($file->path() . date('c'));
                 $fileName = $hashName . "." . $file->getClientOriginalExtension();
-                $filePath = public_path('images/groups') . $fileName;
+                $filePath = 'images/groups' . $fileName;
                 Image::make($file)->fit(200)->save($filePath);
-                $newGroup->picture_path = $fileName;
+                $newGroup->picture_path = $filePath;
             }
         } else {
-            $newGroup->picture_path = public_path('images/groups/group_icon.png');
+            $newGroup->picture_path = '/images/groups/group_icon.png';
             //TODO replace default path in database table
         }
 
-        if($request->input('visibility') == 'public'){
+        if ($request->input('visibility') == 'public') {
             $newGroup->public = 'public';
-        }
-        else{
+        } else {
             $newGroup->public = 'private';
         }
-        
+
 
         //Increment count for the first member
         $newGroup->subscribers_count = 1;
@@ -178,7 +177,8 @@ class GroupController extends Controller
         $userList = User::where('id', '!=', Auth::id())->get()->sortBy('last_name');
         $memberList = Group::find($id)->users->where('id', '!=', Auth::id());
         $topicList = Group::find($id)->topics;
-        return view('Pages.Group.edit', ['topicList' => $topicList, 'publicationList' => $publicationList, /*'groupList' => $groupList, */ 'group' => $group, 'userList'=>$userList, 'memberList'=>$memberList]);
+        return view('Pages.Group.edit', ['topicList' => $topicList, 'publicationList' => $publicationList, /*'groupList' => $groupList, */
+            'group' => $group, 'userList' => $userList, 'memberList' => $memberList]);
     }
 
     /**
@@ -202,7 +202,7 @@ class GroupController extends Controller
 
                 $hashName = "/" . md5($file->path() . date('c'));
                 $fileName = $hashName . "." . $file->getClientOriginalExtension();
-                $filePath = public_path('images/groups') . $fileName;
+                $filePath = 'images/groups' . $fileName;
                 Image::make($file)->fit(200)->save($filePath);
                 $group->picture_path = $filePath;
             }
@@ -215,10 +215,9 @@ class GroupController extends Controller
         // Adding the list of members
         $memberList = Group::find($id)->users->where('id', '!=', Group::find($id));
 
-        if($request->input('visibility') == 'public'){
+        if ($request->input('visibility') == 'public') {
             $group->public = 'public';
-        }
-        else{
+        } else {
             $group->public = 'private';
         }
         $group->save();

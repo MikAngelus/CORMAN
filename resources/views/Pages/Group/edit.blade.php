@@ -44,7 +44,7 @@
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
                 <div class="form-group">
-                    <img src="{{$group->picture_path}}" alt="">
+                    <img src="{{url($group->picture_path)}}" alt="">
                 </div>
                 <div class="form-group">
                     <label class="col-sm-12 col-md-3 col-lg-2">Profile Photo</label>
