@@ -196,8 +196,8 @@ class GroupController extends Controller
         $group->description = $request->input('description');
 
 
-        if (($request->hasFile('picture'))) {
-            $file = $request->file('picture');
+        if (($request->hasFile('profile_photo'))) {
+            $file = $request->file('profile_photo');
             if ($file->isValid()) {
 
                 $hashName = "/" . md5($file->path() . date('c'));
