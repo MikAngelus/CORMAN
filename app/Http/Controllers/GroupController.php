@@ -160,7 +160,6 @@ class GroupController extends Controller
         $publicationList = Auth::user()->publications;
         $groupList = Auth::user()->groups->where('id', '<>', $id);
         $group = Auth::user()->groups->where('id', $id)->first();
-        
         return view('Pages.Group.detail', ['publicationList' => $publicationList, 'groupList' => $groupList, 'theGroup' => $group]);
     }
 
