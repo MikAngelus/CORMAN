@@ -13,8 +13,8 @@
                     <i class="fa fa-users fa-5x"></i>
                 </div>
                 <div class="col-lg-7">
-                    <h1>{{$group->name}}</h1>
-                    <p>{{$group->description}}</p>
+                    <h1>{{$theGroup->name}}</h1>
+                    <p>{{$theGroup->description}}</p>
                 </div>
                 <div class="col-lg-3">
                     <i class="fa fa-eye fa-2x col-lg-3"></i>
@@ -24,7 +24,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-10">
-                    <a href="{{route('publications.create')}}" id="btn-newgroup" class="btn btn-primary" role="button">New Publication</a>
+                    <a href="#" id="btn-newgroup" class="btn btn-primary" role="button">New Publication</a>
                 </div>
                 <div class="col-lg-2">
                     <i class="fa fa-filter fa-2x pull-right" data-container="body" data-toggle="popover" data-html="true" data-placement="bottom" data-content="@include('Pages.filter')"></i>
@@ -38,9 +38,9 @@
         </div>
         
         <div class="col-lg-3 col-md-2">
-            @foreach($groupList as $groupSingle)
+            @foreach($groupList as $group)
                 <div class="col-lg-12">
-                    @include('Pages.Group.single', ['groupSingle'=>$groupSingle])
+                    @include('Pages.Group.single', ['group'=>$group])
                 </div>
             @endforeach
         </div>

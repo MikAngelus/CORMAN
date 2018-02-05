@@ -101,11 +101,11 @@ class UserController extends Controller
             $file = $request->file('user_pic');
 
             if ($file->isValid()) {
-                //unlink(public_path('images/profilePictures').$user)
+
                 $hashName = "/" . md5($file->path() . date('c'));
                 $fileName = $hashName . "." . $file->getClientOriginalExtension();
-                //TODO CONTROLLARE PATH
-                $filePath = '../images/profilePictures/' . $fileName;
+                $dir ='profilePictures/';
+                $filePath = realpath($dir) . basename($fileName);
                 Image::make($file)->fit(200)->save($filePath);
                 $user->picture_path = $filePath;
             }
