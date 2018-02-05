@@ -114,7 +114,7 @@ class RegisterController extends Controller
                 $fileName = $hashName . "." . $file->getClientOriginalExtension();
                 $filePath = 'images/profilePictures' . $fileName;
                 Image::make($file)->fit(200)->save($filePath);
-                $newUser->picture_path = $fileName;
+                $newUser->picture_path = $filePath;
             }
         }else{
             $newUser->picture_path = "default"; //TODO replace default path in database table
