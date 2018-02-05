@@ -9,16 +9,16 @@
     
     <!-- second row -->
     <div class="col-lg-12">
-        <div id="topics" class="row">
+        <div id="authors" class="row">
             <ul class="list-inline">
-                @foreach($publication->topics as $topic)
-                    <li class="list-inline-item">{{$topic->name}}</li>
+                @foreach($publication->users as $author)
+                    <li class="list-inline-item">{{$author->first_name}} {{$author->last_name}}</li>
                 @endforeach
             </ul>
             <!--sistemare lo spazio che lascia dopo le liste-->
         </div>
     </div>
-    
+
     <!-- third row -->
     <div class="col-lg-12">
         <div id="venue" class="row">{{$publication->venue}}</div>
@@ -27,14 +27,14 @@
     <!-- fourth row -->
     <div class="col-lg-12">
         <div class="row justify-content-between">
-            <div id="authors" class="">
+            <div id="topics" class="">
                 <ul class="list-inline">
-                    @foreach($publication->users as $author)
-                        <li class="list-inline-item">{{$author->first_name}} {{$author->last_name}}</li>
+                    @foreach($publication->topics as $topic)
+                        <li class="list-inline-item">{{$topic->name}}</li>
                     @endforeach
                 </ul>
                 <!--sistemare lo spazio che lascia dopo le liste-->
-            </div>
+            </div>    
             <div id="edit" class="">
                 <a href="{{route('publications.edit', ['id'=>$publication->id])}}"><i class="fa fa-pencil fa-2x"></i></a>
                 <!-- aggiungere if sullo stato della visibilità -->

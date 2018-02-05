@@ -9,11 +9,10 @@
         <div class="btn-toolbar justify-content-between col-lg-12">
             <a href="{{route('publications.create')}}" id="btn-newgroup" class="btn btn-primary" role="button">New Publication</a>
             <i class="fa fa-filter fa-2x pull-right" data-container="body" data-toggle="popover" data-html="true" data-placement="left" data-content="@include('Pages.filter')"></i>
-        </div>
+        </div>        
         @foreach($publicationList as $publication)
             @include('Pages.Publication.single', ['publication'=>$publication])
         @endforeach
-        </div>
     </div>
 @endsection
 
