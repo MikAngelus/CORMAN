@@ -72,7 +72,7 @@ class UserController extends Controller
         //validation
         $validator = Validator::make($request->all(), [
             'first_name' => ['bail', 'required', 'regex:/^[A-Za-z\- ]+$/', 'max:255'], //Don't remove the space!
-            'last_name' => ['bail', 'required', 'regex:/^[A-Za-z\- ]+$/', 'max:255'], //Don't remove the space!
+            'last_name' => ['bail', 'required', 'regex:/^[A-Za-z\-àéèìòù ]+$/', 'max:255'], //Don't remove the space!
             'email' => 'bail|required|email|max:255',
             'picture_path' => 'bail|image|max:15000',
             'role' => 'required|exists:roles,name',
