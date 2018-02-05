@@ -175,8 +175,8 @@ class GroupController extends Controller
         $publicationList = Auth::user()->publications;
         //$groupList = Auth::user()->groups;
         $group = Auth::user()->groups->where('id', $id)->first();
-        $userList = User::where('id', '!=', Auth::id())->get()->sortBy('last_name');
-        $memberList = Group::find($id)->users->where('id', '!=', Auth::id());
+        $userList = User::where('id', '<>', Auth::user()->id)->get()->sortBy('last_name');
+        $memberList = Group::find($id)->users->where('id', '<>', Auth::user()->id);
         $topicList = Group::find($id)->topics;
         return view('Pages.Group.edit', ['topicList' => $topicList, 'publicationList' => $publicationList, /*'groupList' => $groupList, */
             'group' => $group, 'userList' => $userList, 'memberList' => $memberList]);
@@ -191,7 +191,7 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        //dd($request->all());
         $group = Group::find($id);
         $group->name = $request->input('group_name');
         $group->description = $request->input('description');
@@ -214,7 +214,20 @@ class GroupController extends Controller
 
 
         // Adding the list of members
-        $memberList = Group::find($id)->users->where('id', '!=', Group::find($id));
+        $memberList = Group::find($id)->users->pluck('id');
+        $newMemberList = collect($request->input('users'));
+
+        $remove = $memberList->diff($newMemberList);
+        $add = $newMemberList->diff($memberList);
+/*
+        $newMembers = array();
+        foreach($add as $member){
+            array_push($newMembers, [$member => ['role' => 'member']]);
+        }
+*/      
+        
+        $group->users()->detach($remove);
+        $group->users()->attach($add);
 
         if ($request->input('visibility') == 'public') {
             $group->public = 'public';
@@ -236,5 +249,14 @@ class GroupController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function ajaxInfo(Request $request)
+    {
+        $topicList = Group::find($request->query('id'))->topics;
+        $memberList = Group::find($request->query('id'))->users->where('id','<>',Auth::user()->id);
+        $data = array('topicList' => $topicList, 'memberList' => $memberList);
+
+        return response()->json($data);
     }
 }
