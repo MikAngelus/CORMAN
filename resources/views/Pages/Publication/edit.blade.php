@@ -94,7 +94,7 @@
                     Add Media <input type="file" style="display: none;">
                     <i class="fa fa-upload" aria-hidden="true"></i>
                 </label>
-                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                
                 <input type="submit" name="submit" class="submit action-button" value="Create"/>
             </fieldset>
         </form>
