@@ -194,7 +194,7 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+/*
         $validator = Validator::make($request->all(), [
             'name' => 'bail|required|unique:groups|alpha_num|max:255',
             'description' => 'bail|nullable|max:1620',
@@ -206,7 +206,7 @@ class GroupController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
+*/
 
         $group = Group::find($id);
         $group->name = $request->input('group_name');
