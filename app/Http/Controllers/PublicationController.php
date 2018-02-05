@@ -89,7 +89,7 @@ class PublicationController extends Controller
         $newPublication->venue = ucwords($request->input('venue'));
         $newPublication->type = $request->input('type');
         
-        if($request->input('visibility') == 'Public'){
+        if($request->input('visibility') == 'public'){
             $newPublication->public = 1;
         }
         else{
@@ -258,7 +258,7 @@ class PublicationController extends Controller
         $publication->year = $request->input('pub_date');
         $publication->venue = ucwords($request->input('venue'));
         
-        if($request->input('visibility') == 'Public'){
+        if($request->input('visibility') == 'public'){
             $publication->public = 1;
         }
         else{

@@ -62,10 +62,17 @@
 
                 <div class="form-group">
                     <label class="col-sm-12 col-md-3 col-lg-2">Visibility</label>
-                    <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="visibility" name="visibility">
-                        <option selected value="public" >Public</option>
-                        <option value="private" >Private</option>
-                    </select>
+                    @if($publication->public === 1)
+                        <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="visibility" name="visibility">
+                            <option selected value="public" >Public</option>
+                            <option value="private" >Private</option>
+                        </select>
+                    @else
+                        <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="visibility" name="visibility">
+                            <option value="public" >Public</option>
+                            <option selected value="private" >Private</option>
+                        </select>
+                    @endif
                     <a class="edit col-lg-1">Edit</a>
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
