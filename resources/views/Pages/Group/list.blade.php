@@ -1,25 +1,20 @@
 @extends('Layout.main')
 
 @section('head')
-
+    <link rel="stylesheet" href="{{ url('css/Group/groups.css') }}">
 @endsection
 
 @section('content')
     <div class="container-fluid">
-        <div id="navbar" class="row col-lg-12">
-            <div class="col-lg-11">
-                <a href="{{route('groups.create')}}" id="btn-newgroup" class="btn btn-primary pull-left" role="button">New Group</a>
-            </div>    
-            <div class="col-lg-1">
+        <div class="btn-toolbar justify-content-between col-lg-12">
+            <a href="{{route('groups.create')}}" id="btn-newgroup" class="btn btn-primary pull-left" role="button">New Group</a>
             <i class="fa fa-filter fa-2x pull-right" data-container="body" data-toggle="popover" data-html="true" data-placement="bottom" data-content="@include('Pages.filter')"></i>
-                </div>
-            </div>
         </div>
-        <div id="list_container" class="row col-lg-12">
+        <div id="list_container" class="row">
             @foreach($groupList as $group)
-                <div id="group-box" class="col-12 col-sm-12 col-md-6 col-lg-4">
+                <div id="group_item" class="col-12 col-sm-12 col-md-6 col-lg-4">
                     @include('Pages.Group.single', ['group'=>$group])
-                </div>
+                </div>              
             @endforeach
         </div>
     </div>

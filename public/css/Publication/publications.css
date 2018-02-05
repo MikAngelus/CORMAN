@@ -1,14 +1,21 @@
 /*.container {padding:20px;}*/
-.publication{
-  border: 2px solid rgb(200, 200, 200) !important;
-  padding: 10px;
-  border-radius: 5px
-}
-
 #title{
   font-weight: bold;
+  font-size: large;
 }
 
 #authors{
   font-style: italic;
+}
+
+#topics{
+
+}
+
+.publication_item{
+  border: 1px solid rgb(200, 200, 200) !important;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
