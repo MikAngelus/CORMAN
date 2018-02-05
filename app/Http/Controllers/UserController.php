@@ -60,7 +60,7 @@ class UserController extends Controller
         $roleList = Role::all();
         $affiliationList = Affiliation::all();
         return view('Pages.User.editUser', ['user' => $user, 'roleList' => $roleList,
-                                                    'affiliationList' => $affiliationList]);
+            'affiliationList' => $affiliationList]);
     }
 
     /**
@@ -75,8 +75,10 @@ class UserController extends Controller
         //validation
         $validator = Validator::make($request->all(), [
             'first_name' => ['bail', 'required', 'regex:/^[A-Za-z\- ]+$/', 'max:255'], //Don't remove the space!
-            'last_name' => ['bail', 'required', 'regex:/^[A-Za-z\- ]+$/', 'max:255'], //Don't remove the space!
+            'last_name' => ['bail', 'required', 'regex:/^[A-Za-z\-àéèìòù ]+$/', 'max:255'], //Don't remove the space!
             'email' => 'bail|required|email|max:255',
+            'password' => 'bail|required|confirmed|max:255',
+            'password_confirmation' => 'bail|required',
             'picture_path' => 'bail|image|max:15000',
             'role' => 'required|exists:roles,name',
             'personal_link' => 'bail|nullable|url|max:1620'
@@ -104,17 +106,16 @@ class UserController extends Controller
             $file = $request->file('user_pic');
 
             if ($file->isValid()) {
-                //unlink(public_path('images/profilePictures').$user)
+
                 $hashName = "/" . md5($file->path() . date('c'));
                 $fileName = $hashName . "." . $file->getClientOriginalExtension();
-                //TODO CONTROLLARE PATH
-                $filePath = '../images/profilePictures/' . $fileName;
+                $filePath = 'images/profilePictures' . $fileName;
                 Image::make($file)->fit(200)->save($filePath);
                 $user->picture_path = $filePath;
             }
         }
 
-        $roleid = Role::where('name',$request->input('role'))->first()->id;
+        $roleid = Role::where('name', $request->input('role'))->first()->id;
         $user->role_id = $roleid;
 
         $affiliationid = Affiliation::where('name', $request->input('affiliation'))->first()->id;

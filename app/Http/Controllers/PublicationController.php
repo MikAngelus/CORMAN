@@ -90,7 +90,7 @@ class PublicationController extends Controller
         $newPublication->venue = ucwords($request->input('venue'));
         $newPublication->type = $request->input('type');
         
-        if($request->input('visibility') == 'Public'){
+        if($request->input('visibility') == 'public'){
             $newPublication->public = 1;
         }
         else{
@@ -259,7 +259,7 @@ class PublicationController extends Controller
         $publication->year = $request->input('pub_date');
         $publication->venue = ucwords($request->input('venue'));
         
-        if($request->input('visibility') == 'Public'){
+        if($request->input('visibility') == 'public'){
             $publication->public = 1;
         }
         else{
@@ -269,6 +269,24 @@ class PublicationController extends Controller
         // TODO Handling Media
         $publication->multimedia_path = "path/to/multimedia";
 
+
+        $topicInputList = $request->input('topics');
+        foreach( $topicInputList as $topicKey => $topicInput ){
+            $topicInput = strtolower($topicInput);
+            //Search and retrieve the topic from db
+            $topic = Topic::where('name', $topicInput)->first();
+            //Check if the topic is already in the db, otherwise create a new one and attach to the user
+            if($topic != null){
+                $publication->topics()->attach($topic->id);
+            }
+            else{
+                $newTopic = new Topic;
+                $newTopic->name = $topicInput;
+                $newTopic->save();
+
+                $publication->topics()->attach($newTopic->id);
+            }
+        }
 
         $publication->save();
         //dd($publication);

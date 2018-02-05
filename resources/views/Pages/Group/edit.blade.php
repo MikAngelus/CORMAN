@@ -31,7 +31,7 @@
                     <a class="edit col-lg-1">Edit</a>
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
-                
+
                 <div class="form-group">
                     <label class="col-sm-12 col-md-3 col-lg-2">Invite Users</label>
 
@@ -44,11 +44,11 @@
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
                 <div class="form-group">
+                    <img src="{{url($group->picture_path)}}" alt="">
+                </div>
+                <div class="form-group">
                     <label class="col-sm-12 col-md-3 col-lg-2">Profile Photo</label>
-                    <div class="form-group">
-                        <img src="{{url($group->picture_path)}}" alt="">
-                    </div>
-                    <input class="col-sm-12 col-md-9 col-lg-6 editable-field custom-file-input" id="upload" name="profile_photo" type="file" placeholder="{{$group->picture_path}}" value="{{$group->picture_path}}"/>
+                    <input class="col-sm-12 col-md-9 col-lg-6" id="upload" name="profile_photo" type="file" placeholder="{{$group->picture_path}}" value="{{$group->picture_path}}"/>
                     <a class="edit col-lg-1">Edit</a>
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
@@ -64,16 +64,22 @@
                     <a class="edit col-lg-1">Edit</a>
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
-                
                 <div class="form-group">
-                    <label class="col-sm-12 col-md-3 col-lg-2">Visibility</label>
-                    <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="visibility" name="visibility">
-                        <option selected value="public" >Public</option>
-                        <option value="private" >Private</option>
-                    </select> 
-                    <a class="edit col-lg-1">Edit</a>
-                    <a class="button save hidden col-lg-1">Save</a>
-                </div>  
+                    <div class="row">
+                        <label class="col-sm-12 col-md-3 col-lg-2">Visibility</label>
+                        <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="visibility" name="visibility">
+                            @if($group->public === "public")
+                                <option selected value="public" >Public</option>
+                                <option value="private" >Private</option>
+                            @else
+                                <option value="public" >Public</option>
+                                <option selected value="private" >Private</option> 
+                            @endif
+                        </select>
+                        <a class="edit col-lg-1">Edit</a>
+                        <a class="button save hidden col-lg-1">Save</a>
+                    </div>
+                </div>
                 <input type="submit" name="submit" class="next action-button" value="Update"/>
             </fieldset>
         </form>

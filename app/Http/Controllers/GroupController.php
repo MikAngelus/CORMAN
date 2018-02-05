@@ -53,14 +53,14 @@ class GroupController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {/*
+    {
         $validator = Validator::make($request->all(), [
-            'name' => 'bail|required|unique|filled|max:255',
+            'name' => 'bail|required|unique|alpha_num|max:255',
             'description' => 'bail|nullable',
             'picture_path' => 'bail|image|nullable|max:255',
 
-            'members.*' => 'required|filled',
-            'topics.*' => 'filled|max:50',
+            'members.*' => 'required|distinct',
+            'topics.*' => 'max:50|distinct',
         ]);
 
         if ($validator->fails()) {
@@ -68,7 +68,7 @@ class GroupController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-*/
+
         //dd($request->all());
         $newGroup = new Group;
 
@@ -82,22 +82,21 @@ class GroupController extends Controller
 
                 $hashName = "/" . md5($file->path() . date('c'));
                 $fileName = $hashName . "." . $file->getClientOriginalExtension();
-                $filePath = public_path('images/groups') . $fileName;
+                $filePath = 'images/groups' . $fileName;
                 Image::make($file)->fit(200)->save($filePath);
-                $newGroup->picture_path = $fileName;
+                $newGroup->picture_path = $filePath;
             }
         } else {
-            $newGroup->picture_path = public_path('images/groups/group_icon.png');
+            $newGroup->picture_path = '/images/groups/group_icon.png';
             //TODO replace default path in database table
         }
 
-        if($request->input('visibility') == 'Public'){
+        if ($request->input('visibility') == 'public') {
             $newGroup->public = 'public';
-        }
-        else{
+        } else {
             $newGroup->public = 'private';
         }
-        
+
 
         //Increment count for the first member
         $newGroup->subscribers_count = 1;
@@ -160,8 +159,8 @@ class GroupController extends Controller
         $publicationList = Auth::user()->publications;
         $groupList = Auth::user()->groups->where('id', '<>', $id);
         $group = Auth::user()->groups->where('id', $id)->first();
-        
-        return view('Pages.Group.detail', ['publicationList' => $publicationList, 'groupList' => $groupList, 'theGroup' => $group]);
+        //TODO controllare "se è logico passare anche" ['group' => $group]
+        return view('Pages.Group.detail', ['publicationList' => $publicationList, 'groupList' => $groupList, 'theGroup' => $group, 'group' => $group]);
     }
 
     /**
@@ -179,7 +178,8 @@ class GroupController extends Controller
         $userList = User::where('id', '!=', Auth::id())->get()->sortBy('last_name');
         $memberList = Group::find($id)->users->where('id', '!=', Auth::id());
         $topicList = Group::find($id)->topics;
-        return view('Pages.Group.edit', ['topicList' => $topicList, 'publicationList' => $publicationList, /*'groupList' => $groupList, */ 'group' => $group, 'userList'=>$userList, 'memberList'=>$memberList]);
+        return view('Pages.Group.edit', ['topicList' => $topicList, 'publicationList' => $publicationList, /*'groupList' => $groupList, */
+            'group' => $group, 'userList' => $userList, 'memberList' => $memberList]);
     }
 
     /**
@@ -197,15 +197,15 @@ class GroupController extends Controller
         $group->description = $request->input('description');
 
 
-        if (($request->hasFile('picture'))) {
-            $file = $request->file('picture');
+        if (($request->hasFile('profile_photo'))) {
+            $file = $request->file('profile_photo');
             if ($file->isValid()) {
 
                 $hashName = "/" . md5($file->path() . date('c'));
                 $fileName = $hashName . "." . $file->getClientOriginalExtension();
-                $filePath = public_path('images/groups') . $fileName;
+                $filePath = 'images/groups' . $fileName;
                 Image::make($file)->fit(200)->save($filePath);
-                $group->picture_path = $fileName;
+                $group->picture_path = $filePath;
             }
         }
 
@@ -216,7 +216,11 @@ class GroupController extends Controller
         // Adding the list of members
         $memberList = Group::find($id)->users->where('id', '!=', Group::find($id));
 
-
+        if ($request->input('visibility') == 'public') {
+            $group->public = 'public';
+        } else {
+            $group->public = 'private';
+        }
         $group->save();
 
         return redirect()->route('groups.show', ['id' => $group->id]);

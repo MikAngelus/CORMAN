@@ -38,14 +38,15 @@
                     <input type="file" class="group_picture" id="upload" name="picture">
                     
                     <div class="form-group">
-                        <label class="col-sm-12 col-md-3 col-lg-2">Visibility</label>
-                        <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="visibility" name="visibility">
-                            <option selected value="public" >Public</option>
-                            <option value="private" >Private</option>
-                        </select>
+                        <div class="row align-items-center justify-content-center">
+                            <label class="col-sm-12 col-md-3 col-lg-3">Visibility</label>
+                            <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="visibility" name="visibility">
+                                <option selected value="public" >Public</option>
+                                <option value="private" >Private</option>
+                            </select>
+                        </div>
                     </div>  
                     
-                    <input type="button" name="previous" class="previous action-button-previous" value="Back"/>
                     <input type="submit" name="next" class="next action-button" value="Create"/>
                 </fieldset>
             </form>
