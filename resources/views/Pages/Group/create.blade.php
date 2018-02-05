@@ -8,6 +8,18 @@
 @endsection
 
 @section('content')
+    <!-- Handling Form errors -->
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+@section('content')
     <div class="row">
         <div id="formContainer" class=" col-xl-6 col-lg-7 col-md-9 col-sm-10 col-12">
             <form id="msform" action="{{ route('groups.store')}}" method="post" enctype="multipart/form-data">
