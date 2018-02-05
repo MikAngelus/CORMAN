@@ -8,6 +8,9 @@ use App\Affiliation;
 use App\Topic;
 
 
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -133,5 +136,40 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function syncPublications()
+    {
+    
+        return view('Pages.syncPublications',['user' => Auth::user()]);
+    }
+
+
+    public function syncDBLP(Request $request)
+    {
+        $count = 10; 
+        $client = new Client(['base_uri' => 'http://dblp.org/search/publ/api','timeout' =>5.0]);
+        
+        //sanitazing for dblp syntax and manually build the parameters' string
+        $firstName = str_replace(" ","_",$request->query('first_name')); 
+        $lastName = str_replace(" ","_",$request->query('last_name')); 
+        $authName = $firstName.'_'.$lastName; 
+        $paramString="?q=author"."%3A".$authName."&format=json"."&h=".$count; #
+
+        // Call dblp api and decode response as json
+        $response = json_decode($client->request('GET',$paramString)->getBody(),true); #contact dblp web service restful api and get response
+        $response=$response['result']['hits']['hit'];
+        $pubList= array();
+        
+        
+        foreach($response as $publication){
+            array_push($pubList,$publication['info']);
+        }
+
+        $jsonInfo = array('result' =>'OK','records' => $pubList);
+        
+        //dd(json_encode($jsonInfo)); 
+
+        return response()->json($jsonInfo);
     }
 }
