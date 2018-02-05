@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
+
 use App\Publication;
 use App\Journal;
 use App\Conference;
@@ -53,7 +54,7 @@ class PublicationController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
         /*
         *Create new publications
         * for all fields of the form fill the field of database
@@ -354,4 +355,5 @@ class PublicationController extends Controller
     {
         //
     }
+  
 }

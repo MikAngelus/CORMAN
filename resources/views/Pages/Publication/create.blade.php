@@ -36,7 +36,7 @@
                 <h2 class="fs-title">General Info</h2>
                 <h3 class="fs-subtitle">Insert general informations about the publication here</h3>
                 
-                <input type="text" name="title" placeholder="Title"/>
+                <input type="text" name="title" placeholder="Title*"/>
 
                 <select class="form-control" id="authorsDropdown" name="authors[]" multiple>
                     <option value=""></option> <!-- needed for selct2.js library don't remove!-->
