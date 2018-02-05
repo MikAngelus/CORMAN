@@ -10,7 +10,7 @@
         <div class="col-lg-9 col-md-10">
             <div class="row">
                 <div class="col-lg-2">
-                    <img class="card-img-top" src="{{$theGroup->picture_path}}" alt="Card image cap" height="150" width="150">
+                    <img class="card-img-top" src="{{url($theGroup->picture_path)}}" alt="Card image cap" height="150" width="150">
                 </div>
                 <div class="col-lg-7">
                     <h1>{{$theGroup->name}}</h1>
