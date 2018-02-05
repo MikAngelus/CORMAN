@@ -37,17 +37,13 @@
 
                     <input type="file" class="group_picture" id="upload" name="picture">
                     
-                    <div id="radioGroup" class="btn-group col-lg-12" data-toggle="group-privacy">
-                        <label id="visibilityLabel" for="visibility" class="col-form-label col-lg-3">Visibility</label>  
-                        <div class="col-lg-3">
-                            <label id="visibilityRadio" class="btn btn-default active col-lg-12">
-                                <input type="radio" id="#" name="privacy-btn" value="public" checked="checked"/> Public
-                            </label>
-                            <label id="visibilityRadio" class="btn btn-default col-lg-12">
-                                <input type="radio" id="#" name="privacy-btn" value="private"/> Private
-                            </label>
-                        </div>
-                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-12 col-md-3 col-lg-2">Visibility</label>
+                        <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="visibility" name="visibility">
+                            <option selected value="public" >Public</option>
+                            <option value="private" >Private</option>
+                        </select>
+                    </div>  
                     
                     <input type="button" name="previous" class="previous action-button-previous" value="Back"/>
                     <input type="submit" name="next" class="next action-button" value="Create"/>

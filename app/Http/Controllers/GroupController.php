@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 use App\User;
 use App\Topic;
@@ -52,7 +53,22 @@ class GroupController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {/*
+        $validator = Validator::make($request->all(), [
+            'name' => 'bail|required|unique|filled|max:255',
+            'description' => 'bail|nullable',
+            'picture_path' => 'bail|image|nullable|max:255',
+
+            'members.*' => 'required|filled',
+            'topics.*' => 'filled|max:50',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/groups/create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+*/
         //dd($request->all());
         $newGroup = new Group;
 
@@ -75,8 +91,13 @@ class GroupController extends Controller
             //TODO replace default path in database table
         }
 
-
-        $newGroup->public = $request->input('privacy-btn');
+        if($request->input('visibility') == 'Public'){
+            $newGroup->public = 'public';
+        }
+        else{
+            $newGroup->public = 'private';
+        }
+        
 
         //Increment count for the first member
         $newGroup->subscribers_count = 1;
@@ -137,9 +158,10 @@ class GroupController extends Controller
     {
         // Replace with shares of publication-group-model
         $publicationList = Auth::user()->publications;
-        $groupList = Auth::user()->groups;
+        $groupList = Auth::user()->groups->where('id', '<>', $id);
         $group = Auth::user()->groups->where('id', $id)->first();
-        return view('Pages.Group.detail', ['publicationList' => $publicationList, 'groupList' => $groupList, 'group' => $group]);
+        
+        return view('Pages.Group.detail', ['publicationList' => $publicationList, 'groupList' => $groupList, 'theGroup' => $group]);
     }
 
     /**
@@ -152,12 +174,12 @@ class GroupController extends Controller
     {
         // Replace with shares of publication-group-model
         $publicationList = Auth::user()->publications;
-        $groupList = Auth::user()->groups;
+        //$groupList = Auth::user()->groups;
         $group = Auth::user()->groups->where('id', $id)->first();
         $userList = User::where('id', '!=', Auth::id())->get()->sortBy('last_name');
         $memberList = Group::find($id)->users->where('id', '!=', Auth::id());
         $topicList = Group::find($id)->topics;
-        return view('Pages.Group.edit', ['topicList' => $topicList, 'publicationList' => $publicationList, 'groupList' => $groupList, 'group' => $group, 'userList'=>$userList, 'memberList'=>$memberList]);
+        return view('Pages.Group.edit', ['topicList' => $topicList, 'publicationList' => $publicationList, /*'groupList' => $groupList, */ 'group' => $group, 'userList'=>$userList, 'memberList'=>$memberList]);
     }
 
     /**
@@ -170,7 +192,34 @@ class GroupController extends Controller
     public function update(Request $request, $id)
     {
 
-        return redirect()->route('groups.show', ['id' => id]);
+        $group = Group::find($id);
+        $group->name = $request->input('group_name');
+        $group->description = $request->input('description');
+
+
+        if (($request->hasFile('picture'))) {
+            $file = $request->file('picture');
+            if ($file->isValid()) {
+
+                $hashName = "/" . md5($file->path() . date('c'));
+                $fileName = $hashName . "." . $file->getClientOriginalExtension();
+                $filePath = public_path('images/groups') . $fileName;
+                Image::make($file)->fit(200)->save($filePath);
+                $group->picture_path = $fileName;
+            }
+        }
+
+        // Adding the list of topic
+        $topicList = Group::find($id)->topics;
+
+
+        // Adding the list of members
+        $memberList = Group::find($id)->users->where('id', '!=', Group::find($id));
+
+
+        $group->save();
+
+        return redirect()->route('groups.show', ['id' => $group->id]);
 
     }
 

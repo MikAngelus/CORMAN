@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 use App\Publication;
+use App\Journal;
+use App\Conference;
+use App\Editorship;
 use App\Author;
 use App\Topic;
 
@@ -25,7 +28,7 @@ class PublicationController extends Controller
     
     public function index()
     {
-        $publicationList = Auth::user()->publications->where('public',1)->sortByDesc('year')->take(5);
+        $publicationList = Auth::user()->publications->sortByDesc('year')->take(5);
         return view('Pages.Publication.list', ['publicationList'=>$publicationList] );
     }
 
@@ -50,13 +53,15 @@ class PublicationController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
+        dd($request->all());
         /*
         *Create new publications
         * for all fields of the form fill the field of database
         * for all elements of the author field form input 
         */ 
         // TODO resolve the resubmission
+       
+        // TODO completeValidation
         $validator = Validator::make($request->all(), [
             'title' => 'bail|required|filled|max:255',
             'publication_date' => 'bail|required|date',
@@ -67,9 +72,7 @@ class PublicationController extends Controller
             'authors.*' => 'required|filled',
             'topics.*' => 'filled|max:50',
         ]);
-
-
-
+        
         if ($validator->fails()) {
             return redirect('/publications/create')
                         ->withErrors($validator)
@@ -78,20 +81,76 @@ class PublicationController extends Controller
 
 
 
+        // Create new publication
         $newPublication = new Publication;
 
         $newPublication->title = ucwords($request->input('title'));
         $newPublication->year = $request->input('publication_date');
         $newPublication->venue = ucwords($request->input('venue'));
         $newPublication->type = $request->input('type');
-        //$newPublication->ispublic = $request->input('ispublic'); add to the form in create.blade.php
         
-        //Handling Media
+        if($request->input('visibility') == 'Public'){
+            $newPublication->public = 1;
+        }
+        else{
+            $newPublication->public = 0;
+        }
+                
+        // TODO Handling Media
         $newPublication->multimedia_path = "path/to/multimedia";
 
 
         $newPublication->save();
+
         // Handling Publication Details
+        switch ($newPublication->type){
+            case 'journal':
+                $newJournal = new Journal;
+                
+                $newJournal->abstract = $request->input('abstract');
+                $newJournal->volume = $request->input('volume');
+                $newJournal->number = $request->input('number');
+                $newJournal->pages = $request->input('pages');
+                $newJournal->key = $request->input('key');
+                $newJournal->doi = $request->input('doi');
+                $newJournal->ee = $request->input('ee');
+                $newJournal->url = $request->input('url');
+                
+                $newJournal->publication_id = $newPublication->id;
+                $newJournal->save();
+                break;
+
+            case 'conference':
+                $newConference = new Conference;
+            
+                $newConference->abstract = $request->input('abstract');
+                $newConference->pages = $request->input('pages');
+                $newConference->days = $request->input('days');
+                $newConference->key = $request->input('key');
+                $newConference->doi = $request->input('doi');
+                $newConference->ee = $request->input('ee');
+                $newConference->url = $request->input('url');
+                
+                $newConference->publication_id = $newPublication->id;
+                $newConference->save();
+                break;
+
+            case 'editorship':
+                $newEditorship = new Editorship;
+            
+                $newEditorship->abstract = $request->input('abstract');
+                $newEditorship->volume = $request->input('volume');
+                $newEditorship->publisher = $request->input('publisher');
+                $newEditorship->key = $request->input('key');
+                $newEditorship->doi = $request->input('doi');
+                $newEditorship->ee = $request->input('ee');
+                $newEditorship->url = $request->input('url');
+                
+                $newEditorship->publication_id = $newPublication->id;
+                $newEditorship->save();
+                break;
+        }
+
 
         
         // Handling topics  
@@ -140,7 +199,7 @@ class PublicationController extends Controller
             }
         }
 
-        return redirect('/publications');
+        return redirect()->route('publications.index');
 
        
     }
@@ -162,7 +221,7 @@ class PublicationController extends Controller
      */
     public function show($id)
     {
-        $publication = Auth::user()->publications->where('id',$id);
+        $publication = Auth::user()->publications->where('id',$id)->first();
         return view('Pages.Publication.modal', ['publication'=>$publication] );
     }
 
@@ -174,8 +233,10 @@ class PublicationController extends Controller
      */
     public function edit($id)
     {
-        $publication = Auth::user()->publications->where('id',$id);
-        return view('Pages.Publication.edit', ['publication'=>$publication] );
+        $topicList = Topic::all();
+        $authors = Auth::user()->publications->find($id)->first()->authors;
+        $publication = Auth::user()->publications->where('id',$id)->first();
+        return view('Pages.Publication.edit', ['publication'=>$publication, 'authors'=>$authors, 'topicList'=>$topicList] );
     }
 
     /**
@@ -187,7 +248,82 @@ class PublicationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // TODO add validators
+        
+
+        // Retrieve the publication
+        $publication = Publication::find($id);
+        
+        $publication->title = ucwords($request->input('title'));
+        $publication->year = $request->input('pub_date');
+        $publication->venue = ucwords($request->input('venue'));
+        
+        if($request->input('visibility') == 'Public'){
+            $publication->public = 1;
+        }
+        else{
+            $publication->public = 0;
+        }
+        
+        // TODO Handling Media
+        $publication->multimedia_path = "path/to/multimedia";
+
+
+        $publication->save();
+        //dd($publication);
+        // Handling Publication Details
+        switch ($publication->type){
+            case 'journal':
+                $journal = $publication->details;
+                
+                $journal->abstract = $request->input('abstract');
+                $journal->volume = $request->input('volume');
+                $journal->number = $request->input('number');
+                $journal->pages = $request->input('pages');
+                $journal->key = $request->input('key');
+                $journal->doi = $request->input('doi');
+                $journal->ee = $request->input('ee');
+                $journal->url = $request->input('url');
+                
+                $journal->publication_id = $publication->id;
+                $journal->save();
+                break;
+
+            case 'conference':
+                $conference = $publication->details;
+            
+                $conference->abstract = $request->input('abstract');
+                $conference->pages = $request->input('pages');
+                $conference->days = $request->input('days');
+                $conference->key = $request->input('key');
+                $conference->doi = $request->input('doi');
+                $conference->ee = $request->input('ee');
+                $conference->url = $request->input('url');
+                
+                $conference->publication_id = $publication->id;
+                $conference->save();
+                break;
+
+            case 'editorship':
+                $newEditorship = $publication->details;
+            
+                $newEditorship->abstract = $request->input('abstract');
+                $newEditorship->volume = $request->input('volume');
+                $newEditorship->publisher = $request->input('publisher');
+                $newEditorship->key = $request->input('key');
+                $newEditorship->doi = $request->input('doi');
+                $newEditorship->ee = $request->input('ee');
+                $newEditorship->url = $request->input('url');
+                
+                $newEditorship->publication_id = $publication->id;
+                $newEditorship->save();
+                break;
+        }
+
+
+        return redirect()->route('publications.index');
+        
+        
     }
 
     /**
