@@ -57,7 +57,7 @@ class UserController extends Controller
         $roleList = Role::all();
         $affiliationList = Affiliation::all();
         return view('Pages.User.editUser', ['user' => $user, 'roleList' => $roleList,
-                                                    'affiliationList' => $affiliationList]);
+            'affiliationList' => $affiliationList]);
     }
 
     /**
@@ -104,14 +104,13 @@ class UserController extends Controller
 
                 $hashName = "/" . md5($file->path() . date('c'));
                 $fileName = $hashName . "." . $file->getClientOriginalExtension();
-                $dir ='profilePictures/';
-                $filePath = realpath($dir) . basename($fileName);
+                $filePath = 'images/profilePictures' . $fileName;
                 Image::make($file)->fit(200)->save($filePath);
                 $user->picture_path = $filePath;
             }
         }
 
-        $roleid = Role::where('name',$request->input('role'))->first()->id;
+        $roleid = Role::where('name', $request->input('role'))->first()->id;
         $user->role_id = $roleid;
 
         $affiliationid = Affiliation::where('name', $request->input('affiliation'))->first()->id;
