@@ -1,14 +1,20 @@
 /*.container {padding:20px;}*/
-.publication{
-  border: 2px solid rgb(200, 200, 200) !important;
-  padding: 10px;
-  border-radius: 5px
-}
-
 #title{
   font-weight: bold;
 }
 
 #authors{
   font-style: italic;
+}
+
+.publication_item{
+  border: 1px solid rgb(0, 0, 0) !important;
+  padding: 10px;
+  border-radius: 0px;
+}
+
+#publication_row{
+  border: 2px solid rgb(200, 200, 200) !important;
+  padding: 0px;
+  border-radius: 0px;
 }
