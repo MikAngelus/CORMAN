@@ -1,9 +1,10 @@
+<!--
 <div class="panel panel-primary col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
     <div class="panel-heading">
         <div class="row">
         <i class="icon fa fa-users fa-2x pt-3 pl-0 col-lg-2 col-md-2 col-sm" aria-hidden="true"></i>
         <div class="mb-2 mt-3 title col-lg-10 col-md-8 col-sm-11">
-            <h3>{{$group->name}}</h3>
+            <h5>{{$group->name}}</h5>
         </div>
         </div>
     </div>
@@ -12,5 +13,19 @@
         <a href=""><i class="fa fa-eye fa-2x"></i></a>
         <a href="{{route('groups.edit', ['id'=>$group->id])}}"><i class="fa fa-pencil fa-2x"></i></a>
         <a href="{{route('groups.show', ['id'=>$group->id])}}" id="btn-newgroup" class="btn btn-primary pull-right" role="button">View More</a>
+    </div>
+</div>
+-->
+
+<div class="card text-center">
+    <img class="card-img-top" src="{{$group->picture_path}}" alt="Card image cap" height="150" width="150">
+    <div class="card-block">
+        <h5 class="card-title"><b>{{$group->name}}</b></h5>
+        <p class="card-text">{{$group->description}}</p>
+    </div>
+    <div class="card-footer text-muted">
+        <a href=""><i class="fa fa-eye fa-2x pull-left"></i></a>
+        <a href="{{route('groups.edit', ['id'=>$group->id])}}"><i class="fa fa-pencil fa-2x pull-left"></i></a>
+        <a href="{{route('groups.show', ['id'=>$group->id])}}" id="btn-newgroup" class="btn btn-primary btn-sm pull-right" role="button">View More</a>
     </div>
 </div>

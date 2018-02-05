@@ -24,7 +24,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-10">
-                    <a href="#" id="btn-newgroup" class="btn btn-primary" role="button">New Publication</a>
+                    <a href="#" id="btn-newgroup" class="btn btn-primary" role="button">Add Publication</a>
                 </div>
                 <div class="col-lg-2">
                     <i class="fa fa-filter fa-2x pull-right" data-container="body" data-toggle="popover" data-html="true" data-placement="bottom" data-content="@include('Pages.filter')"></i>
