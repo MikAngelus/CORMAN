@@ -91,7 +91,7 @@ class GroupController extends Controller
             //TODO replace default path in database table
         }
 
-        if($request->input('visibility') == 'Public'){
+        if($request->input('visibility') == 'public'){
             $newGroup->public = 'public';
         }
         else{
@@ -160,8 +160,7 @@ class GroupController extends Controller
         $publicationList = Auth::user()->publications;
         $groupList = Auth::user()->groups->where('id', '<>', $id);
         $group = Auth::user()->groups->where('id', $id)->first();
-        
-        return view('Pages.Group.detail', ['publicationList' => $publicationList, 'groupList' => $groupList, 'theGroup' => $group]);
+        return view('Pages.Group.detail', ['publicationList' => $publicationList, 'groupList' => $groupList, 'theGroup' => $group, 'group' => $group]);//TODO controllare "se è logico passare anche" ['group' => $group]
     }
 
     /**
@@ -216,7 +215,12 @@ class GroupController extends Controller
         // Adding the list of members
         $memberList = Group::find($id)->users->where('id', '!=', Group::find($id));
 
-
+        if($request->input('visibility') == 'public'){
+            $group->public = 'public';
+        }
+        else{
+            $group->public = 'private';
+        }
         $group->save();
 
         return redirect()->route('groups.show', ['id' => $group->id]);
