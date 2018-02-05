@@ -152,8 +152,8 @@ class GroupController extends Controller
     {
         // Replace with shares of publication-group-model
         $publicationList = Auth::user()->publications;
-        $groupList = Auth::user()->groups->where('id', '!=', $id);
         $group = Auth::user()->groups->where('id', $id)->first();
+        $groupList = Auth::user()->groups->where('id', '!=', $group->$id)->get();
         return view('Pages.Group.detail', ['publicationList' => $publicationList, 'groupList' => $groupList, 'group' => $group]);
     }
 
