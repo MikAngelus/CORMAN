@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Redirect;
 use Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -55,19 +56,17 @@ class GroupController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'bail|required|unique|alpha_num|max:255',
-            'description' => 'bail|nullable',
+            'name' => 'bail|required|unique:groups|alpha_num|max:255',
+            'description' => 'bail|nullable|max:1620',
             'picture_path' => 'bail|image|nullable|max:255',
 
             'members.*' => 'required|distinct',
-            'topics.*' => 'max:50|distinct',
+            'topics.*' => 'max:50',
         ]);
-
         if ($validator->fails()) {
-            return redirect('/groups/create')
-                ->withErrors($validator)
-                ->withInput();
+            return redirect()->back()->withErrors($validator)->withInput();
         }
+
 
         //dd($request->all());
         $newGroup = new Group;
@@ -107,32 +106,36 @@ class GroupController extends Controller
 
         // Adding the list of topic
         $topicINList = $request->input('topics');
-        foreach ($topicINList as $topicKey => $topicInput) {
-            $topicInput = strtolower($topicInput);
-            //Search and retrieve the topic from db
-            $topic = Topic::where('name', $topicInput)->first();
-            //Check if the topic is already in the db, otherwise create a new one and attach to the user
-            if ($topic != null) {
-                $newGroup->topics()->attach($topic->id);
-            } else {
-                $newTopic = new Topic;
-                $newTopic->name = $topicInput;
-                $newTopic->save();
+        if (isset($topicINList)) {
+            foreach ($topicINList as $topicKey => $topicInput) {
+                $topicInput = strtolower($topicInput);
+                //Search and retrieve the topic from db
+                $topic = Topic::where('name', $topicInput)->first();
+                //Check if the topic is already in the db, otherwise create a new one and attach to the user
+                if ($topic != null) {
+                    $newGroup->topics()->attach($topic->id);
+                } else {
+                    $newTopic = new Topic;
+                    $newTopic->name = $topicInput;
+                    $newTopic->save();
 
-                $newGroup->topics()->attach($newTopic->id);
+                    $newGroup->topics()->attach($newTopic->id);
+                }
             }
         }
-
         // Adding the list of members
         $userINList = $request->input('users');
-        foreach ($userINList as $userIN) {
-            $userIN = str_replace(' ', '', $userIN);
-            $userDBList = User::all();
-            foreach ($userDBList as $userDB) {
-                $name = $userDB->last_name . $userDB->first_name;
-                $name = str_replace(' ', '', $name);
-                if (strcmp($name, $userIN) == 0) {
-                    $newGroup->users()->attach($userDB->id, ['role' => 'member', 'state' => 'pending']);
+        if (isset($userINList)) {
+
+            foreach ($userINList as $userIN) {
+                $userIN = str_replace(' ', '', $userIN);
+                $userDBList = User::all();
+                foreach ($userDBList as $userDB) {
+                    $name = $userDB->last_name . $userDB->first_name;
+                    $name = str_replace(' ', '', $name);
+                    if (strcmp($name, $userIN) == 0) {
+                        $newGroup->users()->attach($userDB->id, ['role' => 'member', 'state' => 'pending']);
+                    }
                 }
             }
         }
@@ -191,7 +194,24 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
+<<<<<<< HEAD
         //dd($request->all());
+=======
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'bail|required|unique:groups|alpha_num|max:255',
+            'description' => 'bail|nullable|max:1620',
+            'picture_path' => 'bail|image|nullable|max:255',
+
+            'members.*' => 'required|distinct',
+            'topics.*' => 'max:50',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+
+>>>>>>> 019049d7630879accb577a8570a7c5c1a1f28323
         $group = Group::find($id);
         $group->name = $request->input('group_name');
         $group->description = $request->input('description');

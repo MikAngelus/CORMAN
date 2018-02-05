@@ -11,7 +11,7 @@
     <div class="order-lg-3 order-md-3 order-sm-2 col-sm-4 collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <a id="menuIcon" class="nav-item nav-link fa fa-user-circle fa-2x" href="{{ route('users.edit', ['id'=>Auth::user()->id]) }}"><span class="sr-only">(current)</span></a>
-            <a id="menuIcon" class="nav-item nav-link fa fa-bell fa-2x" href="#"></a>
+            <i id="menuIcon" class="nav-item nav-link fa fa-bell fa-2x" data-toggle="modal" data-target="#exampleModalLong"></i>
             <!-- Hack for laravel due to HTTP post type request-->
             <a id="menuIcon" class="nav-item nav-link fa fa-sign-out fa-2x" href="{{route('logout')}}"
             onclick = "event.preventDefault();
@@ -29,3 +29,20 @@
         <li class="breadcrumb-item active" aria-current="page">Data</li>
     </ol>
 </nav>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title" id="exampleModalLongTitle">Test Notifiche</h6>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">  
+          @include('Pages.notification')
+        </div>
+      </div>
+    </div>
+  </div>
