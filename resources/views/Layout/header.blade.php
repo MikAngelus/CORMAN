@@ -11,7 +11,25 @@
     <div class="order-lg-3 order-md-3 order-sm-2 col-sm-4 collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <a id="menuIcon" class="nav-item nav-link fa fa-user-circle fa-2x" href="{{ route('users.edit', ['id'=>Auth::user()->id]) }}"><span class="sr-only">(current)</span></a>
-            <i id="menuIcon" class="nav-item nav-link fa fa-bell fa-2x" data-toggle="modal" data-target="#exampleModalLong"></i>
+
+            <li class="dropdown">
+                <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">-->
+                    <a href="#" id="menuIcon" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <span class="nav-item nav-link fa fa-bell fa-2x" ></span><span class="badge">{{ count(auth()->user()->unreadNotifications) }}</span>
+                    </a>
+                    <!--<i id="menuIcon" class="nav-item nav-link fa fa-bell fa-2x" data-toggle="modal" data-target="#exampleModalLong"></i>-->
+                    <!--<span class="fa fa-bell"></span> Notifiche <span class="badge">  </span>-->
+
+                <!--</a>-->
+
+                <ul class="dropdown-menu" role="menu">
+                    <li>
+                        @foreach(auth()->user()->unreadNotifications as $notification)
+                            @include('Layout.notification.'.snake_case(class_basename($notification->type)))
+                        @endforeach
+                    </li>
+                </ul>
+            </li>
             <!-- Hack for laravel due to HTTP post type request-->
             <a id="menuIcon" class="nav-item nav-link fa fa-sign-out fa-2x" href="{{route('logout')}}"
             onclick = "event.preventDefault();
