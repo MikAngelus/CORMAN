@@ -99,6 +99,14 @@
                         <a class="button save hidden col-sm-1 col-md-1 col-lg-1">Save</a>
                     </div>
 
+                    <div class="form-group">
+                        <label class="col-sm-8 col-md-3 col-lg-3">Confirm password</label>
+                        <input class="col-sm-6 col-md-6 col-lg-6 editable-field" name="password_confirmation" type="password"
+                               placeholder="Confirm Password"/>
+                        <a class="edit col-sm-1 col-md-1 col-lg-1">Edit</a>
+                        <a class="button save hidden col-sm-1 col-md-1 col-lg-1">Save</a>
+                    </div>
+
                 </div>
             </div>
 

@@ -74,6 +74,8 @@ class UserController extends Controller
             'first_name' => ['bail', 'required', 'regex:/^[A-Za-z\- ]+$/', 'max:255'], //Don't remove the space!
             'last_name' => ['bail', 'required', 'regex:/^[A-Za-z\- ]+$/', 'max:255'], //Don't remove the space!
             'email' => 'bail|required|email|max:255',
+            'password' => 'bail|required|confirmed|max:255',
+            'password_confirmation' => 'bail|required',
             'picture_path' => 'bail|image|max:15000',
             'role' => 'required|exists:roles,name',
             'personal_link' => 'bail|nullable|url|max:1620'
