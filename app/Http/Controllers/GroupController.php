@@ -204,7 +204,7 @@ class GroupController extends Controller
                 $fileName = $hashName . "." . $file->getClientOriginalExtension();
                 $filePath = public_path('images/groups') . $fileName;
                 Image::make($file)->fit(200)->save($filePath);
-                $group->picture_path = $fileName;
+                $group->picture_path = $filePath;
             }
         }
 
