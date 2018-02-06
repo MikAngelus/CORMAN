@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Notifications\GroupNotification;
-use Illuminate\Support\Facades\Redirect;
 use Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -136,13 +135,15 @@ class GroupController extends Controller
                     $name = str_replace(' ', '', $name);
                     if (strcmp($name, $userIN) == 0) {
                         $newGroup->users()->attach($userDB->id, ['role' => 'member', 'state' => 'pending']);
+                        $newGroup->id->notify(new GroupNotification($newGroup));
+
                     }
                 }
             }
         }
 
         //Notification
-        auth()->user()->notify(new GroupNotification($newGroup));
+        //auth()->user()->notify(new GroupNotification($newGroup));
 
         return redirect()->route('groups.show', ['id' => $newGroup->id]);
         // TODO handling private field $newGroup->isPrivate =
