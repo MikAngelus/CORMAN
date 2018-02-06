@@ -16,6 +16,7 @@ use App\Group;
 
 class GroupController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -59,7 +60,7 @@ class GroupController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'bail|required|unique:groups|alpha_num|max:255',
             'description' => 'bail|nullable|max:1620',
-            'picture_path' => 'bail|image|nullable|max:255',
+            'picture_path' => 'bail|image|nullable|max:15000',
 
             'members.*' => 'required|distinct',
             'topics.*' => 'max:50',
@@ -207,11 +208,10 @@ class GroupController extends Controller
 
         //dd($request->all());
 
-
         $validator = Validator::make($request->all(), [
             'name' => 'bail|required|unique:groups|alpha_num|max:255',
             'description' => 'bail|nullable|max:1620',
-            'picture_path' => 'bail|image|nullable|max:255',
+            'picture_path' => 'bail|image|nullable|max:15000',
 
             'members.*' => 'required|distinct',
             'topics.*' => 'max:50',
@@ -280,6 +280,12 @@ class GroupController extends Controller
     {
         //
     }
+
+    public function shares($request, $id){
+
+    }
+
+
 
     public function ajaxInfo(Request $request)
     {
