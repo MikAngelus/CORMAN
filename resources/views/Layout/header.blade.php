@@ -10,19 +10,19 @@
     </button>
     <div class="order-lg-2 order-md-3 order-sm-2 col-sm-4 collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            @if (isset($user->picture_path))
+            @if (isset(auth()->user()->picture_path))
             <a id="menuIcon" href="{{ route('users.edit', ['id'=>Auth::user()->id]) }}">
-                <img src="{{$user->picture_path}}" width="50" height="50" alt="User Picture">
+                <img src="{{auth()->user()->picture_path}}" width="50" height="50" alt="User Picture">
                 <span class="sr-only">(current)</span>
             </a>
-            <p>{{$user->first_name}}
-                {{$user->last_name}}</p>
+            <p>{{auth()->user()->first_name}}
+                {{auth()->user()->last_name}}</p>
             @else
             <a id="menuIcon" class="nav-item nav-link fa fa-user-circle fa-2x" href="{{ route('users.edit', ['id'=>Auth::user()->id]) }}">
                 <span class="sr-only">(current)</span>
             </a>
             @endif
-            <li class="dropdown">
+            <li class="dropdown" id="markasread" onclick="markNotificationAsRead()">
                 <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">-->
                 <a href="#" id="menuIcon" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                     <span class="nav-item nav-link fa fa-bell fa-2x" ></span><span class="badge">{{ count(auth()->user()->unreadNotifications) }}</span>
@@ -34,9 +34,11 @@
 
                 <ul class="dropdown-menu" role="menu">
                     <li>
-                        @foreach(auth()->user()->unreadNotifications as $notification)
-                        @include('Layout.notification.'.snake_case(class_basename($notification->type)))
-                        @endforeach
+                        @forelse(auth()->user()->unreadNotifications as $notification)
+                            @include('Layout.notification.'.snake_case(class_basename($notification->type)))
+                        @empty
+                            <a href="#">No unread notifications</a>
+                        @endforelse
                     </li>
                 </ul>
             </li>
@@ -58,9 +60,10 @@
     </ol>
 </nav>
 
+<script src="{{ asset('js/notification.js') }}"></script>
 
 
-  <!-- MODAL DA SISTEMARE PER LE NOTIFICHE 
+  <!-- MODAL DA SISTEMARE PER LE NOTIFICHE
   <div class="modal fade" id="modalNotification" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
       <div class="modal-content">
