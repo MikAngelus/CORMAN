@@ -47,6 +47,8 @@
 
 .breadcrumb {
     background-color: white;
+    position: fixed;
+    z-index: 100000;
 }
 
 #buttonMenu {
@@ -55,4 +57,27 @@
 
 #navbarNavAltMarkup {
     margin: 0 auto;
+}
+
+@media (min-width : 320px) {
+    .breadcrumb {
+         top: 9rem
+    }
+}
+@media (min-width : 465px) {
+    .breadcrumb {
+         top: 9rem
+    }
+}
+
+@media (min-width : 576px) {
+    .breadcrumb {
+         top: 6rem
+    }
+}
+
+@media (min-width: 768px) {
+   .breadcrumb {
+         top: 4rem
+    }
 }

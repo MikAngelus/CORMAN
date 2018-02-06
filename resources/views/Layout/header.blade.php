@@ -14,18 +14,18 @@
 
             <li class="dropdown">
                 <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">-->
-                    <a href="#" id="menuIcon" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        <span class="nav-item nav-link fa fa-bell fa-2x" ></span><span class="badge">{{ count(auth()->user()->unreadNotifications) }}</span>
-                    </a>
-                    <!--<i id="menuIcon" class="nav-item nav-link fa fa-bell fa-2x" data-toggle="modal" data-target="#exampleModalLong"></i>-->
-                    <!--<span class="fa fa-bell"></span> Notifiche <span class="badge">  </span>-->
+                <a href="#" id="menuIcon" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                    <span class="nav-item nav-link fa fa-bell fa-2x" ></span><span class="badge">{{ count(auth()->user()->unreadNotifications) }}</span>
+                </a>
+                <!--<i id="menuIcon" class="nav-item nav-link fa fa-bell fa-2x" data-toggle="modal" data-target="#exampleModalLong"></i>-->
+                <!--<span class="fa fa-bell"></span> Notifiche <span class="badge">  </span>-->
 
                 <!--</a>-->
 
                 <ul class="dropdown-menu" role="menu">
                     <li>
                         @foreach(auth()->user()->unreadNotifications as $notification)
-                            @include('Layout.notification.'.snake_case(class_basename($notification->type)))
+                        @include('Layout.notification.'.snake_case(class_basename($notification->type)))
                         @endforeach
                     </li>
                 </ul>
@@ -48,19 +48,19 @@
     </ol>
 </nav>
 
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h6 class="modal-title" id="exampleModalLongTitle">Test Notifiche</h6>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLongTitle">Test Notifiche</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @include('Pages.notification')
+            </div>
         </div>
-        <div class="modal-body">
-          @include('Pages.notification')
-        </div>
-      </div>
     </div>
-  </div>
+</div>
