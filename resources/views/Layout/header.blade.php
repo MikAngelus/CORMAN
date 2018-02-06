@@ -1,7 +1,7 @@
 <nav class="col-lg-12 col-md-12 col-sm-12 fixed-header navbar navbar-dark bg-white navbar-expand-lg navbar-expand-xl">
     <!-- Navbar content -->
-    <a id="brand" class="navbar-brand order-1 order-xl-1 order-lg-1 order-md-1 order-sm-1 col-lg-4 col-md-3 col-sm-8 col-8 col-xl-4">CORMAN</a>
-    <form class="form-inline order-lg-2 order-md-2 order-sm-3 order-3 my-2 my-lg-0 col-lg-6 col-md-7 col-sm-12 col-xl-6">
+    <a id="brand" class="navbar-brand order-1 order-xl-1 order-lg-1 order-md-1 order-sm-1 col-lg-3 col-md-3 col-sm-8 col-8 col-xl-4">CORMAN</a>
+    <form class="form-inline order-lg-2 order-md-2 order-sm-3 order-3 my-2 my-lg-0 col-lg-4 col-md-7 col-sm-12 col-xl-5">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
         <button id="searchBox" class="btn btn-outline my-2 my-sm-0" type="submit">Search</button>
     </form>
@@ -10,9 +10,19 @@
     </button>
     <div class="order-lg-2 order-md-3 order-sm-2 col-sm-4 collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a id="menuIcon" class="nav-item nav-link fa fa-user-circle fa-2x" href="{{ route('users.edit', ['id'=>Auth::user()->id]) }}"><span class="sr-only">(current)</span></a>
-
-            <li class="dropdown">
+            @if (isset(auth()->user()->picture_path))
+            <a id="menuIcon" href="{{ route('users.edit', ['id'=>Auth::user()->id]) }}">
+                <img src="{{auth()->user()->picture_path}}" width="50" height="50" alt="User Picture">
+                <span class="sr-only">(current)</span>
+            </a>
+            <p>{{auth()->user()->first_name}}
+                {{auth()->user()->last_name}}</p>
+            @else
+            <a id="menuIcon" class="nav-item nav-link fa fa-user-circle fa-2x" href="{{ route('users.edit', ['id'=>Auth::user()->id]) }}">
+                <span class="sr-only">(current)</span>
+            </a>
+            @endif
+            <li class="dropdown" id="markasread" onclick="markNotificationAsRead()">
                 <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">-->
                 <a href="#" id="menuIcon" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                     <span class="nav-item nav-link fa fa-bell fa-2x" ></span><span class="badge">{{ count(auth()->user()->unreadNotifications) }}</span>
@@ -24,9 +34,11 @@
 
                 <ul class="dropdown-menu" role="menu">
                     <li>
-                        @foreach(auth()->user()->unreadNotifications as $notification)
-                        @include('Layout.notification.'.snake_case(class_basename($notification->type)))
-                        @endforeach
+                        @forelse(auth()->user()->unreadNotifications as $notification)
+                            @include('Layout.notification.'.snake_case(class_basename($notification->type)))
+                        @empty
+                            <a href="#">No unread notifications</a>
+                        @endforelse
                     </li>
                 </ul>
             </li>
@@ -48,9 +60,10 @@
     </ol>
 </nav>
 
+<script src="{{ asset('js/notification.js') }}"></script>
 
 
-  <!-- MODAL DA SISTEMARE PER LE NOTIFICHE 
+  <!-- MODAL DA SISTEMARE PER LE NOTIFICHE
   <div class="modal fade" id="modalNotification" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
       <div class="modal-content">
