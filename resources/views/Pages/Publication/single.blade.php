@@ -2,11 +2,11 @@
     <!-- first row -->
     <div class="col-lg-12">
         <div class="row justify-content-between">
-            <div id="title" data-toggle="modal" data-target="#modalPublication">{{$publication->title}}</div>
+            <div id="title" style="cursor: pointer;" data-toggle="modal" data-target="#modalPublication">{{$publication->title}}</div>
             <div id="year">{{date('Y',strtotime($publication->year))}}</div>
         </div>
     </div>
-
+    <hr>
     <!-- second row -->
     <div class="col-lg-12">
         <div id="authors" class="row">
@@ -23,11 +23,12 @@
     <div class="col-lg-12">
         <div id="venue" class="row">{{$publication->venue}}</div>
     </div>
+    <hr>
 
     <!-- fourth row -->
     <div class="col-lg-12">
-        <div class="row justify-content-between">
-            <div id="topics" class="">
+        <div class="row justify-content-between align-items-center">
+            <div id="topics">
                 <ul class="list-inline">
                     @foreach($publication->topics as $topic)
                         <li class="list-inline-item">{{$topic->name}}</li>
@@ -35,12 +36,12 @@
                 </ul>
                 <!--sistemare lo spazio che lascia dopo le liste-->
             </div>
-            <div id="edit" class="">
-                <a href="{{route('publications.edit', ['id'=>$publication->id])}}"><i class="fa fa-pencil fa-2x"></i></a>
+            <div id="edit">
+                <a href="{{route('publications.edit', ['id'=>$publication->id])}}"><i class="ion-edit"></i></a>
                 @if($publication->public === 1)
-                    <a href="#aggiungere#azione#"><i class="fa fa-unlock fa-2x"></i></a>
+                    <a href="#aggiungere#azione#"><i class="ion-eye"></i></a>
                 @else
-                    <a href="#aggiungere#azione#visibilità"><i class="fa fa-lock fa-2x"></i></a>
+                    <a href="#aggiungere#azione#visibilità"><i class="ion-eye-disabled"></i></a>
                 @endif
             </div>
         </div>
