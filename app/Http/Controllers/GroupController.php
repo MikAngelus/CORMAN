@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\GroupNotification;
 use Illuminate\Support\Facades\Redirect;
 use Image;
 use Illuminate\Http\Request;
@@ -139,6 +140,10 @@ class GroupController extends Controller
                 }
             }
         }
+
+        //Notification
+        auth()->user()->notify(new GroupNotification($newGroup));
+
         return redirect()->route('groups.show', ['id' => $newGroup->id]);
         // TODO handling private field $newGroup->isPrivate =
         // Handling user invitations
@@ -192,8 +197,15 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
+<<<<<<< HEAD
         //dd($request->all());
 /*
+=======
+/*
+
+        //dd($request->all());
+
+>>>>>>> 1d37a4c2ec95d6e48a4f3a02034cfd4412800851
         $validator = Validator::make($request->all(), [
             'name' => 'bail|required|unique:groups|alpha_num|max:255',
             'description' => 'bail|nullable|max:1620',
@@ -205,9 +217,13 @@ class GroupController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+*/
 
+<<<<<<< HEAD
 */
         // Handling group field changes
+=======
+>>>>>>> 1d37a4c2ec95d6e48a4f3a02034cfd4412800851
         $group = Group::find($id);
         $group->name = $request->input('group_name');
         $group->description = $request->input('description');
