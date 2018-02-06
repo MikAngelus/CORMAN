@@ -40,10 +40,9 @@ class PublicationController extends Controller
      */
     public function create()
     {
-        $authorList = Author::all()->sortBy('last_name');
+        $authorList = Author::all()->where('id', '!=', Auth::user()->author->id)->sortBy('last_name');
         $topicList = Topic::all()->sortBy('title');
-        $selfAuthor = Auth::user();
-        return view('Pages.Publication.create', ['authorList' => $authorList, 'topicList' => $topicList, 'selfAutor' => $selfAuthor]);
+        return view('Pages.Publication.create', ['authorList' => $authorList, 'topicList' => $topicList]);
     }
 
     /**
@@ -174,8 +173,10 @@ class PublicationController extends Controller
         }
 
         // Handling Authors 
-        //Add the auth as self author
+        //Add the user as self author
         $newPublication->users()->attach(Auth::user()->id);
+        $newPublication->authors()->attach(Auth::user()->author->id); 
+
 
         //
         $authorInputList = $request->input('authors');
@@ -235,7 +236,8 @@ class PublicationController extends Controller
     public function edit($id)
     {
         $topicList = Topic::all();
-        $authors = Auth::user()->publications->find($id)->first()->authors;
+        //$authors = Auth::user()->publications->find($id)->first()->authors;
+        $authors = Author::all()->where('id', '!=', Auth::user()->author->id)->sortBy('last_name');
         $publication = Auth::user()->publications->where('id',$id)->first();
         return view('Pages.Publication.edit', ['publication'=>$publication, 'authors'=>$authors, 'topicList'=>$topicList] );
     }
@@ -269,26 +271,77 @@ class PublicationController extends Controller
         // TODO Handling Media
         $publication->multimedia_path = "path/to/multimedia";
 
+        $publication->save();
 
-        $topicInputList = $request->input('topics');
-        foreach( $topicInputList as $topicKey => $topicInput ){
-            $topicInput = strtolower($topicInput);
-            //Search and retrieve the topic from db
-            $topic = Topic::where('name', $topicInput)->first();
-            //Check if the topic is already in the db, otherwise create a new one and attach to the user
-            if($topic != null){
-                $publication->topics()->attach($topic->id);
-            }
-            else{
-                $newTopic = new Topic;
-                $newTopic->name = $topicInput;
-                $newTopic->save();
+        // Handling add and deletion of publication authors
+        $authorList = Author::all()->pluck('id');
+        $publicationAuthorList = Publication::find($id)->authors->pluck('id');
+        $newAuthorList = collect($request->input('authors'));
 
-                $publication->topics()->attach($newTopic->id);
-            }
+        
+        $removeList = $publicationAuthorList->diff($newAuthorList); // get items to delete
+        $addList = $newAuthorList->diff($publicationAuthorList); //intermediate result
+        $createList = $addList->diff($authorList); // get items to create
+        $addList = $addList->diff($createList); // get items to add
+
+        //dd(['form' => $request->all(), 'rem' => $removeList, 'add' => $addList, 'create' => $createList]);
+
+        $publication->authors()->detach($removeList);
+        $publication->authors()->attach($addList);
+
+        foreach($createList as $author){
+            $author = explode(' ',strtolower($author),2); // split first-last name
+            
+            $newAuthor = new Author;
+            $newAuthor->last_name = $author[0];
+            $newAuthor->first_name = $author[1]; 
+            $newAuthor->save();
+
+            $publication->authors()->attach($newAuthor);
         }
 
-        $publication->save();
+
+
+        // Handling add and deletion of publication topics
+        $topicList = Topic::all()->pluck('id');
+        $publicationTopicList = Publication::find($id)->topics->pluck('id');
+        $newTopicList = collect($request->input('topics'));
+
+        $removeList = $publicationTopicList->diff($newTopicList); // get items to delete
+        $addList = $newTopicList->diff($publicationTopicList); //intermediate result
+        $createList = $addList->diff($topicList); // get items to create
+        $addList = $addList->diff($createList); // get items to add
+
+        $publication->topics()->detach($removeList);
+        $publication->topics()->attach($addList);
+
+        foreach($createList as $topic){
+
+            $newTopic = new Topic;
+            $newTopic->name = $topic;
+            $newTopic->save();
+
+            $publication->topics()->attach($newTopic);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         //dd($publication);
         // Handling Publication Details
         switch ($publication->type){
@@ -354,6 +407,15 @@ class PublicationController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function ajaxInfo(Request $request)
+    {
+        $topicList = Publication::find($request->query('id'))->topics;
+        $authorList = Publication::find($request->query('id'))->authors->where('id','!=',Auth::user()->author->id);
+        $data = array('topicList' => $topicList, 'authorList' => $authorList);
+
+        return response()->json($data);
     }
   
 }

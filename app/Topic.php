@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Topic extends Model
 {
     //
+    protected $hidden = ['created_at','updated_at'];
+
     public function users(){
         return $this->belongsToMany('App\User','user_topic');
     }

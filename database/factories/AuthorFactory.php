@@ -7,7 +7,7 @@ $factory->define(App\Author::class, function (Faker $faker) {
 
         'first_name' => $faker->firstName($gender = 'male'|'female'),
         'last_name' => $faker->lastName,
-        'user_id' => $faker->unique()->numberBetween($min = 1, $max = 50)
+        //'user_id' => $faker->unique()->numberBetween($min = 1, $max = 50)
 
     ];
 });

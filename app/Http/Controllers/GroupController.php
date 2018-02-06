@@ -182,7 +182,7 @@ class GroupController extends Controller
         $publicationList = Auth::user()->publications;
         $group = Auth::user()->groups->where('id', $id)->first();
         $userList = User::where('id', '<>', Auth::user()->id)->get()->sortBy('last_name');
-        $topicList = Group::find($id)->topics;
+        $topicList = Topic::all();
 
         return view('Pages.Group.edit', ['topicList' => $topicList, 'publicationList' => $publicationList, 
         'group' => $group, 'userList' => $userList]);
@@ -242,9 +242,30 @@ class GroupController extends Controller
 
         $group->save();
 
+        
+        
         // Handling add and deletion of group topics
-        $topicList = Group::find($id)->topics;
+        $topicList = Topic::all()->pluck('id');
+        $groupTopicList = Group::find($id)->topics->pluck('id');
+        $newTopicList = collect($request->input('topics'));
 
+        $removeList = $groupTopicList->diff($newTopicList); // get items to delete
+        $addList = $newTopicList->diff($groupTopicList); //intermediate result
+        $createList = $addList->diff($topicList); // get items to create
+        $addList = $addList->diff($createList); // get items to add
+
+        $group->topics()->detach($removeList);
+        $group->topics()->attach($addList);
+
+        foreach($createList as $topic){
+
+            $newTopic = new Topic;
+            $newTopic->name = $topic;
+            $newTopic->save();
+
+            $group->topics()->attach($newTopic);
+        }
+ 
 
         // Handling add and deletion of group members
         $memberList = Group::find($id)->users->pluck('id');
