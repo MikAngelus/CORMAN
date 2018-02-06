@@ -32,4 +32,12 @@ class PagesController extends Controller
     public function about(){
         return view('Pages.about');
     }
+
+    public function memberProfile(){
+        /* rivedere gli array */
+        $user=Auth::user();
+        $publicationList=Auth::user()->publications->sortByDesc('year');
+        $groupList=Auth::user()->groups;
+        return view('Pages.memberProfile', ['publicationList'=>$publicationList, 'groupList'=>$groupList, 'user'=>$user]);
+    }
 }

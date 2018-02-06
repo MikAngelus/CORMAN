@@ -270,7 +270,7 @@ class GroupController extends Controller
     public function ajaxInfo(Request $request)
     {
         $topicList = Group::find($request->query('id'))->topics;
-        $memberList = Group::find($request->query('id'))->users->where('id','<>',Auth::user()->id);
+        $memberList = Group::find($request->query('id'))->users;
         $data = array('topicList' => $topicList, 'memberList' => $memberList);
 
         return response()->json($data);

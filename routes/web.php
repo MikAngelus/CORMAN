@@ -28,6 +28,7 @@ Route::get('ajaxGroupInfo', 'GroupController@ajaxInfo');
 Route::get('/', 'PagesController@landingPage');
 Route::get('/tutorial', 'PagesController@tutorial');
 Route::get('/about', 'PagesController@about');
+Route::get('/memberProfile', 'PagesController@memberProfile');
 
 
 // Resource Controllers routes
