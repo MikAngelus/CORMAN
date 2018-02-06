@@ -18,7 +18,7 @@
                     @include('Pages.Publication.single', ['publication'=>$publication])
                 @endforeach
             </div>
-                
+
             <div class="col-lg-4 col-md-4">
                 <center><h1>Last from Groups</h1></center>
                 <div class="btn-toolbar justify-content-between col-lg-12">
@@ -26,7 +26,7 @@
                     <a href="{{ route('groups.index')}}" id="btn-newgroup" class="btn btn-primary pull-right" role="button">View All</a>
                 </div>
                 @foreach($groupList as $group)
-                    @include('Pages.Group.single', ['group'=>$group])
+                    @include('Pages.Group.singleNoDesc', ['group'=>$group])
                 @endforeach
             </div>
         </div>

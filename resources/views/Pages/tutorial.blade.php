@@ -14,7 +14,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">  
+        <div class="modal-body">
           @include('Pages.Publication.modal', ['publication'=>$publication])
         </div>
       </div>

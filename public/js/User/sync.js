@@ -15,7 +15,7 @@ $(document).ready(function(){
 
         console.log(data);
         alert("Data: " + data + "\nStatus: " + status);
-    
+
     });
 
 });

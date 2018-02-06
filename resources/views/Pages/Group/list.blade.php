@@ -14,7 +14,7 @@
             @foreach($groupList as $group)
                 <div id="group_item" class="col-12 col-sm-12 col-md-6 col-lg-4">
                     @include('Pages.Group.single', ['group'=>$group])
-                </div>              
+                </div>
             @endforeach
         </div>
     </div>

@@ -29,10 +29,10 @@
                 {{csrf_field()}}
                 <fieldset class="col-lg-12 col-md-12 col-sm-12">
                     <h2 class="fs-title">Edit User</h2>
-                    <h3 class="fs-subtitle">Edit your informations</h3> 
+                    <h3 class="fs-subtitle">Edit your informations</h3>
                     <div class="form-group">
                         <img src="{{url($user->picture_path)}}" alt="">
-                    </div>       
+                    </div>
                     <div class="form-group">
                         <label class="col-sm-3 col-md-3 col-lg-2">User Picture</label>
                         <input class="col-sm-6 col-md-6 col-lg-6 editable-field" name="user_pic" type="file"
@@ -90,6 +90,18 @@
                     </div>
 
                     <div class="form-group">
+                        <label class="col-sm-12 col-md-3 col-lg-2">Topics</label>
+                        <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="topicsDropdown" name="topics[]" multiple>
+                            <option value=""></option> <!-- needed for selct2.js library don't remove!-->
+                                @foreach($topicList as $topic)
+                                    <option value="{{$topic->id}}">{{$topic->name}}</option>
+                                @endforeach
+                        </select>
+                        <a class="edit col-lg-1">Edit</a>
+                        <a class="button save hidden col-lg-1">Save</a>
+                    </div>
+
+                    <div class="form-group">
                         <label class="col-sm-8 col-md-3 col-lg-2">E-Mail</label>
                         <input class="col-sm-6 col-md-6 col-lg-6 editable-field" name="email" type="email"
                                 placeholder="{{$user->email}}" value="{{$user->email}}"/>
@@ -122,7 +134,7 @@
                     <input type="submit" name="submit" class="submit action-button" value="Submit"/>
             </div>
         </form>
-    </div>    
+    </div>
 @endsection
 
 @section('script')

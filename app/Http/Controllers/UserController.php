@@ -8,6 +8,7 @@ use App\Affiliation;
 use App\Topic;
 
 
+use DeepCopy\f006\A;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 
@@ -59,8 +60,9 @@ class UserController extends Controller
     {
         $roleList = Role::all();
         $affiliationList = Affiliation::all();
+        $topicList = Topic::all();
         return view('Pages.User.editUser', ['user' => $user, 'roleList' => $roleList,
-            'affiliationList' => $affiliationList]);
+            'affiliationList' => $affiliationList, 'topicList' => $topicList]);
     }
 
     /**
@@ -141,36 +143,46 @@ class UserController extends Controller
 
     public function syncPublications()
     {
-    
+
         return view('Pages.syncPublications',['user' => Auth::user()]);
     }
 
 
     public function syncDBLP(Request $request)
     {
-        $count = 10; 
+        $count = 10;
         $client = new Client(['base_uri' => 'http://dblp.org/search/publ/api','timeout' =>5.0]);
-        
+
         //sanitazing for dblp syntax and manually build the parameters' string
-        $firstName = str_replace(" ","_",$request->query('first_name')); 
-        $lastName = str_replace(" ","_",$request->query('last_name')); 
-        $authName = $firstName.'_'.$lastName; 
+        $firstName = str_replace(" ","_",$request->query('first_name'));
+        $lastName = str_replace(" ","_",$request->query('last_name'));
+        $authName = $firstName.'_'.$lastName;
         $paramString="?q=author"."%3A".$authName."&format=json"."&h=".$count; #
 
         // Call dblp api and decode response as json
         $response = json_decode($client->request('GET',$paramString)->getBody(),true); #contact dblp web service restful api and get response
         $response=$response['result']['hits']['hit'];
         $pubList= array();
-        
-        
+
+
         foreach($response as $publication){
             array_push($pubList,$publication['info']);
         }
 
         $jsonInfo = array('result' =>'OK','records' => $pubList);
-        
-        //dd(json_encode($jsonInfo)); 
+
+        //dd(json_encode($jsonInfo));
 
         return response()->json($jsonInfo);
+    }
+
+    public function ajaxInfo(Request $request)
+    {
+        $topicList = Group::find($request->query('id'))->topics;
+        $role = Auth::id()->role;
+        $affiliation = Auth::id()->affiliation;
+        $data = array('topicList' => $topicList, 'role' => $role, 'affiliation' => $affiliation);
+
+        return response()->json($data);
     }
 }

@@ -20,7 +20,7 @@
                     <div class="col-lg-3">
                         <i class="fa fa-eye fa-2x col-lg-3"></i>
                         <a href="{{route('groups.edit', ['id'=>$theGroup->id])}}"><i class="fa fa-pencil fa-2x col-lg-3"></i></a>
-                        <i class="fa fa-angle-double-right fa-2x col-lg-3"></i>    
+                        <i class="fa fa-angle-double-right fa-2x col-lg-3"></i>
                     </div>
                 </div>
                 <div class="row">
@@ -37,7 +37,7 @@
                     @endforeach
                 </div>
             </div>
-            
+
             <div class="col-lg-3 col-md-2">
                 @foreach($groupList as $group)
                     <div class="col-lg-12">

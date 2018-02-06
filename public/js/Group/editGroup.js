@@ -11,7 +11,12 @@ $(document).ready(function() {
     });
 
     var groupId = window.location.href.split("/")[4] // hack to get group id
+<<<<<<< HEAD
     
+=======
+    $.getJson
+
+>>>>>>> a857a57b2ff4066fd2462eaaf705503762e718c0
     $.ajaxSetup({
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -20,9 +25,9 @@ $(document).ready(function() {
     });
 
     $.getJSON("/ajaxGroupInfo?id="+groupId, function(data,status){
-       
+
        console.log(data.topicList);
-      
+
        $.each(data.topicList, function(index,value) {
             var newOption = new Option(value.name, value.id, false, true);
             $('#topicsDropdown').append(newOption);
@@ -32,5 +37,18 @@ $(document).ready(function() {
             var newOption = new Option(value.last_name+" " +value.first_name, value.id, false, true);
             $('#usersDropdown').append(newOption);
         });
+<<<<<<< HEAD
     });
 });
+=======
+
+
+
+
+    });
+
+
+
+
+});
+>>>>>>> a857a57b2ff4066fd2462eaaf705503762e718c0

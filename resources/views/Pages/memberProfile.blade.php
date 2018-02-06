@@ -29,14 +29,14 @@
                         <i class="fa fa-filter fa-2x pull-right" data-container="body" data-toggle="popover" data-html="true" data-placement="bottom" data-content="@include('Pages.filter')"></i>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     @foreach($publicationList as $publication)
                         @include('Pages.Publication.single', ['publication'=>$publication])
                     @endforeach
                 </div>
             </div>
-            
+
             <div class="col-lg-3 col-md-2">
                 @foreach($groupList as $group)
                     <div class="col-lg-12">
