@@ -13,6 +13,7 @@ class GroupNotification extends Notification
     use Queueable;
 
     protected $group;
+    //protected $user_group;
     /**
      * Create a new notification instance.
      *
@@ -21,6 +22,7 @@ class GroupNotification extends Notification
     public function __construct($group)
     {
         $this->group=$group;
+       // $this->user_group=$user_group;
     }
 
     /**
