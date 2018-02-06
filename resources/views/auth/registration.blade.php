@@ -27,7 +27,6 @@
                 <ul id="progressbar">
                     <li class="active">Personal Info</li>
                     <li>Professional info</li>
-                    <li>Publications</li>
                 </ul>
                 <!-- fieldsets -->
                 <fieldset>
@@ -66,15 +65,7 @@
                         @endforeach
                     </select>
                     <input type="text" name="personal_link" placeholder="Personal Link"/>
-                    
-                    <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
-                    <input type="button" name="next" class="next action-button" value="Next"/>
-                </fieldset>
-                
-                <fieldset>
-                    <h2 class="fs-title">Publications</h2>
-                    <h3 class="fs-subtitle"></h3>
-                    <button type="button" id="selectAll" class="btn btn-primary"> <span class="sub"></span> Select</button>
+
                     <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
                     <input type="submit" name="submit" class="submit action-button" value="Submit"/>
                 </fieldset>
@@ -87,6 +78,5 @@
     <script src="{{ url('js/jquery-ui.js') }}"></script>
     <script src="{{ url('js/jqueryformRegistration.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/validate.js/0.12.0/validate.min.js"></script>
     <script src="{{ url('js/User/signUp.js') }}"></script>
 @endsection

@@ -8,9 +8,19 @@
 @endsection
 
 @section('content')
+    <!-- Handling Form errors -->
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
 <div class="row">
     <div id="formContainer" class="col-lg-10 col-md-10 col-sm-12">
-
         <form id="msform" action="{{ route('groups.update', ['id'=>$group->id])}}" method="post" enctype="multipart/form-data">
         {{csrf_field()}}
         {{ method_field('PUT') }}
@@ -37,14 +47,14 @@
 
                     <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="usersDropdown" name="users[]" multiple>
                         @foreach($userList as $user)
-                            <option value="{{$user->first_name}}">{{$user->last_name}} {{$user->first_name}}</option>
+                            <option value="{{$user->id}}">{{$user->last_name}} {{$user->first_name}}</option>
                         @endforeach
                     </select>
                     <a class="edit col-lg-1">Edit</a>
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
                 <div class="form-group">
-                    <img src="{{$group->picture_path}}" alt="">
+                    <img src="{{url($group->picture_path)}}" alt="">
                 </div>
                 <div class="form-group">
                     <label class="col-sm-12 col-md-3 col-lg-2">Profile Photo</label>
@@ -58,7 +68,7 @@
                     <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="topicsDropdown" name="topics[]" multiple>
                         <option value=""></option> <!-- needed for selct2.js library don't remove!-->
                             @foreach($topicList as $topic)
-                                <option value="{{$topic->name}}">{{$topic->name}}</option>
+                                <option value="{{$topic->id}}">{{$topic->name}}</option>
                             @endforeach
                     </select>
                     <a class="edit col-lg-1">Edit</a>

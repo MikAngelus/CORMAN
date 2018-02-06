@@ -16,16 +16,17 @@
     </div>
 </div>
 -->
-
-<div class="card text-center mb-4">
-    <img class="card-img-top" src="{{$group->picture_path}}" alt="Card image cap" height="150" width="150">
+<div class="group_item">
+<div class="card text-left">
+    <img class="card-img-top" src="{{$group->picture_path}}" alt="Card image cap" height="100" width="100">
     <div class="card-block">
-        <h5 class="card-title"><b>{{$group->name}}</b></h5>
-        <p class="card-text">{{$group->description}}</p>
+        <div id="title" class="card-title">{{$group->name}}</div>
+        <div id="description" class="card-text">{{$group->description}}</div>
     </div>
-    <div class="card-footer text-muted">
-        <a href=""><i class="fa fa-eye fa-2x pull-left"></i></a>
-        <a href="{{route('groups.edit', ['id'=>$group->id])}}"><i class="fa fa-pencil fa-2x pull-left"></i></a>
+    <div class="card-footer justify-content-between align-items-center">
+        <a href=""><i class="fa fa-eye pull-left"></i></a>
+        <a href="{{route('groups.edit', ['id'=>$group->id])}}"><i class="fa fa-pencil pull-left"></i></a>
         <a href="{{route('groups.show', ['id'=>$group->id])}}" id="btn-newgroup" class="btn btn-primary btn-sm pull-right" role="button">View More</a>
     </div>
+</div>
 </div>

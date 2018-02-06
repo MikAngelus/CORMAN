@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
+
 use App\Publication;
 use App\Journal;
 use App\Conference;
@@ -28,7 +29,7 @@ class PublicationController extends Controller
     
     public function index()
     {
-        $publicationList = Auth::user()->publications->sortByDesc('year')->take(5);
+        $publicationList = Auth::user()->publications->sortByDesc('year');
         return view('Pages.Publication.list', ['publicationList'=>$publicationList] );
     }
 
@@ -53,7 +54,7 @@ class PublicationController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
         /*
         *Create new publications
         * for all fields of the form fill the field of database
@@ -269,6 +270,24 @@ class PublicationController extends Controller
         $publication->multimedia_path = "path/to/multimedia";
 
 
+        $topicInputList = $request->input('topics');
+        foreach( $topicInputList as $topicKey => $topicInput ){
+            $topicInput = strtolower($topicInput);
+            //Search and retrieve the topic from db
+            $topic = Topic::where('name', $topicInput)->first();
+            //Check if the topic is already in the db, otherwise create a new one and attach to the user
+            if($topic != null){
+                $publication->topics()->attach($topic->id);
+            }
+            else{
+                $newTopic = new Topic;
+                $newTopic->name = $topicInput;
+                $newTopic->save();
+
+                $publication->topics()->attach($newTopic->id);
+            }
+        }
+
         $publication->save();
         //dd($publication);
         // Handling Publication Details
@@ -336,4 +355,5 @@ class PublicationController extends Controller
     {
         //
     }
+
 }

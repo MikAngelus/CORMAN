@@ -9,15 +9,13 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+          <h6 class="modal-title" id="exampleModalLongTitle">Publication' View</h6>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-            
-                @include('Pages.Publication.modal', ['publication'=>$publication])
-
+          @include('Pages.Publication.modal', ['publication'=>$publication])
         </div>
       </div>
     </div>

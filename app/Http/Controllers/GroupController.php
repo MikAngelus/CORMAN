@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\GroupNotification;
+use Illuminate\Support\Facades\Redirect;
 use Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -53,22 +55,20 @@ class GroupController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {/*
+    {
         $validator = Validator::make($request->all(), [
-            'name' => 'bail|required|unique|filled|max:255',
-            'description' => 'bail|nullable',
+            'name' => 'bail|required|unique:groups|alpha_num|max:255',
+            'description' => 'bail|nullable|max:1620',
             'picture_path' => 'bail|image|nullable|max:255',
 
-            'members.*' => 'required|filled',
-            'topics.*' => 'filled|max:50',
+            'members.*' => 'required|distinct',
+            'topics.*' => 'max:50',
         ]);
-
         if ($validator->fails()) {
-            return redirect('/groups/create')
-                ->withErrors($validator)
-                ->withInput();
+            return redirect()->back()->withErrors($validator)->withInput();
         }
-*/
+
+
         //dd($request->all());
         $newGroup = new Group;
 
@@ -82,22 +82,21 @@ class GroupController extends Controller
 
                 $hashName = "/" . md5($file->path() . date('c'));
                 $fileName = $hashName . "." . $file->getClientOriginalExtension();
-                $filePath = public_path('images/groups') . $fileName;
+                $filePath = 'images/groups' . $fileName;
                 Image::make($file)->fit(200)->save($filePath);
-                $newGroup->picture_path = $fileName;
+                $newGroup->picture_path = $filePath;
             }
         } else {
-            $newGroup->picture_path = public_path('images/groups/group_icon.png');
+            $newGroup->picture_path = '/images/groups/group_icon.png';
             //TODO replace default path in database table
         }
 
-        if($request->input('visibility') == 'public'){
+        if ($request->input('visibility') == 'public') {
             $newGroup->public = 'public';
-        }
-        else{
+        } else {
             $newGroup->public = 'private';
         }
-        
+
 
         //Increment count for the first member
         $newGroup->subscribers_count = 1;
@@ -108,35 +107,43 @@ class GroupController extends Controller
 
         // Adding the list of topic
         $topicINList = $request->input('topics');
-        foreach ($topicINList as $topicKey => $topicInput) {
-            $topicInput = strtolower($topicInput);
-            //Search and retrieve the topic from db
-            $topic = Topic::where('name', $topicInput)->first();
-            //Check if the topic is already in the db, otherwise create a new one and attach to the user
-            if ($topic != null) {
-                $newGroup->topics()->attach($topic->id);
-            } else {
-                $newTopic = new Topic;
-                $newTopic->name = $topicInput;
-                $newTopic->save();
+        if (isset($topicINList)) {
+            foreach ($topicINList as $topicKey => $topicInput) {
+                $topicInput = strtolower($topicInput);
+                //Search and retrieve the topic from db
+                $topic = Topic::where('name', $topicInput)->first();
+                //Check if the topic is already in the db, otherwise create a new one and attach to the user
+                if ($topic != null) {
+                    $newGroup->topics()->attach($topic->id);
+                } else {
+                    $newTopic = new Topic;
+                    $newTopic->name = $topicInput;
+                    $newTopic->save();
 
-                $newGroup->topics()->attach($newTopic->id);
-            }
-        }
-
-        // Adding the list of members
-        $userINList = $request->input('users');
-        foreach ($userINList as $userIN) {
-            $userIN = str_replace(' ', '', $userIN);
-            $userDBList = User::all();
-            foreach ($userDBList as $userDB) {
-                $name = $userDB->last_name . $userDB->first_name;
-                $name = str_replace(' ', '', $name);
-                if (strcmp($name, $userIN) == 0) {
-                    $newGroup->users()->attach($userDB->id, ['role' => 'member', 'state' => 'pending']);
+                    $newGroup->topics()->attach($newTopic->id);
                 }
             }
         }
+        // Adding the list of members
+        $userINList = $request->input('users');
+        if (isset($userINList)) {
+
+            foreach ($userINList as $userIN) {
+                $userIN = str_replace(' ', '', $userIN);
+                $userDBList = User::all();
+                foreach ($userDBList as $userDB) {
+                    $name = $userDB->last_name . $userDB->first_name;
+                    $name = str_replace(' ', '', $name);
+                    if (strcmp($name, $userIN) == 0) {
+                        $newGroup->users()->attach($userDB->id, ['role' => 'member', 'state' => 'pending']);
+                    }
+                }
+            }
+        }
+
+        //Notification
+        auth()->user()->notify(new GroupNotification($newGroup));
+
         return redirect()->route('groups.show', ['id' => $newGroup->id]);
         // TODO handling private field $newGroup->isPrivate =
         // Handling user invitations
@@ -160,7 +167,7 @@ class GroupController extends Controller
         $publicationList = Auth::user()->publications;
         $groupList = Auth::user()->groups->where('id', '<>', $id);
         $group = Auth::user()->groups->where('id', $id)->first();
-        return view('Pages.Group.detail', ['publicationList' => $publicationList, 'groupList' => $groupList, 'theGroup' => $group, 'group' => $group]);//TODO controllare "se è logico passare anche" ['group' => $group]
+        return view('Pages.Group.detail', ['publicationList' => $publicationList, 'groupList' => $groupList, 'theGroup' => $group]);
     }
 
     /**
@@ -173,12 +180,12 @@ class GroupController extends Controller
     {
         // Replace with shares of publication-group-model
         $publicationList = Auth::user()->publications;
-        //$groupList = Auth::user()->groups;
         $group = Auth::user()->groups->where('id', $id)->first();
-        $userList = User::where('id', '!=', Auth::id())->get()->sortBy('last_name');
-        $memberList = Group::find($id)->users->where('id', '!=', Auth::id());
+        $userList = User::where('id', '<>', Auth::user()->id)->get()->sortBy('last_name');
         $topicList = Group::find($id)->topics;
-        return view('Pages.Group.edit', ['topicList' => $topicList, 'publicationList' => $publicationList, /*'groupList' => $groupList, */ 'group' => $group, 'userList'=>$userList, 'memberList'=>$memberList]);
+
+        return view('Pages.Group.edit', ['topicList' => $topicList, 'publicationList' => $publicationList,
+        'group' => $group, 'userList' => $userList]);
     }
 
     /**
@@ -191,37 +198,65 @@ class GroupController extends Controller
     public function update(Request $request, $id)
     {
 
+/*
+
+        //dd($request->all());
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'bail|required|unique:groups|alpha_num|max:255',
+            'description' => 'bail|nullable|max:1620',
+            'picture_path' => 'bail|image|nullable|max:255',
+
+            'members.*' => 'required|distinct',
+            'topics.*' => 'max:50',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+*/
+
+        // Handling group field changes
+
         $group = Group::find($id);
         $group->name = $request->input('group_name');
         $group->description = $request->input('description');
 
 
-        if (($request->hasFile('picture'))) {
-            $file = $request->file('picture');
+        // Handling group picture changes
+        if (($request->hasFile('profile_photo'))) {
+            $file = $request->file('profile_photo');
             if ($file->isValid()) {
 
                 $hashName = "/" . md5($file->path() . date('c'));
                 $fileName = $hashName . "." . $file->getClientOriginalExtension();
-                $filePath = public_path('images/groups') . $fileName;
+                $filePath = 'images/groups' . $fileName;
                 Image::make($file)->fit(200)->save($filePath);
                 $group->picture_path = $filePath;
             }
         }
 
-        // Adding the list of topic
+        // Handle group Visibility
+        if ($request->input('visibility') == 'public') {
+            $group->public = 'public';
+        } else {
+            $group->public = 'private';
+        }
+
+        $group->save();
+
+        // Handling add and deletion of group topics
         $topicList = Group::find($id)->topics;
 
 
-        // Adding the list of members
-        $memberList = Group::find($id)->users->where('id', '!=', Group::find($id));
+        // Handling add and deletion of group members
+        $memberList = Group::find($id)->users->pluck('id');
+        $newMemberList = collect($request->input('users'));
 
-        if($request->input('visibility') == 'public'){
-            $group->public = 'public';
-        }
-        else{
-            $group->public = 'private';
-        }
-        $group->save();
+        $removeList = $memberList->diff($newMemberList);
+        $addList = $newMemberList->diff($memberList);
+
+        $group->users()->detach($removeList);
+        $group->users()->attach($addList);
 
         return redirect()->route('groups.show', ['id' => $group->id]);
 
@@ -236,5 +271,14 @@ class GroupController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function ajaxInfo(Request $request)
+    {
+        $topicList = Group::find($request->query('id'))->topics;
+        $memberList = Group::find($request->query('id'))->users;
+        $data = array('topicList' => $topicList, 'memberList' => $memberList);
+
+        return response()->json($data);
     }
 }

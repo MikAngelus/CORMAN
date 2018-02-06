@@ -14,6 +14,16 @@
 use App\Publication;
 use App\User;
 
+use Illuminate\Http\Request;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
+
+
+// Ajax routes
+Route::get('syncDBLP', 'UserController@syncDBLP');
+Route::get('ajaxPublicationInfo', 'PublicationController@ajaxInfo');
+Route::get('ajaxGroupInfo', 'GroupController@ajaxInfo');
+
 // Controllers
 Route::get('/', 'PagesController@landingPage');
 Route::get('/tutorial', 'PagesController@tutorial');
@@ -22,9 +32,11 @@ Route::get('/about', 'PagesController@about');
 
 // Resource Controllers routes
 Route::resource('users','UserController',['except' => ['create', 'store']]);
+Route::get('syncPublications','UserController@syncPublications');
+
+
 Route::resource('publications','PublicationController');
 Route::resource('groups','GroupController');
-
 
 
 // Authentication Routes...
