@@ -26,7 +26,7 @@
                     <a href="{{ route('groups.index')}}" id="btn-newgroup" class="btn btn-primary pull-right" role="button">View All</a>
                 </div>
                 @foreach($groupList as $group)
-                    @include('Pages.Group.single', ['group'=>$group])
+                    @include('Pages.Group.singleNoDesc', ['group'=>$group])
                 @endforeach
             </div>
         </div>

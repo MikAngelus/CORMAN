@@ -8,6 +8,7 @@ use App\Affiliation;
 use App\Topic;
 
 
+use DeepCopy\f006\A;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 
@@ -173,5 +174,15 @@ class UserController extends Controller
         //dd(json_encode($jsonInfo));
 
         return response()->json($jsonInfo);
+    }
+
+    public function ajaxInfo(Request $request)
+    {
+        $topicList = Group::find($request->query('id'))->topics;
+        $role = Auth::id()->role;
+        $affiliation = Auth::id()->affiliation;
+        $data = array('topicList' => $topicList, 'role' => $role, 'affiliation' => $affiliation);
+
+        return response()->json($data);
     }
 }
