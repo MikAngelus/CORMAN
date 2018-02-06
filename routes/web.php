@@ -21,7 +21,8 @@ use GuzzleHttp\Client;
 
 // Ajax routes
 Route::get('syncDBLP', 'UserController@syncDBLP');
-
+Route::get('ajaxPublicationInfo', 'PublicationController@ajaxInfo');
+Route::get('ajaxGroupInfo', 'GroupController@ajaxInfo');
 
 // Controllers
 Route::get('/', 'PagesController@landingPage');

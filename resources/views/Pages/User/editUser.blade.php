@@ -31,7 +31,7 @@
                     <h2 class="fs-title">Edit User</h2>
                     <h3 class="fs-subtitle">Edit your informations</h3> 
                     <div class="form-group">
-                        <img src="{{$user->picture_path}}" alt="">
+                        <img src="{{url($user->picture_path)}}" alt="">
                     </div>       
                     <div class="form-group">
                         <label class="col-sm-3 col-md-3 col-lg-2">User Picture</label>
@@ -126,9 +126,7 @@
 @endsection
 
 @section('script')
-    <script src="{{ url('js/jquery-ui.js') }}"></script>
-    <script src="{{ url('js/jqueryform.js') }}"></script>
-    <script src="{{ url('js/User/editUser.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="{{ url('js/User/editUser.js') }}"></script>
     <script src="{{ url('js/editFieldsForm.js') }}"></script>
 @endsection
