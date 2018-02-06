@@ -134,20 +134,20 @@ class GroupController extends Controller
                 foreach ($userDBList as $userDB) {
                     $name = $userDB->last_name . $userDB->first_name;
                     $name = str_replace(' ', '', $name);
+
                     if (strcmp($name, $userIN) == 0) {
                         $newGroup->users()->attach($userDB->id, ['role' => 'member', 'state' => 'pending']);
-                        Notification::send($userINList, GroupNotification($newGroup));
-                       /* $u = $userDB->id;
-                        $u->notify(new GroupNotification($newGroup));*/
+                        /*$notification = User::find($userIN->id);
+                        $notification->notify(new GroupNotification($newGroup));*/
 
                     }
                 }
-
+                //Notification::send($userIN, new GroupNotification($newGroup));
             }
         }
 
         //Notification
-        //auth()->user()->notify(new GroupNotification($newGroup));
+        //auth()->user()->notify(new GroupNotification($newGroup)); ----> wrong!
 
         return redirect()->route('groups.show', ['id' => $newGroup->id]);
         // TODO handling private field $newGroup->isPrivate =
