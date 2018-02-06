@@ -57,20 +57,6 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'bail|required|unique:groups|alpha_num|max:255',
-            'description' => 'bail|nullable|max:1620',
-            'picture_path' => 'bail|image|nullable|max:15000',
-
-            'members.*' => 'required|distinct',
-            'topics.*' => 'max:50',
-        ]);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
-
-        //dd($request->all());
         $newGroup = new Group;
 
         $newGroup->name = $request->input('name');
@@ -157,7 +143,6 @@ class GroupController extends Controller
 
         // Handling user as admin
 
-        // Handling users invitation tagging
 
     }
 
@@ -173,8 +158,7 @@ class GroupController extends Controller
         $publicationList = Auth::user()->publications;
         $groupList = Auth::user()->groups->where('id', '<>', $id);
         $group = Auth::user()->groups->where('id', $id)->first();
-        //TODO controllare "se è logico passare anche" ['group' => $group]
-        return view('Pages.Group.detail', ['publicationList' => $publicationList, 'groupList' => $groupList, 'theGroup' => $group, 'group' => $group]);
+        return view('Pages.Group.detail', ['publicationList' => $publicationList, 'groupList' => $groupList, 'theGroup' => $group]);
     }
 
     /**
