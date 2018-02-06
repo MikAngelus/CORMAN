@@ -10,13 +10,13 @@
     </button>
     <div class="order-lg-2 order-md-3 order-sm-2 col-sm-4 collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
+            <p>{{auth()->user()->first_name}}
+                {{auth()->user()->last_name}}</p>
             @if (isset(auth()->user()->picture_path))
             <a id="menuIcon" href="{{ route('users.edit', ['id'=>Auth::user()->id]) }}">
                 <img src="{{auth()->user()->picture_path}}" width="50" height="50" alt="User Picture">
                 <span class="sr-only">(current)</span>
             </a>
-            <p>{{auth()->user()->first_name}}
-                {{auth()->user()->last_name}}</p>
             @else
             <a id="menuIcon" class="nav-item nav-link fa fa-user-circle fa-2x" href="{{ route('users.edit', ['id'=>Auth::user()->id]) }}">
                 <span class="sr-only">(current)</span>
@@ -35,9 +35,9 @@
                 <ul class="dropdown-menu" role="menu">
                     <li>
                         @forelse(auth()->user()->unreadNotifications as $notification)
-                            @include('Layout.notification.'.snake_case(class_basename($notification->type)))
+                        @include('Layout.notification.'.snake_case(class_basename($notification->type)))
                         @empty
-                            <a href="#">No unread notifications</a>
+                        <a href="#">No unread notifications</a>
                         @endforelse
                     </li>
                 </ul>
@@ -63,16 +63,16 @@
 <script src="{{ asset('js/notification.js') }}"></script>
 
 
-  <!-- MODAL DA SISTEMARE PER LE NOTIFICHE
-  <div class="modal fade" id="modalNotification" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h6 class="modal-title" id="modalNotificationTitle">Test Notifiche</h6>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-    </div>
+<!-- MODAL DA SISTEMARE PER LE NOTIFICHE
+<div class="modal fade" id="modalNotification" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="modal-dialog modal-sm" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h6 class="modal-title" id="modalNotificationTitle">Test Notifiche</h6>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+</div>
 </div>
 -->

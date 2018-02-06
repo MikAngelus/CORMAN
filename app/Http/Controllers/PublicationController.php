@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Faker\Provider\File;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -26,11 +29,11 @@ class PublicationController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index()
     {
         $publicationList = Auth::user()->publications->sortByDesc('year');
-        return view('Pages.Publication.list', ['publicationList'=>$publicationList] );
+        return view('Pages.Publication.list', ['publicationList' => $publicationList]);
     }
 
     /**
@@ -49,7 +52,7 @@ class PublicationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -59,9 +62,9 @@ class PublicationController extends Controller
         *Create new publications
         * for all fields of the form fill the field of database
         * for all elements of the author field form input 
-        */ 
+        */
         // TODO resolve the resubmission
-       
+
         // TODO completeValidation
         $validator = Validator::make($request->all(), [
             'title' => 'bail|required|filled|max:255',
@@ -69,17 +72,16 @@ class PublicationController extends Controller
             'venue' => 'bail|required|filled|max:255',
             'type' => 'bail|required|alpha|in:journal,conference,editorship|max:255',
             //'profilePic' => 'bail|image|max:15000',
-            
+
             'authors.*' => 'required|filled',
             'topics.*' => 'filled|max:50',
         ]);
-        
+
         if ($validator->fails()) {
             return redirect('/publications/create')
-                        ->withErrors($validator)
-                        ->withInput();
+                ->withErrors($validator)
+                ->withInput();
         }
-
 
 
         // Create new publication
@@ -89,25 +91,58 @@ class PublicationController extends Controller
         $newPublication->year = $request->input('publication_date');
         $newPublication->venue = ucwords($request->input('venue'));
         $newPublication->type = $request->input('type');
-        
-        if($request->input('visibility') == 'public'){
+
+        if ($request->input('visibility') == 'public') {
             $newPublication->public = 1;
-        }
-        else{
+        } else {
             $newPublication->public = 0;
         }
-                
+
+
         // TODO Handling Media
-        $newPublication->multimedia_path = "path/to/multimedia";
+        //dd($request->all());
+        $folderName = "/" . md5(date('c'));
+
+        if ($request->hasFile('media_file[]')) {
+
+            Storage::disk('mediaDisk')->put('gino', $request->file('media_file[]'));
 
 
+        } elseif ($request->hasFile('pdf_file')) {
+
+            Storage::disk('mediaDisk')->put('gino', $request->file('pdf_file[]'));
+
+
+        } else {
+            //do nothing;
+        }
+
+        $newPublication->multimedia_path = '' . $folderName;
         $newPublication->save();
 
+        /*
+                if (($request->hasFile('picture'))) {
+                    $file = $request->file('picture');
+                    if ($file->isValid()) {
+
+                        $hashName = "/" . md5($file->path() . date('c'));
+                        $fileName = $hashName . "." . $file->getClientOriginalExtension();
+                        $filePath = 'images/groups' . $fileName;
+                        Image::make($file)->fit(200)->save($filePath);
+                        $newGroup->picture_path = $filePath;
+                    }
+                } else {
+                    $newGroup->picture_path = '/images/groups/group_icon.png';
+                    //TODO replace default path in database table
+                }
+        */
+
+
         // Handling Publication Details
-        switch ($newPublication->type){
+        switch ($newPublication->type) {
             case 'journal':
                 $newJournal = new Journal;
-                
+
                 $newJournal->abstract = $request->input('abstract');
                 $newJournal->volume = $request->input('volume');
                 $newJournal->number = $request->input('number');
@@ -116,14 +151,14 @@ class PublicationController extends Controller
                 $newJournal->doi = $request->input('doi');
                 $newJournal->ee = $request->input('ee');
                 $newJournal->url = $request->input('url');
-                
+
                 $newJournal->publication_id = $newPublication->id;
                 $newJournal->save();
                 break;
 
             case 'conference':
                 $newConference = new Conference;
-            
+
                 $newConference->abstract = $request->input('abstract');
                 $newConference->pages = $request->input('pages');
                 $newConference->days = $request->input('days');
@@ -131,14 +166,14 @@ class PublicationController extends Controller
                 $newConference->doi = $request->input('doi');
                 $newConference->ee = $request->input('ee');
                 $newConference->url = $request->input('url');
-                
+
                 $newConference->publication_id = $newPublication->id;
                 $newConference->save();
                 break;
 
             case 'editorship':
                 $newEditorship = new Editorship;
-            
+
                 $newEditorship->abstract = $request->input('abstract');
                 $newEditorship->volume = $request->input('volume');
                 $newEditorship->publisher = $request->input('publisher');
@@ -146,16 +181,16 @@ class PublicationController extends Controller
                 $newEditorship->doi = $request->input('doi');
                 $newEditorship->ee = $request->input('ee');
                 $newEditorship->url = $request->input('url');
-                
+
                 $newEditorship->publication_id = $newPublication->id;
                 $newEditorship->save();
                 break;
         }
 
 
-        
-        // Handling topics  
+        // Handling topics
         $topicInputList = $request->input('topics');
+
         if(isset($topicInputList)) {
             foreach( $topicInputList as $topicKey => $topicInput ){
                 $topicInput = strtolower($topicInput);
@@ -174,7 +209,6 @@ class PublicationController extends Controller
                 }
             }
         }
-
         // Handling Authors 
         //Add the auth as self author
         $newPublication->users()->attach(Auth::user()->id);
@@ -206,75 +240,66 @@ class PublicationController extends Controller
 
         return redirect()->route('publications.index');
 
-       
     }
-
-
-
-
-
-
-
-
 
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $publication = Auth::user()->publications->where('id',$id)->first();
-        return view('Pages.Publication.modal', ['publication'=>$publication] );
+        $publication = Auth::user()->publications->where('id', $id)->first();
+        return view('Pages.Publication.modal', ['publication' => $publication]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         $topicList = Topic::all();
         $authors = Auth::user()->publications->find($id)->first()->authors;
-        $publication = Auth::user()->publications->where('id',$id)->first();
-        return view('Pages.Publication.edit', ['publication'=>$publication, 'authors'=>$authors, 'topicList'=>$topicList] );
+        $publication = Auth::user()->publications->where('id', $id)->first();
+        return view('Pages.Publication.edit', ['publication' => $publication, 'authors' => $authors, 'topicList' => $topicList]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         // TODO add validators
-        
+
 
         // Retrieve the publication
         $publication = Publication::find($id);
-        
+
         $publication->title = ucwords($request->input('title'));
         $publication->year = $request->input('pub_date');
         $publication->venue = ucwords($request->input('venue'));
-        
-        if($request->input('visibility') == 'public'){
+
+        if ($request->input('visibility') == 'public') {
             $publication->public = 1;
-        }
-        else{
+        } else {
             $publication->public = 0;
         }
-        
+
         // TODO Handling Media
         $publication->multimedia_path = "path/to/multimedia";
 
 
         $topicInputList = $request->input('topics');
+
         if(isset($topicInputList)){    
             foreach( $topicInputList as $topicKey => $topicInput ){
                 $topicInput = strtolower($topicInput);
@@ -297,10 +322,10 @@ class PublicationController extends Controller
         $publication->save();
         //dd($publication);
         // Handling Publication Details
-        switch ($publication->type){
+        switch ($publication->type) {
             case 'journal':
                 $journal = $publication->details;
-                
+
                 $journal->abstract = $request->input('abstract');
                 $journal->volume = $request->input('volume');
                 $journal->number = $request->input('number');
@@ -309,14 +334,14 @@ class PublicationController extends Controller
                 $journal->doi = $request->input('doi');
                 $journal->ee = $request->input('ee');
                 $journal->url = $request->input('url');
-                
+
                 $journal->publication_id = $publication->id;
                 $journal->save();
                 break;
 
             case 'conference':
                 $conference = $publication->details;
-            
+
                 $conference->abstract = $request->input('abstract');
                 $conference->pages = $request->input('pages');
                 $conference->days = $request->input('days');
@@ -324,14 +349,14 @@ class PublicationController extends Controller
                 $conference->doi = $request->input('doi');
                 $conference->ee = $request->input('ee');
                 $conference->url = $request->input('url');
-                
+
                 $conference->publication_id = $publication->id;
                 $conference->save();
                 break;
 
             case 'editorship':
                 $newEditorship = $publication->details;
-            
+
                 $newEditorship->abstract = $request->input('abstract');
                 $newEditorship->volume = $request->input('volume');
                 $newEditorship->publisher = $request->input('publisher');
@@ -339,7 +364,7 @@ class PublicationController extends Controller
                 $newEditorship->doi = $request->input('doi');
                 $newEditorship->ee = $request->input('ee');
                 $newEditorship->url = $request->input('url');
-                
+
                 $newEditorship->publication_id = $publication->id;
                 $newEditorship->save();
                 break;
@@ -347,14 +372,14 @@ class PublicationController extends Controller
 
 
         return redirect()->route('publications.index');
-        
-        
+
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
