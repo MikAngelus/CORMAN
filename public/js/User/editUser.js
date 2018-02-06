@@ -38,4 +38,11 @@ $(document).ready(function () {
         maximumSelectionLength: 1,
         tags: true
     });
+
+    $('#topicsDropdown').select2({
+        placeholder: "Modify your areas of interests",
+        maximumSelectionLength: 5,
+        tokenSeparators: [','],
+        tags:true
+    });
 });

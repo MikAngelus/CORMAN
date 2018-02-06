@@ -90,6 +90,18 @@
                     </div>
 
                     <div class="form-group">
+                        <label class="col-sm-12 col-md-3 col-lg-2">Topics</label>
+                        <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="topicsDropdown" name="topics[]" multiple>
+                            <option value=""></option> <!-- needed for selct2.js library don't remove!-->
+                                @foreach($topicList as $topic)
+                                    <option value="{{$topic->id}}">{{$topic->name}}</option>
+                                @endforeach
+                        </select>
+                        <a class="edit col-lg-1">Edit</a>
+                        <a class="button save hidden col-lg-1">Save</a>
+                    </div>
+
+                    <div class="form-group">
                         <label class="col-sm-8 col-md-3 col-lg-2">E-Mail</label>
                         <input class="col-sm-6 col-md-6 col-lg-6 editable-field" name="email" type="email"
                                 placeholder="{{$user->email}}" value="{{$user->email}}"/>

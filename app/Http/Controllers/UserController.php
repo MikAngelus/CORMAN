@@ -59,8 +59,9 @@ class UserController extends Controller
     {
         $roleList = Role::all();
         $affiliationList = Affiliation::all();
+        $topicList = Topic::all();
         return view('Pages.User.editUser', ['user' => $user, 'roleList' => $roleList,
-            'affiliationList' => $affiliationList]);
+            'affiliationList' => $affiliationList, 'topicList' => $topicList]);
     }
 
     /**
