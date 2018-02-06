@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\GroupNotification;
 use Illuminate\Support\Facades\Redirect;
 use Image;
 use Illuminate\Http\Request;
@@ -139,6 +140,10 @@ class GroupController extends Controller
                 }
             }
         }
+
+        //Notification
+        auth()->user()->notify(new GroupNotification($newGroup));
+
         return redirect()->route('groups.show', ['id' => $newGroup->id]);
         // TODO handling private field $newGroup->isPrivate =
         // Handling user invitations
@@ -162,8 +167,7 @@ class GroupController extends Controller
         $publicationList = Auth::user()->publications;
         $groupList = Auth::user()->groups->where('id', '<>', $id);
         $group = Auth::user()->groups->where('id', $id)->first();
-        //TODO controllare "se è logico passare anche" ['group' => $group]
-        return view('Pages.Group.detail', ['publicationList' => $publicationList, 'groupList' => $groupList, 'theGroup' => $group, 'group' => $group]);
+        return view('Pages.Group.detail', ['publicationList' => $publicationList, 'groupList' => $groupList, 'theGroup' => $group]);
     }
 
     /**
@@ -176,13 +180,12 @@ class GroupController extends Controller
     {
         // Replace with shares of publication-group-model
         $publicationList = Auth::user()->publications;
-        //$groupList = Auth::user()->groups;
         $group = Auth::user()->groups->where('id', $id)->first();
         $userList = User::where('id', '<>', Auth::user()->id)->get()->sortBy('last_name');
-        $memberList = Group::find($id)->users->where('id', '<>', Auth::user()->id);
         $topicList = Group::find($id)->topics;
-        return view('Pages.Group.edit', ['topicList' => $topicList, 'publicationList' => $publicationList, /*'groupList' => $groupList, */
-            'group' => $group, 'userList' => $userList, 'memberList' => $memberList]);
+
+        return view('Pages.Group.edit', ['topicList' => $topicList, 'publicationList' => $publicationList, 
+        'group' => $group, 'userList' => $userList]);
     }
 
     /**
@@ -208,11 +211,16 @@ class GroupController extends Controller
         }
 */
 
+
+
+        // Handling group field changes
+
         $group = Group::find($id);
         $group->name = $request->input('group_name');
         $group->description = $request->input('description');
 
 
+        // Handling group picture changes
         if (($request->hasFile('profile_photo'))) {
             $file = $request->file('profile_photo');
             if ($file->isValid()) {
@@ -225,32 +233,28 @@ class GroupController extends Controller
             }
         }
 
-        // Adding the list of topic
-        $topicList = Group::find($id)->topics;
-
-
-        // Adding the list of members
-        $memberList = Group::find($id)->users->pluck('id');
-        $newMemberList = collect($request->input('users'));
-
-        $remove = $memberList->diff($newMemberList);
-        $add = $newMemberList->diff($memberList);
-/*
-        $newMembers = array();
-        foreach($add as $member){
-            array_push($newMembers, [$member => ['role' => 'member']]);
-        }
-*/      
-        
-        $group->users()->detach($remove);
-        $group->users()->attach($add);
-
+        // Handle group Visibility
         if ($request->input('visibility') == 'public') {
             $group->public = 'public';
         } else {
             $group->public = 'private';
         }
+
         $group->save();
+
+        // Handling add and deletion of group topics
+        $topicList = Group::find($id)->topics;
+
+
+        // Handling add and deletion of group members
+        $memberList = Group::find($id)->users->pluck('id');
+        $newMemberList = collect($request->input('users'));
+
+        $removeList = $memberList->diff($newMemberList);
+        $addList = $newMemberList->diff($memberList);
+    
+        $group->users()->detach($removeList);
+        $group->users()->attach($addList);
 
         return redirect()->route('groups.show', ['id' => $group->id]);
 
