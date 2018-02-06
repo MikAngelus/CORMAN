@@ -194,9 +194,7 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-<<<<<<< HEAD
         //dd($request->all());
-=======
 
         $validator = Validator::make($request->all(), [
             'name' => 'bail|required|unique:groups|alpha_num|max:255',
@@ -211,7 +209,6 @@ class GroupController extends Controller
         }
 
 
->>>>>>> 019049d7630879accb577a8570a7c5c1a1f28323
         $group = Group::find($id);
         $group->name = $request->input('group_name');
         $group->description = $request->input('description');
