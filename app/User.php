@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+
     use Notifiable;
 
     /**
@@ -24,7 +25,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token','created_at','updated_at'
     ];
 
     public function publications(){
@@ -51,7 +52,6 @@ class User extends Authenticatable
         return $this->hasMany('App\PublicationGroup');
     }
 */
-    //TODO fix this function!!
     public function author(){
         return $this->hasOne('App\Author');
     }

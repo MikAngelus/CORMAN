@@ -9,23 +9,33 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-9 col-md-10">
-                <div class="row">
-                    <div class="col-lg-2">
+                <div id="groupInfo" class="row">
+                    <div class="col-lg-3">
                         <img class="card-img-top" src="{{url($theGroup->picture_path)}}" alt="Card image cap" height="150" width="150">
                     </div>
-                    <div class="col-lg-7">
-                        <h1>{{$theGroup->name}}</h1>
-                        <p>{{$theGroup->description}}</p>
+                    <div class="col-lg-8">
+                        <h3>{{$theGroup->name}}</h3>
+                        <hr>
+                        <p id="description">{{$theGroup->description}}</p>
+                        <hr>
+                        <div id="members">
+                            <h6>MEMBERS:</h6>
+                            <ul class="list-inline">    
+                                @foreach(($theGroup->users) as $members)
+                                    <li class="list-inline-item">{{$members->first_name}} {{$members->last_name}}</li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
-                    <div class="col-lg-3">
-                        <i class="fa fa-eye fa-2x col-lg-3"></i>
-                        <a href="{{route('groups.edit', ['id'=>$theGroup->id])}}"><i class="fa fa-pencil fa-2x col-lg-3"></i></a>
-                        <i class="fa fa-angle-double-right fa-2x col-lg-3"></i>
+                    <div class="col-lg-1">
+                        <i class="ion-eye"></i>
+                        <a href="{{route('groups.edit', ['id'=>$theGroup->id])}}"><i class="ion-edit"></i></a>
+                        <i class="ion-android-exit"></i>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-10">
-                        <a href="#" id="btn-newgroup" class="btn btn-primary" role="button">Add Publication</a>
+                        <a href="#" id="btn-newgroup" class="btn btn-primary" role="button" data-toggle="modal" data-target="#addPublication">Add Publication</a>
                     </div>
                     <div class="col-lg-2">
                         <i class="fa fa-filter fa-2x pull-right" data-container="body" data-toggle="popover" data-html="true" data-placement="bottom" data-content="@include('Pages.filter')"></i>
@@ -40,10 +50,25 @@
 
             <div class="col-lg-3 col-md-2">
                 @foreach($groupList as $group)
-                    <div class="col-lg-12">
-                        @include('Pages.Group.single', ['group'=>$group])
-                    </div>
+                    @include('Pages.Group.single', ['group'=>$group])
                 @endforeach
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Add Publications in Group -->
+    <div class="modal fade" id="addPublication" tabindex="-1" role="dialog" aria-labelledby="addPublication" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="addPublication">Add Publication</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @include('Pages.Group.modalAddPublication')
+                </div>
             </div>
         </div>
     </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 use Image;
 use App\User;
+use App\Author;
 use App\Role;
 use App\Affiliation;
 use App\Topic;
@@ -142,6 +143,13 @@ class RegisterController extends Controller
         $newUser->role_id = Role::where('name',$roleInput)->first()->id;
 
         $newUser->save();
+
+        // Create a new author and link with this user
+        $newAuthor = new Author;
+        $newAuthor->first_name = $newUser->first_name;
+        $newAuthor->last_name = $newUser->last_name;
+        $newAuthor->user_id = $newUser->id;
+        $newAuthor->save();
 
         // Handling topics  
         $topicInputList = $formData['topics'];

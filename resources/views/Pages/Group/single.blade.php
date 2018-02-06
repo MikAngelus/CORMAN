@@ -20,13 +20,19 @@
     <div class="card text-left">
         <img class="card-img-top" src="{{$group->picture_path}}" alt="Card image cap" height="100" width="100">
         <div class="card-block">
-            <div id="title" class="card-title">{{$group->name}}</div>
+            <div id="title" class="card-text">{{$group->name}}</div>
             <div id="description" class="card-text">{{$group->description}}</div>
         </div>
-        <div class="card-footer justify-content-between align-items-center">
-            <a href=""><i class="fa fa-eye pull-left"></i></a>
-            <a href="{{route('groups.edit', ['id'=>$group->id])}}"><i class="fa fa-pencil pull-left"></i></a>
-            <a href="{{route('groups.show', ['id'=>$group->id])}}" id="btn-newgroup" class="btn btn-primary btn-sm pull-right" role="button">View More</a>
+        <div class="card-footer col-lg-12">
+            <div class="row justify-content-between align-items-center">
+                <div id="edit_icons" class="">
+                    <a href=""><i class="ion-eye"></i></a>
+                    <a href="{{route('groups.edit', ['id'=>$group->id])}}"><i class="ion-edit"></i></a>
+                </div>
+                <div id="edit_button" class="">
+                    <a href="{{route('groups.show', ['id'=>$group->id])}}" id="btn-newgroup" class="btn btn-primary btn-sm" role="button">View More</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
