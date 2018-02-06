@@ -14,7 +14,7 @@ $(document).ready(function() {
 
     var groupId = window.location.href.split("/")[4] // hack to get group id
     $.getJson
-    
+
     $.ajaxSetup({
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -23,9 +23,9 @@ $(document).ready(function() {
     });
 
     $.getJSON("/ajaxGroupInfo?id="+groupId, function(data,status){
-       
+
        console.log(data.topicList);
-      
+
        $.each(data.topicList, function(index,value) {
             var newOption = new Option(value.name, value.id, false, true);
             $('#topicsDropdown').append(newOption).trigger('change');
@@ -36,12 +36,12 @@ $(document).ready(function() {
             $('#usersDropdown').append(newOption).trigger('change');
         });
 
-       
-  
+
+
 
     });
 
-   
-        
-    
+
+
+
 });

@@ -43,6 +43,15 @@
     float: left;
 }
 
+
+#list_container {
+    margin: 0 auto;
+}
+
+#navbar {
+    margin-bottom: 1rem;
+}
+
 .breadcrumb {
     padding: 0;
     background-color: white;

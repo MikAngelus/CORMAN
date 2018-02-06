@@ -10,5 +10,5 @@ $(document).ready(function() {
         maximumSelectionLength: 5,
         tags:true
     });
-   
+
 });

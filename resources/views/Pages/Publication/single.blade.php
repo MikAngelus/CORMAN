@@ -6,7 +6,7 @@
             <div id="year">{{date('Y',strtotime($publication->year))}}</div>
         </div>
     </div>
-    
+
     <!-- second row -->
     <div class="col-lg-12">
         <div id="authors" class="row">
@@ -34,7 +34,7 @@
                     @endforeach
                 </ul>
                 <!--sistemare lo spazio che lascia dopo le liste-->
-            </div>    
+            </div>
             <div id="edit" class="">
                 <a href="{{route('publications.edit', ['id'=>$publication->id])}}"><i class="fa fa-pencil fa-2x"></i></a>
                 <!-- aggiungere if sullo stato della visibilità -->
@@ -55,7 +55,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">  
+            <div class="modal-body">
                 @include('Pages.Publication.modal', ['publication'=>$publication])
             </div>
         </div>

@@ -18,7 +18,7 @@
                     @include('Pages.Publication.single', ['publication'=>$publication])
                 @endforeach
             </div>
-                
+
             <div class="col-lg-4 col-md-4">
                 <center><h1>Last from Groups</h1></center>
                 <div class="btn-toolbar justify-content-between col-lg-12">

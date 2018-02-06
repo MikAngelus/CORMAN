@@ -14,18 +14,25 @@
             @foreach($groupList as $group)
                 <div id="group_item" class="col-12 col-sm-12 col-md-6 col-lg-4">
                     @include('Pages.Group.single', ['group'=>$group])
-                </div>              
+                </div>
             @endforeach
         </div>
+
     </div>
+    @foreach($groupList as $group)
+    <div id="group-box" class="col-12 col-sm-12 col-md-6 col-lg-4">
+        @include('Pages.Group.single', ['group'=>$group])
+    </div>
+    @endforeach
+</div>
 @endsection
 
 @section('script')
-    <script src="{{ url('js/bootstrap.bundle.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-    <script>
-        $(function () {
-            $('[data-toggle=popover]').popover();
-        })
-    </script>
+<script src="{{ url('js/bootstrap.bundle.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script>
+    $(function () {
+        $('[data-toggle=popover]').popover();
+    })
+</script>
 @endsection

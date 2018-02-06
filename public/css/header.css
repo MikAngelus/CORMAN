@@ -29,30 +29,55 @@
 }
 
 .nav-link{
-  color: cornflowerblue !important;
+    color: cornflowerblue !important;
 }
 
-/* ----------- iPad Pro ----------- */
-/* Portrait and Landscape */
-@media only screen
-  and (min-device-width: 1024px)
-  and (max-device-width: 1366px)
-  and (-webkit-min-device-pixel-ratio: 1.5) {
+.fixed-header {
+    position: fixed;
+    top: 0px;
+    z-index: 100000;
+    width: 100%;
+    margin: 0 auto;
 }
 
-/* Portrait */
-@media only screen
-  and (min-device-width: 1024px)
-  and (max-device-width: 1366px)
-  and (orientation: portrait)
-  and (-webkit-min-device-pixel-ratio: 1.5) {
+.fixed-header, .breadcrumb {
+    padding-left: 0;
+    padding-right:0 ;
 }
 
-/* Landscape */
-@media only screen
-  and (min-device-width: 1024px)
-  and (max-device-width: 1366px)
-  and (orientation: landscape)
-  and (-webkit-min-device-pixel-ratio: 1.5) {
+.breadcrumb {
+    background-color: white;
+    position: fixed;
+    z-index: 100000;
+}
 
+#buttonMenu {
+    margin: 0 auto;
+}
+
+#navbarNavAltMarkup {
+    margin: 0 auto;
+}
+
+@media (min-width : 320px) {
+    .breadcrumb {
+         top: 9rem
+    }
+}
+@media (min-width : 465px) {
+    .breadcrumb {
+         top: 9rem
+    }
+}
+
+@media (min-width : 576px) {
+    .breadcrumb {
+         top: 6rem
+    }
+}
+
+@media (min-width: 768px) {
+   .breadcrumb {
+         top: 4rem
+    }
 }
