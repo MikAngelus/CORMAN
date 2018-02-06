@@ -199,9 +199,7 @@ class GroupController extends Controller
     {
 
 /*
-
-        //dd($request->all());
-
+>>>>>>> origin/master
         $validator = Validator::make($request->all(), [
             'name' => 'bail|required|unique:groups|alpha_num|max:255',
             'description' => 'bail|nullable|max:1620',
@@ -214,6 +212,7 @@ class GroupController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 */
+
 
         // Handling group field changes
 
