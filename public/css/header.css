@@ -35,7 +35,7 @@
 .fixed-header {
     position: fixed;
     top: 0px;
-    z-index: 100000;
+    z-index: 1000;
     width: 100%;
     margin: 0 auto;
 }
@@ -55,4 +55,9 @@
 
 #navbarNavAltMarkup {
     margin: 0 auto;
+}
+
+/* fix overlay modal/header navbar */
+.modal-content{
+    z-index: 100000 !important;
 }
