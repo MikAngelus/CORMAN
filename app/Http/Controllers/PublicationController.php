@@ -190,15 +190,17 @@ class PublicationController extends Controller
 
         // Handling topics
         $topicInputList = $request->input('topics');
-        if (isset($topicInputList)) {
-            foreach ($topicInputList as $topicKey => $topicInput) {
+
+        if(isset($topicInputList)) {
+            foreach( $topicInputList as $topicKey => $topicInput ){
                 $topicInput = strtolower($topicInput);
                 //Search and retrieve the topic from db
                 $topic = Topic::where('name', $topicInput)->first();
                 //Check if the topic is already in the db, otherwise create a new one and attach to the user
-                if ($topic != null) {
+                if($topic != null){
                     $newPublication->topics()->attach($topic->id);
-                } else {
+                }
+                else{
                     $newTopic = new Topic;
                     $newTopic->name = $topicInput;
                     $newTopic->save();
@@ -213,18 +215,19 @@ class PublicationController extends Controller
 
         //
         $authorInputList = $request->input('authors');
-        if (isset($authorInputList)) {
-            foreach ($authorInputList as $authorKey => $authorInput) {
-                $authorInput = explode(' ', strtolower($authorInput), 2); // split the string for first name and last name, conventions: last name after!
-
+        if(isset($authorInputList)){    
+            foreach( $authorInputList as $authorKey => $authorInput ){
+                $authorInput = explode(' ',strtolower($authorInput),2); // split the string for first name and last name, conventions: last name after!
+                
                 //Search and retrieve the author from db
-                $author = Author::where('last_name', $authorInput[0])->where('first_name', $authorInput[1])->first();
-
-
+                $author = Author::where('last_name', $authorInput[0])->where('first_name',$authorInput[1])->first();
+                
+                
                 //Check if the author is already in the db, otherwise create a new one and attach to the user
-                if ($author != null) {
+                if($author != null){
                     $newPublication->authors()->attach($author->id);
-                } else {
+                }
+                else{
                     $newAuthor = new Author;
                     $newAuthor->first_name = $authorInput[1];
                     $newAuthor->last_name = $authorInput[0];
@@ -234,8 +237,8 @@ class PublicationController extends Controller
                 }
             }
         }
-        return redirect()->route('publications.index');
 
+        return redirect()->route('publications.index');
 
     }
 
@@ -296,22 +299,26 @@ class PublicationController extends Controller
 
 
         $topicInputList = $request->input('topics');
-        foreach ($topicInputList as $topicKey => $topicInput) {
-            $topicInput = strtolower($topicInput);
-            //Search and retrieve the topic from db
-            $topic = Topic::where('name', $topicInput)->first();
-            //Check if the topic is already in the db, otherwise create a new one and attach to the user
-            if ($topic != null) {
-                $publication->topics()->attach($topic->id);
-            } else {
-                $newTopic = new Topic;
-                $newTopic->name = $topicInput;
-                $newTopic->save();
 
-                $publication->topics()->attach($newTopic->id);
+        if(isset($topicInputList)){    
+            foreach( $topicInputList as $topicKey => $topicInput ){
+                $topicInput = strtolower($topicInput);
+                //Search and retrieve the topic from db
+                $topic = Topic::where('name', $topicInput)->first();
+                //Check if the topic is already in the db, otherwise create a new one and attach to the user
+                if($topic != null){
+                    $publication->topics()->attach($topic->id);
+                }
+                else{
+                    $newTopic = new Topic;
+                    $newTopic->name = $topicInput;
+                    $newTopic->save();
+
+                    $publication->topics()->attach($newTopic->id);
+                }
             }
         }
-
+        
         $publication->save();
         //dd($publication);
         // Handling Publication Details

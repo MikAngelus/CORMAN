@@ -16,6 +16,10 @@
     border-color: white;
 }
 
+.navbar-nav p {
+    margin: auto auto;
+    padding-left: .3rem;
+}
 #brand, #menuIcon {
     color: cornflowerblue;
 }
@@ -35,7 +39,7 @@
 .fixed-header {
     position: fixed;
     top: 0px;
-    z-index: 100000;
+    z-index: 1000;
     width: 100%;
     margin: 0 auto;
 }
@@ -47,6 +51,21 @@
 
 .breadcrumb {
     background-color: white;
+    position: fixed;
+    z-index: 100000;
+}
+
+#menuIcon img {
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+#navbarNavAltMarkup > div > li {
+    margin: auto auto;
+}
+#menuIcon {
+    margin: auto auto;
 }
 
 #buttonMenu {
@@ -55,4 +74,33 @@
 
 #navbarNavAltMarkup {
     margin: 0 auto;
+}
+
+/* fix overlay modal/header navbar */
+.modal-content{
+    z-index: 100000 !important;
+}
+
+@media (min-width : 320px) {
+    .breadcrumb {
+         top: 9rem
+    }
+}
+
+@media (min-width : 465px) {
+    .breadcrumb {
+         top: 9rem
+    }
+}
+
+@media (min-width : 576px) {
+    .breadcrumb {
+         top: 6rem
+    }
+}
+
+@media (min-width: 768px) {
+   .breadcrumb {
+         top: 4rem
+    }
 }
