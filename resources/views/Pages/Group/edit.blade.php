@@ -19,10 +19,8 @@
         </div>
     @endif
 
-@section('content')
 <div class="row">
     <div id="formContainer" class="col-lg-10 col-md-10 col-sm-12">
-
         <form id="msform" action="{{ route('groups.update', ['id'=>$group->id])}}" method="post" enctype="multipart/form-data">
         {{csrf_field()}}
         {{ method_field('PUT') }}

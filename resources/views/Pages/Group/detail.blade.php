@@ -11,7 +11,7 @@
             <div class="col-lg-9 col-md-10">
                 <div class="row">
                     <div class="col-lg-2">
-                        <img class="card-img-top" src="{{$theGroup->picture_path}}" alt="Card image cap" height="150" width="150">
+                        <img class="card-img-top" src="{{url($theGroup->picture_path)}}" alt="Card image cap" height="150" width="150">
                     </div>
                     <div class="col-lg-7">
                         <h1>{{$theGroup->name}}</h1>
@@ -19,7 +19,7 @@
                     </div>
                     <div class="col-lg-3">
                         <i class="fa fa-eye fa-2x col-lg-3"></i>
-                        <a href="{{route('groups.edit', ['id'=>$group->id])}}"><i class="fa fa-pencil fa-2x col-lg-3"></i></a>
+                        <a href="{{route('groups.edit', ['id'=>$theGroup->id])}}"><i class="fa fa-pencil fa-2x col-lg-3"></i></a>
                         <i class="fa fa-angle-double-right fa-2x col-lg-3"></i>    
                     </div>
                 </div>
