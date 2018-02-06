@@ -2,7 +2,11 @@
 
 @section('head')
     <base href="{{ URL::asset('/') }}" target="_blank">
-    <link rel="stylesheet" href="{{ url('css/User/registration.css') }}">
+    <link href="{{url('css/form.css')}}" rel="stylesheet" />
+    <link href="{{url('css/edit_forms.css')}}" rel="stylesheet" />
+    <!-- <link rel="stylesheet" href="{{ url('css/User/registration.css') }}">
+    Controllare se bisogna includerlo  
+    -->
 @endsection
 
 @section('content')

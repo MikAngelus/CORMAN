@@ -37,9 +37,11 @@
             </div>
             <div id="edit" class="">
                 <a href="{{route('publications.edit', ['id'=>$publication->id])}}"><i class="fa fa-pencil fa-2x"></i></a>
-                <!-- aggiungere if sullo stato della visibilità -->
-                <a href="#aggiungere#azione#visibilità"><i class="fa fa-lock fa-2x"></i></a>
-                <a href="#aggiungere#azione#"><i class="fa fa-unlock fa-2x"></i></a>
+                @if($publication->public === 1)
+                    <a href="#aggiungere#azione#"><i class="fa fa-unlock fa-2x"></i></a>
+                @else
+                    <a href="#aggiungere#azione#visibilità"><i class="fa fa-lock fa-2x"></i></a>
+                @endif
             </div>
         </div>
     </div>
