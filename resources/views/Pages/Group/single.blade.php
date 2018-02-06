@@ -17,7 +17,7 @@
 </div>
 -->
 
-<div class="card text-center">
+<div class="card text-center mb-4">
     <img class="card-img-top" src="{{$group->picture_path}}" alt="Card image cap" height="150" width="150">
     <div class="card-block">
         <h5 class="card-title"><b>{{$group->name}}</b></h5>

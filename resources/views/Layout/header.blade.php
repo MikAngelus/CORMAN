@@ -1,4 +1,4 @@
-<nav class="navbar navbar-dark bg-white navbar-expand-lg navbar-expand-xl">
+<nav class="col-lg-12 col-md-12 col-sm-12 fixed-header navbar navbar-dark bg-white navbar-expand-lg navbar-expand-xl">
     <!-- Navbar content -->
     <a id="brand" class="navbar-brand order-1 order-xl-1 order-lg-1 order-md-1 order-sm-1 col-lg-4 col-md-3 col-sm-8 col-8 col-xl-4">CORMAN</a>
     <form class="form-inline order-lg-2 order-md-2 order-sm-3 order-3 my-2 my-lg-0 col-lg-6 col-md-7 col-sm-12 col-xl-6">
@@ -8,14 +8,14 @@
     <button id="buttonMenu" class="navbar-toggler order-sm-2 order-2" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="order-lg-3 order-md-3 order-sm-2 col-sm-4 collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="order-lg-2 order-md-3 order-sm-2 col-sm-4 collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <a id="menuIcon" class="nav-item nav-link fa fa-user-circle fa-2x" href="{{ route('users.edit', ['id'=>Auth::user()->id]) }}"><span class="sr-only">(current)</span></a>
             <a id="menuIcon" class="nav-item nav-link fa fa-bell fa-2x" href="#"></a>
             <!-- Hack for laravel due to HTTP post type request-->
             <a id="menuIcon" class="nav-item nav-link fa fa-sign-out fa-2x" href="{{route('logout')}}"
-            onclick = "event.preventDefault();
-                        document.getElementById('logout-form').submit()"></a>
+               onclick = "event.preventDefault();
+                          document.getElementById('logout-form').submit()"></a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 {{ csrf_field() }}
             </form>

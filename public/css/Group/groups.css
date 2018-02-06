@@ -43,7 +43,10 @@
     float: left;
 }
 
-.breadcrumb {
-    padding: 0;
-    background-color: white;
+#list_container {
+    margin: 0 auto;
+}
+
+#navbar {
+    margin-bottom: 1rem;
 }

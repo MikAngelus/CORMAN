@@ -10,11 +10,12 @@
     <link rel="stylesheet" href="{{ url('css/font-awesome-4.7.0/css/font-awesome.min.css') }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ url('css/header.css') }}">
+    <link rel="stylesheet" href="{{ url('css/main.css') }}">
     <link rel="stylesheet" href="{{ url('css/footer.css') }}">
     @yield('head')
 </head>
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid" id="mainContainer">
         @include('Layout.header')
         @yield('content')
         @include('Layout.footer')
