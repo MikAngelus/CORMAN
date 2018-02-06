@@ -16,6 +16,10 @@
     border-color: white;
 }
 
+.navbar-nav p {
+    margin: auto auto;
+    padding-left: .3rem;
+}
 #brand, #menuIcon {
     color: cornflowerblue;
 }
@@ -51,6 +55,19 @@
     z-index: 100000;
 }
 
+#menuIcon img {
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+#navbarNavAltMarkup > div > li {
+    margin: auto auto;
+}
+#menuIcon {
+    margin: auto auto;
+}
+
 #buttonMenu {
     margin: 0 auto;
 }
@@ -64,6 +81,7 @@
          top: 9rem
     }
 }
+
 @media (min-width : 465px) {
     .breadcrumb {
          top: 9rem
