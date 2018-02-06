@@ -25,9 +25,9 @@
                 <div class="form-group">
                     <label class="col-sm-12 col-md-3 col-lg-2">Authors</label>
 
-                    <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="authorsDropdown" name="users[]" multiple>
+                    <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="authorsDropdown" name="authors[]" multiple>
                         @foreach($authors as $author)
-                            <option value="{{$author->first_name}}">{{$author->last_name}} {{$author->first_name}}</option>
+                            <option value="{{$author->id}}">{{$author->last_name}} {{$author->first_name}}</option>
                         @endforeach
                     </select>
                     <a class="edit col-lg-1">Edit</a>
@@ -53,7 +53,7 @@
                     <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="topicsDropdown" name="topics[]" multiple>
                         <option value=""></option> <!-- needed for selct2.js library don't remove!-->
                             @foreach($topicList as $topic)
-                                <option value="{{$topic->name}}">{{$topic->name}}</option>
+                                <option value="{{$topic->id}}">{{$topic->name}}</option>
                             @endforeach
                     </select>
                     <a class="edit col-lg-1">Edit</a>

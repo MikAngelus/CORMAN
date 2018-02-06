@@ -16,6 +16,7 @@ use App\Group;
 
 class GroupController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -59,7 +60,7 @@ class GroupController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'bail|required|unique:groups|alpha_num|max:255',
             'description' => 'bail|nullable|max:1620',
-            'picture_path' => 'bail|image|nullable|max:255',
+            'picture_path' => 'bail|image|nullable|max:15000',
 
             'members.*' => 'required|distinct',
             'topics.*' => 'max:50',
@@ -189,10 +190,10 @@ class GroupController extends Controller
         //$groupList = Auth::user()->groups;
         $group = Auth::user()->groups->where('id', $id)->first();
         $userList = User::where('id', '<>', Auth::user()->id)->get()->sortBy('last_name');
-        $memberList = Group::find($id)->users->where('id', '<>', Auth::user()->id);
-        $topicList = Group::find($id)->topics;
-        return view('Pages.Group.edit', ['topicList' => $topicList, 'publicationList' => $publicationList, /*'groupList' => $groupList, */
-            'group' => $group, 'userList' => $userList, 'memberList' => $memberList]);
+        $topicList = Topic::all();
+
+        return view('Pages.Group.edit', ['topicList' => $topicList, 'publicationList' => $publicationList, 
+        'group' => $group, 'userList' => $userList]);
     }
 
     /**
@@ -207,11 +208,10 @@ class GroupController extends Controller
 
         //dd($request->all());
 
-
         $validator = Validator::make($request->all(), [
             'name' => 'bail|required|unique:groups|alpha_num|max:255',
             'description' => 'bail|nullable|max:1620',
-            'picture_path' => 'bail|image|nullable|max:255',
+            'picture_path' => 'bail|image|nullable|max:15000',
 
             'members.*' => 'required|distinct',
             'topics.*' => 'max:50',
@@ -239,9 +239,39 @@ class GroupController extends Controller
             }
         }
 
-        // Adding the list of topic
-        $topicList = Group::find($id)->topics;
+        // Handle group Visibility
+        if ($request->input('visibility') == 'public') {
+            $group->public = 'public';
+        } else {
+            $group->public = 'private';
+        }
 
+        $group->save();
+
+        
+        
+        // Handling add and deletion of group topics
+        $topicList = Topic::all()->pluck('id');
+        $groupTopicList = Group::find($id)->topics->pluck('id');
+        $newTopicList = collect($request->input('topics'));
+
+        $removeList = $groupTopicList->diff($newTopicList); // get items to delete
+        $addList = $newTopicList->diff($groupTopicList); //intermediate result
+        $createList = $addList->diff($topicList); // get items to create
+        $addList = $addList->diff($createList); // get items to add
+
+        $group->topics()->detach($removeList);
+        $group->topics()->attach($addList);
+
+        foreach($createList as $topic){
+
+            $newTopic = new Topic;
+            $newTopic->name = $topic;
+            $newTopic->save();
+
+            $group->topics()->attach($newTopic);
+        }
+ 
 
         // Adding the list of members
         $memberList = Group::find($id)->users->pluck('id');
@@ -280,6 +310,12 @@ class GroupController extends Controller
     {
         //
     }
+
+    public function shares($request, $id){
+
+    }
+
+
 
     public function ajaxInfo(Request $request)
     {
