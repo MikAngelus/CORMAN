@@ -421,7 +421,7 @@ class PublicationController extends Controller
     public function ajaxInfo(Request $request)
     {
         $topicList = Publication::find($request->query('id'))->topics;
-        $authorList = Publication::find($request->query('id'))->authors->where('id','!=',Auth::user()->author->id);
+        $authorList = Publication::find($request->query('id'))->authors;//->where('id','!=',Auth::user()->author->id);
         $data = array('topicList' => $topicList, 'authorList' => $authorList);
 
         return response()->json($data);

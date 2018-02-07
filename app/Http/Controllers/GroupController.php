@@ -16,6 +16,7 @@ use App\Group;
 
 class GroupController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -56,20 +57,6 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'bail|required|unique:groups|alpha_num|max:255',
-            'description' => 'bail|nullable|max:1620',
-            'picture_path' => 'bail|image|nullable|max:255',
-
-            'members.*' => 'required|distinct',
-            'topics.*' => 'max:50',
-        ]);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
-
-        //dd($request->all());
         $newGroup = new Group;
 
         $newGroup->name = $request->input('name');
@@ -124,6 +111,7 @@ class GroupController extends Controller
                 }
             }
         }
+
         // Adding the list of members
         $userINList = $request->input('users');
         if (isset($userINList)) {
@@ -134,20 +122,20 @@ class GroupController extends Controller
                 foreach ($userDBList as $userDB) {
                     $name = $userDB->last_name . $userDB->first_name;
                     $name = str_replace(' ', '', $name);
-
                     if (strcmp($name, $userIN) == 0) {
                         $newGroup->users()->attach($userDB->id, ['role' => 'member', 'state' => 'pending']);
-                        /*$notification = User::find($userIN->id);
-                        $notification->notify(new GroupNotification($newGroup));*/
+                        //Notification::send($userINList, GroupNotification($newGroup));
+                       /* $u = $userDB->id;
+                        $u->notify(new GroupNotification($newGroup));*/
 
                     }
                 }
-                //Notification::send($userIN, new GroupNotification($newGroup));
+
             }
         }
 
         //Notification
-        //auth()->user()->notify(new GroupNotification($newGroup)); ----> wrong!
+        //auth()->user()->notify(new GroupNotification($newGroup));
 
         return redirect()->route('groups.show', ['id' => $newGroup->id]);
         // TODO handling private field $newGroup->isPrivate =
@@ -156,7 +144,6 @@ class GroupController extends Controller
 
         // Handling user as admin
 
-        // Handling users invitation tagging
 
     }
 
@@ -172,8 +159,7 @@ class GroupController extends Controller
         $publicationList = Auth::user()->publications;
         $groupList = Auth::user()->groups->where('id', '<>', $id);
         $group = Auth::user()->groups->where('id', $id)->first();
-        //TODO controllare "se è logico passare anche" ['group' => $group]
-        return view('Pages.Group.detail', ['publicationList' => $publicationList, 'groupList' => $groupList, 'theGroup' => $group, 'group' => $group]);
+        return view('Pages.Group.detail', ['publicationList' => $publicationList, 'groupList' => $groupList, 'theGroup' => $group]);
     }
 
     /**
@@ -189,10 +175,10 @@ class GroupController extends Controller
         //$groupList = Auth::user()->groups;
         $group = Auth::user()->groups->where('id', $id)->first();
         $userList = User::where('id', '<>', Auth::user()->id)->get()->sortBy('last_name');
-        $memberList = Group::find($id)->users->where('id', '<>', Auth::user()->id);
-        $topicList = Group::find($id)->topics;
-        return view('Pages.Group.edit', ['topicList' => $topicList, 'publicationList' => $publicationList, /*'groupList' => $groupList, */
-            'group' => $group, 'userList' => $userList, 'memberList' => $memberList]);
+        $topicList = Topic::all();
+
+        return view('Pages.Group.edit', ['topicList' => $topicList, 'publicationList' => $publicationList, 
+        'group' => $group, 'userList' => $userList]);
     }
 
     /**
@@ -204,24 +190,6 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-        //dd($request->all());
-
-
-        $validator = Validator::make($request->all(), [
-            'name' => 'bail|required|unique:groups|alpha_num|max:255',
-            'description' => 'bail|nullable|max:1620',
-            'picture_path' => 'bail|image|nullable|max:255',
-
-            'members.*' => 'required|distinct',
-            'topics.*' => 'max:50',
-        ]);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
-
-
         $group = Group::find($id);
         $group->name = $request->input('group_name');
         $group->description = $request->input('description');
@@ -239,9 +207,39 @@ class GroupController extends Controller
             }
         }
 
-        // Adding the list of topic
-        $topicList = Group::find($id)->topics;
+        // Handle group Visibility
+        if ($request->input('visibility') == 'public') {
+            $group->public = 'public';
+        } else {
+            $group->public = 'private';
+        }
 
+        $group->save();
+
+        
+        
+        // Handling add and deletion of group topics
+        $topicList = Topic::all()->pluck('id');
+        $groupTopicList = Group::find($id)->topics->pluck('id');
+        $newTopicList = collect($request->input('topics'));
+
+        $removeList = $groupTopicList->diff($newTopicList); // get items to delete
+        $addList = $newTopicList->diff($groupTopicList); //intermediate result
+        $createList = $addList->diff($topicList); // get items to create
+        $addList = $addList->diff($createList); // get items to add
+
+        $group->topics()->detach($removeList);
+        $group->topics()->attach($addList);
+
+        foreach($createList as $topic){
+
+            $newTopic = new Topic;
+            $newTopic->name = $topic;
+            $newTopic->save();
+
+            $group->topics()->attach($newTopic);
+        }
+ 
 
         // Adding the list of members
         $memberList = Group::find($id)->users->pluck('id');
@@ -249,13 +247,8 @@ class GroupController extends Controller
 
         $remove = $memberList->diff($newMemberList);
         $add = $newMemberList->diff($memberList);
-/*
-        $newMembers = array();
-        foreach($add as $member){
-            array_push($newMembers, [$member => ['role' => 'member']]);
-        }
-*/
 
+        
         $group->users()->detach($remove);
         $group->users()->attach($add);
 
@@ -264,7 +257,7 @@ class GroupController extends Controller
         } else {
             $group->public = 'private';
         }
-        $group->save();
+        
 
         return redirect()->route('groups.show', ['id' => $group->id]);
 
@@ -281,10 +274,16 @@ class GroupController extends Controller
         //
     }
 
+    public function shares($request, $id){
+
+    }
+
+
+
     public function ajaxInfo(Request $request)
     {
         $topicList = Group::find($request->query('id'))->topics;
-        $memberList = Group::find($request->query('id'))->users->where('id','<>',Auth::user()->id);
+        $memberList = Group::find($request->query('id'))->users; //->where('id','<>',Auth::user()->id);
         $data = array('topicList' => $topicList, 'memberList' => $memberList);
 
         return response()->json($data);
