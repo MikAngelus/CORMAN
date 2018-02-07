@@ -1,15 +1,19 @@
 /*.container {padding:20px;}*/
 #title{
-  font-weight: bold;
   font-size: large;
 }
 
 #authors{
   font-style: italic;
+  font-size: medium;
+}
+
+#venue{
+  font-size: small;
 }
 
 #topics{
-
+  font-size: medium;
 }
 
 .publication_item{

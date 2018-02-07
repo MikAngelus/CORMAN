@@ -30,3 +30,8 @@
 @media (min-width: 1200px) {
 
 }
+
+/* set icon's size */
+i[class^="ion"]{
+    font-size: 30px;
+}

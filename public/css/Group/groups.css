@@ -61,11 +61,11 @@
 
 .group_item{
     padding: 5px;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-top: 0px;
+    margin-bottom: 10px;
 }
 
-#title{
+#titleCard{
     font-weight: bold;
     font-size: large;
     margin-left: 5px;
@@ -77,4 +77,21 @@
     font-size: small;
     margin-left: 5px;
     margin-right: 5px;
+}
+
+#groupInfo{
+    border: 1px solid rgb(200, 200, 200) !important;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+#members,h3{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+h6{
+    font-weight: bold;
 }
