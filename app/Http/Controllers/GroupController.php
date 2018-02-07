@@ -259,7 +259,7 @@ class GroupController extends Controller
         }
         
 
-        //return redirect()->route('groups.show', ['id' => $group->id]);
+        return redirect()->route('groups.show', ['id' => $group->id]);
 
     }
 
