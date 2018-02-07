@@ -13,7 +13,7 @@
         <div id="mdauthors" class="col-sm-12 col-md-10 col-lg-10">
             <ul class="list-inline">
                 @foreach($publication->users as $author)
-                    <li class="list-inline-item">{{$author->first_name}} {{$author->last_name}}</li>
+                    <li class="list-inline-item">{{$author->name}}</li>
                 @endforeach
             </ul>
         </div>

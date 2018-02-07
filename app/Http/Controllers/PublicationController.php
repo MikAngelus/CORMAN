@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
 
 
 use App\Publication;
@@ -32,7 +34,7 @@ class PublicationController extends Controller
 
     public function index()
     {
-        $publicationList = Auth::user()->publications->sortByDesc('year');
+        $publicationList = Auth::user()->author->publications->sortByDesc('year');
         return view('Pages.Publication.list', ['publicationList' => $publicationList]);
     }
 
@@ -213,16 +215,12 @@ class PublicationController extends Controller
         $newPublication->users()->attach(Auth::user()->id);
         $newPublication->authors()->attach(Auth::user()->author->id); 
 
-
-        //
         $authorInputList = $request->input('authors');
         if(isset($authorInputList)){    
             foreach( $authorInputList as $authorKey => $authorInput ){
-                $authorInput = explode(' ',strtolower($authorInput),2); // split the string for first name and last name, conventions: last name after!
-                
+                            
                 //Search and retrieve the author from db
-                $author = Author::where('last_name', $authorInput[0])->where('first_name',$authorInput[1])->first();
-                
+                $author = Author::where('name', $authorInput)->first();
                 
                 //Check if the author is already in the db, otherwise create a new one and attach to the user
                 if($author != null){
@@ -230,8 +228,7 @@ class PublicationController extends Controller
                 }
                 else{
                     $newAuthor = new Author;
-                    $newAuthor->first_name = $authorInput[1];
-                    $newAuthor->last_name = $authorInput[0];
+                    $newAuthor->name = $authorInput;
                     $newAuthor->save();
 
                     $newPublication->authors()->attach($newAuthor->id);
@@ -252,7 +249,7 @@ class PublicationController extends Controller
      */
     public function show($id)
     {
-        $publication = Auth::user()->publications->where('id', $id)->first();
+        $publication = Auth::user()->author->publications->where('id', $id)->first();
         return view('Pages.Publication.modal', ['publication' => $publication]);
     }
 
@@ -267,7 +264,7 @@ class PublicationController extends Controller
         $topicList = Topic::all();
         //$authors = Auth::user()->publications->find($id)->first()->authors;
         $authors = Author::all()->where('id', '!=', Auth::user()->author->id)->sortBy('last_name');
-        $publication = Auth::user()->publications->where('id',$id)->first();
+        $publication = Auth::user()->author->publications->where('id',$id)->first();
         return view('Pages.Publication.edit', ['publication'=>$publication, 'authors'=>$authors, 'topicList'=>$topicList] );
     }
 
@@ -317,12 +314,9 @@ class PublicationController extends Controller
         $publication->authors()->detach($removeList);
         $publication->authors()->attach($addList);
 
-        foreach($createList as $author){
-            $author = explode(' ',strtolower($author),2); // split first-last name
-            
+        foreach($createList as $author){       
             $newAuthor = new Author;
-            $newAuthor->last_name = $author[0];
-            $newAuthor->first_name = $author[1]; 
+            $newAuthor->name = $author;
             $newAuthor->save();
 
             $publication->authors()->attach($newAuthor);
@@ -416,6 +410,192 @@ class PublicationController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function syncDBLP(Request $request)
+    {   /* Due to nested eand higly variable json structuture from DBLP
+        we must cleanup the json response!
+        -authors and venue could be array spo we must iterate trough it and create a 
+        string concatenation of elements */
+        $count = 100;
+        $client = new Client(['base_uri' => 'http://dblp.org/search/publ/api','timeout' =>5.0]);
+
+        //sanitazing for dblp syntax and manually build the parameters' string
+        $firstName = str_replace(" ","_",$request->query('first_name'));
+        $lastName = str_replace(" ","_",$request->query('last_name'));
+        $authName = $firstName.'_'.$lastName;
+        $paramString="?q=author"."%3A".$authName."&format=json"."&h=".$count; 
+
+        // Call dblp api and decode response as json
+        $response = json_decode($client->request('GET',$paramString)->getBody(),true); #contact dblp web service restful api and get response
+       
+        if( array_key_exists('hit',$response['result']['hits']) ){ //check if DBLP have returned some data (hit field is present)
+            $response = $response['result']['hits']['hit'];
+            $pubList = array();
+     
+            // Clean up DBLP json response for our needs
+            foreach($response as $publication){
+                $authorList = '';
+                $authors = $publication['info']['authors']['author'];
+                if( is_array($authors) ){ 
+                    foreach( $authors as $author){
+                        if($author === end($authors)){
+                            $authorList .= $author; 
+                        }
+                        else
+                        {
+                            $authorList .= $author.', '; 
+                        }
+                    }
+                    $publication['info']['authors'] = $authorList;
+                }
+                else{ // just one authors
+                    $publication['info']['authors'] = $authors;
+                }
+                // 
+                $venueList = '';
+                $venues = $publication['info']['venue'];
+                if( is_array($venues) ){ 
+                    foreach( $venues as $venue){
+                        if($venue === end($venues)){
+                            $venueList .= $venue; 
+                        }
+                        else
+                        {
+                            $venueList .= $venue.', '; 
+                        }
+                    }
+                    $publication['info']['venue'] = $venueList;
+                }
+                else{ // just one authors
+                    $publication['info']['venue'] = $venues;
+                }
+                 
+                array_push($pubList,$publication['info']);
+            }   
+            $jsonInfo = array('data' => $pubList);
+        }
+        else{
+            $jsonInfo = array('data' => array());
+        }
+        
+        //dd(json_encode($jsonInfo));
+        return response()->json($jsonInfo);
+    }
+
+    public function syncToCorman(Request $request){
+        
+        //dd($request->all());
+        foreach($request->all() as $publication){
+            \Debugbar::info($publication);
+
+            $newPublication = new Publication;
+            //Set general fields
+            $newPublication->title = ucwords($publication['title']);
+           
+            $date = new \DateTime();
+            $date->setDate($publication['year'],1,1); //set default date to the first of the <year>
+            $newPublication->year = $date;
+
+            $newPublication->venue = ucwords($publication['venue']);
+            $newPublication->public = 1;
+            $newPublication->multimedia_path = "default/path/to/mutlimedia"; //TODO handle automatic folder creation
+            
+            // Mapping DBLP type to CORMAN type
+            switch ($publication['type']) {
+                case 'Journal Articles':
+                    $newPublication->type = 'journal';
+                    break;
+                case 'Conference and Workshop Papers':
+                    $newPublication->type = 'conference';
+                    break;
+                case 'Editorship':
+                    $newPublication->type = 'editorship';
+                    break;
+            }
+
+            $newPublication->save();
+
+
+             // Handling Publication Details fields
+            switch ($newPublication->type) {
+                case 'journal':
+                    $journal = new Journal;
+                    if(array_key_exists('volume',$publication))
+                        $journal->volume = $publication['volume'];
+                    if(array_key_exists('number',$publication))
+                        $journal->number = $publication['number'];
+                    if(array_key_exists('pages',$publication))
+                        $journal->pages = $publication['pages'];
+                    if(array_key_exists('key',$publication))
+                        $journal->key = $publication['key'];
+                    if(array_key_exists('doi',$publication))
+                        $journal->doi = $publication['doi'];
+                    if(array_key_exists('ee',$publication))
+                        $journal->ee = $publication['ee'];
+                    if(array_key_exists('url',$publication))
+                        $journal->url = $publication['url'];
+
+                    $journal->publication_id = $newPublication->id;
+                    $journal->save();
+                    break;
+
+                case 'conference':
+                    $conference = new Conference;
+
+                    if(array_key_exists('pages',$publication))
+                        $conference->pages = $publication['pages'];
+                    if(array_key_exists('key',$publication))
+                        $conference->key = $publication['key'];
+                    if(array_key_exists('doi',$publication))
+                        $conference->doi = $publication['doi'];
+                    if(array_key_exists('ee',$publication))
+                        $conference->ee = $publication['ee'];
+                    if(array_key_exists('url',$publication))
+                        $conference->url = $publication['url'];
+
+                    $conference->publication_id = $newPublication->id;
+                    $conference->save();
+                    break;
+
+                case 'editorship':
+                    $editorship = new Editorship;
+                    if(array_key_exists('volume',$publication))
+                        $editorship->volume = $publication['volume'];
+                    if(array_key_exists('publisher',$publication))
+                        $editorship->publisher = $publication['publisher'];
+                    if(array_key_exists('key',$publication))
+                        $editorship->key = $publication['key'];
+                    if(array_key_exists('doi',$publication))
+                        $editorship->doi = $publication['doi'];
+                    if(array_key_exists('ee',$publication))
+                        $editorship->ee = $publication['ee'];
+                    if(array_key_exists('url',$publication))
+                        $editorship->url = $publication['url'];
+
+                    $editorship->publication_id = $newPublication->id;
+                    $editorship->save();
+                    break;
+            }
+
+            // Handling authors
+            $authorList = explode(', ', $publication['authors']);
+            foreach( $authorList as $author){
+                $theAuthor = Author::firstOrCreate(['name' => $author]);
+                $newPublication->authors()->attach($theAuthor->id);
+            }
+
+            
+        }
+        return "ok";
+        //return redirect()->route('users.index');
+    }
+
+
+    public function syncPublications()
+    {
+
+        return view('Pages.syncPublications',['user' => Auth::user()]);
     }
 
     public function ajaxInfo(Request $request)

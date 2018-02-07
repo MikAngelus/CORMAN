@@ -8,7 +8,7 @@ class Publication extends Model
 {
     //
     protected $fillable = ([
-        'id'
+        'title'
     ]);
 
     public function users(){

@@ -11,7 +11,7 @@
         <div id="authors" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <ul class="list-inline">
                 @foreach($publication->authors as $author)
-                    <li class="list-inline-item">{{$author->first_name}} {{$author->last_name}}</li>
+                    <li class="list-inline-item">{{$author->name}}</li>
                 @endforeach
             </ul>
             <!--sistemare lo spazio che lascia dopo le liste-->

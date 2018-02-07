@@ -33,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/users';
+    protected $redirectTo = '/syncronize';
 
     /**
      * Create a new controller instance.
@@ -145,12 +145,10 @@ class RegisterController extends Controller
         $newUser->save();
 
         // Create a new author and link with this user
-        $newAuthor = new Author;
-        $newAuthor->first_name = $newUser->first_name;
-        $newAuthor->last_name = $newUser->last_name;
+        $authorName = $newUser->first_name." ". $newUser->last_name;
+        $newAuthor = Author::firstOrNew(['name' => $authorName]);
         $newAuthor->user_id = $newUser->id;
         $newAuthor->save();
-
         // Handling topics  
         $topicInputList = $formData['topics'];
         foreach( $topicInputList as $topicKey => $topicInput ){
@@ -170,7 +168,6 @@ class RegisterController extends Controller
             }
         }
 
-        // TODO is the below line needed?
         return $newUser;
     }
 }

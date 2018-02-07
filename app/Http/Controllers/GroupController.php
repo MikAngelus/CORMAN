@@ -112,47 +112,35 @@ class GroupController extends Controller
             }
         }
 
-        // Adding the list of members
-        $userINList = $request->input('users');
-        if (isset($userINList)) {
+        // Adding the list of members and send notification
+      User::whereIn('id', $request->users)->get()->each(function ($user) use ($newGroup) {
+                 $newGroup->users()->attach($user->id, [
+                     'role' => 'member',
+                     'state' => 'pending'
+                 ]);
 
-            foreach ($userINList as $userIN) {
-                $userIN = str_replace(' ', '', $userIN);
-                $userDBList = User::all();
-                foreach ($userDBList as $userDB) {
-                    $name = $userDB->last_name . $userDB->first_name;
-                    $name = str_replace(' ', '', $name);
-                    if (strcmp($name, $userIN) == 0) {
-                        $newGroup->users()->attach($userDB->id, ['role' => 'member', 'state' => 'pending']);
-                        //Notification::send($userINList, GroupNotification($newGroup));
-                       /* $u = $userDB->id;
-                        $u->notify(new GroupNotification($newGroup));*/
-
-                    }
-                }
-
-            }
-        }
-
-        //Notification
-        //auth()->user()->notify(new GroupNotification($newGroup));
-
-        return redirect()->route('groups.show', ['id' => $newGroup->id]);
-        // TODO handling private field $newGroup->isPrivate =
-        // Handling user invitations
+                 $user->notify(new GroupNotification($newGroup,auth()->user()));
+             });
 
 
-        // Handling user as admin
 
 
-    }
+         return redirect()->route('groups.show', ['id' => $newGroup->id]);
+         // TODO handling private field $newGroup->isPrivate =
+         // Handling user invitations
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
+
+         // Handling user as admin
+
+
+     }
+
+     /**
+      * Display the specified resource.
+      *
+      * @param  int $id
+      * @return \Illuminate\Http\Response
+      */
     public function show($id)
     {
         // Replace with shares of publication-group-model
@@ -177,7 +165,7 @@ class GroupController extends Controller
         $userList = User::where('id', '<>', Auth::user()->id)->get()->sortBy('last_name');
         $topicList = Topic::all();
 
-        return view('Pages.Group.edit', ['topicList' => $topicList, 'publicationList' => $publicationList, 
+        return view('Pages.Group.edit', ['topicList' => $topicList, 'publicationList' => $publicationList,
         'group' => $group, 'userList' => $userList]);
     }
 
@@ -216,8 +204,8 @@ class GroupController extends Controller
 
         $group->save();
 
-        
-        
+
+
         // Handling add and deletion of group topics
         $topicList = Topic::all()->pluck('id');
         $groupTopicList = Group::find($id)->topics->pluck('id');
@@ -239,7 +227,7 @@ class GroupController extends Controller
 
             $group->topics()->attach($newTopic);
         }
- 
+
 
         // Adding the list of members
         $memberList = Group::find($id)->users->pluck('id');
@@ -248,7 +236,7 @@ class GroupController extends Controller
         $remove = $memberList->diff($newMemberList);
         $add = $newMemberList->diff($memberList);
 
-        
+
         $group->users()->detach($remove);
         $group->users()->attach($add);
 
@@ -257,7 +245,7 @@ class GroupController extends Controller
         } else {
             $group->public = 'private';
         }
-        
+
 
         return redirect()->route('groups.show', ['id' => $group->id]);
 
