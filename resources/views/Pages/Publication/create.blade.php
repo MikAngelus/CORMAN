@@ -41,7 +41,7 @@
                     <select class="form-control" id="authorsDropdown" name="authors[]" multiple>
                         <option value=""></option> <!-- needed for selct2.js library don't remove!-->
                         @foreach($authorList as $author)
-                            <option>{{$author->last_name}} {{$author->first_name}}</option>
+                            <option>{{$author->name}}</option>
                         @endforeach
                     </select>
 

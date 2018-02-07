@@ -220,11 +220,9 @@ class PublicationController extends Controller
         $authorInputList = $request->input('authors');
         if(isset($authorInputList)){    
             foreach( $authorInputList as $authorKey => $authorInput ){
-                $authorInput = explode(' ',strtolower($authorInput),2); // split the string for first name and last name, conventions: last name after!
-                
+                            
                 //Search and retrieve the author from db
-                $author = Author::where('last_name', $authorInput[0])->where('first_name',$authorInput[1])->first();
-                
+                $author = Author::where('name', $authorInput)->first();
                 
                 //Check if the author is already in the db, otherwise create a new one and attach to the user
                 if($author != null){
@@ -232,8 +230,7 @@ class PublicationController extends Controller
                 }
                 else{
                     $newAuthor = new Author;
-                    $newAuthor->first_name = $authorInput[1];
-                    $newAuthor->last_name = $authorInput[0];
+                    $newAuthor->name = $authorInput;
                     $newAuthor->save();
 
                     $newPublication->authors()->attach($newAuthor->id);
@@ -319,12 +316,9 @@ class PublicationController extends Controller
         $publication->authors()->detach($removeList);
         $publication->authors()->attach($addList);
 
-        foreach($createList as $author){
-            $author = explode(' ',strtolower($author),2); // split first-last name
-            
+        foreach($createList as $author){       
             $newAuthor = new Author;
-            $newAuthor->last_name = $author[0];
-            $newAuthor->first_name = $author[1]; 
+            $newAuthor->name = $author;
             $newAuthor->save();
 
             $publication->authors()->attach($newAuthor);

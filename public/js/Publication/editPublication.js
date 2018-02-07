@@ -35,7 +35,7 @@ $(document).ready(function() {
         });
         console.log(data.memberList);
         $.each(data.authorList, function(index,value) {
-            var newOption = new Option(value.last_name+" "+value.first_name, value.id, false, true);
+            var newOption = new Option(value.name, value.id, false, true);
             $('#authorsDropdown').append(newOption);
         });
     });

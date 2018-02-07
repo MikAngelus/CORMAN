@@ -146,8 +146,7 @@ class RegisterController extends Controller
 
         // Create a new author and link with this user
         $newAuthor = new Author;
-        $newAuthor->first_name = $newUser->first_name;
-        $newAuthor->last_name = $newUser->last_name;
+        $newAuthor->name = $newUser->first_name." ". $newUser->last_name;
         $newAuthor->user_id = $newUser->id;
         $newAuthor->save();
 

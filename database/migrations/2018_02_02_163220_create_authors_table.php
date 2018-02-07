@@ -15,13 +15,12 @@ class CreateAuthorsTable extends Migration
     {
         Schema::create('authors', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('first_name')->nullable(false);
-            $table->string('last_name')->nullable(false);
+            $table->string('name')->nullable(false);
             $table->integer('user_id')->unsigned()->nullable(true);
             $table->timestamps();
 
             // Constraints
-            $table->unique(['first_name','last_name']);
+            $table->unique('name');
 
             $table->foreign('user_id')->references('id')->on('users');
         });

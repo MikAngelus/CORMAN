@@ -27,7 +27,7 @@
 
                     <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="authorsDropdown" name="authors[]" multiple>
                         @foreach($authors as $author)
-                            <option value="{{$author->id}}">{{$author->last_name}} {{$author->first_name}}</option>
+                            <option value="{{$author->id}}">{{$author->name}}</option>
                         @endforeach
                     </select>
                     <a class="edit col-lg-1">Edit</a>
