@@ -18,26 +18,42 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 
-
-// Ajax routes
-Route::get('syncDBLP', 'UserController@syncDBLP');
-Route::get('ajaxPublicationInfo', 'PublicationController@ajaxInfo');
-Route::get('ajaxGroupInfo', 'GroupController@ajaxInfo');
-
-// Controllers
+/** Pages Controller Routes **/
 Route::get('/', 'PagesController@landingPage');
 Route::get('/tutorial', 'PagesController@tutorial');
 Route::get('/about', 'PagesController@about');
 Route::get('/memberProfile', 'PagesController@memberProfile');
 
 
-// Resource Controllers routes
+
+
+/** User Routes **/
+// Resource Controller
 Route::resource('users','UserController',['except' => ['create', 'store']]);
-Route::get('syncPublications','UserController@syncPublications');
+// Ajax routes
+Route::get('ajaxUserInfo', 'PublicationController@ajaxInfo');
 
 
+
+
+/** Publication Routes **/
 Route::resource('publications','PublicationController');
+Route::get('syncronize','PublicationController@syncPublications');
+// Ajax routes
+Route::get('ajaxPublicationInfo', 'PublicationController@ajaxInfo');
+Route::get('syncDBLP', 'PublicationController@syncDBLP');
+Route::post('syncToCorman', 'PublicationController@syncToCorman');
+
+
+
+
+
+/** Group Routes **/
 Route::resource('groups','GroupController');
+// Ajax routes
+Route::get('ajaxGroupInfo', 'GroupController@ajaxInfo');
+
+
 
 
 // Authentication Routes...

@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
 
 
 use App\Publication;
@@ -416,6 +418,81 @@ class PublicationController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function syncDBLP(Request $request)
+    {
+        $count = 100;
+        $client = new Client(['base_uri' => 'http://dblp.org/search/publ/api','timeout' =>5.0]);
+
+        //sanitazing for dblp syntax and manually build the parameters' string
+        $firstName = str_replace(" ","_",$request->query('first_name'));
+        $lastName = str_replace(" ","_",$request->query('last_name'));
+        $authName = $firstName.'_'.$lastName;
+        $paramString="?q=author"."%3A".$authName."&format=json"."&h=".$count; 
+
+        // Call dblp api and decode response as json
+        $response = json_decode($client->request('GET',$paramString)->getBody(),true); #contact dblp web service restful api and get response
+        $response=$response['result']['hits']['hit'];
+        $pubList= array();
+        //dd($response);
+
+        // Clean up DBLP json response for our needs
+        foreach($response as $publication){
+            $authorList = '';
+            $authors = $publication['info']['authors']['author'];
+            
+            if( is_array($authors) ){ 
+                foreach( $authors as $author){
+                    if($author === end($authors)){
+                        $authorList .= $author; 
+                    }
+                    else
+                    {
+                        $authorList .= $author.', '; 
+                    }
+                }
+                $publication['info']['authors'] = $authorList;
+            }
+            else{ // just one authors
+                $publication['info']['authors'] = $authors;
+            }
+             
+            array_push($pubList,$publication['info']);
+        }
+
+               
+        $jsonInfo = array('data' => $pubList);
+        //dd(json_encode($jsonInfo));
+        return response()->json($jsonInfo);
+    }
+
+    public function syncToCorman(Request $request){
+        
+        
+        foreach($request->all() as $publication){
+
+            $newPublication = new Publication;
+            
+            $newPublication->title = ucwords($publication['title']);
+           
+            $date = new \DateTime();
+            $date->setDate($publication['year'],1,1);
+            $newPublication->year = $date;
+            $newPublication->venue = ucwords($publication['venue']);
+            $newPublication->public = 1;
+            $newPublication->multimedia_path = "default/path/to/mutlimedia";
+            $newPublication->type = 'journal';
+
+        }
+
+    }
+
+
+    public function syncPublications()
+    {
+
+        return view('Pages.syncPublications',['user' => Auth::user()]);
     }
 
     public function ajaxInfo(Request $request)
