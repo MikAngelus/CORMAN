@@ -1,7 +1,8 @@
 $(document).ready(function(){
     // Syncronize publications
-    var firstName = "giuseppe";
-    var lastName = "desolda";
+    var firstName = $('#first_name').text().split(' ').join('_');
+    var lastName = $('#last_name').text().split(' ').join('_');
+    console.log(firstName +"             "+ lastName);
     var queryString = "first_name="+firstName+"&"+"last_name="+lastName;
     var requestURL = "syncDBLP?"+ queryString;
 

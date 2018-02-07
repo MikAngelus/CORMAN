@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Author extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = ['name','user_id'];
     public function publications(){
         return $this->belongsToMany('App\Publication', 'author_publication');
     }

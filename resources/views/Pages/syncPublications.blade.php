@@ -8,8 +8,10 @@
 
 @section('content')
 
-    <h2>Hi {{$user->first_name}} {{$user->last_name}} </h2>
-    <h4>We found some of your publications, maybe you would add these to CORMAN</h4>
+    <h2>Hi</h2>
+    <h2 id="first_name">{{$user->first_name}}</h2>
+    <h2 id="last_name">{{$user->last_name}}</h2>
+    <h4>We found some publications nell'internet may related to you, maybe you would add these to Corman! don't worry you can always modify later</h4>
 
     <table id="table"></table>
 
