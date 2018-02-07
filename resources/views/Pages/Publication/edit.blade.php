@@ -76,9 +76,7 @@
                     <a class="edit col-lg-1">Edit</a>
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
-
-                
-                
+                <hr>
                 @switch($publication->type)
                     @case('journal')
                         @include('Pages.Publication.editJournal', ['details'=>$publication->details])
@@ -90,18 +88,20 @@
                         @include('Pages.Publication.editEditorship', ['details'=>$publication->details])
                     @break
                 @endswitch
-                <br>
+                <hr>
                 <h2 class="fs-title">Media</h2>
                 <h3 class="fs-subtitle">Add here some media about the publication</h3>
-                <label class="row btn btn-default btn-file">
-                    Add PDF <input type="file" multiple style="display: none;">
-                    <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                </label>
-                <label class="row btn btn-default btn-file">
-                    Add Media <input type="file" style="display: none;">
-                    <i class="fa fa-upload" aria-hidden="true"></i>
-                </label>
-                
+                <div class="form-group col">
+                    <label class="col-sm-12 col-md-3 col-lg-4">Add PDF <i class="ion-document-text" aria-hidden="true"></i></label>
+                    <input class="col-sm-12 col-md-9 col-lg-6" type="file" name="pdf_file" style="display: all;">
+                </div> 
+                <div class="form-group col">
+                    <label class="col-sm-12 col-md-3 col-lg-4">Add Files <i class="ion-images" aria-hidden="true"></i></label>
+                    <input class="col-sm-12 col-md-9 col-lg-6" type="file" name="media_file[]" multiple style="display: all;">
+                </div> 
+                <hr>
+                <a href="#" id="btn-newgroup" class="btn btn-danger btn-sm" role="button">Delete Publication</a>
+                <hr>
                 <input type="submit" name="submit" class="submit action-button" value="Update"/>
             </fieldset>
         </form>

@@ -28,9 +28,9 @@
                         </div>
                     </div>
                     <div class="col-lg-1">
-                        <i class="ion-eye"></i>
-                        <a href="{{route('groups.edit', ['id'=>$theGroup->id])}}"><i class="ion-edit"></i></a>
-                        <i class="ion-android-exit"></i>
+                        <i class="ion-eye col"></i>
+                        <a href="{{route('groups.edit', ['id'=>$theGroup->id])}}"><i class="ion-edit col"></i></a>
+                        <i class="ion-android-exit col"></i>
                     </div>
                 </div>
                 <div class="row">
@@ -49,9 +49,10 @@
             </div>
 
             <div class="col-lg-3 col-md-2">
-                @foreach($groupList as $group)
+
+            @foreach($groupList as $group)
                     @include('Pages.Group.single', ['group'=>$group])
-                @endforeach
+                @endforeach          
             </div>
         </div>
     </div>

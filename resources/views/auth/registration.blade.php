@@ -27,7 +27,7 @@
             {{ method_field('POST') }}
             {{csrf_field()}}
             <!-- progressbar -->
-            <ul id="progressbar">
+            <ul id="progressbar" class="up_fix">
                 <li class="active">Personal Info</li>
                 <li>Professional info</li>
             </ul>
@@ -59,7 +59,7 @@
                     <select class="form-control col-lg-12" id="affiliationDropdown" name="affiliation">
                         <option value=""></option> <!-- needed for select2.js library don't remove!-->
                         @foreach($affiliationList as $affiliation)
-                        <option value="{{$affiliation->name}}">{{$affiliation->name}}</option>
+                            <option value="{{$affiliation->name}}">{{$affiliation->name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -67,7 +67,7 @@
                 <select class="form-control row" id="topicsDropdown" name="topics[]" multiple>
                     <option value=""></option> <!-- needed for selct2.js library don't remove!-->
                     @foreach($topicList as $topic)
-                    <option value="{{$topic->name}}">{{$topic->name}}</option>
+                        <option value="{{$topic->name}}">{{$topic->name}}</option>
                     @endforeach
                 </select>
                 </div>

@@ -1,15 +1,14 @@
 <div class="publication_item col-lg-12">
     <!-- first row -->
-    <div class="col-lg-12">
-        <div class="row justify-content-between">
-            <div id="title" style="cursor: pointer;" data-toggle="modal" data-target="#modalPublication">{{$publication->title}}</div>
-            <div id="year">{{date('Y',strtotime($publication->year))}}</div>
+        <div class="row">
+            <div class="col-9 col-sm-9 col-md-10 col-lg-10 col-xl-11" id="title" style="cursor: pointer;" data-toggle="modal" data-target="#modalPublication">{{$publication->title}}</div>
+            <div class="col-3 col-sm-3 col-md-2 col-lg-2 col-xl-1" align="right" id="year">{{date('Y',strtotime($publication->year))}}</div>
         </div>
-    </div>
+    
     <hr>
     <!-- second row -->
-    <div class="col-lg-12">
-        <div id="authors" class="row">
+    <div class="row">
+        <div id="authors" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <ul class="list-inline">
                 @foreach($publication->authors as $author)
                     <li class="list-inline-item">{{$author->first_name}} {{$author->last_name}}</li>
@@ -20,30 +19,29 @@
     </div>
 
     <!-- third row -->
-    <div class="col-lg-12">
-        <div id="venue" class="row">{{$publication->venue}}</div>
+    <div class="row">
+        <div id="venue" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">{{$publication->venue}}</div>
     </div>
+    
     <hr>
 
     <!-- fourth row -->
-    <div class="col-lg-12">
-        <div class="row justify-content-between align-items-center">
-            <div id="topics">
-                <ul class="list-inline">
-                    @foreach($publication->topics as $topic)
-                        <li class="list-inline-item">{{$topic->name}}</li>
-                    @endforeach
-                </ul>
-                <!--sistemare lo spazio che lascia dopo le liste-->
-            </div>
-            <div id="edit">
-                <a href="{{route('publications.edit', ['id'=>$publication->id])}}"><i class="ion-edit"></i></a>
-                @if($publication->public === 1)
-                    <a href="#aggiungere#azione#"><i class="ion-eye"></i></a>
-                @else
-                    <a href="#aggiungere#azione#visibilità"><i class="ion-eye-disabled"></i></a>
-                @endif
-            </div>
+    <div class="row">
+        <div class="col-8 col-sm-8 col-md-9 col-lg-10 col-xl-10" id="topics">
+            <ul class="list-inline">
+                @foreach($publication->topics as $topic)
+                    <li class="list-inline-item">{{$topic->name}}</li>
+                @endforeach
+            </ul>
+            <!--sistemare lo spazio che lascia dopo le liste-->
+        </div>    
+        <div class="col-4 col-sm-4 col-md-3 col-lg-2 col-xl-2" align="right">
+        <a href="{{route('publications.edit', ['id'=>$publication->id])}}"><i class="ion-edit"></i></a>
+            @if($publication->public === 1)
+                <a href="#aggiungere#azione#"><i class="ion-eye"></i></a>
+            @else
+                <a href="#aggiungere#azione#visibilità"><i class="ion-eye-disabled"></i></a>
+            @endif
         </div>
     </div>
 </div>

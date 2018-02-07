@@ -11,10 +11,44 @@ body {
 font-family: montserrat, arial, verdana;
 }
 
+.up_fix{
+    margin-left: 25%;
+    margin-top: 1%;
+    padding: 1em;
+}
+  
+.row{
+    margin: 1em 0 1em 0;
+    justify-content: center;
+}
+  
+.select2-container{
+    width: 100% !important;
+}
+  
+.form-group .select2-container{
+    width: 50% !important;
+}
+
+.select2-container--default .select2-search--inline .select2-search__field{
+    width: 100% !important;
+}
+
 /*form styles*/
 #msform {
     text-align: center;
     position: relative;
+    width: 60%;
+}
+
+@media only screen and(max-width: 767px){
+    #msform{
+        width: 100%;
+    }
+    
+    #msform fieldset{
+        margin: 0 !important;
+    }
 }
 
 #box {
@@ -45,7 +79,7 @@ font-family: montserrat, arial, verdana;
     padding: 15px;
     border: 1px solid #ccc;
     border-radius: 0px;
-    margin-bottom: 10px;
+    margin-bottom: 1em;
     width: 100%;
     box-sizing: border-box;
     font-family: montserrat;
@@ -69,33 +103,37 @@ font-family: montserrat, arial, verdana;
 #msform .action-button {
     width: 100px;
     background: cornflowerblue;
-    font-weight: bold;
+    font-size: 0.9em;
     color: white;
-    border: 0 none;
-    border-radius: 25px;
+    border: 1px solid cornflowerblue;
+    border-radius: 5px;
     cursor: pointer;
     padding: 10px 5px;
     margin: 10px 5px;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
 }
 
 #msform .action-button:hover, #msform .action-button:focus {
-    box-shadow: 0 0 0 2px white, 0 0 0 3px cornflowerblue;
+    background: #517ac2;
 }
 
 #msform .action-button-previous {
     width: 100px;
-    background: #afafaf;
-    font-weight: bold;
-    color: white;
-    border: 0 none;
-    border-radius: 25px;
+    background: #fff;
+    font-size: 0.9em;
+    color: black;
+    border: 1px solid #ddd;
+    border-radius: 5px;
     cursor: pointer;
     padding: 10px 5px;
     margin: 10px 5px;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
 }
 
 #msform .action-button-previous:hover, #msform .action-button-previous:focus {
-    box-shadow: 0 0 0 2px white, 0 0 0 3px #afafaf;
+    background: #eee;
 }
 
 /*headings*/
