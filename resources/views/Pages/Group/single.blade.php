@@ -20,7 +20,8 @@
     <div class="card text-left">
         <img class="card-img-top" src="{{$group->picture_path}}" alt="Card image cap" height="100" width="100">
         <div class="card-block">
-            <div id="title" class="card-text">{{$group->name}}</div>
+            <div id="titleCard" class="card-text">{{$group->name}}</div>
+            <hr>
             <div id="description" class="card-text">{{$group->description}}</div>
         </div>
         <div class="card-footer col-lg-12">
