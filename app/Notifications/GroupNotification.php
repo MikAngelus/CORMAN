@@ -13,14 +13,16 @@ class GroupNotification extends Notification
     use Queueable;
 
     protected $group;
+    protected $auth_user;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($group)
+    public function __construct($group, $auth_user)
     {
         $this->group=$group;
+        $this->auth_user=$auth_user;
     }
 
     /**
@@ -45,6 +47,7 @@ class GroupNotification extends Notification
 
         return [
             'group' => $this->group,
+            'auth_user' => $this->auth_user,
             'user' => $notifiable
         ];
     }
