@@ -111,6 +111,7 @@ class GroupController extends Controller
                 }
             }
         }
+
         // Adding the list of members
         $userINList = $request->input('users');
         if (isset($userINList)) {
@@ -123,7 +124,7 @@ class GroupController extends Controller
                     $name = str_replace(' ', '', $name);
                     if (strcmp($name, $userIN) == 0) {
                         $newGroup->users()->attach($userDB->id, ['role' => 'member', 'state' => 'pending']);
-                        Notification::send($userINList, GroupNotification($newGroup));
+                        //Notification::send($userINList, GroupNotification($newGroup));
                        /* $u = $userDB->id;
                         $u->notify(new GroupNotification($newGroup));*/
 
@@ -189,23 +190,6 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-        //dd($request->all());
-
-        $validator = Validator::make($request->all(), [
-            'name' => 'bail|required|unique:groups|alpha_num|max:255',
-            'description' => 'bail|nullable|max:1620',
-            'picture_path' => 'bail|image|nullable|max:15000',
-
-            'members.*' => 'required|distinct',
-            'topics.*' => 'max:50',
-        ]);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-
-
-
         $group = Group::find($id);
         $group->name = $request->input('group_name');
         $group->description = $request->input('description');
@@ -263,12 +247,7 @@ class GroupController extends Controller
 
         $remove = $memberList->diff($newMemberList);
         $add = $newMemberList->diff($memberList);
-/*
-        $newMembers = array();
-        foreach($add as $member){
-            array_push($newMembers, [$member => ['role' => 'member']]);
-        }
-*/      
+
         
         $group->users()->detach($remove);
         $group->users()->attach($add);
@@ -278,9 +257,9 @@ class GroupController extends Controller
         } else {
             $group->public = 'private';
         }
-        $group->save();
+        
 
-        return redirect()->route('groups.show', ['id' => $group->id]);
+        //return redirect()->route('groups.show', ['id' => $group->id]);
 
     }
 
@@ -304,7 +283,7 @@ class GroupController extends Controller
     public function ajaxInfo(Request $request)
     {
         $topicList = Group::find($request->query('id'))->topics;
-        $memberList = Group::find($request->query('id'))->users->where('id','<>',Auth::user()->id);
+        $memberList = Group::find($request->query('id'))->users; //->where('id','<>',Auth::user()->id);
         $data = array('topicList' => $topicList, 'memberList' => $memberList);
 
         return response()->json($data);
