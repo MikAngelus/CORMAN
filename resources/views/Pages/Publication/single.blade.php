@@ -11,7 +11,7 @@
     <div class="col-lg-12">
         <div id="authors" class="row">
             <ul class="list-inline">
-                @foreach($publication->users as $author)
+                @foreach($publication->authors as $author)
                     <li class="list-inline-item">{{$author->first_name}} {{$author->last_name}}</li>
                 @endforeach
             </ul>
