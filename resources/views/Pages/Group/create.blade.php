@@ -43,7 +43,7 @@
                     <select class="form-control" id="usersDropdown" name="users[]" multiple>
                         <option value=""></option> <!-- needed for selct2.js library don't remove!-->
                         @foreach($userList as $user)
-                            <option value="{{$user->last_name}} {{$user->first_name}}">{{$user->last_name}} {{$user->first_name}}</option>
+                            <option value="{{$user->id}}">{{$user->last_name}} {{$user->first_name}}</option>
                         @endforeach
                     </select>
 
