@@ -8,6 +8,7 @@
 @endsection
 
 @section('content')
+
     <!-- Handling Form errors -->
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -19,6 +20,7 @@
         </div>
     @endif
 
+    <!-- Form -->
     <div class="row">
         <form id="msform" action="{{ route('groups.update', ['id'=>$group->id])}}" method="post" enctype="multipart/form-data">
         {{csrf_field()}}
@@ -37,7 +39,7 @@
                 
                 <div class="form-group">
                     <label class="col-sm-12 col-md-3 col-lg-2">Description</label>
-                    <input class="col-sm-12 col-md-9 col-lg-6 editable-field" rows="4" name="description" type="text" placeholder="{{$group->description}}" value="{{$group->description}}"/>
+                    <textarea class="col-sm-12 col-md-9 col-lg-6 editable-field" rows="4" name="description" placeholder="{{$group->description}}" value="{{$group->description}}"></textarea>
                     <a class="edit col-lg-1">Edit</a>
                     <a class="button save hidden col-lg-1">Save</a>
                 </div>
@@ -101,7 +103,7 @@
                 <input type="submit" name="submit" class="next action-button" value="Update"/>
             </fieldset>
         </form>
-    </div>
+    </div>  
 @endsection
 
 @section('script')

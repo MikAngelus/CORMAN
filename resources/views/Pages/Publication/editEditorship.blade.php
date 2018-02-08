@@ -2,7 +2,7 @@
 <h3 class="fs-subtitle">Modify here some info about Editorship</h3>
 <div class="form-group">
     <label class="col-sm-12 col-md-3 col-lg-2">Abstract</label>
-    <input class="col-sm-12 col-md-9 col-lg-6 editable-field" name="abstract" type="text" placeholder="{{$details->abstract}}" value="{{$details->abstract}}"/>
+    <textarea class="col-sm-12 col-md-9 col-lg-6 editable-field" rows="4" name="abstract" placeholder="{{$details->abstract}}" value="{{$details->abstract}}"></textarea>
     <a class="edit col-lg-1">Edit</a>
     <a class="button save hidden col-lg-1">Save</a>
 </div>

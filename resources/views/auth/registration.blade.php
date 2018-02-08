@@ -10,6 +10,7 @@
 @endsection
 
 @section('content')
+    
     <!-- Handling Form errors -->
     @if ($errors->any())
     <div class="alert alert-danger">

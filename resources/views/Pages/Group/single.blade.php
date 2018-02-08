@@ -18,16 +18,20 @@
 -->
 <div class="group_item col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
     <div class="card text-left">
-        <img class="card-img-top" src="{{$group->picture_path}}" alt="Card image cap" height="100" width="100">
+        <img class="card-img-top" src="{{url($group->picture_path)}}" alt="Card image cap" height="100" width="100">
         <div class="card-block">
-            <div id="titleCard" class="card-text">{{$group->name}}</div>
+            <div id="titleCard" class="card-text ">{{$group->name}}</div>
             <hr>
-            <div id="description" class="card-text">{{$group->description}}</div>
+            <div id="descriptionCard" class="card-text">{{$group->description}}</div>
         </div>
         <div class="card-footer">
             <div class="row justify-content-between align-items-center">
                 <div id="edit_icons" class="">
-                    <a href=""><i class="ion-eye"></i></a>
+                    @if($group->public === "public")
+                        <a href="#"><i class="ion-eye"></i></a>
+                    @else
+                        <a href="#"><i class="ion-eye-disabled"></i></a>
+                    @endif 
                     <a href="{{route('groups.edit', ['id'=>$group->id])}}"><i class="ion-edit"></i></a>
                 </div>
                 <div id="edit_button" class="">

@@ -69,13 +69,21 @@
     font-size: large;
     margin-left: 5px;
     margin-right: 5px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
 }
 
-#description{
+#descriptionCard{
     font-style: italic;
     font-size: small;
     margin-left: 5px;
     margin-right: 5px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
 }
 
 #groupInfo{

@@ -8,133 +8,110 @@
 @endsection
 
 @section('content')
-    <div class="row">
-        <!-- Errors Handling -->
-        <div class="row" id="formErrors">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-        </div>
-
-        <!-- Form -->
-        <div id="formContainer" class="col-lg-10 col-md-10 col-sm-12">
-            <form id="msform" action="{{ route('users.update', ['id'=>Auth::user()->id]) }}" method="post" enctype="multipart/form-data">
-                {{ method_field('PUT') }}
-                {{csrf_field()}}
-                <fieldset class="col-lg-12 col-md-12 col-sm-12">
-                    <h2 class="fs-title">Edit User</h2>
-                    <h3 class="fs-subtitle">Edit your informations</h3>
-                    <div class="form-group">
-                        <img src="{{url($user->picture_path)}}" alt="">
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 col-md-3 col-lg-2">User Picture</label>
-                        <input class="col-sm-6 col-md-6 col-lg-6 editable-field" name="user_pic" type="file"
-                                placeholder="Choose a new pic"/>
-                        <a class="edit col-sm-1 col-md-1 col-lg-1">Edit</a>
-                        <a class="button save hidden col-sm-1 col-md-1 col-lg-1">Save</a>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-3 col-md-3 col-lg-2">First Name</label>
-                        <input class="col-sm-6 col-md-6 col-lg-6 editable-field" name="first_name" type="text"
-                                placeholder="{{ $user->first_name }}" value="{{ $user->first_name }}"/>
-                        <a class="edit col-sm-1 col-md-1 col-lg-1">Edit</a>
-                        <a class="button save hidden col-sm-1 col-md-1 col-lg-1">Save</a>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-8 col-md-3 col-lg-2">Last Name</label>
-                        <input class="col-sm-6 col-md-6 col-lg-6 editable-field" name="last_name" type="text"
-                                placeholder="{{ $user->last_name }}" value="{{ $user->last_name }}"/>
-                        <a class="edit col-sm-1 col-md-1 col-lg-1">Edit</a>
-                        <a class="button save hidden col-sm-1 col-md-1 col-lg-1">Save</a>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-8 col-md-3 col-lg-2">Date</label>
-                        <input class="col-sm-6 col-md-6 col-lg-6 editable-field" name="dob" type="date"
-                                placeholder="{{ $user->birth_date }}" value="{{ $user->birth_date}}"/>
-                        <a class="edit col-sm-1 col-md-1 col-lg-1">Edit</a>
-                        <a class="button save hidden col-sm-1 col-md-1 col-lg-1">Save</a>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-12 col-md-3 col-lg-2">Role</label>
-                        <select class="col-sm-12 col-md-9 col-lg-6 form-control"  id="roleDropdown" name="role[]" multiple>
-                            <option value=""></option> <!-- needed for selct2.js library don't remove!-->
-                            @foreach($roleList as $role)
-                                <option value="{{$role->name}}">{{$role->name}}</option>
-                            @endforeach
-                        </select>
-                        <a class="edit col-sm-1 col-md-1 col-lg-1">Edit</a>
-                        <a class="button save hidden col-sm-1 col-md-1 col-lg-1">Save</a>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-12 col-md-3 col-lg-2">Affiliation</label>
-                        <select class="col-sm-12 col-md-9 col-lg-6 form-control"  id="affiliationDropdown" name="affiliation[]" multiple>
-                            <option value=""></option> <!-- needed for selct2.js library don't remove!-->
-                            @foreach($affiliationList as $affiliation)
-                                <option value="{{$affiliation->name}}">{{$affiliation->name}}</option>
-                            @endforeach
-                        </select>
-                        <a class="edit col-sm-1 col-md-1 col-lg-1">Edit</a>
-                        <a class="button save hidden col-sm-1 col-md-1 col-lg-1">Save</a>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-12 col-md-3 col-lg-2">Topics</label>
-                        <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="topicsDropdown" name="topics[]" multiple>
-                            <option value=""></option> <!-- needed for selct2.js library don't remove!-->
-                                @foreach($topicList as $topic)
-                                    <option value="{{$topic->id}}">{{$topic->name}}</option>
-                                @endforeach
-                        </select>
-                        <a class="edit col-lg-1">Edit</a>
-                        <a class="button save hidden col-lg-1">Save</a>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-8 col-md-3 col-lg-2">E-Mail</label>
-                        <input class="col-sm-6 col-md-6 col-lg-6 editable-field" name="email" type="email"
-                                placeholder="{{$user->email}}" value="{{$user->email}}"/>
-                        <a class="edit col-sm-1 col-md-1 col-lg-1">Edit</a>
-                        <a class="button save hidden col-sm-1 col-md-1 col-lg-1">Save</a>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-8 col-md-3 col-lg-2">Personal Site</label>
-                        <input class="col-sm-6 col-md-6 col-lg-6 editable-field" name="url" type="url"
-                                placeholder="{{ $user->reference_link }}" value="{{ $user->reference_link }}"/>
-                        <a class="edit col-sm-1 col-md-1 col-lg-1">Edit</a>
-                        <a class="button save hidden col-sm-1 col-md-1 col-lg-1">Save</a>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-8 col-md-3 col-lg-2">Password</label>
-                        <input class="col-sm-6 col-md-6 col-lg-6 editable-field" name="password" type="password"
-                                placeholder="Password"/>
-                        <a class="edit col-sm-1 col-md-1 col-lg-1">Edit</a>
-                        <a class="button save hidden col-sm-1 col-md-1 col-lg-1">Save</a>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-8 col-md-3 col-lg-2">Confirm password</label>
-                        <input class="col-sm-6 col-md-6 col-lg-6 editable-field" name="password_confirmation" type="password"
-                                placeholder="Confirm Password"/>
-                        <a class="edit col-sm-1 col-md-1 col-lg-1">Edit</a>
-                        <a class="button save hidden col-sm-1 col-md-1 col-lg-1">Save</a>
-                    </div>
-
-                    <input type="submit" name="submit" class="submit action-button" value="Submit"/>
+        
+    <!-- Errors Handling -->
+    <div class="row" id="formErrors">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
-        </form>
+        @endif
     </div>
+
+    <!-- Form -->
+    <div id="formContainer" class="col-lg-10 col-md-10 col-sm-12">
+        <form id="msform" action="{{ route('users.update', ['id'=>Auth::user()->id]) }}" method="post" enctype="multipart/form-data">
+            {{ method_field('PUT') }}
+            {{csrf_field()}}
+            <fieldset class="col-lg-12 col-md-12 col-sm-12">
+                <h2 class="fs-title">Edit User</h2>
+                <h3 class="fs-subtitle">Edit your informations</h3>
+                <div class="form-group">
+                    <img src="{{url($user->picture_path)}}" alt="">
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 col-md-3 col-lg-3" align="right">User Picture</label>
+                    <input class="col-sm-6 col-md-6 col-lg-8" name="user_pic" type="file"
+                            placeholder="Choose a new pic"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 col-md-3 col-lg-3" align="right">First Name</label>
+                    <input class="col-sm-6 col-md-6 col-lg-8" name="first_name" type="text"
+                            placeholder="{{ $user->first_name }}" value="{{ $user->first_name }}"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-8 col-md-3 col-lg-3" align="right">Last Name</label>
+                    <input class="col-sm-6 col-md-6 col-lg-8" name="last_name" type="text"
+                            placeholder="{{ $user->last_name }}" value="{{ $user->last_name }}"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-8 col-md-3 col-lg-3" align="right">Date</label>
+                    <input class="col-sm-6 col-md-6 col-lg-8" name="dob" type="date"
+                            placeholder="{{ $user->birth_date }}" value="{{ $user->birth_date}}"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-12 col-md-3 col-lg-3" align="right">Role</label>
+                    <select class="col-sm-12 col-md-9 col-lg-8 form-control"  id="roleDropdown" name="role" multiple>
+                        <option value=""></option> <!-- needed for selct2.js library don't remove!-->
+                        @foreach($roleList as $role)
+                            <option value="{{$role->id}}">{{$role->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-12 col-md-3 col-lg-3" align="right">Affiliation</label>
+                    <select class="col-sm-12 col-md-9 col-lg-8 form-control"  id="affiliationDropdown" name="affiliation" multiple>
+                        <option value=""></option> <!-- needed for selct2.js library don't remove!-->
+                        @foreach($affiliationList as $affiliation)
+                            <option value="{{$affiliation->id}}">{{$affiliation->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-12 col-md-3 col-lg-3" align="right">Topics</label>
+                    <select class="col-sm-12 col-md-9 col-lg-8 form-control" id="topicsDropdown" name="topics[]" multiple>
+                        <option value=""></option> <!-- needed for selct2.js library don't remove!-->
+                            @foreach($topicList as $topic)
+                                <option value="{{$topic->id}}">{{$topic->name}}</option>
+                            @endforeach
+                    </select>
+                </div>  
+
+                <div class="form-group">
+                    <label class="col-sm-8 col-md-3 col-lg-3" align="right">E-Mail</label>
+                    <input class="col-sm-6 col-md-6 col-lg-8" name="email" type="email"
+                            placeholder="{{$user->email}}" value="{{$user->email}}"/>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-8 col-md-3 col-lg-3" align="right">Personal Site</label>
+                    <input class="col-sm-6 col-md-6 col-lg-8" name="url" type="url"
+                            placeholder="{{ $user->reference_link }}" value="{{ $user->reference_link }}"/>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-8 col-md-3 col-lg-3" align="right">Password</label>
+                    <input class="col-sm-6 col-md-6 col-lg-8" name="password" type="password"
+                            placeholder="Password"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-8 col-md-3 col-lg-3" align="right">Confirm password</label>
+                    <input class="col-sm-6 col-md-6 col-lg-8" name="password_confirmation" type="password"
+                            placeholder="Confirm Password"/>
+                </div>
+
+                <input type="submit" name="submit" class="submit action-button" value="Submit"/>
+        </div>
+    </form>
 @endsection
 
 @section('script')

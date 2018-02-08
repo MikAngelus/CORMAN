@@ -7,17 +7,18 @@
 @endsection
 
 @section('content')
-
-    <h2>Hi</h2>
-    <h2 id="first_name">{{$user->first_name}}</h2>
-    <h2 id="last_name">{{$user->last_name}}</h2>
-    <h4>We found some publications nell'internet may related to you, maybe you would add these to Corman! don't worry you can always modify later</h4>
+    <div id="message_info">
+        <h2>Hi</h2>
+        <h2 id="first_name">{{$user->first_name}}</h2>
+        <h2 id="last_name">{{$user->last_name}}</h2>
+        <h4>We found some publications nell'internet may related to you, maybe you would add these to Corman! don't worry you can always modify later</h4>
+    </div>
 
     <table id="table"></table>
 
     <div id="PublicationsTableContainer"></div>
     <br>
-    <input type="button" value="Add to my CORMAN publications" id="addTo">
+    <input class="btn btn-primary btn-sm" type="button" value="Add to my CORMAN publications" id="addTo">
 @endsection
 
 @section('script')
