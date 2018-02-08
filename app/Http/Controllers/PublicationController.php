@@ -261,10 +261,13 @@ class PublicationController extends Controller
      */
     public function edit($id)
     {
-        $topicList = Topic::all();
-        //$authors = Auth::user()->publications->find($id)->first()->authors;
-        $authors = Author::all()->where('id', '!=', Auth::user()->author->id)->sortBy('last_name');
-        $publication = Auth::user()->author->publications->where('id',$id)->first();
+        /** Return topic list and author list for dynamic filling of view dropodowns,
+         * diff method is used to avoid duplicates of <option> html tags due to the ajax calls (ajaxInfo method). 
+        */
+      
+        $publication = Publication::find($id)->first();
+        $topicList = Topic::all()->diff($publication->topics);
+        $authors = Author::all()->diff($publication->authors);
         return view('Pages.Publication.edit', ['publication'=>$publication, 'authors'=>$authors, 'topicList'=>$topicList] );
     }
 

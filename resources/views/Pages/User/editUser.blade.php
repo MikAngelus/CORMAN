@@ -67,10 +67,10 @@
 
                     <div class="form-group">
                         <label class="col-sm-12 col-md-3 col-lg-2">Role</label>
-                        <select class="col-sm-12 col-md-9 col-lg-6 form-control"  id="roleDropdown" name="role[]" multiple>
+                        <select class="col-sm-12 col-md-9 col-lg-6 form-control"  id="roleDropdown" name="role" multiple>
                             <option value=""></option> <!-- needed for selct2.js library don't remove!-->
                             @foreach($roleList as $role)
-                                <option value="{{$role->name}}">{{$role->name}}</option>
+                                <option value="{{$role->id}}">{{$role->name}}</option>
                             @endforeach
                         </select>
                         <a class="edit col-sm-1 col-md-1 col-lg-1">Edit</a>
@@ -79,10 +79,10 @@
 
                     <div class="form-group">
                         <label class="col-sm-12 col-md-3 col-lg-2">Affiliation</label>
-                        <select class="col-sm-12 col-md-9 col-lg-6 form-control"  id="affiliationDropdown" name="affiliation[]" multiple>
+                        <select class="col-sm-12 col-md-9 col-lg-6 form-control"  id="affiliationDropdown" name="affiliation" multiple>
                             <option value=""></option> <!-- needed for selct2.js library don't remove!-->
                             @foreach($affiliationList as $affiliation)
-                                <option value="{{$affiliation->name}}">{{$affiliation->name}}</option>
+                                <option value="{{$affiliation->id}}">{{$affiliation->name}}</option>
                             @endforeach
                         </select>
                         <a class="edit col-sm-1 col-md-1 col-lg-1">Edit</a>

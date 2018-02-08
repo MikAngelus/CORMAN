@@ -31,7 +31,7 @@ Route::get('/memberProfile', 'PagesController@memberProfile');
 // Resource Controller
 Route::resource('users','UserController',['except' => ['create', 'store']]);
 // Ajax routes
-Route::get('ajaxUserInfo', 'PublicationController@ajaxInfo');
+Route::get('ajaxUserInfo', 'UserController@ajaxInfo');
 
 
 
