@@ -8,19 +8,20 @@
 @endsection
 
 @section('content')
-    <!-- Handling Form errors -->
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    <div class="row">    
+        
+        <!-- Handling Form errors -->
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-@section('content')
-    <div class="row">
+        <!-- Form -->
         <form id="msform" action="{{ route('groups.store')}}" method="post" enctype="multipart/form-data">
             {{csrf_field()}}
             <!-- fieldsets -->
@@ -33,6 +34,15 @@
                 <textarea rows="4" name="description" placeholder="Description" ></textarea>
                 
                 <div class="row">
+                    <select class="form-control" id="usersDropdown" name="users[]" multiple>
+                        <option value=""></option> <!-- needed for selct2.js library don't remove!-->
+                        @foreach($userList as $user)
+                            <option value="{{$user->id}}">{{$user->last_name}} {{$user->first_name}}</option>
+                        @endforeach
+                    </select>
+                </div> 
+
+                <div class="row">
                     <select class="form-control" id="topicsDropdown" name="topics[]" multiple>
                         <option value=""></option> <!-- needed for selct2.js library don't remove!-->
                         @foreach($topicList as $topic)
@@ -40,15 +50,6 @@
                         @endforeach
                     </select>
                 </div>
-
-                <div class="row">
-                    <select class="form-control" id="usersDropdown" name="users[]" multiple>
-                        <option value=""></option> <!-- needed for selct2.js library don't remove!-->
-                        @foreach($userList as $user)
-                            <option value="{{$user->id}}">{{$user->last_name}} {{$user->first_name}}</option>
-                        @endforeach
-                    </select>
-                </div>    
                 
                 <input type="file" class="group_picture" id="upload" name="picture">
                 

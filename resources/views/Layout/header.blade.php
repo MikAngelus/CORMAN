@@ -17,7 +17,7 @@
                 {{auth()->user()->last_name}}</p>
             @if (isset(auth()->user()->picture_path))
                 <a id="menuIcon" href="{{ route('users.edit', ['id'=>Auth::user()->id]) }}">
-                    <img src="{{auth()->user()->picture_path}}" width="50" height="50" alt="User Picture">
+                    <img src="{{url(auth()->user()->picture_path)}}" width="50" height="50" alt="User Picture">
                     <span class="sr-only">(current)</span>
                 </a>
             @else

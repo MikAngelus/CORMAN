@@ -113,7 +113,7 @@ class GroupController extends Controller
         }
 
         // Adding the list of members and send notification
-      User::whereIn('id', $request->users)->get()->each(function ($user) use ($newGroup) {
+      User::where('id', $request->users)->get()->each(function ($user) use ($newGroup) {
                  $newGroup->users()->attach($user->id, [
                      'role' => 'member',
                      'state' => 'pending'

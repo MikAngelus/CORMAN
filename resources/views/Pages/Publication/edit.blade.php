@@ -7,9 +7,23 @@
 @endsection
 
 @section('content')
-<div class="row">
+        
+    <!-- Errors Handling -->
+    <div class="row" id="formErrors">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+    </div>
+    
+    <!-- Form -->
     <div id="formContainer" class="col-lg-10 col-md-10 col-sm-12">
-    <form id="msform" action="{{route('publications.update',['id' => $publication->id])}}" method="post">
+        <form id="msform" action="{{route('publications.update',['id' => $publication->id])}}" method="post">
             {{ csrf_field() }}
             {{ method_field('PUT') }}
             <fieldset class="col-sm-12 col-md-12 col-lg-12">
@@ -106,7 +120,6 @@
             </fieldset>
         </form>
     </div>
-</div>
 @endsection
 
 @section('script')
