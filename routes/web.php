@@ -41,6 +41,7 @@ Route::resource('publications','PublicationController');
 Route::get('syncronize','PublicationController@syncPublications');
 // Ajax routes
 Route::get('ajaxPublicationInfo', 'PublicationController@ajaxInfo');
+Route::get('ajaxGetPublications', 'PublicationController@ajaxGetPublications');
 Route::get('syncDBLP', 'PublicationController@syncDBLP');
 Route::post('syncToCorman', 'PublicationController@syncToCorman');
 
@@ -52,6 +53,7 @@ Route::post('syncToCorman', 'PublicationController@syncToCorman');
 Route::resource('groups','GroupController');
 // Ajax routes
 Route::get('ajaxGroupInfo', 'GroupController@ajaxInfo');
+Route::post('share', 'GroupController@share');
 
 
 

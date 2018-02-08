@@ -490,8 +490,7 @@ class PublicationController extends Controller
         
         //dd($request->all());
         foreach($request->all() as $publication){
-            \Debugbar::info($publication);
-
+            
             $newPublication = new Publication;
             //Set general fields
             $newPublication->title = ucwords($publication['title']);
@@ -607,6 +606,14 @@ class PublicationController extends Controller
         $authorList = Publication::find($request->query('id'))->authors;//->where('id','!=',Auth::user()->author->id);
         $data = array('topicList' => $topicList, 'authorList' => $authorList);
 
+        return response()->json($data);
+    }
+
+    public function ajaxGetPublications(Request $request)
+    {
+        $publicationList = Auth::user()->author->publications->shuffle();
+        $data = array('data' => $publicationList);
+        
         return response()->json($data);
     }
   
