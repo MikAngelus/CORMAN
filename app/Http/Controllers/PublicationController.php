@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Faker\Provider\File;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
@@ -11,6 +12,8 @@ use Illuminate\Support\Facades\Validator;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 
+use App\Http\Requests\CreatePublicationRequest;
+use App\Http\Requests\EditPublicationRequest;
 
 use App\Publication;
 use App\Journal;
@@ -56,7 +59,7 @@ class PublicationController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePublicationRequest $request)
     {
         //dd($request->all());
         /*
@@ -65,25 +68,6 @@ class PublicationController extends Controller
         * for all elements of the author field form input 
         */
         // TODO resolve the resubmission
-
-        // TODO completeValidation
-        $validator = Validator::make($request->all(), [
-            'title' => 'bail|required|filled|max:255',
-            'publication_date' => 'bail|required|date',
-            'venue' => 'bail|required|filled|max:255',
-            'type' => 'bail|required|alpha|in:journal,conference,editorship|max:255',
-            //'profilePic' => 'bail|image|max:15000',
-
-            'authors.*' => 'required|filled',
-            'topics.*' => 'filled|max:50',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect('/publications/create')
-                ->withErrors($validator)
-                ->withInput();
-        }
-
 
         // Create new publication
         $newPublication = new Publication;
@@ -278,7 +262,7 @@ class PublicationController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EditPublicationRequest $request, $id)
     {
         // TODO add validators
 
