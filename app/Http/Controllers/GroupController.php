@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use App\User;
 use App\Topic;
 use App\Group;
+use App\PublicationGroup;
 
 
 class GroupController extends Controller
@@ -160,10 +161,9 @@ class GroupController extends Controller
     {
         // Replace with shares of publication-group-model
         $publicationList = Auth::user()->publications;
-        //$groupList = Auth::user()->groups;
-        $group = Auth::user()->groups->where('id', $id)->first();
+        $group = Auth::user()->groups->find($id);
         $userList = User::where('id', '<>', Auth::user()->id)->get()->sortBy('last_name');
-        $topicList = Topic::all();
+        $topicList = Topic::all()->diff($group->topics);;
 
         return view('Pages.Group.edit', ['topicList' => $topicList, 'publicationList' => $publicationList,
         'group' => $group, 'userList' => $userList]);
@@ -262,7 +262,18 @@ class GroupController extends Controller
         //
     }
 
-    public function shares($request, $id){
+    public function share(Request $request){
+
+        $publicationList = $request->input('publicationList');
+        $userId = Auth::user()->id;
+        $groupId = $request->input('groupId');
+        foreach( $publicationList as $publication){
+            $share =  PublicationGroup::firstOrNew(['publication_id' => $publication['id'], 'group_id' => $groupId ]);
+            $share->user_id = $userId;
+
+            $share->save();
+        }
+        return "ok";
 
     }
 
@@ -276,4 +287,7 @@ class GroupController extends Controller
 
         return response()->json($data);
     }
+
+ 
+
 }

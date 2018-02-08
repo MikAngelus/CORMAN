@@ -59,20 +59,20 @@
 
                 <div class="form-group">
                     <label class="col-sm-12 col-md-3 col-lg-3" align="right">Role</label>
-                    <select class="col-sm-12 col-md-9 col-lg-8 form-control"  id="roleDropdown" name="role[]" multiple>
+                    <select class="col-sm-12 col-md-9 col-lg-8 form-control"  id="roleDropdown" name="role" multiple>
                         <option value=""></option> <!-- needed for selct2.js library don't remove!-->
                         @foreach($roleList as $role)
-                            <option value="{{$role->name}}">{{$role->name}}</option>
+                            <option value="{{$role->id}}">{{$role->name}}</option>
                         @endforeach
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-12 col-md-3 col-lg-3" align="right">Affiliation</label>
-                    <select class="col-sm-12 col-md-9 col-lg-8 form-control"  id="affiliationDropdown" name="affiliation[]" multiple>
+                    <select class="col-sm-12 col-md-9 col-lg-8 form-control"  id="affiliationDropdown" name="affiliation" multiple>
                         <option value=""></option> <!-- needed for selct2.js library don't remove!-->
                         @foreach($affiliationList as $affiliation)
-                            <option value="{{$affiliation->name}}">{{$affiliation->name}}</option>
+                            <option value="{{$affiliation->id}}">{{$affiliation->name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -85,7 +85,7 @@
                                 <option value="{{$topic->id}}">{{$topic->name}}</option>
                             @endforeach
                     </select>
-                </div>
+                </div>  
 
                 <div class="form-group">
                     <label class="col-sm-8 col-md-3 col-lg-3" align="right">E-Mail</label>

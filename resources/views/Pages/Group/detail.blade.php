@@ -1,8 +1,10 @@
 @extends ('Layout.main')
 
 @section('head')
+    <meta name="csrf-token" content="{{ csrf_token()}}">
     <link rel="stylesheet" href="{{ url('css/Group/groups.css') }}">
     <link rel="stylesheet" href="{{ url('css/Publication/publications.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
 @endsection
 
 @section('content')
@@ -83,6 +85,9 @@
 
 @section('script')
     <script src="{{ url('js/bootstrap.bundle.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/locale/bootstrap-table-en-US.min.js"></script>
+    <script src="{{ url('js/Group/sharePublication.js') }}"></script>
     <script>
         $(function () {
             $('[data-toggle=popover]').popover();

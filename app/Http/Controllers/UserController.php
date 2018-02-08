@@ -59,7 +59,7 @@ class UserController extends Controller
     {
         $roleList = Role::all();
         $affiliationList = Affiliation::all();
-        $topicList = Topic::all();
+        $topicList = Topic::all()->diff($user->topics);
         return view('Pages.User.editUser', ['user' => $user, 'roleList' => $roleList,
             'affiliationList' => $affiliationList, 'topicList' => $topicList]);
     }
@@ -74,6 +74,7 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         //validation
+        /*
         $validator = Validator::make($request->all(), [
             'first_name' => ['bail', 'required', 'regex:/^[A-Za-z\- ]+$/', 'max:255'], //Don't remove the space!
             'last_name' => ['bail', 'required', 'regex:/^[A-Za-z\-àéèìòù ]+$/', 'max:255'], //Don't remove the space!
@@ -90,18 +91,16 @@ class UserController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-
+*/
         $user->last_name = $request->input('last_name');
         $user->first_name = $request->input('first_name');
         $user->birth_date = $request->input('dob');
         $user->email = $request->input('email');
         if ($request->input('password') != null) {
             $user->password = bcrypt($request->input('password'));
-        } else {
-            $user->password = $user->password;
         }
 
-
+        // Handling user picture
         if ($request->hasFile('user_pic')) {
 
             $file = $request->file('user_pic');
@@ -116,11 +115,31 @@ class UserController extends Controller
             }
         }
 
-        $roleid = Role::where('name', $request->input('role'))->first()->id;
-        $user->role_id = $roleid;
+        // Handling add and deletion of publication topics
+        $topicList = Topic::all()->pluck('id');
+        $userTopicList = $user->topics->pluck('id');
+        $newTopicList = collect($request->input('topics'));
 
-        $affiliationid = Affiliation::where('name', $request->input('affiliation'))->first()->id;
-        $user->affiliation_id = $affiliationid;
+        $removeList = $userTopicList->diff($newTopicList); // get items to delete
+        $addList = $newTopicList->diff($userTopicList); //intermediate result
+        $createList = $addList->diff($topicList); // get items to create
+        $addList = $addList->diff($createList); // get items to add
+
+        $user->topics()->detach($removeList);
+        $user->topics()->attach($addList);
+
+        foreach($createList as $topic){
+
+            $newTopic = new Topic;
+            $newTopic->name = $topic;
+            $newTopic->save();
+
+            $user->topics()->attach($newTopic);
+        }
+
+        
+        $user->role_id = $request->input('role');;
+        $user->affiliation_id = $request->input('affiliation');
 
         $user->reference_link = $request->input('url');
 
@@ -140,11 +159,13 @@ class UserController extends Controller
         //
     }
 
-    public function ajaxInfo(Request $request)
+    public function ajaxInfo()
     {
-        $topicList = Group::find($request->query('id'))->topics;
-        $role = Auth::id()->role;
-        $affiliation = Auth::id()->affiliation;
+        $user = Auth::user();
+        
+        $topicList = $user->topics;
+        $role = $user->role;
+        $affiliation = $user->affiliation;
         $data = array('topicList' => $topicList, 'role' => $role, 'affiliation' => $affiliation);
 
         return response()->json($data);

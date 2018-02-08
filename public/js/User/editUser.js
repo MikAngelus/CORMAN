@@ -30,7 +30,6 @@ $(document).ready(function () {
     $('#roleDropdown').select2({
         placeholder: "Modify the role",
         maximumSelectionLength: 1,
-        tags: true
     });
 
     $('#affiliationDropdown').select2({
@@ -41,8 +40,31 @@ $(document).ready(function () {
 
     $('#topicsDropdown').select2({
         placeholder: "Modify your areas of interests",
-        maximumSelectionLength: 5,
+        maximumSelectionLength: 7,
         tokenSeparators: [','],
         tags:true
+    });
+
+    $.ajaxSetup({
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+        'contentType': "application/json; charset=utf-8"
+        }
+    });
+
+    $.getJSON("/ajaxUserInfo", function(data,status){
+        
+        console.log(data.topicList);
+    
+        $.each(data.topicList, function(index,value) {
+            var newOption = new Option(value.name, value.id, false, true);
+            $('#topicsDropdown').append(newOption);
+        });
+        var role = new Option(data.role.name, data.role.id, false, true);
+        $('#roleDropdown').append(role);
+
+        var affiliation = new Option(data.affiliation.name, data.affiliation.id, false, true);
+        $('#affiliationDropdown').append(affiliation);
+       
     });
 });
