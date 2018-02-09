@@ -49,11 +49,11 @@ $(document).ready(function(){
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function(data, status){
-                alert(status);
-                window.location.href = "/users"; // redirect to dashboard
-
+                $('#infoModal').modal('show');
+                //alert(data.message); //TODO  replace with modal
+                window.location.href = data.redirectTo;
             
-            }
+            },
         });
 
         

@@ -25,7 +25,7 @@
         <!-- MultiStep Form -->
         <div class="row">
 
-                <form id="msform" action="{{route('publications.store')}}" method="post"  style="">
+                <form id="msform" action="{{route('publications.store')}}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <!-- progressbar -->
                     <ul id="progressbar" class="pt-2">
@@ -128,13 +128,13 @@
 
                         <div class="form-group col">
                             <label class="col-sm-12 col-md-3 col-lg-4">Add PDF <i class="ion-document-text" aria-hidden="true"></i></label>
-                            <input class="col-sm-12 col-md-9 col-lg-6" type="file" name="pdf_file" style="display: all;">
-                        </div>
+                            <input class="col-sm-12 col-md-9 col-lg-6" type="file" name="pdf_file" accept=".pdf,.doc" style="display: all;">
+                        </div> 
                         <div class="form-group col">
                             <label class="col-sm-12 col-md-3 col-lg-4">Add Files <i class="ion-images" aria-hidden="true"></i></label>
-                            <input class="col-sm-12 col-md-9 col-lg-6" type="file" name="media_file[]" multiple style="display: all;">
-                        </div>
-
+                            <input class="col-sm-12 col-md-9 col-lg-6" type="file" name="media_file[]" accept="image/*" multiple style="display: all;">
+                        </div> 
+                            
                         <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
                         <input type="submit" name="submit" class="submit action-button" value="Create"/>
                     </fieldset>
