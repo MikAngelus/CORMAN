@@ -453,7 +453,6 @@ class PublicationController extends Controller
                             }
                             $publication['info']['authors'] = $authorList;
                         }
-<<<<<<< HEAD
                         else{ // just one authors
                             $publication['info']['authors'] = $authors;
                         }
@@ -469,41 +468,14 @@ class PublicationController extends Controller
                                 {
                                     $venueList .= $venue.', '; 
                                 }
-=======
-                        $publication['info']['authors'] = $authorList;
-                    }
-
-                    else{ // just one authors
-                        $publication['info']['authors'] = $authors;
-                    }
-                    // 
-                    $venueList = '';
-                    $venues = $publication['info']['venue'];
-                    if( is_array($venues) ){ 
-                        foreach( $venues as $venue){
-                            if($venue === end($venues)){
-                                $venueList .= $venue; 
-                            }
-                            else
-                            {
-                                $venueList .= $venue.', '; 
->>>>>>> 2dccb9d67a194d93b70b06d0693e8ce33e8dc1f3
                             }
                             $publication['info']['venue'] = $venueList;
                         }
-<<<<<<< HEAD
                         else{ // just one authors
                             $publication['info']['venue'] = $venues;
                         }
                         
                         array_push($pubList,$publication['info']);
-=======
-                        $publication['info']['venue'] = $venueList;
-                    }
-
-                    else{ // just one authors
-                        $publication['info']['venue'] = $venues;
->>>>>>> 2dccb9d67a194d93b70b06d0693e8ce33e8dc1f3
                     }
                 }
             } 
