@@ -422,45 +422,49 @@ class PublicationController extends Controller
             $supportedTypes= ['Journal Articles','Conference and Workshop Papers','Editorship'];
             // Clean up DBLP json response for our needs
             foreach($response as $publication){
-                // Check if $publication is supported by corman otherwise skip it!
-                if ( in_array($publication['info']['type'],$supportedTypes) ){
-                    $authorList = '';
-                    $authors = $publication['info']['authors']['author'];
-                    if( is_array($authors) ){ 
-                        foreach( $authors as $author){
-                            if($author === end($authors)){
-                                $authorList .= $author; 
+                $requiredFields = array('title','venue','authors','year');
+                //Check if at least the required fields are present, otherwise skip
+                if( count(array_diff_key(array_flip($requiredFields),$publication['info'])) == 0){
+                    // Check if $publication type is supported by corman otherwise skip it!
+                    if ( in_array($publication['info']['type'],$supportedTypes) ){
+                        $authorList = '';
+                        $authors = $publication['info']['authors']['author'];
+                        if( is_array($authors) ){ 
+                            foreach( $authors as $author){
+                                if($author === end($authors)){
+                                    $authorList .= $author; 
+                                }
+                                else
+                                {
+                                    $authorList .= $author.', '; 
+                                }
                             }
-                            else
-                            {
-                                $authorList .= $author.', '; 
-                            }
+                            $publication['info']['authors'] = $authorList;
                         }
-                        $publication['info']['authors'] = $authorList;
-                    }
-                    else{ // just one authors
-                        $publication['info']['authors'] = $authors;
-                    }
-                    // 
-                    $venueList = '';
-                    $venues = $publication['info']['venue'];
-                    if( is_array($venues) ){ 
-                        foreach( $venues as $venue){
-                            if($venue === end($venues)){
-                                $venueList .= $venue; 
-                            }
-                            else
-                            {
-                                $venueList .= $venue.', '; 
-                            }
+                        else{ // just one authors
+                            $publication['info']['authors'] = $authors;
                         }
-                        $publication['info']['venue'] = $venueList;
+                        // 
+                        $venueList = '';
+                        $venues = $publication['info']['venue'];
+                        if( is_array($venues) ){ 
+                            foreach( $venues as $venue){
+                                if($venue === end($venues)){
+                                    $venueList .= $venue; 
+                                }
+                                else
+                                {
+                                    $venueList .= $venue.', '; 
+                                }
+                            }
+                            $publication['info']['venue'] = $venueList;
+                        }
+                        else{ // just one authors
+                            $publication['info']['venue'] = $venues;
+                        }
+                        
+                        array_push($pubList,$publication['info']);
                     }
-                    else{ // just one authors
-                        $publication['info']['venue'] = $venues;
-                    }
-                    
-                    array_push($pubList,$publication['info']);
                 }
             } 
             $jsonInfo = array('data' => $pubList);
@@ -595,6 +599,8 @@ class PublicationController extends Controller
 
         return response()->json($data);
     }
+
+   
 
     public function ajaxGetPublications(Request $request)
     {
