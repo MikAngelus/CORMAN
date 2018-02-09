@@ -76,6 +76,7 @@ class UserController extends Controller
     public function update(EditProfileRequest $request, User $user)
     {
        
+        
         $user->last_name = $request->input('last_name');
         $user->first_name = $request->input('first_name');
        

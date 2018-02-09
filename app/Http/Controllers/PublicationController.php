@@ -248,8 +248,8 @@ class PublicationController extends Controller
         /** Return topic list and author list for dynamic filling of view dropodowns,
          * diff method is used to avoid duplicates of <option> html tags due to the ajax calls (ajaxInfo method). 
         */
-      
-        $publication = Publication::find($id)->first();
+       
+        $publication = Publication::find($id);
         $topicList = Topic::all()->diff($publication->topics);
         $authors = Author::all()->diff($publication->authors);
         return view('Pages.Publication.edit', ['publication'=>$publication, 'authors'=>$authors, 'topicList'=>$topicList] );
@@ -264,9 +264,9 @@ class PublicationController extends Controller
      */
     public function update(EditPublicationRequest $request, $id)
     {
-        // TODO add validators
+        
 
-
+        
         // Retrieve the publication
         $publication = Publication::find($id);
 
@@ -477,8 +477,8 @@ class PublicationController extends Controller
             
             $newPublication = new Publication;
             //Set general fields
+            
             $newPublication->title = ucwords($publication['title']);
-           
             $date = new \DateTime();
             $date->setDate($publication['year'],1,1); //set default date to the first of the <year>
             $newPublication->year = $date;
