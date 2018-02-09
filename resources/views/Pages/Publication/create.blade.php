@@ -67,13 +67,11 @@
                         </select>
 
                         <div class="form-group">
-                            <label class="col-sm-12 col-md-3 col-lg-2">Visibility</label>
-                            <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="visibility" name="visibility">
+                            <label class="col-sm-12 col-md-3 col-lg-3">Visibility</label>
+                            <select class="col-sm-12 col-md-9 col-lg-8 form-control" id="visibility" name="visibility">
                                 <option selected value="public" >Public</option>
                                 <option value="private" >Private</option>
                             </select>
-                            <a class="edit col-lg-1">Edit</a>
-                            <a class="button save hidden col-lg-1">Save</a>
                         </div>    
 
                         <input type="button" name="next" class="next action-button col-lg-" value="Next"/>

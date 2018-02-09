@@ -90,7 +90,7 @@
                 <div class="form-group">
                     <label class="col-sm-8 col-md-3 col-lg-3" align="right">E-Mail</label>
                     <input class="col-sm-6 col-md-6 col-lg-8" name="email" type="email"
-                            placeholder="{{$user->email}}" value="{{$user->email}}"/>
+                            placeholder="Insert new email" value="{{ $user->email}}"/>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-8 col-md-3 col-lg-3" align="right">Personal Site</label>
@@ -100,13 +100,13 @@
                 <div class="form-group">
                     <label class="col-sm-8 col-md-3 col-lg-3" align="right">Password</label>
                     <input class="col-sm-6 col-md-6 col-lg-8" name="password" type="password"
-                            placeholder="Password"/>
+                            placeholder="Insert New Password"/>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-8 col-md-3 col-lg-3" align="right">Confirm password</label>
                     <input class="col-sm-6 col-md-6 col-lg-8" name="password_confirmation" type="password"
-                            placeholder="Confirm Password"/>
+                            placeholder="Confirm New Password"/>
                 </div>
 
                 <input type="submit" name="submit" class="submit action-button" value="Submit"/>

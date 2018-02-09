@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Faker\Provider\File;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
@@ -14,6 +15,8 @@ use Image;
 
 
 
+use App\Http\Requests\CreatePublicationRequest;
+use App\Http\Requests\EditPublicationRequest;
 
 use App\Publication;
 use App\Journal;
@@ -60,7 +63,7 @@ class PublicationController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePublicationRequest $request)
     {
         //dd($request->all());
         /*
@@ -69,25 +72,6 @@ class PublicationController extends Controller
         * for all elements of the author field form input 
         */
         // TODO resolve the resubmission
-
-        // TODO completeValidation
-        $validator = Validator::make($request->all(), [
-            'title' => 'bail|required|filled|max:255',
-            'publication_date' => 'bail|required|date',
-            'venue' => 'bail|required|filled|max:255',
-            'type' => 'bail|required|alpha|in:journal,conference,editorship|max:255',
-            //'profilePic' => 'bail|image|max:15000',
-
-            'authors.*' => 'required|filled',
-            'topics.*' => 'filled|max:50',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect('/publications/create')
-                ->withErrors($validator)
-                ->withInput();
-        }
-
 
         // Create new publication
         $newPublication = new Publication;
@@ -252,11 +236,12 @@ class PublicationController extends Controller
      */
     public function edit($id)
     {
-        /** Return topic list and author list for dynamic filling of view dropodowns,
-         * diff method is used to avoid duplicates of <option> html tags due to the ajax calls (ajaxInfo method).
-         */
+        /* Return topic list and author list for dynamic filling of view dropodowns,
 
-        $publication = Publication::find($id)->first();
+          diff method is used to avoid duplicates of <option> html tags due to the ajax calls (ajaxInfo method).
+        */
+       
+        $publication = Publication::find($id);
         $topicList = Topic::all()->diff($publication->topics);
         $authors = Author::all()->diff($publication->authors);
         return view('Pages.Publication.edit', ['publication' => $publication, 'authors' => $authors, 'topicList' => $topicList]);
@@ -269,11 +254,11 @@ class PublicationController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EditPublicationRequest $request, $id)
     {
-        // TODO add validators
+        
 
-
+        
         // Retrieve the publication
         $publication = Publication::find($id);
 
@@ -446,40 +431,52 @@ class PublicationController extends Controller
             $response = $response['result']['hits']['hit'];
             $pubList = array();
 
+            $supportedTypes= ['Journal Articles','Conference and Workshop Papers','Editorship'];
             // Clean up DBLP json response for our needs
-            foreach ($response as $publication) {
-                $authorList = '';
-                $authors = $publication['info']['authors']['author'];
-                if (is_array($authors)) {
-                    foreach ($authors as $author) {
-                        if ($author === end($authors)) {
-                            $authorList .= $author;
-                        } else {
-                            $authorList .= $author . ', ';
+            foreach($response as $publication){
+                // Check if $publication is supported by corman otherwise skip it!
+                if ( in_array($publication['info']['type'],$supportedTypes) ){
+                    $authorList = '';
+                    $authors = $publication['info']['authors']['author'];
+                    if( is_array($authors) ){ 
+                        foreach( $authors as $author){
+                            if($author === end($authors)){
+                                $authorList .= $author; 
+                            }
+                            else
+                            {
+                                $authorList .= $author.', '; 
+                            }
                         }
+                        $publication['info']['authors'] = $authorList;
                     }
-                    $publication['info']['authors'] = $authorList;
-                } else { // just one authors
-                    $publication['info']['authors'] = $authors;
-                }
-                // 
-                $venueList = '';
-                $venues = $publication['info']['venue'];
-                if (is_array($venues)) {
-                    foreach ($venues as $venue) {
-                        if ($venue === end($venues)) {
-                            $venueList .= $venue;
-                        } else {
-                            $venueList .= $venue . ', ';
-                        }
-                    }
-                    $publication['info']['venue'] = $venueList;
-                } else { // just one authors
-                    $publication['info']['venue'] = $venues;
-                }
 
-                array_push($pubList, $publication['info']);
-            }
+                    else{ // just one authors
+                        $publication['info']['authors'] = $authors;
+                    }
+                    // 
+                    $venueList = '';
+                    $venues = $publication['info']['venue'];
+                    if( is_array($venues) ){ 
+                        foreach( $venues as $venue){
+                            if($venue === end($venues)){
+                                $venueList .= $venue; 
+                            }
+                            else
+                            {
+                                $venueList .= $venue.', '; 
+                            }
+                        }
+                        $publication['info']['venue'] = $venueList;
+                    }
+
+                    else{ // just one authors
+                        $publication['info']['venue'] = $venues;
+                    }
+                    
+                    array_push($pubList,$publication['info']);
+                }
+            } 
             $jsonInfo = array('data' => $pubList);
         } else {
             $jsonInfo = array('data' => array());
@@ -497,6 +494,7 @@ class PublicationController extends Controller
 
             $newPublication = new Publication;
             //Set general fields
+            
             $newPublication->title = ucwords($publication['title']);
 
             $date = new \DateTime();
