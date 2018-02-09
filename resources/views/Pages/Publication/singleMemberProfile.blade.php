@@ -1,17 +1,10 @@
 <div class="publication_item col-lg-12">
-    <div class="row align-items-center">
-        <div class="col-lg-12">
-            <img src="{{url(auth()->user()->picture_path)}}" style="border-radius: 50%;" width="30" height="30" alt="User Picture">
-            Posted by: {{auth()->user()->first_name}} {{auth()->user()->last_name}}
-        </div>
-    </div>
-    <hr>
-
     <!-- first row -->
-    <div class="row">
-        <div class="col-9 col-sm-9 col-md-10 col-lg-10 col-xl-11" id="title" style="cursor: pointer;" data-toggle="modal" data-target="#modalPublication_{{$publication->id}}">{{$publication->title}}</div>
-        <div class="col-3 col-sm-3 col-md-2 col-lg-2 col-xl-1" align="right" id="year">{{date('Y',strtotime($publication->year))}}</div>
-    </div>
+        <div class="row">
+            <div class="col-9 col-sm-9 col-md-10 col-lg-10 col-xl-11" id="title" style="cursor: pointer;" data-toggle="modal" data-target="#modalPublication_{{$publication->id}}">{{$publication->title}}</div>
+            <div class="col-3 col-sm-3 col-md-2 col-lg-2 col-xl-1" align="right" id="year">{{date('Y',strtotime($publication->year))}}</div>
+        </div>
+    
     <hr>
     <!-- second row -->
     <div class="row">
@@ -46,15 +39,6 @@
             </ul>
             <!--sistemare lo spazio che lascia dopo le liste-->
         </div>    
-        <!-- nascondere bottoni per visitatori -->
-        <div class="col-4 col-sm-4 col-md-3 col-lg-2 col-xl-2" align="right">
-        <a href="{{route('publications.edit', ['id'=>$publication->id])}}"><i class="ion-edit"></i></a>
-            @if($publication->public === 1)
-                <a href="#aggiungere#azione#"><i class="ion-eye"></i></a>
-            @else
-                <a href="#aggiungere#azione#visibilità"><i class="ion-eye-disabled"></i></a>
-            @endif
-        </div>
     </div>
 </div>
 

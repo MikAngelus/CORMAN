@@ -233,7 +233,8 @@ class PublicationController extends Controller
      */
     public function show($id)
     {
-        $publication = Auth::user()->author->publications->where('id', $id)->first();
+        $publication = Auth::user()->author->publications->where('id', $id);
+        dd($publication);
         return view('Pages.Publication.modal', ['publication' => $publication]);
     }
 

@@ -26,6 +26,7 @@
         </div>
         <div class="card-footer">
             <div class="row justify-content-between align-items-center">
+                <!-- nascondere icone per visitatori -->
                 <div id="edit_icons" class="">
                     @if($group->public === "public")
                         <a href="#"><i class="ion-eye"></i></a>

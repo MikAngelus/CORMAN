@@ -14,4 +14,8 @@ class Author extends Model
     public function user(){
         return $this->belongsTo('App\User');
     }
+     public function isCormanMember(){
+        return $this->user_id!=null;
+    }
+
 }

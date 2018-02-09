@@ -48,7 +48,9 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('Pages.User.dashboard');
+        $publicationList=$user->author->publications->sortByDesc('year')->take(25);
+        $groupList=$user->groups;
+        return view('Pages.memberProfile', ['publicationList'=>$publicationList, 'groupList'=>$groupList, 'user'=>$user]);
     }
 
     /**

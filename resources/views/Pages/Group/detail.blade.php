@@ -51,7 +51,7 @@
                 </div>
                 <div class="row">
                     @foreach($publicationList as $publication)
-                        @include('Pages.Publication.single', ['publication'=>$publication])
+                        @include('Pages.Publication.singleInGroup', ['publication'=>$publication])
                     @endforeach
                 </div>
             </div>

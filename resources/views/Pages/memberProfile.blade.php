@@ -33,7 +33,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-10">
-                        <a href="#" id="btn-newgroup" class="btn btn-primary" role="button" data-toggle="modal" data-target="#addPublication">Add Publication</a>
+                    <a href="{{ route('publications.index')}}" id="btn-newgroup" class="btn btn-primary btn-sm pull-left" role="button">View All</a>
                     </div>
                     <div class="col-lg-2">
                         <i class="fa fa-filter fa-2x pull-right" data-container="body" data-toggle="popover" data-html="true" data-placement="bottom" data-content="@include('Pages.filter')"></i>
@@ -41,12 +41,15 @@
                 </div>
                 <div class="row">
                     @foreach($publicationList as $publication)
-                        @include('Pages.Publication.single', ['publication'=>$publication])
+                        @include('Pages.Publication.singleMemberProfile', ['publication'=>$publication])
                     @endforeach
                 </div>
             </div>
 
             <div class="col-lg-3 col-md-2">
+                <div class="btn-toolbar justify-content-between col-lg-12">
+                    <a href="{{ route('groups.index')}}" id="btn-newgroup" class="btn btn-primary btn-sm pull-right" role="button">View All</a>
+                </div>
                 @foreach($groupList as $group)
                     @include('Pages.Group.single', ['group'=>$group])
                 @endforeach

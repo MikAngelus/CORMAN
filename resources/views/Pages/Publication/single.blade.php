@@ -1,7 +1,7 @@
 <div class="publication_item col-lg-12">
     <!-- first row -->
         <div class="row">
-            <div class="col-9 col-sm-9 col-md-10 col-lg-10 col-xl-11" id="title" style="cursor: pointer;" data-toggle="modal" data-target="#modalPublication">{{$publication->title}}</div>
+            <div class="col-9 col-sm-9 col-md-10 col-lg-10 col-xl-11" id="title" style="cursor: pointer;" data-toggle="modal" data-target="#modalPublication_{{$publication->id}}">{{$publication->title}}</div>
             <div class="col-3 col-sm-3 col-md-2 col-lg-2 col-xl-1" align="right" id="year">{{date('Y',strtotime($publication->year))}}</div>
         </div>
     
@@ -11,7 +11,11 @@
         <div id="authors" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <ul class="list-inline">
                 @foreach($publication->authors as $author)
-                    <li class="list-inline-item">{{$author->name}}</li>
+                    @if($author->isCormanMember())
+                        <li class="list-inline-item"><a href="{{route('users.show', ['user'=>$author->user])}}">{{$author->name}}</a></li>
+                    @else
+                        <li class="list-inline-item">{{$author->name}}</li>
+                    @endif
                 @endforeach
             </ul>
             <!--sistemare lo spazio che lascia dopo le liste-->
@@ -48,7 +52,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="modalPublication" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="modal fade" id="modalPublication_{{$publication->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
