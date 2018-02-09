@@ -2,7 +2,7 @@
 <h3 class="fs-subtitle">Modify here some info about Conference</h3>
 <div class="form-group">
     <label class="col-sm-12 col-md-3 col-lg-3">Abstract</label>
-    <textarea class="col-sm-12 col-md-9 col-lg-8" rows="4" name="abstract" placeholder="{{$details->abstract}}" value="{{$details->abstract}}"></textarea>
+    <textarea class="col-sm-12 col-md-9 col-lg-8" rows="4" name="abstract" placeholder="{{$details->abstract}}">{{$details->abstract}}</textarea>
 </div>
 <div class="form-group">
     <label class="col-sm-12 col-md-3 col-lg-3">Pages</label><!--RANGE-->

@@ -36,7 +36,7 @@
 
                 <div class="form-group row align-items-center">
                     <label class="col-sm-12 col-md-3 col-lg-3" align="right">Description</label>
-                    <textarea class="col-sm-12 col-md-9 col-lg-8" rows="4" name="description" placeholder="{{$group->description}}" value="{{$group->description}}"></textarea>
+                    <textarea class="col-sm-12 col-md-9 col-lg-8" rows="4" name="description" placeholder="{{$group->description}}">{{$group->description}}</textarea>
                 </div>
 
                 <div class="form-group">
