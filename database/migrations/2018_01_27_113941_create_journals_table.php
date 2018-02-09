@@ -18,7 +18,7 @@ class CreateJournalsTable extends Migration
             $table->integer('publication_id')->unsigned();
             $table->text('abstract')->nullable(true);
             $table->string('volume',255)->nullable(true);
-            $table->integer('number')->nullable(true);
+            $table->string('number')->nullable(true);
             $table->string('pages',50)->nullable(true);
             $table->string('key',255)->nullable(true);
             $table->string('doi',255)->nullable(true);
