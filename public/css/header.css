@@ -1,5 +1,5 @@
 body {
-font-family: montserrat, arial, verdana;
+    font-family: montserrat, arial, verdana;
 }
 
 #searchBox {
@@ -94,6 +94,9 @@ font-family: montserrat, arial, verdana;
     z-index: 100000 !important;
 }
 
+.navbar-nav {
+    margin: 0 auto;
+}
 .brand-div {
     padding-left: 15px;
 }

@@ -11,7 +11,7 @@
         </button></div>
     <div class="col-xl-4 col-lg-3 order-lg-3 order-md-3 order-sm-2 col-sm-12 collapse navbar-collapse order-2" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <p>{{auth()->user()->first_name}}
+            <p>
                 {{auth()->user()->last_name}}</p>
             @if (isset(auth()->user()->picture_path))
                 <a id="menuIcon" href="{{ route('users.edit', ['id'=>Auth::user()->id]) }}">
