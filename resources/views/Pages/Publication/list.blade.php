@@ -11,7 +11,7 @@
             <i class="fa fa-filter fa-2x pull-right" data-container="body" data-toggle="popover" data-html="true" data-placement="left" data-content="@include('Pages.filter')"></i>
         </div>
         @foreach($publicationList as $publication)
-            @include('Pages.Publication.single', ['publication'=>$publication])
+            @include('Pages.Publication.singleInGroup', ['publication'=>$publication])
         @endforeach
     </div>
 @endsection
