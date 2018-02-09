@@ -118,7 +118,7 @@ class RegisterController extends Controller
                 $newUser->picture_path = $filePath;
             }
         }else{
-            $newUser->picture_path = "default"; //TODO replace default path in database table
+            $newUser->picture_path = "images/profilePictures/default.png"; //TODO replace default path in database table
         }
   
 

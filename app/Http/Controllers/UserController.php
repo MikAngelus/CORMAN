@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EditProfileRequest;
+
 use App\User;
 use App\Role;
 use App\Affiliation;
@@ -71,34 +73,40 @@ class UserController extends Controller
      * @param  \App\User $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(EditProfileRequest $request, User $user)
     {
-        //validation
-        /*
-        $validator = Validator::make($request->all(), [
-            'first_name' => ['bail', 'required', 'regex:/^[A-Za-z\- ]+$/', 'max:255'], //Don't remove the space!
-            'last_name' => ['bail', 'required', 'regex:/^[A-Za-z\-àéèìòù ]+$/', 'max:255'], //Don't remove the space!
-            'email' => 'bail|required|email|max:255',
-            'password' => 'bail|required|confirmed|max:255',
-            'password_confirmation' => 'bail|required',
-            'picture_path' => 'bail|image|max:15000',
-            'role' => 'required|exists:roles,name',
-            'personal_link' => 'bail|nullable|url|max:1620'
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->route('users.edit', ['id' => Auth::user()->id])
-                ->withErrors($validator)
-                ->withInput();
-        }
-*/
+       
+        
         $user->last_name = $request->input('last_name');
         $user->first_name = $request->input('first_name');
+       
+        $author = $user->author;
+        $author->name = $user->first_name . " " . $user->last_name;
+        $author->save();
+
+
         $user->birth_date = $request->input('dob');
-        $user->email = $request->input('email');
+        if ($request->input('email') != null){
+            $user->email = $request->input('email');
+        }
+        else{
+            $user->email = $user->email;
+        }      
         if ($request->input('password') != null) {
             $user->password = bcrypt($request->input('password'));
         }
+        else{
+            $user->password =  $user->password;
+        }
+
+        $user->role_id = $request->input('role');;
+        $user->affiliation_id = $request->input('affiliation');
+
+        $user->reference_link = $request->input('url');
+
+        
+
+       
 
         // Handling user picture
         if ($request->hasFile('user_pic')) {
@@ -114,6 +122,8 @@ class UserController extends Controller
                 $user->picture_path = $filePath;
             }
         }
+
+        $user->save();
 
         // Handling add and deletion of publication topics
         $topicList = Topic::all()->pluck('id');
@@ -138,12 +148,7 @@ class UserController extends Controller
         }
 
         
-        $user->role_id = $request->input('role');;
-        $user->affiliation_id = $request->input('affiliation');
-
-        $user->reference_link = $request->input('url');
-
-        $user->save();
+       
 
         return Redirect('/users');
     }

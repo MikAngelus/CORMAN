@@ -20,6 +20,20 @@ class Group extends Model
         );
     }
 
+    public function members(){
+        return $this->belongsToMany(
+            'App\User',
+            'user_group'
+        )->wherePivot('role','member');
+    }
+
+    public function admins(){
+        return $this->belongsToMany(
+            'App\User',
+            'user_group'
+        )->wherePivot('role','admin');
+    }
+
     public function topics(){
         return $this->belongsToMany(
             'App\Topic',
