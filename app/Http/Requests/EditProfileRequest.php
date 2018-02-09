@@ -23,11 +23,14 @@ class EditProfileRequest extends FormRequest
      */
     public function rules()
     {
+        $user = $this->route()->parameter('user');
+        
         return [
+
             'first_name' => ['bail','required','regex:/^[A-Za-z\-àéèìòù ]+$/','max:255'], //Don't remove the space!
             'last_name' => ['bail','required','regex:/^[A-Za-z\-àéèìòù ]+$/','max:255'], //Don't remove the space!
             'dob' => 'bail|required|date|after:01/01/1900',
-            'email' => 'bail|nullable|email|unique:users|max:255',
+            'email' => 'bail|nullable|email|max:255|unique:users,email,'.$user->id,
             'password' => 'bail|nullable|confirmed|min:6|max:255',
             'password_confirmation' => 'bail',
             'profilePic' => 'bail|image|max:15000',

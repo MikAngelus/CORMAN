@@ -3,11 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Notifications\GroupNotification;
-use Illuminate\Support\Facades\Notification;
+
 use Image;
+
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+
+use App\Http\Requests\CreateGroupRequest;
+use App\Http\Requests\EditGroupRequest;
 
 use App\User;
 use App\Topic;
@@ -56,7 +61,7 @@ class GroupController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateGroupRequest $request)
     {
         $newGroup = new Group;
 
@@ -114,7 +119,7 @@ class GroupController extends Controller
         }
 
         // Adding the list of members and send notification
-      User::where('id', $request->users)->get()->each(function ($user) use ($newGroup) {
+        User::where('id', $request->users)->get()->each(function ($user) use ($newGroup) {
                  $newGroup->users()->attach($user->id, [
                      'role' => 'member',
                      'state' => 'pending'
@@ -176,7 +181,7 @@ class GroupController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EditGroupRequest $request, $id)
     {
         $group = Group::find($id);
         $group->name = $request->input('group_name');
