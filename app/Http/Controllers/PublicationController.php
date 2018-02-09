@@ -419,47 +419,50 @@ class PublicationController extends Controller
         if( array_key_exists('hit',$response['result']['hits']) ){ //check if DBLP have returned some data (hit field is present)
             $response = $response['result']['hits']['hit'];
             $pubList = array();
-     
+            $supportedTypes= ['Journal Articles','Conference and Workshop Papers','Editorship'];
             // Clean up DBLP json response for our needs
             foreach($response as $publication){
-                $authorList = '';
-                $authors = $publication['info']['authors']['author'];
-                if( is_array($authors) ){ 
-                    foreach( $authors as $author){
-                        if($author === end($authors)){
-                            $authorList .= $author; 
+                // Check if $publication is supported by corman otherwise skip it!
+                if ( in_array($publication['info']['type'],$supportedTypes) ){
+                    $authorList = '';
+                    $authors = $publication['info']['authors']['author'];
+                    if( is_array($authors) ){ 
+                        foreach( $authors as $author){
+                            if($author === end($authors)){
+                                $authorList .= $author; 
+                            }
+                            else
+                            {
+                                $authorList .= $author.', '; 
+                            }
                         }
-                        else
-                        {
-                            $authorList .= $author.', '; 
-                        }
+                        $publication['info']['authors'] = $authorList;
                     }
-                    $publication['info']['authors'] = $authorList;
-                }
-                else{ // just one authors
-                    $publication['info']['authors'] = $authors;
-                }
-                // 
-                $venueList = '';
-                $venues = $publication['info']['venue'];
-                if( is_array($venues) ){ 
-                    foreach( $venues as $venue){
-                        if($venue === end($venues)){
-                            $venueList .= $venue; 
-                        }
-                        else
-                        {
-                            $venueList .= $venue.', '; 
-                        }
+                    else{ // just one authors
+                        $publication['info']['authors'] = $authors;
                     }
-                    $publication['info']['venue'] = $venueList;
+                    // 
+                    $venueList = '';
+                    $venues = $publication['info']['venue'];
+                    if( is_array($venues) ){ 
+                        foreach( $venues as $venue){
+                            if($venue === end($venues)){
+                                $venueList .= $venue; 
+                            }
+                            else
+                            {
+                                $venueList .= $venue.', '; 
+                            }
+                        }
+                        $publication['info']['venue'] = $venueList;
+                    }
+                    else{ // just one authors
+                        $publication['info']['venue'] = $venues;
+                    }
+                    
+                    array_push($pubList,$publication['info']);
                 }
-                else{ // just one authors
-                    $publication['info']['venue'] = $venues;
-                }
-                 
-                array_push($pubList,$publication['info']);
-            }   
+            } 
             $jsonInfo = array('data' => $pubList);
         }
         else{

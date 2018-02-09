@@ -24,7 +24,7 @@ class CreateGroupRequest extends FormRequest
     public function rules()
     {
         return [
-            'group_name' => 'bail|required|filled|unique:groups,name|max:255',
+            'name' => 'bail|required|filled|unique:groups,name|max:255',
             'description' => 'bail|nullable|max:1000',
             'group_picture' => 'bail|image|max:15000',
             'visibility' => 'required|in:public,private',
