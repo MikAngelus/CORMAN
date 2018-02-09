@@ -23,7 +23,7 @@
     
     <!-- Form -->
     <div id="formContainer" class="col-lg-10 col-md-10 col-sm-12">
-        <form id="msform" action="{{route('publications.update',['id' => $publication->id])}}" method="post">
+        <form id="msform" action="{{route('publications.update',['id' => $publication->id])}}" method="post" enctype="multipart/form-data">
             {{ csrf_field() }}
             {{ method_field('PUT') }}
             <fieldset class="col-sm-12 col-md-12 col-lg-12">
@@ -94,11 +94,11 @@
                 <h3 class="fs-subtitle">Add here some media about the publication</h3>
                 <div class="form-group col">
                     <label class="col-sm-12 col-md-3 col-lg-4">Add PDF <i class="ion-document-text" aria-hidden="true"></i></label>
-                    <input class="col-sm-12 col-md-9 col-lg-6" type="file" name="pdf_file" style="display: all;">
+                    <input class="col-sm-12 col-md-9 col-lg-6" type="file" name="pdf_file" accept=".pdf" style="display: all;">
                 </div> 
                 <div class="form-group col">
                     <label class="col-sm-12 col-md-3 col-lg-4">Add Files <i class="ion-images" aria-hidden="true"></i></label>
-                    <input class="col-sm-12 col-md-9 col-lg-6" type="file" name="media_file[]" multiple style="display: all;">
+                    <input class="col-sm-12 col-md-9 col-lg-6" type="file" name="media_file[]" accept="image/*" multiple style="display: all;">
                 </div> 
                 <hr>
                 <a href="#" id="btn-newgroup" class="btn btn-danger btn-sm" role="button">Delete Publication</a>
