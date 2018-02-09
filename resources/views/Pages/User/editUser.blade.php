@@ -90,7 +90,7 @@
                 <div class="form-group">
                     <label class="col-sm-8 col-md-3 col-lg-3" align="right">E-Mail</label>
                     <input class="col-sm-6 col-md-6 col-lg-8" name="email" type="email"
-                            placeholder="Insert new email"/>
+                            placeholder="Insert new email" value="{{ $user->email}}"/>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-8 col-md-3 col-lg-3" align="right">Personal Site</label>

@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class NotificationController extends Controller
 {
     public function index($id)
@@ -13,7 +11,10 @@ class NotificationController extends Controller
         $notification = $user->notifications()->where('id', $id)->first();
         if ($notification) {
             $notification->delete();
-            return view('Pages.notification');
+            return redirect()->route('groups.show', $notification->data['group']['id']);
+
+        }elseif ($notification == '1'){
+            return redirect()->route('groups');
         } else {
             return back()->withErrors('we could not found the specified notification');
         }
