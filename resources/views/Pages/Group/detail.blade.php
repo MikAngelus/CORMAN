@@ -14,10 +14,10 @@
             <!-- Group Info & Publications -->
             <div class="col-9 col-sm-9 col-md-10 col-lg-9 col-xl-9">
                 <div id="groupInfo" class="row">
-                    <div class="col-3 col-sm-2 col-md-2 col-lg-3 col-xl-3">
+                    <div class="col-12 col-sm-3 col-md-3 col-lg-3 col-xl-3">
                         <img class="card-img-top" src="{{url($theGroup->picture_path)}}" alt="Card image cap" height="150" width="150">
                     </div>
-                    <div class="col-8 col-sm-9 col-md-9 col-lg-8 col-xl-8">
+                    <div class="col-7 col-sm-7 col-md-7 col-lg-8 col-xl-8">
                         <div id="titleDetail">{{$theGroup->name}}</div>
                         <hr>
                         <div id="descriptionDetail">{{$theGroup->description}}</div>
@@ -31,13 +31,13 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1">
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-1 col-xl-1">
                         @if($theGroup->public === "public")
-                            <a href="#"><i class="ion-eye"></i></a>
+                            <a href="#"><i class="ion-eye col" align="right"></i></a>
                         @else
-                            <a href="#"><i class="ion-eye-disabled"></i></a>
+                            <a href="#"><i class="ion-eye-disabled col" align="right"></i></a>
                         @endif 
-                        <a href="{{route('groups.edit', ['id'=>$theGroup->id])}}"><i class="ion-edit col"></i></a>
+                        <a href="{{route('groups.edit', ['id'=>$theGroup->id])}}"><i class="ion-edit col" align="right"></i></a>
                         <i class="ion-android-exit col"></i>
                     </div>
                 </div>

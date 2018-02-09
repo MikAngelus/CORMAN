@@ -86,6 +86,19 @@
     -webkit-box-orient: vertical;
 }
 
+#titleDetail, #descriptionDetail, #memberDetail{
+    word-wrap: break-word;
+}
+
+#titleDetail{
+    font-size: large;
+}
+
+#descriptionDetail{
+    font-style: italic;
+    font-size: small;
+}
+
 #groupInfo{
     border: 1px solid rgb(200, 200, 200) !important;
     border-radius: 5px;
