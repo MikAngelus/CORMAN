@@ -2,7 +2,7 @@
     <!-- Navbar content -->
      <div class="brand-div col-lg-4 col-md-4 col-sm-8 col-8 col-xl-4"><img src="{{ asset('images/logo_corman.png') }}" height="50" width="50"/><a id="brand"
        class="navbar-brand order-1 order-xl-1 order-lg-1 order-md-1 order-sm-1 col-lg-3 col-md-3 col-sm-8 col-8 col-xl-4">CORMAN</a></div>
-   <form class="form-inline order-lg-2 order-md-2 order-sm-3 order-3 my-2 my-lg-0 col-lg-5 col-md-6 col-sm-12 col-xl-6">
+   <form class="form-inline order-lg-2 order-md-2 order-sm-3 order-3 my-2 my-lg-0 col-lg-5 col-md-6 col-sm-12 col-xl-5">
         <input class="form-control mr-sm-2 col-xl-8 col-lg-8 col-md-6" type="search" placeholder="Search" aria-label="Search">
          <button id="searchBox" class="btn btn-outline my-2 my-sm-0" type="submit">Search</button>
     </form>
