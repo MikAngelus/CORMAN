@@ -35,6 +35,7 @@
             </ul>
             <!--sistemare lo spazio che lascia dopo le liste-->
         </div>    
+        <!-- nascondere bottoni per visitatori -->
         <div class="col-4 col-sm-4 col-md-3 col-lg-2 col-xl-2" align="right">
         <a href="{{route('publications.edit', ['id'=>$publication->id])}}"><i class="ion-edit"></i></a>
             @if($publication->public === 1)

@@ -30,65 +30,52 @@
                 <h2 class="fs-title">General Info</h2>
                 <h3 class="fs-subtitle">Modify general informations about the publication here</h3>
                 <div class="form-group">
-                    <label class="col-sm-12 col-md-3 col-lg-2">Title</label>
-                    <input class="col-sm-12 col-md-9 col-lg-6 editable-field" name="title" type="text" placeholder="{{$publication->title}}" value="{{$publication->title}}"/>
-                    <a class="edit col-lg-1">Edit</a>
-                    <a class="button save hidden col-lg-1">Save</a>
+                    <label class="col-sm-12 col-md-3 col-lg-3">Title</label>
+                    <input class="col-sm-12 col-md-9 col-lg-8" name="title" type="text" placeholder="{{$publication->title}}" value="{{$publication->title}}"/>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-12 col-md-3 col-lg-2">Authors</label>
-
-                    <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="authorsDropdown" name="authors[]" multiple>
+                    <label class="col-sm-12 col-md-3 col-lg-3">Authors</label>
+                    <select class="col-sm-12 col-md-9 col-lg-8 form-control" id="authorsDropdown" name="authors[]" multiple>
                         @foreach($authors as $author)
                             <option value="{{$author->id}}">{{$author->name}}</option>
                         @endforeach
                     </select>
-                    <a class="edit col-lg-1">Edit</a>
-                    <a class="button save hidden col-lg-1">Save</a>
                 </div>
         
                 <div class="form-group">
-                    <label class="col-sm-12 col-md-3 col-lg-2">Date</label>
-                    <input class="col-sm-12 col-md-9 col-lg-6 editable-field" name="pub_date" type="date" placeholder="{{$publication->year}}" value="{{$publication->year}}"/>
-                    <a class="edit col-lg-1">Edit</a>
-                    <a class="button save hidden col-lg-1">Save</a>
+                    <label class="col-sm-12 col-md-3 col-lg-3">Date</label>
+                    <input class="col-sm-12 col-md-9 col-lg-8" name="pub_date" type="date" placeholder="{{$publication->year}}" value="{{$publication->year}}"/>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-12 col-md-3 col-lg-2">Venue</label>
-                    <input class="col-sm-12 col-md-9 col-lg-6 editable-field" name="venue" type="text" placeholder="{{$publication->venue}}" value="{{$publication->venue}}"/>
-                    <a class="edit col-lg-1">Edit</a>
-                    <a class="button save hidden col-lg-1">Save</a>
+                    <label class="col-sm-12 col-md-3 col-lg-3">Venue</label>
+                    <input class="col-sm-12 col-md-9 col-lg-8" name="venue" type="text" placeholder="{{$publication->venue}}" value="{{$publication->venue}}"/>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-12 col-md-3 col-lg-2">Edit Topics</label>
-                    <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="topicsDropdown" name="topics[]" multiple>
+                    <label class="col-sm-12 col-md-3 col-lg-3">Edit Topics</label>
+                    <select class="col-sm-12 col-md-9 col-lg-8" id="topicsDropdown" name="topics[]" multiple>
                         <option value=""></option> <!-- needed for selct2.js library don't remove!-->
                             @foreach($topicList as $topic)
                                 <option value="{{$topic->id}}">{{$topic->name}}</option>
                             @endforeach
                     </select>
-                    <a class="edit col-lg-1">Edit</a>
-                    <a class="button save hidden col-lg-1">Save</a>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-12 col-md-3 col-lg-2">Visibility</label>
+                    <label class="col-sm-12 col-md-3 col-lg-3">Visibility</label>
                     @if($publication->public === 1)
-                        <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="visibility" name="visibility">
+                        <select class="col-sm-12 col-md-9 col-lg-8 form-control" id="visibility" name="visibility">
                             <option selected value="public" >Public</option>
                             <option value="private" >Private</option>
                         </select>
                     @else
-                        <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="visibility" name="visibility">
+                        <select class="col-sm-12 col-md-9 col-lg-8 form-control" id="visibility" name="visibility">
                             <option value="public" >Public</option>
                             <option selected value="private" >Private</option>
                         </select>
                     @endif
-                    <a class="edit col-lg-1">Edit</a>
-                    <a class="button save hidden col-lg-1">Save</a>
                 </div>
                 <hr>
                 @switch($publication->type)

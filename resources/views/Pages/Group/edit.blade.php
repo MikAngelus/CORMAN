@@ -2,7 +2,6 @@
 
 @section('head')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-    <link href="{{ url('css/edit_forms.css') }}" rel="stylesheet"/>
     <link href="{{ url('css/Group/groups.css') }}" rel="stylesheet"/>
     <link href="{{ url('css/form.css') }}" rel="stylesheet"/>
 @endsection
@@ -31,17 +30,13 @@
                 <h3 class="fs-subtitle">Edit informations of the group</h3>
                 
                 <div class="form-group">
-                    <label class="col-sm-12 col-md-3 col-lg-2" >Group Name</label>
-                    <input class="col-sm-12 col-md-9 col-lg-6 editable-field" name="group_name" type="text" placeholder="{{$group->name}}" value="{{$group->name}}"/>
-                    <a class="edit col-lg-1">Edit</a>
-                    <a class="button save hidden col-lg-1">Save</a>
+                    <label class="col-sm-12 col-md-3 col-lg-3" align="right" >Group Name</label>
+                    <input class="col-sm-12 col-md-9 col-lg-8" name="group_name" type="text" placeholder="{{$group->name}}" value="{{$group->name}}"/>
                 </div>
                 
-                <div class="form-group">
-                    <label class="col-sm-12 col-md-3 col-lg-2">Description</label>
-                    <textarea class="col-sm-12 col-md-9 col-lg-6 editable-field" rows="4" name="description" placeholder="{{$group->description}}" value="{{$group->description}}"></textarea>
-                    <a class="edit col-lg-1">Edit</a>
-                    <a class="button save hidden col-lg-1">Save</a>
+                <div class="form-group row align-items-center">
+                    <label class="col-sm-12 col-md-3 col-lg-3" align="right">Description</label>
+                    <textarea class="col-sm-12 col-md-9 col-lg-8" rows="4" name="description" placeholder="{{$group->description}}" value="{{$group->description}}"></textarea>
                 </div>
 
                 <div class="form-group">
@@ -49,53 +44,42 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-12 col-md-3 col-lg-2">Profile Photo</label>
-                    <input class="col-sm-12 col-md-9 col-lg-6" id="upload" name="profile_photo" type="file" placeholder="{{$group->picture_path}}" value="{{$group->picture_path}}"/>
-                    <a class="edit col-lg-1">Edit</a>
-                    <a class="button save hidden col-lg-1">Save</a>
+                    <label class="col-sm-12 col-md-3 col-lg-3" align="right">Profile Photo</label>
+                    <input class="col-sm-12 col-md-9 col-lg-8" id="upload" name="profile_photo" type="file" placeholder="{{$group->picture_path}}" value="{{$group->picture_path}}"/>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-12 col-md-3 col-lg-2">Invite Users</label>
-
-                    <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="usersDropdown" name="users[]" multiple>
+                    <label class="col-sm-12 col-md-3 col-lg-3" align="right">Invite Users</label>
+                    <select class="col-sm-12 col-md-9 col-lg-8 form-control" id="usersDropdown" name="users[]" multiple>
                         @foreach($userList as $user)
                             <option value="{{$user->id}}">{{$user->last_name}} {{$user->first_name}}</option>
                         @endforeach
                     </select>
-                    <a class="edit col-lg-1">Edit</a>
-                    <a class="button save hidden col-lg-1">Save</a>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-12 col-md-3 col-lg-2">Edit Topics</label>
-                    <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="topicsDropdown" name="topics[]" multiple>
+                    <label class="col-sm-12 col-md-3 col-lg-3" align="right">Edit Topics</label>
+                    <select class="col-sm-12 col-md-9 col-lg-8 form-control" id="topicsDropdown" name="topics[]" multiple>
                         <option value=""></option> <!-- needed for selct2.js library don't remove!-->
                             @foreach($topicList as $topic)
                                 <option value="{{$topic->id}}">{{$topic->name}}</option>
                             @endforeach
                     </select>
-                    <a class="edit col-lg-1">Edit</a>
-                    <a class="button save hidden col-lg-1">Save</a>
                 </div>
 
-                <div class="form-group">
-                    <div class="row">
-                        <label class="col-sm-12 col-md-3 col-lg-2">Visibility</label>
-                        <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="visibility" name="visibility">
-                            @if($group->public === "public")
-                                <option selected value="public" >Public</option>
-                                <option value="private" >Private</option>
-                            @else
-                                <option value="public" >Public</option>
-                                <option selected value="private" >Private</option> 
-                            @endif
-                        </select>
-                        <a class="edit col-lg-1">Edit</a>
-                        <a class="button save hidden col-lg-1">Save</a>
-                    </div>
+                <div class="form-group row align-items-center">
+                    <label class="col-sm-12 col-md-3 col-lg-3" align="right">Visibility</label>
+                    <select class="col-sm-12 col-md-9 col-lg-8 form-control" id="visibility" name="visibility">
+                        @if($group->public === "public")
+                            <option selected value="public" >Public</option>
+                            <option value="private" >Private</option>
+                        @else
+                            <option value="public" >Public</option>
+                            <option selected value="private" >Private</option> 
+                        @endif
+                    </select>
                 </div>
-                
+                <!-- inserire if per bottone visibile solo da admin -->
                 <hr>
                 <a href="#" id="btn-newgroup" class="btn btn-danger btn-sm" role="button">Delete Group</a>
                 <hr>

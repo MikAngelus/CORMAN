@@ -26,24 +26,14 @@
                     <span class="sr-only">(current)</span>
                 </a>
             @endif
-            <li class="dropdown" id="markasread"
-                onclick="markNotificationAsRead('{{ count(auth()->user()->unreadNotifications) }}')">
-                <a href="#" id="menuIcon" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                   aria-expanded="false">
-                    <span class="nav-item nav-link fa fa-bell fa-2x"></span><span
-                            class="badge">{{ count(auth()->user()->unreadNotifications) }}</span>
-                </a>
-                <ul class="dropdown-menu" role="menu">
-                    <li>
-                        @forelse(auth()->user()->unreadNotifications as $notification)
 
-                            @include('Layout.notification.'.snake_case(class_basename($notification->type)))
-                        @empty
-                            <a href="#">No unread notifications</a>
-                        @endforelse
-                    </li>
-                </ul>
-            </li>
+            <a href="#" id="menuIcon" data-toggle="modal" data-target="#modalNotification"
+               role="button"
+               aria-expanded="false">
+                <span class="nav-item nav-link fa fa-bell fa-2x" style="padding: 8px 0px 8px 8px"></span>
+                <span class="badge" style="border: 1px solid cornflowerblue; border-radius: 10px;">{{ count(auth()->user()->unreadNotifications) }}</span>
+            </a>
+
             <!-- Hack for laravel due to HTTP post type request-->
             <a id="menuIcon" class="nav-item nav-link fa fa-sign-out fa-2x" href="{{route('logout')}}"
                onclick="event.preventDefault();
@@ -63,18 +53,27 @@
 </nav>
 
 
+<!-- MODAL NOTIFICATIONS -->
+<div class="modal fade" id="modalNotification" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLongTitle">Notifications</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @forelse(auth()->user()->unreadNotifications as $notification)
 
+                    @include('Layout.notification.groupNotification')
+                    <hr>
+                @empty
+                    <a href="#">No unread notifications</a>
+                @endforelse
+            </div>
+        </div>
+    </div>
+</div>
 
-<!-- MODAL DA SISTEMARE PER LE NOTIFICHE
-<div class="modal fade" id="modalNotification" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-<div class="modal-dialog modal-sm" role="document">
-<div class="modal-content">
-<div class="modal-header">
-<h6 class="modal-title" id="modalNotificationTitle">Test Notifiche</h6>
-<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-<span aria-hidden="true">&times;</span>
-</button>
-</div>
-</div>
-</div>
--->
