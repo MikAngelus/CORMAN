@@ -596,8 +596,8 @@ class PublicationController extends Controller
 
 
         }
-        return "ok";
-        //return redirect()->route('users.index');
+        return response()->json(['message' => 'Your pubblications are now in corman! Take a look',
+                                'redirectTo' => '/users']);
     }
 
 
