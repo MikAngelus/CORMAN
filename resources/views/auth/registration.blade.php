@@ -77,7 +77,7 @@
                     @endforeach
                 </select>
                 </div>
-                <input type="text" name="personal_link" placeholder="Personal Link"/>
+                <input type="text" name="personal_link" placeholder="Personal Page"/>
 
                 <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
                 <input type="submit" name="submit" class="submit action-button" value="Submit"/>

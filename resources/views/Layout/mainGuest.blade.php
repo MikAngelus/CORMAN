@@ -13,12 +13,13 @@
         @yield('head')
     </head>
     <body>
+        @include('Layout.headerGuest')
         <div class="container-fluid">
-            @include('Layout.headerGuest')
+            
             @yield('content')
-            @include('Layout.footer')
+           
         </div>
-
+        @include('Layout.footer')
         <script src="{{ url('js/jquery-3.3.1.min.js') }}"></script>
         <script src="{{ url('js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ url('js/bootstrap.min.js') }}"></script>

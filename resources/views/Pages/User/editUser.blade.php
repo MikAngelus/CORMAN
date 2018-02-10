@@ -35,26 +35,25 @@
                 </div>
                 <div class="form-group">
                     <label class="col-sm-3 col-md-3 col-lg-3" align="right">User Picture</label>
-                    <input class="col-sm-6 col-md-6 col-lg-8" name="user_pic" type="file"
-                            placeholder="Choose a new pic"/>
+                    <input class="col-sm-6 col-md-6 col-lg-8" name="user_pic" type="file"/>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-3 col-md-3 col-lg-3" align="right">First Name</label>
                     <input class="col-sm-6 col-md-6 col-lg-8" name="first_name" type="text"
-                            placeholder="{{ $user->first_name }}" value="{{ $user->first_name }}"/>
+                        required value="{{ $user->first_name }}"/>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-8 col-md-3 col-lg-3" align="right">Last Name</label>
                     <input class="col-sm-6 col-md-6 col-lg-8" name="last_name" type="text"
-                            placeholder="{{ $user->last_name }}" value="{{ $user->last_name }}"/>
+                           value="{{ $user->last_name }}"/>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-8 col-md-3 col-lg-3" align="right">Date</label>
                     <input class="col-sm-6 col-md-6 col-lg-8" name="dob" type="date"
-                            placeholder="{{ $user->birth_date }}" value="{{ $user->birth_date}}"/>
+                            value="{{ $user->birth_date}}"/>
                 </div>
 
                 <div class="form-group">
@@ -90,23 +89,23 @@
                 <div class="form-group">
                     <label class="col-sm-8 col-md-3 col-lg-3" align="right">E-Mail</label>
                     <input class="col-sm-6 col-md-6 col-lg-8" name="email" type="email"
-                            placeholder="{{$user->email}}" value="{{$user->email}}"/>
+                            ="{{$user->email}}" value="{{$user->email}}"/>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-8 col-md-3 col-lg-3" align="right">Personal Site</label>
+                    <label class="col-sm-8 col-md-3 col-lg-3" align="right">Personal Page</label>
                     <input class="col-sm-6 col-md-6 col-lg-8" name="url" type="url"
-                            placeholder="{{ $user->reference_link }}" value="{{ $user->reference_link }}"/>
+                            ="{{ $user->reference_link }}" value="{{ $user->reference_link }}"/>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-8 col-md-3 col-lg-3" align="right">Password</label>
                     <input class="col-sm-6 col-md-6 col-lg-8" name="password" type="password"
-                            placeholder="Password"/>
+                            ="Password"/>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-8 col-md-3 col-lg-3" align="right">Confirm password</label>
                     <input class="col-sm-6 col-md-6 col-lg-8" name="password_confirmation" type="password"
-                            placeholder="Confirm Password"/>
+                            ="Confirm Password"/>
                 </div>
                 
                 <hr>

@@ -1,12 +1,12 @@
 $(document).ready(function() {
     // Initialize selct2 components
     $('#affiliationDropdown').select2({
-        placeholder: "type in your affiliation",
+        placeholder: "Type your affiliation",
         tags:true
     });
 
     $('#topicsDropdown').select2({
-        placeholder: "type in your research areas",
+        placeholder: "Type your research area",
         maximumSelectionLength: 5,
         tags:true
     });

@@ -52,7 +52,7 @@
                     <label class="col-sm-12 col-md-3 col-lg-3" align="right">Invite Users</label>
                     <select class="col-sm-12 col-md-9 col-lg-8 form-control" id="usersDropdown" name="users[]" multiple>
                         @foreach($userList as $user)
-                            <option value="{{$user->id}}">{{$user->last_name}} {{$user->first_name}}</option>
+                            <option value="{{$user->id}}"> {{$user->first_name}} {{$user->last_name}}</option>
                         @endforeach
                     </select>
                 </div>
