@@ -25,7 +25,7 @@
                         <div id="membersDetail">
                             <h6>MEMBERS:</h6>
                             <ul class="list-inline">    
-                                @foreach(($theGroup->users) as $members)
+                                @foreach(($theGroup->members) as $members)
                                     <li class="list-inline-item">{{$members->first_name}} {{$members->last_name}}</li>
                                 @endforeach
                             </ul>
@@ -52,8 +52,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    @foreach($publicationList as $publication)
-                        @include('Pages.Publication.singleInGroup', ['publication'=>$publication])
+                    @foreach($sharesList as $share)
+                        @include('Pages.Publication.singleInGroup', ['share'=>$share])
                     @endforeach
                 </div>
             </div>

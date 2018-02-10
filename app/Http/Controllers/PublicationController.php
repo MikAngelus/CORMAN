@@ -408,7 +408,17 @@ class PublicationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $publication = Publication::find($id);
+        $publication->users()->detach($publication->id);
+        $publication->topics()->detach($publication->id);
+        $publication->authors()->detach($publication->id);
+
+        $publication->details()->delete();
+
+        $publication->delete();
+
+        Redirect('/users')->with('success', 'Publication deleted correctly.');
+
     }
 
     public function syncDBLP(Request $request)
@@ -509,7 +519,7 @@ class PublicationController extends Controller
 
             $folderName = md5(mt_rand());
             Storage::makeDirectory($folderName);
-            $newPublication->multimedia_path = $folderName; //TODO handle automatic folder creation
+            $newPublication->multimedia_path = '/'.$folderName; //TODO handle automatic folder creation
 
             // Mapping DBLP type to CORMAN type
             switch ($publication['type']) {

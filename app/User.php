@@ -40,6 +40,18 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Group','user_group');
     }
 
+    public function groupsAsAdmin(){
+        return $this->belongsToMany('App\Group','user_group')->wherePivot('role','admin');
+    }
+
+    public function groupsAsMember(){
+        return $this->belongsToMany('App\Group','user_group')->wherePivot('state','accepted');
+    }
+
+    public function groupsAsInvited(){
+        return $this->belongsToMany('App\Group','user_group')->wherePivot('state','pending');
+    }
+
     public function affiliation(){
         return $this->belongsTo('App\Affiliation');
     }
@@ -54,5 +66,9 @@ class User extends Authenticatable
 */
     public function author(){
         return $this->hasOne('App\Author');
+    }
+
+    public function shares(){
+        return $this->hasMany('App\PublicationGroup');
     }
 }
