@@ -509,7 +509,7 @@ class PublicationController extends Controller
 
             $folderName = md5(mt_rand());
             Storage::makeDirectory($folderName);
-            $newPublication->multimedia_path = $folderName; //TODO handle automatic folder creation
+            $newPublication->multimedia_path = '/'.$folderName; //TODO handle automatic folder creation
 
             // Mapping DBLP type to CORMAN type
             switch ($publication['type']) {

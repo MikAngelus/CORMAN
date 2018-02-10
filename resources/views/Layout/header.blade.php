@@ -45,12 +45,16 @@
 </nav>
 <div class="breadcrumb order-sm-4 order-lg-4 order-4 col-lg-12">
     <li class="breadcrumb-item">
-        <a href="#">Dashboard</a>
+        <a href="{{route('users.index')}}">Dashboard</a>
     </li>
     @for($i = 1; $i <= count(Request::segments()); $i++)
+    @if(Request::segment($i) != 'users' && !is_numeric(Request::segment($i)))
     <li class="breadcrumb-item">
-        <a href="{{Request::segment($i)}}">{{Request::segment($i)}}</a>
+         <a href="{{ URL::to( implode( '/', array_slice(Request::segments(), 0 ,$i, true)))}}">
+            {{ucfirst(Request::segment($i))}}
+         </a>
     </li>
+    @endif
     @endfor
 </div>
 
