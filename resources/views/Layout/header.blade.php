@@ -1,4 +1,5 @@
-<nav id="header" class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 fixed-header navbar navbar-dark bg-white navbar-expand-lg navbar-expand-xl">
+
+ <nav id="header" class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 fixed-header navbar navbar-dark bg-white navbar-expand-lg navbar-expand-xl">
     <!-- Navbar content -->
      <div class="brand-div col-lg-4 col-md-4 col-sm-8 col-8 col-xl-4"><img src="{{ asset('images/logo_corman.png') }}" height="50" width="50"/><a id="brand"
        class="navbar-brand order-1 order-xl-1 order-lg-1 order-md-1 order-sm-1 col-lg-3 col-md-3 col-sm-8 col-8 col-xl-4">CORMAN</a></div>
@@ -43,9 +44,14 @@
     </div>
 </nav>
 <div class="breadcrumb order-sm-4 order-lg-4 order-4 col-lg-12">
-    <li class="breadcrumb-item"><a href="#">Home</a></li>
-    <li class="breadcrumb-item"><a href="#">Library</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Data</li>
+    <li class="breadcrumb-item">
+        <a href="#">Dashboard</a>
+    </li>
+    @for($i = 1; $i <= count(Request::segments()); $i++)
+    <li class="breadcrumb-item">
+        <a href="{{Request::segment($i)}}">{{Request::segment($i)}}</a>
+    </li>
+    @endfor
 </div>
 
 
