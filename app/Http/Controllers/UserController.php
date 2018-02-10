@@ -16,6 +16,7 @@ use DeepCopy\f006\A;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 
@@ -163,7 +164,15 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->publications()->detach(user_id);
+        $user->topics()->detach(user_id);
+        $user->groups()->detach(user_id);
+        $user->affiliation()->delete();
+        $user->author()->delete();
+        $user->role()->delete();
+        $user->delete();
+
+        return Redirect('/')->with('success', 'We are mortified that you wanted to leave our community, we wish you the best, see you next time!');
     }
 
     public function ajaxInfo()
