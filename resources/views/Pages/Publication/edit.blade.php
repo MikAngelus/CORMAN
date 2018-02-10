@@ -30,7 +30,7 @@
                 <h3 class="fs-subtitle">Modify general informations about the publication here</h3>
                 <div class="form-group">
                     <label class="col-sm-12 col-md-3 col-lg-3">Title</label>
-                    <input class="col-sm-12 col-md-9 col-lg-8" name="title" type="text" placeholder="{{$publication->title}}" value="{{$publication->title}}"/>
+                    <input class="col-sm-12 col-md-9 col-lg-8" name="title" type="text" value="{{$publication->title}}"/>
 
 
                 </div>
@@ -49,14 +49,14 @@
 
                 <div class="form-group">
                     <label class="col-sm-12 col-md-3 col-lg-3">Date</label>
-                    <input class="col-sm-12 col-md-9 col-lg-8" name="pub_date" type="date" placeholder="{{$publication->year}}" value="{{$publication->year}}"/>
+                    <input class="col-sm-12 col-md-9 col-lg-8" name="pub_date" type="date" value="{{$publication->year}}"/>
 
 
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-12 col-md-3 col-lg-3">Venue</label>
-                    <input class="col-sm-12 col-md-9 col-lg-8" name="venue" type="text" placeholder="{{$publication->venue}}" value="{{$publication->venue}}"/>
+                    <input class="col-sm-12 col-md-9 col-lg-8" name="venue" type="text"  value="{{$publication->venue}}"/>
 
 
                 </div>
