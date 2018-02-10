@@ -243,11 +243,12 @@ class GroupController extends Controller
 
 
         $group->users()->detach($remove);
-        $group->users()->attach($add);
+
 
         User::where('id', $request->users)->get()->each(function ($user) use ($group, $add) {
             foreach ($add as $useradd) {
                 if ($user->id == $useradd) {
+                    $group->users()->attach([$useradd  => ['state' => 'pending']]);
                     $user->notify(new GroupNotification($group, auth()->user()));
                 }
             }
