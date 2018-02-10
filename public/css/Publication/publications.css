@@ -1,6 +1,7 @@
 /*.container {padding:20px;}*/
 #title{
   font-size: large;
+  font-weight: bold;
 }
 
 #authors{
@@ -32,8 +33,4 @@ label{
 [id~=md]{
   font-weight: bold;
   text-align: right;
-}
-
-#uno, #due{
-  font-weight: bold;
 }

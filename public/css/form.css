@@ -298,7 +298,6 @@ fieldset#edit_group input {
 }
 
 @media only screen and (max-width: 1280px){
-    #msform {
-      width: 90% !important;
-    }
-   }
+    
+    #msform { width: 90% !important; }
+}

@@ -1,5 +1,6 @@
 $(document).ready(function(){
     // Syncronize publications
+    $('#progBar').hide();
     var firstName = $('#first_name').text().split(' ').join('_');
     var lastName = $('#last_name').text().split(' ').join('_');
     console.log(firstName +"             "+ lastName);
@@ -41,7 +42,8 @@ $(document).ready(function(){
     //send to DB
     $('#addTo').click ( function(){
         var selectionData = JSON.stringify($('#table').bootstrapTable('getSelections'));
-        console.log(selectionData);
+        console.log(selectionData),
+        $('#progBar').show();
         $.ajax({
             type: "POST",
             url: "syncToCorman",
@@ -49,14 +51,11 @@ $(document).ready(function(){
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function(data, status){
-                $('#infoModal').modal('show');
+                $('#messageModal').modal('show');
+                $('#progBar').hide();
                 //alert(data.message); //TODO  replace with modal
-                window.location.href = data.redirectTo;
-            
+                //window.location.href = data.redirectTo;
             },
         });
-
-        
-
     });
 });
