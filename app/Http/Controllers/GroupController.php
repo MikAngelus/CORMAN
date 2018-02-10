@@ -121,37 +121,35 @@ class GroupController extends Controller
 
         // Adding the list of members and send notification
         User::where('id', $request->users)->get()->each(function ($user) use ($newGroup) {
-                 $newGroup->users()->attach($user->id, [
-                     'role' => 'member',
-                     'state' => 'pending'
-                 ]);
+            $newGroup->users()->attach($user->id, [
+                'role' => 'member',
+                'state' => 'pending'
+            ]);
 
-                 $user->notify(new GroupNotification($newGroup,auth()->user()));
-             });
-
-
+            $user->notify(new GroupNotification($newGroup, auth()->user()));
+        });
 
 
-         return redirect()->route('groups.show', ['id' => $newGroup->id]);
-         // TODO handling private field $newGroup->isPrivate =
-         // Handling user invitations
+        return redirect()->route('groups.show', ['id' => $newGroup->id]);
+        // TODO handling private field $newGroup->isPrivate =
+        // Handling user invitations
 
 
-         // Handling user as admin
+        // Handling user as admin
 
 
-     }
+    }
 
-     /**
-      * Display the specified resource.
-      *
-      * @param  int $id
-      * @return \Illuminate\Http\Response
-      */
+    /**
+     * Display the specified resource.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
     public function show($id)
     {
         // Replace with shares of publication-group-model
-        $authUser =  Auth::user();
+        $authUser = Auth::user();
         $sharesList = Group::find($id)->shares;
         $groupList = $authUser->groups->where('id', '<>', $id);
         $group = $authUser->groups->find($id);
@@ -173,7 +171,7 @@ class GroupController extends Controller
         $topicList = Topic::all()->diff($group->topics);;
 
         return view('Pages.Group.edit', ['topicList' => $topicList, 'publicationList' => $publicationList,
-        'group' => $group, 'userList' => $userList]);
+            'group' => $group, 'userList' => $userList]);
     }
 
     /**
@@ -185,7 +183,7 @@ class GroupController extends Controller
      */
     public function update(EditGroupRequest $request, $id)
     {
-       
+
         $group = Group::find($id);
         $group->name = $request->input('group_name');
         $group->description = $request->input('description');
@@ -213,7 +211,6 @@ class GroupController extends Controller
         $group->save();
 
 
-
         // Handling add and deletion of group topics
         $topicList = Topic::all()->pluck('id');
         $groupTopicList = Group::find($id)->topics->pluck('id');
@@ -227,7 +224,7 @@ class GroupController extends Controller
         $group->topics()->detach($removeList);
         $group->topics()->attach($addList);
 
-        foreach($createList as $topic){
+        foreach ($createList as $topic) {
 
             $newTopic = new Topic;
             $newTopic->name = $topic;
@@ -247,6 +244,14 @@ class GroupController extends Controller
 
         $group->users()->detach($remove);
         $group->users()->attach($add);
+
+        User::where('id', $request->users)->get()->each(function ($user) use ($group, $add) {
+            foreach ($add as $useradd) {
+                if ($user->id == $useradd) {
+                    $user->notify(new GroupNotification($group, auth()->user()));
+                }
+            }
+        });
 
         if ($request->input('visibility') == 'public') {
             $group->public = 'public';
@@ -269,7 +274,7 @@ class GroupController extends Controller
     {
         $user = User::find(Auth::id());
         $group = Group::find($id);
-        if($group->users->find($user->id)->role=='admin'){
+        if ($group->users->find($user->id)->role == 'admin') {
             $group->users()->detach($group->id);
             $group->members()->detach($group->id);
             $group->invited()->detach($group->id);
@@ -280,28 +285,28 @@ class GroupController extends Controller
 
             Redirect('/users')->with('success', 'Group deleted correctly.');
 
-        } else{
+        } else {
             return "You can't delete this group, your are not an admin!";
         }
     }
 
-    public function share(Request $request){
+    public function share(Request $request)
+    {
 
         $publicationList = $request->input('publicationList');
         $userId = Auth::user()->id;
         $groupId = $request->input('groupId');
-        foreach( $publicationList as $publication){
-            $share =  PublicationGroup::firstOrNew(['publication_id' => $publication['id'], 'group_id' => $groupId ]);
+        foreach ($publicationList as $publication) {
+            $share = PublicationGroup::firstOrNew(['publication_id' => $publication['id'], 'group_id' => $groupId]);
             $share->user_id = $userId;
 
             $share->save();
         }
-        $redirectPath = '/groups/'.$groupId;
+        $redirectPath = '/groups/' . $groupId;
         return response()->json(['message' => 'Your pubblications have been added! Take a look at',
-        'redirectTo' => $redirectPath]);
+            'redirectTo' => $redirectPath]);
 
     }
-
 
 
     public function ajaxInfo(Request $request)
@@ -313,6 +318,5 @@ class GroupController extends Controller
         return response()->json($data);
     }
 
- 
 
 }
