@@ -2,7 +2,7 @@
     <div class="row align-items-center">
         <div class="col-lg-12">
             <img src="{{url($share->user->picture_path)}}" style="border-radius: 50%;" width="30" height="30" alt="User Picture">
-            Posted by: {{$share->user->first_name}} {{$share->user->last_name}}
+            Posted by: {{$share->user->first_name}} {{$share->user->last_name}} {{smartDate($share->created_at)}}
         </div>
     </div>
     <hr>

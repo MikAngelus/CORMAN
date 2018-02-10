@@ -29,7 +29,7 @@
             <a href="#" id="menuIcon" data-toggle="modal" data-target="#modalNotification"
                role="button"
                aria-expanded="false">
-                <span class="nav-item nav-link fa fa-bell fa-2x" style="padding: 8px 0px 8px 8px"></span>
+                <span class="nav-item nav-link fa fa-envelope fa-2x" style="padding: 8px 0px 8px 8px"></span>
                 <span class="badge" style="border: 1px solid cornflowerblue; border-radius: 10px;">{{ count(auth()->user()->unreadNotifications) }}</span>
             </a>
 
