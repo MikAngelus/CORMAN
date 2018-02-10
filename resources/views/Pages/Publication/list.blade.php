@@ -2,12 +2,16 @@
 
 @section('head')
     <link rel="stylesheet" href="{{ url('css/Publication/publications.css') }}">
+    <link rel="stylesheet" href="{{ url('css/Group/groups.css') }}">
+
 @endsection
 
 @section('content')
     <div class="container-fluid">
         <div class="btn-toolbar justify-content-between col-lg-12">
-            <a href="{{route('publications.create')}}" id="btn-newgroup" class="btn btn-primary" role="button">New Publication</a>
+            <a id="specialButton" role="button" class="btn btn-warning pull-left" href="{{ route('publications.create')}}">
+                <span class="ion-plus-circled"> New Publication</span>
+            </a>
             <i class="fa fa-filter fa-2x pull-right" data-container="body" data-toggle="popover" data-html="true" data-placement="left" data-content="@include('Pages.filter')"></i>
         </div>
         @foreach($publicationList as $publication)

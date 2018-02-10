@@ -43,7 +43,9 @@
                 </div>
                 <div class="row justify-content-between">
                     <div class="col-lg-10">
-                        <a href="#" id="btn-newgroup" class="btn btn-primary" role="button" data-toggle="modal" data-target="#addPublication">Add Publication</a>
+                        <a id="specialButton" role="button" class="btn btn-warning pull-left" href="{{ route('groups.create')}}">
+                            <span class="ion-plus-circled ion-plus"> Share</span>
+                        </a>
                     </div>
                     <div class="col-lg-2">
                         <i class="fa fa-filter fa-2x pull-right" data-container="body" data-toggle="popover" data-html="true" data-placement="bottom" data-content="@include('Pages.filter')"></i>

@@ -7,7 +7,6 @@
 @endsection
 
 @section('content')
-
     <!-- Errors Handling -->
     <div class="row" id="formErrors">
         @if ($errors->any())
@@ -112,13 +111,34 @@
                 <div class="form-group col">
                     <label class="col-sm-12 col-md-3 col-lg-4">Add Files <i class="ion-images" aria-hidden="true"></i></label>
                     <input class="col-sm-12 col-md-9 col-lg-6" type="file" name="media_file[]" accept="image/*" multiple style="display: all;">
-                </div> 
+                </div>
+
                 <hr>
-                <a href="#" id="btn-newgroup" class="btn btn-danger btn-sm" role="button">Delete Publication</a>
+                <a href="#" id="btn-newgroup" class="btn btn-danger btn-sm" role="button" data-toggle="modal" data-target="#deletePub">Delete Publication</a>
                 <hr>
                 <input type="submit" name="submit" class="submit action-button" value="Update"/>
             </fieldset>
         </form>
+    </div>
+
+    <!-- MODAL CONFIRM DELETE PUBLICATION -->
+    <div class="modal fade" id="deletePub" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="modalPublicationTitle">Confirm Publication Delete</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">    
+                    <div class="row align-items-center">
+                        <div class="col-lg-12" align="center">Really, do you want to delete this publication?</div>
+                        <a href="#" id="btn-newgroup" class="btn btn-danger btn-sm" role="button">Yes, Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 

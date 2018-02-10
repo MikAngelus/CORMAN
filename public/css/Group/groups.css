@@ -118,7 +118,15 @@ h6{
     margin-bottom: 10px;
 }
 
+/*
 hr{
     margin-top: 5px;
     margin-bottom: 5px;
+}
+*/
+
+#specialButton{
+    background: darkorange;
+    border: darkorange;
+    color: white;
 }
