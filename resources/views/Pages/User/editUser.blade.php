@@ -42,7 +42,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 col-md-3 col-lg-3" align="right">First Name</label>
                     <input class="col-sm-6 col-md-6 col-lg-8" name="first_name" type="text"
-                            placeholder="{{ $user->first_name }}" value="{{ $user->first_name }}"/>
+                        required placeholder="{{ $user->first_name }}" value="{{ $user->first_name }}"/>
                 </div>
 
                 <div class="form-group">
@@ -93,7 +93,7 @@
                             placeholder="{{$user->email}}" value="{{$user->email}}"/>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-8 col-md-3 col-lg-3" align="right">Personal Site</label>
+                    <label class="col-sm-8 col-md-3 col-lg-3" align="right">Personal Page</label>
                     <input class="col-sm-6 col-md-6 col-lg-8" name="url" type="url"
                             placeholder="{{ $user->reference_link }}" value="{{ $user->reference_link }}"/>
                 </div>
