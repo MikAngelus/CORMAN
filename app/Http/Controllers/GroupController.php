@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Notifications\GroupNotification;
 
+use Illuminate\Support\Facades\Redirect;
 use Image;
 
 use Illuminate\Support\Facades\Notification;
@@ -265,7 +266,22 @@ class GroupController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find(Auth::id());
+        $group = Group::find($id);
+        if($group->users->find($user->id)->role=='admin'){
+            $group->users()->detach($group->id);
+            $group->members()->detach($group->id);
+            $group->invited()->detach($group->id);
+            $group->admins()->detach($group->id);
+            $group->topics()->detach($group->id);
+            $group->shares()->detach($group->id);
+            $group->delete();
+
+            Redirect('/users')->with('success', 'Group deleted correctly.');
+
+        } else{
+            return "You can't delete this group, your are not an admin!";
+        }
     }
 
     public function share(Request $request){
