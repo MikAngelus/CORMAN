@@ -3,7 +3,6 @@ $(document).ready(function() {
     $('#usersDropdown').select2({
         placeholder: "invite members",
         maximumSelectionLength: 10,
-        tags:true
     });
 
     $('#topicsDropdown').select2({

@@ -55,4 +55,8 @@ class User extends Authenticatable
     public function author(){
         return $this->hasOne('App\Author');
     }
+
+    public function shares(){
+        return $this->hasMany('App\PublicationGroup');
+    }
 }
