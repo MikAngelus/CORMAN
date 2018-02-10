@@ -150,10 +150,11 @@ class GroupController extends Controller
     public function show($id)
     {
         // Replace with shares of publication-group-model
-        $publicationList = Auth::user()->publications;
-        $groupList = Auth::user()->groups->where('id', '<>', $id);
-        $group = Auth::user()->groups->where('id', $id)->first();
-        return view('Pages.Group.detail', ['publicationList' => $publicationList, 'groupList' => $groupList, 'theGroup' => $group]);
+        $authUser =  Auth::user();
+        $sharesList = Group::find($id)->shares;
+        $groupList = $authUser->groups->where('id', '<>', $id);
+        $group = $authUser->groups->find($id);
+        return view('Pages.Group.detail', ['sharesList' => $sharesList, 'groupList' => $groupList, 'theGroup' => $group]);
     }
 
     /**
@@ -279,7 +280,9 @@ class GroupController extends Controller
 
             $share->save();
         }
-        return "ok";
+        $redirectPath = '/groups/'.$groupId;
+        return response()->json(['message' => 'Your pubblications have been added! Take a look at',
+        'redirectTo' => $redirectPath]);
 
     }
 

@@ -11,20 +11,15 @@ class PublicationGroup extends Model
         'publication_id','user_id', 'group_id'
     ];
 
-    public function users(){
+    public function user(){
         return $this->belongsTo('App\User');
     }
 
-    public function groups(){
+    public function group(){
         return $this->belongsTo('App\Group');
     }
 
-    public function publications(){
+    public function publication(){
         return $this->belongsTo('App\Publication');
     }
-/*
-    public function shares(){
-        return $this->hasManyThrough();
-    }
-*/
 }

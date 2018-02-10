@@ -50,8 +50,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    @foreach($publicationList as $publication)
-                        @include('Pages.Publication.singleInGroup', ['publication'=>$publication])
+                    @foreach($sharesList as $share)
+                        @include('Pages.Publication.singleInGroup', ['share'=>$share])
                     @endforeach
                 </div>
             </div>

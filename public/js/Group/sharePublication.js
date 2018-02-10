@@ -43,7 +43,11 @@ $(document).ready(function(){
                 data: JSON.stringify(shareData),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                success: function(data, status){console.log(status);},
+                success: function(data, status){
+                    alert(data.message);
+                    window.location.href = data.redirectTo;
+                                       
+                }
             });
         });
     
