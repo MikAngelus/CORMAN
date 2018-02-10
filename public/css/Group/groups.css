@@ -87,8 +87,7 @@
 }
 
 #groupInfo{
-    border: 1px solid rgb(200, 200, 200) !important;
-    border-radius: 5px;
+    background: rgba(180, 180, 180, 0.1);
     padding: 5px;
     margin-top: 0px;
     margin-bottom: 10px;
@@ -104,8 +103,18 @@ h6{
 }
 
 
-#titleDetail, #descriptionDetail, #membersDetail{
-  word-wrap: break-word;
+#titleDetail{
+    font-size: 30px;
+    font-weight: bold;
+    word-wrap: break-word;  
+} 
+
+#descriptionDetail{
+    font-style: italic;
+    word-wrap: break-word;
+}
+#membersDetail{
+    word-wrap: break-word;
 }
 
 #footer{
@@ -125,8 +134,14 @@ hr{
 }
 */
 
-#specialButton{
+#specialButton, #btn-share, #addTo{
     background: darkorange;
     border: darkorange;
     color: white;
+}
+
+.textLighter{
+    font-style: italic;
+    font-size: 13px;
+    color: lightslategray;
 }

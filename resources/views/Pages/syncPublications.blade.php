@@ -31,7 +31,7 @@
     <div class="col-lg-12">
         <div class="col-11 col-sm-11 col-md-11 col-lg-11 col-xl-11" align="center"> 
             <table id="table">
-                </a><input id="addTo" class="btn btn-primary btn-sm" type="button" value="Add to my CORMAN publications">
+                <input id="addTo" class="btn btn-primary btn-sm" type="button" value="Add to my CORMAN publications">
             </table>
             <div id="PublicationsTableContainer"></div>
         </div>
