@@ -60,4 +60,8 @@ class Publication extends Model
     public function authors(){
         return $this->belongsToMany('App\Author', 'author_publication');
     }
+
+    public function shares(){
+        return $this->hasMany('App\PublicationGroup');
+    }
 }
