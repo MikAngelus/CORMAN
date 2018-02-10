@@ -149,13 +149,8 @@ class GroupController extends Controller
     public function show($id)
     {
         // Replace with shares of publication-group-model
-<<<<<<< HEAD
         $authUser =  Auth::user();
         $sharesList = Group::find($id)->shares->sortByDesc('created_at');
-=======
-        $authUser = Auth::user();
-        $sharesList = Group::find($id)->shares;
->>>>>>> 3556e3d1285f0df1964050287ccb9beeaf2ae29e
         $groupList = $authUser->groups->where('id', '<>', $id);
         $group = $authUser->groups->find($id);
         return view('Pages.Group.detail', ['sharesList' => $sharesList, 'groupList' => $groupList, 'theGroup' => $group]);
