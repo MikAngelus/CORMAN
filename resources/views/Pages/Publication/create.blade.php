@@ -8,7 +8,6 @@
 
 
 @section('content')
-    <div class="row">
 
         <!-- Errors Handling -->
         <div class="row" id="formErrors">
@@ -25,7 +24,7 @@
 
         <!-- MultiStep Form -->
         <div class="row">
-            <div id="box" class="col-md-6 col-md-offset-3">
+
                 <form id="msform" action="{{route('publications.store')}}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <!-- progressbar -->
@@ -38,45 +37,44 @@
                     <fieldset id="primary">
                         <h2 class="fs-title">General Info</h2>
                         <h3 class="fs-subtitle">Insert general informations about the publication here</h3>
-                        
-                        <input type="text" name="title" placeholder="Title*"/>
 
+                        <input type="text" name="title" placeholder="Title*"/>
+                        <div class="row">
                         <select class="form-control" id="authorsDropdown" name="authors[]" multiple>
                             <option value=""></option> <!-- needed for selct2.js library don't remove!-->
                             @foreach($authorList as $author)
                                 <option>{{$author->name}}</option>
                             @endforeach
                         </select>
-
+                      </div>
                         <input type="date" name="publication_date" placeholder="Publication Date"/>
                         <input type="text" name="venue" placeholder="Venue"/>
-
+                        <div class="row">
                         <select class="form-control" id="topicsDropdown" name="topics[]" multiple>
                                 <option value=""></option> <!-- needed for selct2.js library don't remove!-->
                                 @foreach($topicList as $topic)
                                 <option value="{{$topic->name}}">{{$topic->name}}</option>
                                 @endforeach
                         </select>
-
-                    
+                      </div>
+                      <div class="row">
                         <select class="form-control" id="pub-type" name="type">
-                            <option value="" selected disabled>Select your publication category</option>
                             <option value="journal" >Journal/Article</option>
                             <option value="conference" >Conference/Workshop</option>
                             <option value="editorship" >Editorship</option>
                         </select>
-
-                        <div class="form-group">
-                            <label class="col-sm-12 col-md-3 col-lg-3">Visibility</label>
-                            <select class="col-sm-12 col-md-9 col-lg-8 form-control" id="visibility" name="visibility">
-                                <option selected value="public" >Public</option>
-                                <option value="private" >Private</option>
-                            </select>
-                        </div>    
+                      </div>
+                    <div class="form-group">
+                        <label class="col-sm-12 col-md-3 col-lg-2">Visibility</label>
+                        <select class="col-sm-12 col-md-9 col-lg-6 form-control" id="visibility" name="visibility">
+                            <option selected value="public" >Public</option>
+                            <option value="private" >Private</option>
+                        </select>
+                    </div>
 
                         <input type="button" name="next" class="next action-button col-lg-" value="Next"/>
                     </fieldset>
-        
+
                     <fieldset id="journalFieldset">
                         <h2 class="fs-title">Journal/Articles Details</h2>
                         <h3 class="fs-subtitle">Insert here some info about Journal</h3>
@@ -88,9 +86,9 @@
                         <input type="text" name="journal_doi" placeholder="DOI"/>
                         <input type="text" name="journal_ee" placeholder="EE"/>
                         <input type="text" name="journal_url" placeholder="URL"/>
-                        
-                        <a href='#' class="fake_btn" data-role='button'>previous</a>
-                        <a href='#' class="fake_btn" data-role='button'>next</a>
+
+                        <a href='#' class="fake_btn_previous" data-role='button'>Previous</a>
+                        <a href='#' class="fake_btn" data-role='button'>Next</a>
                     </fieldset>
 
 
@@ -98,14 +96,14 @@
                         <h2 class="fs-title">Conference/Workshop Details</h2>
                         <h3 class="fs-subtitle">Insert here some info about Conference</h3>
                         <textarea rows="4" name="conference_abstract" placeholder="Abstract"></textarea>
-                        <input type="text" name="conference_pages" placeholder="Pages"/> 
+                        <input type="text" name="conference_pages" placeholder="Pages"/>
                         <input type="text" name="conference_days" placeholder="Days"/>
                         <input type="text" name="conference_key" placeholder="Key"/>
                         <input type="text" name="conference_doi" placeholder="DOI"/>
                         <input type="text" name="conference_ee" placeholder="EE"/>
                         <input type="text" name="conference_url" placeholder="URL"/>
-                        <a href='#' class="fake_btn" data-role='button'>previous</a>
-                        <a href='#' class="fake_btn" data-role='button'>next</a>
+                        <a href='#' class="fake_btn_previous" data-role='button'>Previous</a>
+                        <a href='#' class="fake_btn" data-role='button'>Next</a>
                     </fieldset>
 
 
@@ -119,15 +117,15 @@
                         <input type="text" name="editorship_doi" placeholder="DOI"/>
                         <input type="text" name="editorship_ee" placeholder="EE"/>
                         <input type="text" name="editorship_url" placeholder="URL"/>
-                        
-                        <a href='#' class="fake_btn" data-role='button'>previous</a>
-                        <a href='#' class="fake_btn" data-role='button'>next</a>
+
+                        <a href='#' class="fake_btn_previous" data-role='button'>Previous</a>
+                        <a href='#' class="fake_btn" data-role='button'>Next</a>
                     </fieldset>
 
                     <fieldset id="media">
                         <h2 class="fs-title">Media</h2>
                         <h3 class="fs-subtitle">Add here some media about the publication</h3>
-                        
+
                         <div class="form-group col">
                             <label class="col-sm-12 col-md-3 col-lg-4">Add PDF <i class="ion-document-text" aria-hidden="true"></i></label>
                             <input class="col-sm-12 col-md-9 col-lg-6" type="file" name="pdf_file" accept=".pdf,.doc" style="display: all;">
@@ -141,12 +139,12 @@
                         <input type="submit" name="submit" class="submit action-button" value="Create"/>
                     </fieldset>
                 </form>
-            </div>
+
         </div>
-    </div>    
 @endsection
 
 @section('script')
+
     <script src="{{ url('js/jquery-ui.js') }}"></script>
     <script src="{{ url('js/jqueryformPublication.js') }}"></script>
     <script src="{{ url('js/Publication/createPublication.js') }}"></script>

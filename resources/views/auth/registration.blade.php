@@ -12,15 +12,17 @@
 @section('content')
     
     <!-- Handling Form errors -->
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
+    <div class="row">    
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
     </div>
-    @endif
 
     <!-- MultiStep Form -->
     <div class="row">
@@ -50,14 +52,17 @@
             <fieldset>
                 <h2 class="fs-title">Professional info</h2>
                 <h3 class="fs-subtitle"></h3>
-                <label for="role"> Role </label>
-                <select class="form-control" id="role" name="role">
-                    @foreach($roleList as $role)
-                    <option>{{$role->name}}</option>
-                    @endforeach
-                </select>
+                
+                <div clas="row">
+                    <label for="role"> Role </label>
+                    <select class="form-control" id="role" name="role">
+                        @foreach($roleList as $role)
+                        <option>{{$role->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <div class="row">
-                    <select class="form-control col-lg-12" id="affiliationDropdown" name="affiliation">
+                    <select class="form-control" id="affiliationDropdown" name="affiliation">
                         <option value=""></option> <!-- needed for select2.js library don't remove!-->
                         @foreach($affiliationList as $affiliation)
                             <option value="{{$affiliation->name}}">{{$affiliation->name}}</option>

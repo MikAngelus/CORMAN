@@ -18,25 +18,25 @@
             </ul>
         </div>
     @endif
-
+    
     <!-- Form -->
     <div class="row">
         <form id="msform" action="{{ route('groups.update', ['id'=>$group->id])}}" method="post" enctype="multipart/form-data">
         {{csrf_field()}}
         {{ method_field('PUT') }}
         <!-- fieldsets HEAD-->
-            <fieldset class="edit_group">
+            <fieldset id="edit_group" class="edit_group">
                 <h2 class="fs-title">Edit Group</h2>
                 <h3 class="fs-subtitle">Edit informations of the group</h3>
-                
+
                 <div class="form-group">
                     <label class="col-sm-12 col-md-3 col-lg-3" align="right" >Group Name</label>
                     <input class="col-sm-12 col-md-9 col-lg-8" name="group_name" type="text" placeholder="{{$group->name}}" value="{{$group->name}}"/>
                 </div>
-                
+
                 <div class="form-group row align-items-center">
                     <label class="col-sm-12 col-md-3 col-lg-3" align="right">Description</label>
-                    <textarea class="col-sm-12 col-md-9 col-lg-8" rows="4" name="description" placeholder="{{$group->description}}" value="{{$group->description}}"></textarea>
+                    <textarea class="col-sm-12 col-md-9 col-lg-8" rows="4" name="description" placeholder="{{$group->description}}">{{$group->description}}</textarea>
                 </div>
 
                 <div class="form-group">
@@ -67,27 +67,29 @@
                     </select>
                 </div>
 
-                <div class="form-group row align-items-center">
-                    <label class="col-sm-12 col-md-3 col-lg-3" align="right">Visibility</label>
-                    <select class="col-sm-12 col-md-9 col-lg-8 form-control" id="visibility" name="visibility">
-                        @if($group->public === "public")
-                            <option selected value="public" >Public</option>
-                            <option value="private" >Private</option>
-                        @else
-                            <option value="public" >Public</option>
-                            <option selected value="private" >Private</option> 
-                        @endif
-                    </select>
+                <div class="form-group">
+                    <div class="row">
+                        <label class="col-sm-12 col-md-3 col-lg-3" align="right">Visibility</label>
+                        <select class="col-sm-12 col-md-9 col-lg-8 form-control" id="visibility" name="visibility">
+                            @if($group->public === "public")
+                                <option selected value="public" >Public</option>
+                                <option value="private" >Private</option>
+                            @else
+                                <option value="public" >Public</option>
+                                <option selected value="private" >Private</option>
+                            @endif
+                        </select>
+                    </div>
                 </div>
                 <!-- inserire if per bottone visibile solo da admin -->
                 <hr>
                 <a href="#" id="btn-newgroup" class="btn btn-danger btn-sm" role="button">Delete Group</a>
                 <hr>
-                
+
                 <input type="submit" name="submit" class="next action-button" value="Update"/>
             </fieldset>
         </form>
-    </div>  
+    </div>
 @endsection
 
 @section('script')

@@ -51,7 +51,7 @@
                 </div>
                 <div class="row">
                     @foreach($publicationList as $publication)
-                        @include('Pages.Publication.single', ['publication'=>$publication])
+                        @include('Pages.Publication.singleInGroup', ['publication'=>$publication])
                     @endforeach
                 </div>
             </div>
@@ -69,7 +69,7 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h6 class="modal-title" id="addPublication">Add Publication</h6>
+                        <h6 class="modal-title" id="addPublication">Add Publications in this Group</h6>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

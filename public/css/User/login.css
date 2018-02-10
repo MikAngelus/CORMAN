@@ -11,7 +11,7 @@ html {
 }
 
 body {
-    font-family: montserrat, arial, verdana;
+    font-family: montserrat, arial, verdana !important;
 }
 
 #logo {
@@ -88,23 +88,25 @@ body {
 }
 
 #msform input[type="submit"] {
-    width: 6rem;
-    background: cornflowerblue;
-    color: white;
-    font-size: 1rem;
-    border: 0 none;
-    border-radius: 25px;
-    cursor: pointer;
-    padding: 10px 5px;
-    margin: 10px 5px;
+  width: 100px;
+  background: cornflowerblue;
+  font-size: 0.9em;
+  color: white;
+  border: 1px solid cornflowerblue;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 10px 5px;
+  margin: 10px 5px;
+      margin-bottom: 10px;
+  -webkit-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
 }
 
 #msform input[type="submit"]:hover {
-    background-color: white;
-    font-size: 1rem;
-    color: cornflowerblue;
-    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
-    cursor: pointer;
+  text-decoration: none;
+  transition: 0.2s ease-in-out;
+  background: #517AC2;
+  color: white;
 }
 
 

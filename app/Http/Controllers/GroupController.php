@@ -183,6 +183,7 @@ class GroupController extends Controller
      */
     public function update(EditGroupRequest $request, $id)
     {
+       
         $group = Group::find($id);
         $group->name = $request->input('group_name');
         $group->description = $request->input('description');

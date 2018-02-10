@@ -8,7 +8,7 @@
 @endsection
 
 @section('content')
-        
+
     <!-- Errors Handling -->
     <div class="row" id="formErrors">
         @if ($errors->any())
@@ -23,11 +23,11 @@
     </div>
 
     <!-- Form -->
-    <div id="formContainer" class="col-lg-10 col-md-10 col-sm-12">
+    <div id="edit_user" class="row">
         <form id="msform" action="{{ route('users.update', ['id'=>Auth::user()->id]) }}" method="post" enctype="multipart/form-data">
             {{ method_field('PUT') }}
             {{csrf_field()}}
-            <fieldset class="col-lg-12 col-md-12 col-sm-12">
+            <fieldset>
                 <h2 class="fs-title">Edit User</h2>
                 <h3 class="fs-subtitle">Edit your informations</h3>
                 <div class="form-group">
@@ -85,12 +85,12 @@
                                 <option value="{{$topic->id}}">{{$topic->name}}</option>
                             @endforeach
                     </select>
-                </div>  
+                </div>
 
                 <div class="form-group">
                     <label class="col-sm-8 col-md-3 col-lg-3" align="right">E-Mail</label>
                     <input class="col-sm-6 col-md-6 col-lg-8" name="email" type="email"
-                            placeholder="Insert new email" value="{{ $user->email}}"/>
+                            placeholder="{{$user->email}}" value="{{$user->email}}"/>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-8 col-md-3 col-lg-3" align="right">Personal Site</label>
@@ -100,13 +100,13 @@
                 <div class="form-group">
                     <label class="col-sm-8 col-md-3 col-lg-3" align="right">Password</label>
                     <input class="col-sm-6 col-md-6 col-lg-8" name="password" type="password"
-                            placeholder="Insert New Password"/>
+                            placeholder="Password"/>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-8 col-md-3 col-lg-3" align="right">Confirm password</label>
                     <input class="col-sm-6 col-md-6 col-lg-8" name="password_confirmation" type="password"
-                            placeholder="Confirm New Password"/>
+                            placeholder="Confirm Password"/>
                 </div>
 
                 <input type="submit" name="submit" class="submit action-button" value="Submit"/>

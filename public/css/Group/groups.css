@@ -86,19 +86,6 @@
     -webkit-box-orient: vertical;
 }
 
-#titleDetail, #descriptionDetail, #memberDetail{
-    word-wrap: break-word;
-}
-
-#titleDetail{
-    font-size: large;
-}
-
-#descriptionDetail{
-    font-style: italic;
-    font-size: small;
-}
-
 #groupInfo{
     border: 1px solid rgb(200, 200, 200) !important;
     border-radius: 5px;
@@ -116,6 +103,11 @@ h6{
     font-weight: bold;
 }
 
+
+#titleDetail, #descriptionDetail, #membersDetail{
+  word-wrap: break-word;
+}
+
 #footer{
     margin-left: 10px;
     margin-right: 10px;
@@ -128,5 +120,5 @@ h6{
 
 hr{
     margin-top: 5px;
-    margin-bottom: 5px; 
+    margin-bottom: 5px;
 }
