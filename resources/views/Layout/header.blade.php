@@ -1,8 +1,8 @@
 
  <nav id="header" class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 fixed-header navbar navbar-dark bg-white navbar-expand-lg navbar-expand-xl">
     <!-- Navbar content -->
-     <div class="brand-div col-lg-4 col-md-4 col-sm-8 col-8 col-xl-4"><img src="{{ asset('images/logo_corman.png') }}" height="50" width="50"/></div>
-   <form class="form-inline order-lg-2 order-md-2 order-sm-3 order-3 my-2 my-lg-0 col-lg-5 col-md-6 col-sm-12 col-xl-5">
+     <div class="brand-div col-lg-4 col-md-4 col-sm-8 col-8 col-xl-4"><a href="{{route('users.index')}}"><img src="{{ asset('images/logo_corman.png') }}" height="50" width="50" alt="CORMAN Logo" /></a></div>
+   <form class="form-inline order-lg-2 order-md-2 order-sm-3 order-3 my-lg-0 col-lg-5 col-md-6 col-sm-12 col-xl-5">
         <input class="form-control mr-sm-2 col-xl-8 col-lg-8 col-md-6" type="search" placeholder="Search" aria-label="Search">
          <button id="searchBox" class="btn btn-outline my-2 my-sm-0" type="submit">Search</button>
     </form>
@@ -42,7 +42,7 @@
         </div>
     </div>
 </nav>
-<div class="breadcrumb order-sm-4 order-lg-4 order-4 col-lg-12">
+<div id="breadcrumb" class="breadcrumb order-sm-4 order-lg-4 order-4 col-lg-12">
     <li class="breadcrumb-item">
         <a href="{{route('users.index')}}">Dashboard</a>
     </li>
