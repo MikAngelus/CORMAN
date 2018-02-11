@@ -10,9 +10,6 @@ use App\Affiliation;
 use App\Topic;
 
 
-use DeepCopy\f006\A;
-
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
