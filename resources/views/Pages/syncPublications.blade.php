@@ -1,7 +1,7 @@
 @extends('Layout.main')
 
 @section('head')
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url('css/User/jtable.min.css') }}">
     <link rel="stylesheet" href="{{ url('css/sync.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
@@ -20,7 +20,7 @@
     </div>
     
     <!-- loading bar row -->
-    <div id="progBar" class="row col-lg-12 pull-center">
+    <div id="progBar" class="row col-lg-12">
         <div class="progress col-12 col-sm-12 col-md-10 col-lg-8 col-xl-8 mb-2" align="center">
             <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
                 <span>Please wait<span class="dotdotdot"></span></span>
