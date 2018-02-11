@@ -11,11 +11,11 @@
             <div class="col-lg-9 col-md-10">
                 <div id="groupInfo" class="row">
                     <div class="col-lg-3">
-                        <img class="card-img-top" src="{{url($user->picture_path)}}" alt="Card image cap" height="150" width="150">
+                        <img class="card-img-top" src="{{url($user->picture_path)}}" alt="Card image cap" height="200" width="150">
                     </div>
                     <div class="col-lg-9">
                         <p style="font-size: x-large; text-weight: bold;">{{$user->first_name}} {{$user->last_name}}</p>
-                        <p>{{$user->role->name}}@
+                        <p>{{$user->role->name}} @
                             @if( $user->affiliation->link != null )
                                 <a href="{{$user->affiliation->link}}">{{$user->affiliation->name}}</a>
                             @else

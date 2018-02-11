@@ -1,7 +1,7 @@
 @extends('Layout.main')
 
 @section('head')
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url('css/User/jtable.min.css') }}">
     <link rel="stylesheet" href="{{ url('css/sync.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
@@ -10,7 +10,8 @@
 
 @section('content')
     <!-- info row -->
-    <div class="col-lg-12" align="center">
+    <div class="container">
+    <div id="table-container" class="row col-lg-12" align="center">
         <div id="message_info" class="col-11 col-sm-11 col-md-8 col-lg-8 col-xl-8" align="center">
             <div>Hi</div> 
             <div id="first_name">{{$user->first_name}}</div><div id="last_name">{{$user->last_name}}</div>
@@ -19,8 +20,8 @@
     </div>
     
     <!-- loading bar row -->
-    <div id="progBar" class="col-lg-12 pull-center">
-        <div class="progress col-12 col-sm-12 col-md-10 col-lg-8 col-xl-8" align="center">
+    <div id="progBar" class="row col-lg-12">
+        <div class="progress col-12 col-sm-12 col-md-10 col-lg-8 col-xl-8 mb-2" align="center">
             <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
                 <span>Please wait<span class="dotdotdot"></span></span>
             </div>
@@ -28,8 +29,8 @@
     </div>
 
     <!-- table row -->
-    <div class="col-lg-12">
-        <div class="col-11 col-sm-11 col-md-11 col-lg-11 col-xl-11" align="center"> 
+    <div class="row col-lg-12">
+        <div id="pub-table" class="col-11 col-sm-11 col-md-11 col-lg-11 col-xl-11" align="center">
             <table id="table">
                 <input id="addTo" class="btn btn-primary btn-sm" type="button" value="Add to my CORMAN publications">
             </table>
@@ -56,6 +57,7 @@
             </div>
         </div>
     </div>
+</div>
 @endsection
 
 @section('script')
