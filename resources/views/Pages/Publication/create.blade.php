@@ -43,7 +43,11 @@
                         <select class="form-control" id="authorsDropdown" name="authors[]" multiple>
                             <option value=""></option> <!-- needed for selct2.js library don't remove!-->
                             @foreach($authorList as $author)
+<<<<<<< HEAD
                                 <option value="{{$author->id}}"> {{$author->name}}</option>
+=======
+                                <option value="{{ $author->id }}">{{$author->name}}</option>
+>>>>>>> 8e1d4532c490e46d50187c889e6afca2c13c9a59
                             @endforeach
                         </select>
                       </div>

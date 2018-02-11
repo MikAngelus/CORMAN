@@ -70,13 +70,17 @@
                 </button>
             </div>
             <div class="modal-body">
-                @forelse(auth()->user()->unreadNotifications as $notification)
-
-                    @include('Layout.notification.groupNotification')
-                    <hr>
-                @empty
-                    <a href="#">No unread notifications</a>
-                @endforelse
+                @foreach(auth()->user()->unreadNotifications as $notification)
+                    @if($notification->type == 'App\Notifications\GroupNotification')
+                        @include('Layout.notification.groupNotification')
+                        <hr>
+                    @elseif($notification->type == 'App\Notifications\PublicationNotification')
+                        @include('Layout.notification.publicationNotification')
+                        <hr>
+                    @else
+                        <a href="#">No unread notifications</a>
+                    @endif
+                @endforeach
             </div>
         </div>
     </div>

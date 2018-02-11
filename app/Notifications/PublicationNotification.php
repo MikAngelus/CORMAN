@@ -2,26 +2,26 @@
 
 namespace App\Notifications;
 
-use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class GroupNotification extends Notification
+class PublicationNotification extends Notification
 {
     use Queueable;
 
-    protected $group;
+    protected $publication;
     protected $authUser;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($group, $authUser)
+    public function __construct($publication, $authUser)
     {
-        $this->group=$group;
+        $this->publication=$publication;
         $this->authUser=$authUser;
     }
 
@@ -37,18 +37,17 @@ class GroupNotification extends Notification
     }
 
     /**
-     * Get the array representation of the notification.
+     * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return array
+     * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toDatabase($notifiable)
     {
-
         return [
-            'group' => $this->group,
-            'authUser' => $this->authUser,
-            'user' => $notifiable
+            'publication' => $this->publication,
+            'user' => $notifiable,
+            'authUser' => $this->authUser
         ];
     }
 

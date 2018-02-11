@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Publication extends Model
 {
+    use Notifiable;
     //
     protected $fillable = ([
         'title'
