@@ -43,12 +43,12 @@
                         <select class="form-control" id="authorsDropdown" name="authors[]" multiple>
                             <option value=""></option> <!-- needed for selct2.js library don't remove!-->
                             @foreach($authorList as $author)
-                                <option>{{$author->name}}</option>
+                                <option value="{{$author->id}}"> {{$author->name}}</option>
                             @endforeach
                         </select>
                       </div>
                         <input type="date" name="publication_date" placeholder="Publication Date"/>
-                        <input type="text" name="venue" placeholder="Venue"/>
+                        <input type="text" name="venue" placeholder="Venue*"/>
                         <div class="row">
                         <select class="form-control" id="topicsDropdown" name="topics[]" multiple>
                                 <option value=""></option> <!-- needed for selct2.js library don't remove!-->

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Support\Facades\File;
+use App\Notifications\PublicationNotification;
+use App\User;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -86,13 +88,13 @@ class PublicationController extends Controller
             $newPublication->public = 0;
         }
 
-        // TODO Handling Media
-        //dd($request->all());
-
+        //Handling Media
+        
         //  Random unique folder name for each publication
         //       '/images/publicationMedia/nomefile.png'
         $folderName = str_random(25);
         $folderPath = File::makeDirectory(public_path() . "/images/publicationMedia/" . $folderName);
+        $folderName = md5(date('c'));
 
         //  Trattamento media nel form
 
@@ -100,7 +102,6 @@ class PublicationController extends Controller
             if ( isset($request->pdf_file) ) {
 
                 $fileName = str_random(15) . '.' . $request->file('pdf_file')->getClientOriginalExtension();
-                //$request->file('pdf_file')->store(public_path() . "/images/publicationMedia/" . $folderName.'/'.$fileName);
                 $request->file('pdf_file')->move(public_path() . "/images/publicationMedia/" . $folderName.'/', $fileName);
 
             }
@@ -118,6 +119,7 @@ class PublicationController extends Controller
                     Image::make($file)->save($filePath);
 
                 }
+
             }
         }
 
@@ -178,7 +180,6 @@ class PublicationController extends Controller
 
         // Handling topics
         $topicInputList = $request->input('topics');
-
         if (isset($topicInputList)) {
             foreach ($topicInputList as $topicKey => $topicInput) {
                 $topicInput = strtolower($topicInput);
@@ -196,30 +197,39 @@ class PublicationController extends Controller
                 }
             }
         }
-        // Handling Authors 
+        
+        // Handling Authors and user
         //Add the user as self author
         $newPublication->users()->attach(Auth::user()->id);
         $newPublication->authors()->attach(Auth::user()->author->id);
+                
+        $authorList = Author::all()->pluck('id');
+        $newAuthorList = collect($request->input('authors'));
 
-        $authorInputList = $request->input('authors');
-        if (isset($authorInputList)) {
-            foreach ($authorInputList as $authorKey => $authorInput) {
+        $createList = $newAuthorList->diff($authorList);
+        $addList = $newAuthorList->diff($createList); // get items to add
 
-                //Search and retrieve the author from db
-                $author = Author::where('name', $authorInput)->first();
+        $newPublication->authors()->attach($addList);
 
-                //Check if the author is already in the db, otherwise create a new one and attach to the user
-                if ($author != null) {
-                    $newPublication->authors()->attach($author->id);
-                } else {
-                    $newAuthor = new Author;
-                    $newAuthor->name = $authorInput;
-                    $newAuthor->save();
+        foreach ($createList as $author) {
+            $newAuthor = new Author;
+            $newAuthor->name = $author;
+            $newAuthor->save();
 
-                    $newPublication->authors()->attach($newAuthor->id);
-                }
-            }
+            $newPublication->authors()->attach($newAuthor);
         }
+
+        foreach ($addList as $id) {
+
+            $user_id = Author::find($id)->user_id;
+            if ($user_id != null) {
+                User::where('id', $user_id)->get()->each(function ($user) use ($newPublication) {
+                    $user->notify(new PublicationNotification($newPublication, auth()->user()));
+                });
+            }
+
+        }
+
 
         return redirect()->route('publications.index');
 
@@ -294,6 +304,7 @@ class PublicationController extends Controller
         if ($request->hasFile('pdf_file')) {
             if ( isset($request->pdf_file) ) {
 
+
                 $fileName = str_random(15) . '.' . $request->file('pdf_file')->getClientOriginalExtension();
                 //$request->file('pdf_file')->store(public_path() . "/images/publicationMedia/" . $folderName.'/'.$fileName);
                 $request->file('pdf_file')->move(public_path() . "/images/publicationMedia/" . $folderName.'/', $fileName);
@@ -305,7 +316,6 @@ class PublicationController extends Controller
         $files = $request->file('media_file');
         if ($request->hasFile('media_file')) {
             if ( isset($request->pdf_file) ) {
-
                 foreach ($files as $file) {
 
                     $fileName = str_random(15) . '.' . $file->getClientOriginalExtension();
@@ -328,8 +338,6 @@ class PublicationController extends Controller
         $addList = $newAuthorList->diff($publicationAuthorList); //intermediate result
         $createList = $addList->diff($authorList); // get items to create
         $addList = $addList->diff($createList); // get items to add
-
-        //dd(['form' => $request->all(), 'rem' => $removeList, 'add' => $addList, 'create' => $createList]);
 
         $publication->authors()->detach($removeList);
         $publication->authors()->attach($addList);
@@ -444,7 +452,7 @@ class PublicationController extends Controller
     public function syncDBLP(Request $request)
     {   /* Due to nested eand higly variable json structuture from DBLP
         we must cleanup the json response!
-        -authors and venue could be array spo we must iterate trough it and create a 
+        -authors and venue could be array so we must iterate trough it and create a 
         string concatenation of elements */
         $count = 100;
         $client = new Client(['base_uri' => 'http://dblp.org/search/publ/api', 'timeout' => 5.0]);
@@ -533,7 +541,7 @@ class PublicationController extends Controller
 
             $folderName = str_random(25);
             File::makeDirectory(public_path() . "/images/publicationMedia/" . $folderName);
-            //Storage::makeDirectory($folderName);
+
             $newPublication->multimedia_path = '/' . $folderName; //TODO handle automatic folder creation
 
             // Mapping DBLP type to CORMAN type

@@ -52,7 +52,7 @@
                     <label class="col-sm-12 col-md-3 col-lg-3" align="right">Invite Users</label>
                     <select class="col-sm-12 col-md-9 col-lg-8 form-control" id="usersDropdown" name="users[]" multiple>
                         @foreach($userList as $user)
-                            <option value="{{$user->id}}">{{$user->last_name}} {{$user->first_name}}</option>
+                            <option value="{{$user->id}}"> {{$user->first_name}} {{$user->last_name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -83,12 +83,32 @@
                 </div>
                 <!-- inserire if per bottone visibile solo da admin -->
                 <hr>
-                <a href="#" id="btn-newgroup" class="btn btn-danger btn-sm" role="button">Delete Group</a>
+                <a href="#" id="btn-newgroup" class="btn btn-danger btn-sm" role="button" data-toggle="modal" data-target="#deleteGro">Delete Group</a>
                 <hr>
 
                 <input type="submit" name="submit" class="next action-button" value="Update"/>
             </fieldset>
         </form>
+    </div>
+    
+    <!-- MODAL CONFIRM DELETE GROUP -->
+    <div class="modal fade" id="deleteGro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="">Confirm Group Delete</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">    
+                    <div class="row align-items-center">
+                        <div class="col-lg-12" align="center">Really, do you want to delete this group?</div>
+                        <a href="#" id="btn-newgroup" class="btn btn-danger btn-sm" role="button">Yes, Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 

@@ -5,9 +5,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use File;
+use Illuminate\Notifications\Notifiable;
 
 class Publication extends Model
 {
+    use Notifiable;
     //
     protected $fillable = ([
         'title'

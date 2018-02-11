@@ -24,14 +24,14 @@ class Group extends Model
         return $this->belongsToMany(
             'App\User',
             'user_group'
-        )->wherePivot('role','member')->wherePivot('state','accepted');
+        )->wherePivot('state','accepted');
     }
 
     public function invited(){
         return $this->belongsToMany(
             'App\User',
             'user_group'
-        )->wherePivot('role','member')->wherePivot('state','pending');
+        )->wherePivot('state','pending');
     }
 
     public function admins(){

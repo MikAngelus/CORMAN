@@ -38,12 +38,12 @@
             <fieldset>
                 <h2 class="fs-title">Personal info</h2>
                 <h3 class="fs-subtitle"></h3>
-                <input type="text" name="first_name" placeholder="First Name"/>
-                <input type="text" name="last_name" placeholder="Last Name"/>
-                <input type="date" name="birth_date" placeholder="Birth Date"/>
-                <input type="email" name="email" placeholder="Email"/>
-                <input type="password" name="password" placeholder="Password"/>
-                <input type="password" name="password_confirmation" placeholder="Confirm Password"/>
+                <input type="text" name="first_name" placeholder="First Name*"/>
+                <input type="text" name="last_name" placeholder="Last Name*"/>
+                <input type="date" name="birth_date" placeholder="Birth Date*"/>
+                <input type="email" name="email" placeholder="Email*"/>
+                <input type="password" name="password" placeholder="Password*"/>
+                <input type="password" name="password_confirmation" placeholder="Confirm Password*"/>
                 <input type="file" name="profilePic" placeholder="Profile Photo" />
                 
                 <input type="button" name="next" class="next action-button" value="Next"/>
@@ -77,7 +77,7 @@
                     @endforeach
                 </select>
                 </div>
-                <input type="text" name="personal_link" placeholder="Personal Link"/>
+                <input type="text" name="personal_link" placeholder="Personal Page"/>
 
                 <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
                 <input type="submit" name="submit" class="submit action-button" value="Submit"/>

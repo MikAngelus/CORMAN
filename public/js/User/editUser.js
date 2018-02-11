@@ -28,18 +28,18 @@ $(document).ready(function () {
     })
 
     $('#roleDropdown').select2({
-        placeholder: "Modify the role",
+        placeholder: "Change your role",
         maximumSelectionLength: 1,
     });
 
     $('#affiliationDropdown').select2({
-        placeholder: "Modify the affiliation",
+        placeholder: "Cahnge your affiliation",
         maximumSelectionLength: 1,
         tags: true
     });
 
     $('#topicsDropdown').select2({
-        placeholder: "Modify your areas of interests",
+        placeholder: "Change your area of interests",
         maximumSelectionLength: 7,
         tokenSeparators: [','],
         tags:true

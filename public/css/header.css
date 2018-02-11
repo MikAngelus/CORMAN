@@ -45,22 +45,29 @@ body {
     color: cornflowerblue !important;
 }
 
-.fixed-header {
+#header {
+    background-color: #ddd;
     position: fixed;
     top: 0px;
     z-index: 1000;
     width: 100%;
     margin: 0 auto;
     left: 0px;
+    -webkit-box-shadow: inset 0px 0px 113px -36px rgba(204,204,204,1);
+-moz-box-shadow: inset 0px 0px 113px -36px rgba(204,204,204,1);
+box-shadow: inset 0px 0px 113px -36px rgba(204,204,204,1);
 }
 
-.fixed-header, .breadcrumb {
+#header, .breadcrumb {
     padding-left: 0;
     padding-right:0 ;
 }
 
-.breadcrumb {
+#breadcrumb {
     background-color: white;
+    top: -1rem;
+    padding-top: 0;
+    padding-bottom: 2rem;
 }
 
 #menuIcon img {
@@ -90,28 +97,58 @@ body {
     padding-right: 15px;
 }
 
+#footer{
+position: fixed;
+bottom: 0px;
+z-index: 1000;
+width: 100%;
+margin: 0 auto;
+left: 0px;
+height: 2em;
+background-color: #eee !important;
+font-size: 14px;
+justify-content: center;
+margin: 0 !important;
+}
+
+#footer p{
+  padding: 5px;
+  color: #333;
+  text-decoration: none;
+  margin-top: 1em;
+
+}
+
+
 /* fix overlay modal/header navbar */
 .modal-content{
     z-index: 100000 !important;
 }
 
 .brand-div {
-    padding-left: 15px;
+    padding-left: 1.5%;
 }
 
 .button-div {
-    padding-right: 15px;
+    padding-right: 3.5%;
     text-align: right;
 }
 
 @media (min-width: 1440px) {
     .navbar-nav {
-        margin: 0 7rem;
+        margin: 0 4rem;
     }
 }
 
 @media (min-width: 2560px) {
     .navbar-nav {
         margin: 0 26rem;
+    }
+}
+
+@media (max-width : 767px) {
+    #footer p{
+        margin: -0.6em 0 0 0 !important;
+
     }
 }

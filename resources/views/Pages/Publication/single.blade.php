@@ -43,9 +43,9 @@
         <div class="col-4 col-sm-4 col-md-3 col-lg-2 col-xl-2" align="right">
         <a href="{{route('publications.edit', ['id'=>$publication->id])}}"><i class="ion-edit"></i></a>
             @if($publication->public === 1)
-                <a href="#aggiungere#azione#"><i class="ion-eye"></i></a>
+                <i class="ion-eye"></i>
             @else
-                <a href="#aggiungere#azione#visibilità"><i class="ion-eye-disabled"></i></a>
+                <i class="ion-eye-disabled"></i>
             @endif
         </div>
     </div>

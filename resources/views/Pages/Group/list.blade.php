@@ -7,7 +7,9 @@
 @section('content')
     <div class="container-fluid">
         <div class="btn-toolbar justify-content-between col-lg-12">
-            <a href="{{route('groups.create')}}" id="btn-newgroup" class="btn btn-primary pull-left" role="button">New Group</a>
+            <a id="specialButton" role="button" class="btn btn-warning pull-left" href="{{ route('groups.create')}}">
+                <span class="ion-plus-circled ion-plus"> New Group</span>
+            </a>
             <i class="fa fa-filter fa-2x pull-right" data-container="body" data-toggle="popover" data-html="true" data-placement="bottom" data-content="@include('Pages.filter')"></i>
         </div>
         <div id="list_container" class="row">

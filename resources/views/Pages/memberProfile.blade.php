@@ -11,14 +11,18 @@
             <div class="col-lg-9 col-md-10">
                 <div id="groupInfo" class="row">
                     <div class="col-lg-3">
-                        <img class="card-img-top" src="{{url($user->picture_path)}}" alt="Card image cap" height="150" width="150">
+                        <img class="card-img-top" src="{{url($user->picture_path)}}" alt="Card image cap" height="200" width="150">
                     </div>
                     <div class="col-lg-9">
                         <p style="font-size: x-large; text-weight: bold;">{{$user->first_name}} {{$user->last_name}}</p>
-                        <p>{{$user->birth_date}}</p>
+                        <p>{{$user->role->name}} @
+                            @if( $user->affiliation->link != null )
+                                <a href="{{$user->affiliation->link}}">{{$user->affiliation->name}}</a>
+                            @else
+                                {{$user->affiliation->name}}
+                            @endif
+                        </p>
                         <hr>
-                        <p>{{$user->role->name}}</p>
-                        <p>{{$user->affiliation->name}}</p>
                         <p>
                         <ul class="list-inline">
                             @foreach($user->topics as $topic)
@@ -26,9 +30,10 @@
                             @endforeach
                         </ul>
                         </p>
-                        <hr>
-                        <p>{{$user->reference_link}}</p>
-                        <p>{{$user->email}}</p>
+                        @if( $user->reference_link != null )
+                            <hr>
+                            <a href="{{$user->reference_link}}"> Personal Page</a>
+                        @endif
                     </div>
                 </div>
                 <div class="row">
