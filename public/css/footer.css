@@ -1,5 +1,8 @@
-#myFooter{
-    padding-top: 10rem;
+#myFooter {
+    background-color: #3e4444;
+    padding-top: 4rem;
+    padding-bottom: 1rem;
+    margin-top: 6rem;
     bottom: 0px;
     width: 100%;
     left: 0px;
@@ -10,9 +13,8 @@
 }
 
 #myFooter .footer-copyright{
-    margin-bottom: 35px;
     text-align: center;
-    color: #777;
+    color: white;
 }
 
 #myFooter ul{
@@ -22,11 +24,12 @@
 }
 
 #myFooter a{
-    color: #282b2d;
+    color: white;
     font-size: 18px;
 }
 
 #myFooter li{
+    color: white;
     display: inline-block;
     margin: 0px 15px;
     line-height: 2;

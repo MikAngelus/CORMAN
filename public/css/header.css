@@ -21,6 +21,7 @@ body {
 }
 
 .navbar-nav p {
+    color: white;
     margin: auto auto;
     padding-right: .3rem;
 }
@@ -46,6 +47,7 @@ body {
 }
 
 #header {
+    background-color: #3e4444;
     position: fixed;
     top: 0px;
     z-index: 1000;
