@@ -11,7 +11,5 @@
                 <a class="nav-link text-center" href="#">How it works<span class="sr-only">(current)</span></a>
             </li>
         </ul>
-        <a href="{{ url('signUp') }}"><button class="btn btn-success">Join Us</button></a>
-        <a href=" {{ url('login') }} ")><button class="btn btn-primary ml-2">Log In</button></a>
     </div>
 </nav>

@@ -65,9 +65,10 @@ box-shadow: inset 0px 0px 113px -36px rgba(204,204,204,1);
 
 #breadcrumb {
     background-color: white;
-    top: -1rem;
+    top: -1.25rem;
     padding-top: 0;
-    padding-bottom: 2rem;
+    padding-bottom: 0rem;
+    margin-bottom: 0.25rem;
 }
 
 #menuIcon img {

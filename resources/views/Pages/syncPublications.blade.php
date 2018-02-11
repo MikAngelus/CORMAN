@@ -13,9 +13,10 @@
     <div class="container">
     <div id="table-container" class="row col-lg-12" align="center">
         <div id="message_info" class="col-11 col-sm-11 col-md-8 col-lg-8 col-xl-8" align="center">
-            <div>Hi</div> 
-            <div id="first_name">{{$user->first_name}}</div><div id="last_name">{{$user->last_name}}</div>
-            <div>We found some publications nell'internet may related to you, maybe you would add these to Corman! don't worry you can always modify later</div>
+            <span>Hi</span> 
+            <span id="first_name">{{$user->first_name}}</span> <span id="last_name">{{$user->last_name}}</span>
+            <div> We found some publications may related to you, 
+                maybe you want add these to Corman! Don't worry you can always edit later</div>
         </div>
     </div>
     
