@@ -1,5 +1,5 @@
 <div class="container-fluid">
-<!-- common fields -->
+    <!-- common fields -->
     <div class="row">
         <label class="col-sm-12 col-md-3 col-lg-2">Title</label>
         <div id="uno" class="col-sm-12 col-md-9 col-lg-10">{{$publication->title}}</div>
@@ -38,39 +38,36 @@
         </div>
     </div>
     <!-- end common fields -->
-     
+
     @switch($publication->type)
         @case('journal')
-            @include('Pages.Publication.journalFields', ['publication'=>$publication])
+        @include('Pages.Publication.journalFields', ['publication'=>$publication])
         @break
         @case('conference')
-            @include('Pages.Publication.conferenceFields', ['publication'=>$publication])
+        @include('Pages.Publication.conferenceFields', ['publication'=>$publication])
         @break
         @case('editorship')
-            @include('Pages.Publication.editorshipFields', ['publication'=>$publication])
+        @include('Pages.Publication.editorshipFields', ['publication'=>$publication])
         @break
     @endswitch
 
     <hr>
 
     <!-- Media Carousel -->
+
     <div class="row">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                @foreach(($a = $publication->carouselLoop()) as $i => $item)
+                    <li data-target="#carouselExampleIndicators" data-slide-to="{{$i}}"></li>
+                @endforeach
             </ol>
             <div class="carousel-inner" role="listbox">
-                <div class="carousel-item active">
-                    <img class="d-block img-fluid" src="https://i.ytimg.com/vi/-EzURpTF5c8/maxresdefault.jpg" alt="First slide">
-                </div>
-                <div class="carousel-item">
-                    <img class="d-block img-fluid" src="https://i.ytimg.com/vi/-EzURpTF5c8/maxresdefault.jpg" alt="Second slide">
-                </div>
-                <div class="carousel-item">
-                    <img class="d-block img-fluid" src="https://i.ytimg.com/vi/-EzURpTF5c8/maxresdefault.jpg" alt="Third slide">
-                </div>
+                @foreach(($a = $publication->carouselLoop()) as $i => $item)
+                    <div class="carousel-item">
+                        <img class="d-block img-fluid" src="{{url($item)}}">
+                    </div>
+                @endforeach
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
