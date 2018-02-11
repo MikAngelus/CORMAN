@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
         <title>Corman</title>
         <link rel="stylesheet" href="{{ url('css/footer.css') }}">
         <link rel="stylesheet" href="{{ url('css/bootstrap.min.css') }}">

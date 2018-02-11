@@ -89,7 +89,7 @@
                 <div class="col-12 col-md-3"></div>
                 <div class="col-12 col-md-3">
                     <a href="{{ url('signUp') }}">
-                        <button class="btn btn-block btn-lg btn-primary">Sign Up!</button>
+                        <button class="btn btn-block btn-lg btn-primary">Join Us!</button>
                     </a>
                 </div>
                 <div class="col-12 col-md-3"></div>
