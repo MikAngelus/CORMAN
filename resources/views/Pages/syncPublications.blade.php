@@ -20,8 +20,8 @@
     </div>
     
     <!-- loading bar row -->
-    <div id="progBar" class="col-lg-12 pull-center">
-        <div class="progress col-12 col-sm-12 col-md-10 col-lg-8 col-xl-8" align="center">
+    <div id="progBar" class="row col-lg-12 pull-center">
+        <div class="progress col-12 col-sm-12 col-md-10 col-lg-8 col-xl-8 mb-2" align="center">
             <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
                 <span>Please wait<span class="dotdotdot"></span></span>
             </div>

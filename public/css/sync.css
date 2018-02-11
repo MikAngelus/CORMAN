@@ -15,6 +15,6 @@ html, body {
     margin-bottom: 10px;
 }
 
-#pub-table, #table-container, #table-container::before, #table-container::after {
+#pub-table, #table-container, #table-container::before, #table-container::after, .progress {
     margin: 0 auto;
 }
