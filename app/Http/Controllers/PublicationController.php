@@ -350,6 +350,14 @@ class PublicationController extends Controller
             $publication->authors()->attach($newAuthor);
         }
 
+        foreach ($addList as $id) {
+            $user_id = Author::find($id)->user_id;
+            if ($user_id != null) {
+                User::where('id', $user_id)->get()->each(function ($user) use ($publication) {
+                    $user->notify(new PublicationNotification($publication, auth()->user()));
+                });
+            }
+        }
 
         // Handling add and deletion of publication topics
         $topicList = Topic::all()->pluck('id');

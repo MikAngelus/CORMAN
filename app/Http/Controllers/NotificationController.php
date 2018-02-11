@@ -24,8 +24,8 @@ class NotificationController extends Controller
             $publicationid = substr($id, 0, strlen($id)-2);
             $publicationNotification = $user->notifications()->where('id', $publicationid)->first();
             $publicationNotification->delete();
-            
-            return redirect()->route('publications.show', $publicationNotification->data['publication']['id']);
+
+            return redirect()->route('users.show', $publicationNotification->data['authUser']['id']);
         }else{
             return redirect()->back();
         }
