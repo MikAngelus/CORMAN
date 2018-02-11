@@ -87,11 +87,9 @@ class PublicationController extends Controller
             $newPublication->public = 0;
         }
 
-        // TODO Handling Media
-        //dd($request->all());
-
+        //Handling Media
+        
         //  Random unique folder name for each publication
-
         $folderName = md5(date('c'));
         Storage::makeDirectory($folderName);
 
@@ -168,7 +166,6 @@ class PublicationController extends Controller
 
         // Handling topics
         $topicInputList = $request->input('topics');
-
         if (isset($topicInputList)) {
             foreach ($topicInputList as $topicKey => $topicInput) {
                 $topicInput = strtolower($topicInput);
@@ -186,29 +183,27 @@ class PublicationController extends Controller
                 }
             }
         }
-        // Handling Authors 
+
+
+        // Handling Authors and user
         //Add the user as self author
         $newPublication->users()->attach(Auth::user()->id);
         $newPublication->authors()->attach(Auth::user()->author->id);
+                
+        $authorList = Author::all()->pluck('id');
+        $newAuthorList = collect($request->input('authors'));
 
-        $authorInputList = $request->input('authors');
-        if (isset($authorInputList)) {
-            foreach ($authorInputList as $authorKey => $authorInput) {
+        $createList = $newAuthorList->diff($authorList);
+        $addList = $newAuthorList->diff($createList); // get items to add
 
-                //Search and retrieve the author from db
-                $author = Author::where('name', $authorInput)->first();
+        $newPublication->authors()->attach($addList);
 
-                //Check if the author is already in the db, otherwise create a new one and attach to the user
-                if ($author != null) {
-                    $newPublication->authors()->attach($author->id);
-                } else {
-                    $newAuthor = new Author;
-                    $newAuthor->name = $authorInput;
-                    $newAuthor->save();
+        foreach ($createList as $author) {
+            $newAuthor = new Author;
+            $newAuthor->name = $author;
+            $newAuthor->save();
 
-                    $newPublication->authors()->attach($newAuthor->id);
-                }
-            }
+            $newPublication->authors()->attach($newAuthor);
         }
 
         return redirect()->route('publications.index');
@@ -308,8 +303,6 @@ class PublicationController extends Controller
         $addList = $newAuthorList->diff($publicationAuthorList); //intermediate result
         $createList = $addList->diff($authorList); // get items to create
         $addList = $addList->diff($createList); // get items to add
-
-        //dd(['form' => $request->all(), 'rem' => $removeList, 'add' => $addList, 'create' => $createList]);
 
         $publication->authors()->detach($removeList);
         $publication->authors()->attach($addList);
