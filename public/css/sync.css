@@ -18,3 +18,7 @@ html, body {
 #pub-table, #table-container, #table-container::before, #table-container::after, .progress {
     margin: 0 auto;
 }
+
+.modal-body {
+    text-align: center;
+}
