@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 
+use App\Notifications\PublicationNotification;
+use App\User;
 use Faker\Provider\File;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
@@ -12,7 +14,6 @@ use Illuminate\Support\Facades\Validator;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 use Image;
-
 
 
 use App\Http\Requests\CreatePublicationRequest;
@@ -97,22 +98,22 @@ class PublicationController extends Controller
 
         //  Trattamento media nel form
 
-        if ($request->hasFile('pdf_file')){
-                Storage::disk('mediaDisk')->put('/'.$folderName, $request->file('pdf_file'));
+        if ($request->hasFile('pdf_file')) {
+            Storage::disk('mediaDisk')->put('/' . $folderName, $request->file('pdf_file'));
 
-            }
+        }
 
 
         $files = $request->file('media_file');
         if ($request->hasFile('media_file')) {
 
             foreach ($files as $file) {
-                Storage::disk('mediaDisk')->put('/'.$folderName, $file);
+                Storage::disk('mediaDisk')->put('/' . $folderName, $file);
             }
         }
 
         //  Salvataggio path del folder '/nomeRandomFolder'
-        $newPublication->multimedia_path = '/'.$folderName;
+        $newPublication->multimedia_path = '/' . $folderName;
         $newPublication->save();
 
 
@@ -186,30 +187,38 @@ class PublicationController extends Controller
                 }
             }
         }
-        // Handling Authors 
+        // Handling Authors and user
         //Add the user as self author
         $newPublication->users()->attach(Auth::user()->id);
         $newPublication->authors()->attach(Auth::user()->author->id);
 
-        $authorInputList = $request->input('authors');
-        if (isset($authorInputList)) {
-            foreach ($authorInputList as $authorKey => $authorInput) {
+        $authorList = Author::all()->pluck('id');
+        $newAuthorList = collect($request->input('authors'));
 
-                //Search and retrieve the author from db
-                $author = Author::where('name', $authorInput)->first();
+        $createList = $newAuthorList->diff($authorList);
+        $addList = $newAuthorList->diff($createList); // get items to add
 
-                //Check if the author is already in the db, otherwise create a new one and attach to the user
-                if ($author != null) {
-                    $newPublication->authors()->attach($author->id);
-                } else {
-                    $newAuthor = new Author;
-                    $newAuthor->name = $authorInput;
-                    $newAuthor->save();
+        $newPublication->authors()->attach($addList);
 
-                    $newPublication->authors()->attach($newAuthor->id);
-                }
-            }
+        foreach ($createList as $author) {
+            $newAuthor = new Author;
+            $newAuthor->name = $author;
+            $newAuthor->save();
+
+            $newPublication->authors()->attach($newAuthor);
         }
+
+        foreach ($addList as $id) {
+
+            $user_id = Author::find($id)->user_id;
+            if ($user_id != null) {
+                User::where('id', $user_id)->get()->each(function ($user) use ($newPublication) {
+                    $user->notify(new PublicationNotification($newPublication, auth()->user()));
+                });
+            }
+
+        }
+
 
         return redirect()->route('publications.index');
 
@@ -241,7 +250,7 @@ class PublicationController extends Controller
 
           diff method is used to avoid duplicates of <option> html tags due to the ajax calls (ajaxInfo method).
         */
-       
+
         $publication = Publication::find($id);
         $topicList = Topic::all()->diff($publication->topics);
         $authors = Author::all()->diff($publication->authors);
@@ -257,9 +266,8 @@ class PublicationController extends Controller
      */
     public function update(EditPublicationRequest $request, $id)
     {
-        
 
-        
+
         // Retrieve the publication
         $publication = Publication::find($id);
 
@@ -282,8 +290,8 @@ class PublicationController extends Controller
 
         //  Trattamento media nel form
 
-        if ($request->hasFile('pdf_file')){
-            Storage::disk('mediaDisk')->put('/'.$folderName, $request->file('pdf_file'));
+        if ($request->hasFile('pdf_file')) {
+            Storage::disk('mediaDisk')->put('/' . $folderName, $request->file('pdf_file'));
 
         }
 
@@ -292,7 +300,7 @@ class PublicationController extends Controller
         if ($request->hasFile('media_file')) {
 
             foreach ($files as $file) {
-                Storage::disk('mediaDisk')->put('/'.$folderName, $file);
+                Storage::disk('mediaDisk')->put('/' . $folderName, $file);
             }
         }
 
@@ -442,54 +450,48 @@ class PublicationController extends Controller
             $response = $response['result']['hits']['hit'];
             $pubList = array();
 
-            $supportedTypes= ['Journal Articles','Conference and Workshop Papers','Editorship'];
+            $supportedTypes = ['Journal Articles', 'Conference and Workshop Papers', 'Editorship'];
             // Clean up DBLP json response for our needs
-            foreach($response as $publication){
-                $requiredFields = array('title','venue','authors','year');
+            foreach ($response as $publication) {
+                $requiredFields = array('title', 'venue', 'authors', 'year');
                 //Check if at least the required fields are present, otherwise skip
-                if( count(array_diff_key(array_flip($requiredFields),$publication['info'])) == 0){
+                if (count(array_diff_key(array_flip($requiredFields), $publication['info'])) == 0) {
                     // Check if $publication type is supported by corman otherwise skip it!
-                    if ( in_array($publication['info']['type'],$supportedTypes) ){
+                    if (in_array($publication['info']['type'], $supportedTypes)) {
                         $authorList = '';
                         $authors = $publication['info']['authors']['author'];
-                        if( is_array($authors) ){ 
-                            foreach( $authors as $author){
-                                if($author === end($authors)){
-                                    $authorList .= $author; 
-                                }
-                                else
-                                {
-                                    $authorList .= $author.', '; 
+                        if (is_array($authors)) {
+                            foreach ($authors as $author) {
+                                if ($author === end($authors)) {
+                                    $authorList .= $author;
+                                } else {
+                                    $authorList .= $author . ', ';
                                 }
                             }
                             $publication['info']['authors'] = $authorList;
-                        }
-                        else{ // just one authors
+                        } else { // just one authors
                             $publication['info']['authors'] = $authors;
                         }
                         // 
                         $venueList = '';
                         $venues = $publication['info']['venue'];
-                        if( is_array($venues) ){ 
-                            foreach( $venues as $venue){
-                                if($venue === end($venues)){
-                                    $venueList .= $venue; 
-                                }
-                                else
-                                {
-                                    $venueList .= $venue.', '; 
+                        if (is_array($venues)) {
+                            foreach ($venues as $venue) {
+                                if ($venue === end($venues)) {
+                                    $venueList .= $venue;
+                                } else {
+                                    $venueList .= $venue . ', ';
                                 }
                             }
                             $publication['info']['venue'] = $venueList;
-                        }
-                        else{ // just one authors
+                        } else { // just one authors
                             $publication['info']['venue'] = $venues;
                         }
-                        
-                        array_push($pubList,$publication['info']);
+
+                        array_push($pubList, $publication['info']);
                     }
                 }
-            } 
+            }
             $jsonInfo = array('data' => $pubList);
         } else {
             $jsonInfo = array('data' => array());
@@ -507,7 +509,7 @@ class PublicationController extends Controller
 
             $newPublication = new Publication;
             //Set general fields
-            
+
             $newPublication->title = ucwords($publication['title']);
 
             $date = new \DateTime();
@@ -519,7 +521,7 @@ class PublicationController extends Controller
 
             $folderName = md5(mt_rand());
             Storage::makeDirectory($folderName);
-            $newPublication->multimedia_path = '/'.$folderName; //TODO handle automatic folder creation
+            $newPublication->multimedia_path = '/' . $folderName; //TODO handle automatic folder creation
 
             // Mapping DBLP type to CORMAN type
             switch ($publication['type']) {
@@ -608,7 +610,7 @@ class PublicationController extends Controller
 
         }
         return response()->json(['message' => 'Your pubblications are now in corman! Take a look',
-                                'redirectTo' => '/users']);
+            'redirectTo' => '/users']);
     }
 
 
@@ -627,7 +629,6 @@ class PublicationController extends Controller
         return response()->json($data);
     }
 
-   
 
     public function ajaxGetPublications(Request $request)
     {
