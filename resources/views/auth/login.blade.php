@@ -7,17 +7,18 @@
 
 @section('content')
     <!-- Handling Form errors -->
-    <div class="row">    
+    <div class="row justify-content-center">    
         @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
         @endif
     </div>
+
     <!-- MultiStep Form -->
     <div class="row">
         <div id="loginBox" class="col-xl-5 col-lg-6 col-md-8 col-sm-12">

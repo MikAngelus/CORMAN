@@ -48,7 +48,7 @@
                         </select>
                       </div>
                         <input type="date" name="publication_date" placeholder="Publication Date"/>
-                        <input type="text" name="venue" placeholder="Venue"/>
+                        <input type="text" name="venue" placeholder="Venue*"/>
                         <div class="row">
                         <select class="form-control" id="topicsDropdown" name="topics[]" multiple>
                                 <option value=""></option> <!-- needed for selct2.js library don't remove!-->

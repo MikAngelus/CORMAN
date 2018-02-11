@@ -126,13 +126,7 @@ h6{
     margin-top: 10px;
     margin-bottom: 10px;
 }
-
-/*
-hr{
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-*/
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
 
 #specialButton, #btn-share, #addTo{
     background: darkorange;

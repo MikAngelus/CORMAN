@@ -1,6 +1,6 @@
 <div>
-    <p>Ordina per data</p>
-    <p>Ordina per topic</p>
-    <p>Nascoste/Visibili</p>
+    <p>Sort By Date</p>
+    <p>Sort By Topic</p>
+    <p>Only Public/Private</p>
     <p>...</p>
 </div>

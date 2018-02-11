@@ -29,40 +29,31 @@
                 <h2 class="fs-title">General Info</h2>
                 <h3 class="fs-subtitle">Modify general informations about the publication here</h3>
                 <div class="form-group">
-                    <label class="col-sm-12 col-md-3 col-lg-3">Title</label>
-                    <input class="col-sm-12 col-md-9 col-lg-8" name="title" type="text" placeholder="{{$publication->title}}" value="{{$publication->title}}"/>
-
-
+                    <label class="col-sm-12 col-md-3 col-lg-3" align="right">Title</label>
+                    <input class="col-sm-12 col-md-9 col-lg-8" name="title" type="text" value="{{$publication->title}}"/>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-12 col-md-3 col-lg-3">Authors</label>
-
+                    <label class="col-sm-12 col-md-3 col-lg-3" align="right">Authors</label>
                     <select class="col-sm-12 col-md-9 col-lg-8 form-control" id="authorsDropdown" name="authors[]" multiple>
                         @foreach($authors as $author)
                             <option value="{{$author->id}}">{{$author->name}}</option>
                         @endforeach
                     </select>
-
-
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-12 col-md-3 col-lg-3">Date</label>
-                    <input class="col-sm-12 col-md-9 col-lg-8" name="pub_date" type="date" placeholder="{{$publication->year}}" value="{{$publication->year}}"/>
-
-
+                    <label class="col-sm-12 col-md-3 col-lg-3" align="right">Date</label>
+                    <input class="col-sm-12 col-md-9 col-lg-8" name="pub_date" type="date" value="{{$publication->year}}"/>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-12 col-md-3 col-lg-3">Venue</label>
-                    <input class="col-sm-12 col-md-9 col-lg-8" name="venue" type="text" placeholder="{{$publication->venue}}" value="{{$publication->venue}}"/>
-
-
+                    <label class="col-sm-12 col-md-3 col-lg-3" align="right">Venue</label>
+                    <input class="col-sm-12 col-md-9 col-lg-8" name="venue" type="text"  value="{{$publication->venue}}"/>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-12 col-md-3 col-lg-3">Edit Topics</label>
+                    <label class="col-sm-12 col-md-3 col-lg-3" align="right">Edit Topics</label>
                     <select class="col-sm-12 col-md-9 col-lg-8 form-control" id="topicsDropdown" name="topics[]" multiple>
                         <option value=""></option> <!-- needed for selct2.js library don't remove!-->
                             @foreach($topicList as $topic)
@@ -74,7 +65,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-12 col-md-3 col-lg-3">Visibility</label>
+                    <label class="col-sm-12 col-md-3 col-lg-3" align="right">Visibility</label>
                     @if($publication->public === 1)
                         <select class="col-sm-12 col-md-9 col-lg-8 form-control" id="visibility" name="visibility">
                             <option selected value="public" >Public</option>
