@@ -428,7 +428,7 @@ class PublicationController extends Controller
     public function syncDBLP(Request $request)
     {   /* Due to nested eand higly variable json structuture from DBLP
         we must cleanup the json response!
-        -authors and venue could be array spo we must iterate trough it and create a 
+        -authors and venue could be array so we must iterate trough it and create a 
         string concatenation of elements */
         $count = 100;
         $client = new Client(['base_uri' => 'http://dblp.org/search/publ/api', 'timeout' => 5.0]);
