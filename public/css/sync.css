@@ -14,3 +14,7 @@ html, body {
     margin-top: 0px;
     margin-bottom: 10px;
 }
+
+#pub-table, #table-container, #table-container::before, #table-container::after {
+    margin: 0 auto;
+}
