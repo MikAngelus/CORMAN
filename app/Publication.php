@@ -77,29 +77,27 @@ class Publication extends Model
         return $this->hasMany('App\PublicationGroup');
     }
 
-/*    public function carouselLoop()
+    public function carouselLoop()
     {
 
         $result = array();
-        $folder = "images/publicationMedia" . $this->multimedia_path;
-        $cdir = scandir($folder);
-        foreach ($cdir as $key => $value)
+        $mediaFolderPath= realpath(public_path('images/publicationMedia') . $this->multimedia_path);
+        
+        
+        if( scandir($mediaFolderPath))
         {
-            if (!in_array($value,array(".","..")))
-            {
-                if (is_dir($folder . DIRECTORY_SEPARATOR . $value))
+            $mediaFolder = scandir($mediaFolderPath);
+            foreach ($mediaFolder as $key => $value){
+                if( !in_array($value,array(".","..")) )
                 {
-                    $result[$value] = dirToArray($folder . DIRECTORY_SEPARATOR . $value);
-                }
-                else
-                {
-                    $result[] = public_path( "/images/publicationMedia" .$this->multimedia_path. '/' .$value);
-
+                    $absolute = realpath( $mediaFolderPath . '/' .$value);
+                    $public = realpath(public_path());
+                    $relativePath = str_replace($public,"",$absolute);
+                    array_push($result,$relativePath);
                 }
             }
         }
 
         return $result;
     }
-*/
 }

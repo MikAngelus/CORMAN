@@ -2,6 +2,7 @@
 /public/hot
 /public/images/groups
 /public/images/profilePictures
+/public/images/publicationMedia/*
 /public/storage
 /storage/*.key
 /vendor

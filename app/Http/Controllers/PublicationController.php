@@ -92,10 +92,9 @@ class PublicationController extends Controller
         
         //  Random unique folder name for each publication
         //       '/images/publicationMedia/nomefile.png'
-        $folderName = str_random(25);
+        $folderName = md5(date('c').str_random(25));
         $folderPath = File::makeDirectory(public_path() . "/images/publicationMedia/" . $folderName);
-        $folderName = md5(date('c'));
-
+        
         //  Trattamento media nel form
 
         if ($request->hasFile('pdf_file')) {
@@ -110,7 +109,7 @@ class PublicationController extends Controller
 
         $files = $request->file('media_file');
         if ($request->hasFile('media_file')) {
-            if ( isset($request->pdf_file) ) {
+            if ( isset($request->media_file) ) {
 
                 foreach ($files as $file) {
 
@@ -315,7 +314,7 @@ class PublicationController extends Controller
 
         $files = $request->file('media_file');
         if ($request->hasFile('media_file')) {
-            if ( isset($request->pdf_file) ) {
+            if ( isset($request->media_file) ) {
                 foreach ($files as $file) {
 
                     $fileName = str_random(15) . '.' . $file->getClientOriginalExtension();
@@ -547,7 +546,7 @@ class PublicationController extends Controller
             $newPublication->venue = ucwords($publication['venue']);
             $newPublication->public = 1;
 
-            $folderName = str_random(25);
+            $folderName = md5(date('c').str_random(25));
             File::makeDirectory(public_path() . "/images/publicationMedia/" . $folderName);
 
             $newPublication->multimedia_path = '/' . $folderName; //TODO handle automatic folder creation
