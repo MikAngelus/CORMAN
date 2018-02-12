@@ -19,27 +19,23 @@
           <div class="col-xl-9 mx-auto">
             <h1 class="mb-5">Connect, share and start to build new knowledge right now!</h1>
           </div>
-          <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+          <div class="col-6 col-md-10 col-sm-4 col-lg-8 col-xl-4 mx-auto">
               <div class="form-row">
-                <div class="col-12 col-md-3">
                   
                 </div>
-                <div class="col-12 col-md-3">
+                <div class="col-12 col-xl-6 col-sm-12 col-md-3 my-2 mx-auto">
                     <a href="{{ url('signUp') }}">
                         <button type="submit" class="btn btn-block btn-lg btn-success">Join Us!</button>
                     </a>
                 </div>
-                <div class="col-12 col-md-3">
+                <div class="col-12 col-xl-6 col-sm-12 col-md-3 my-2 mx-auto">
                     <a href="{{ url('login') }}">
                         <button type="submit" class="btn btn-block btn-lg btn-primary">Login</button>
                     </a>
                 </div>
-                <div class="col-12 col-md-3 mb-2 mb-md-0">
-                </div>
                  </div>
           </div>
         </div>
-      </div>
     </header>
 
     <!-- Icons Grid -->
@@ -84,15 +80,15 @@
           <div class="col-xl-9 mx-auto">
             <h2 class="mb-4">Ready to get started? Sign up now!</h2>
           </div>
-          <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+          <div class="col-sm-6 col-md-10 col-lg-8 col-xl-7 mx-auto">
               <div class="form-row" >
-                <div class="col-12 col-md-3"></div>
-                <div class="col-12 col-md-3">
+
+                <div class="col-12 col-sm-12 col-md-3 mx-auto">
                     <a href="{{ url('signUp') }}">
-                        <button class="btn btn-block btn-lg btn-primary">Join Us!</button>
+                        <button class="btn btn-block btn-lg btn-success">Join Us!</button>
                     </a>
                 </div>
-                <div class="col-12 col-md-3"></div>
+
                </div>
           </div>
         </div>
