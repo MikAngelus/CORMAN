@@ -44,11 +44,8 @@ $(document).ready(function(){
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function(data, status){
-                    $('#confirmAddPublication').modal('show');
-                    $('#addTo').hide();
-                    //alert(data.message);
-                    //window.location.href = data.redirectTo;
-                                       
+                    alert(data.message);
+                    window.location.href = data.redirectTo;                  
                 }
             });
         });
