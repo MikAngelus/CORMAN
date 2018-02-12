@@ -13,3 +13,13 @@
 .navbar-toggler {
     background-color: cornflowerblue;
 }
+
+#navbarText {
+    font-size: 20px;
+}
+
+#navbarText a:hover {
+    color: cornflowerblue;
+    font-size: 21px;
+}
+

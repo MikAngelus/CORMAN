@@ -134,6 +134,12 @@ h6{
     color: white;
 }
 
+#specialButton:hover {
+    background-color: orange;
+    border-color: orange;
+}
+
+
 .textLighter{
     font-style: italic;
     font-size: 13px;
