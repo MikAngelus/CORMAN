@@ -104,7 +104,7 @@
                 <div class="modal-body">    
                     <div class="row align-items-center">
                         <div class="col-lg-12" align="center">Really, do you want to delete this group?</div>
-                        <a href="#" id="btn-newgroup" class="btn btn-danger btn-sm" role="button">Yes, Delete</a>
+                        <a href="{{route('groups.destroy', ['id'=>$group->id])}}" id="btn-newgroup" class="btn btn-danger btn-sm" role="button">Yes, Delete</a>
                     </div>
                 </div>
             </div>

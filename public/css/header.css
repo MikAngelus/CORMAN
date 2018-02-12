@@ -98,27 +98,8 @@ box-shadow: inset 0px 0px 113px -36px rgba(204,204,204,1);
     padding-right: 15px;
 }
 
-#footer{
-position: fixed;
-bottom: 0px;
-z-index: 1000;
-width: 100%;
-margin: 0 auto;
-left: 0px;
-height: 5rem;
-background-color: #eee !important;
-font-size: 14px;
-justify-content: center;
-margin: 0 !important;
-}
 
-#footer p{
-  padding: 5px;
-  color: #333;
-  text-decoration: none;
-  margin-top: 1em;
 
-}
 
 
 /* fix overlay modal/header navbar */
@@ -144,12 +125,5 @@ margin: 0 !important;
 @media (min-width: 2560px) {
     .navbar-nav {
         margin: 0 26rem;
-    }
-}
-
-@media (max-width : 767px) {
-    #footer p{
-        margin: -0.6em 0 0 0 !important;
-
     }
 }

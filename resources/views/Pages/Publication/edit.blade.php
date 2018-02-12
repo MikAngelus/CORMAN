@@ -96,7 +96,7 @@
                 <h2 class="fs-title">Media</h2>
                 <h3 class="fs-subtitle">Add here some media about the publication</h3>
                 <div class="form-group col">
-                    <label class="col-sm-12 col-md-3 col-lg-4">Add PDF <i class="ion-document-text" aria-hidden="true"></i></label>
+                    <label class="col-sm-12 col-md-3 col-lg-4">Replace PDF <i class="ion-document-text" aria-hidden="true"></i></label>
                     <input class="col-sm-12 col-md-9 col-lg-6" type="file" name="pdf_file" accept=".pdf" style="display: all;">
                 </div> 
                 <div class="form-group col">
