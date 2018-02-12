@@ -14,7 +14,7 @@
     <div id="table-container" class="row col-lg-12" align="center">
         <div id="message_info" class="col-11 col-sm-11 col-md-8 col-lg-8 col-xl-8" align="center">
             <span>Hi</span> 
-            <span id="first_name">{{$user->first_name}}</span> <span id="last_name">{{$user->last_name}}</span>
+            <strong><span id="first_name">{{$user->first_name}}</span> <span id="last_name">{{$user->last_name}}</span></strong>
             <div> We found some publications may related to you, 
                 maybe you want add these to Corman! Don't worry you can always edit later</div>
         </div>
@@ -24,7 +24,7 @@
     <div id="progBar" class="row col-lg-12">
         <div class="progress col-12 col-sm-12 col-md-10 col-lg-8 col-xl-8 mb-2" align="center">
             <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-                <span>Please wait<span class="dotdotdot"></span></span>
+                <span>Please wait, we are syncing publications on your profile...<span class="dotdotdot"></span></span>
             </div>
         </div>
     </div>

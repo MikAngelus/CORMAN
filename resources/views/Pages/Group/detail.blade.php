@@ -47,7 +47,7 @@
                     <div class="row justify-content-between">                 
                         <div class="col-lg-10">
                             <a href="#" id="btn-share" class="btn btn-primary" role="button" data-toggle="modal" data-target="#addPublication">
-                                <span class="ion-plus-circled ion-plus"> Share</span>
+                                <span class="ion-plus-circled"> Share</span>
                             </a>
                         </div>
                         <div class="col-lg-2">
@@ -82,6 +82,29 @@
                     </div>
                     <div class="modal-body">
                         @include('Pages.Group.modalAddPublication')
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal CONFIRM Add Publications in Group -->
+        <div class="modal fade" id="confirmAddPublication" tabindex="-1" role="dialog" aria-labelledby="addPublication" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h6 class="modal-title" id="addPublication">Add Publications in this Group</h6>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-12" align="center">
+                                <p>Your Publication has been added in group</p>
+                            </div>
+                            <div class="col-lg-12" align="center">
+                                <a href="{{route('groups.show', ['id'=>$theGroup->id]) }}" id="btn-newgroup" class="btn btn-primary btn-sm" role="button">OK</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
