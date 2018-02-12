@@ -4,9 +4,8 @@
     <base href="{{ URL::asset('/') }}" target="_blank">
     <link href="{{url('css/form.css')}}" rel="stylesheet" />
     <link href="{{url('css/edit_forms.css')}}" rel="stylesheet" />
-    <!-- <link rel="stylesheet" href="{{ url('css/User/registration.css') }}">
-    Controllare se bisogna includerlo  
-    -->
+    <link rel="stylesheet" href="{{ url('css/User/registration.css') }}">
+
 @endsection
 
 @section('content')
