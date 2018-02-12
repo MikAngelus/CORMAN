@@ -55,19 +55,19 @@
 
     <!-- Media Carousel -->
 
-    <div class="row">
+  <!--  <div class="row">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
-                @foreach(($a = $publication->carouselLoop()) as $i => $item)
-                    <li data-target="#carouselExampleIndicators" data-slide-to="{{$i}}"></li>
-                @endforeach
+                foreach(($a = $publication->carouselLoop()) as $i => $item)
+                    <li data-target="#carouselExampleIndicators" data-slide-to="$i"></li>
+                endforeach
             </ol>
             <div class="carousel-inner" role="listbox">
-                @foreach(($a = $publication->carouselLoop()) as $i => $item)
+               foreach(($a = $publication->carouselLoop()) as $i => $item)
                     <div class="carousel-item">
-                        <img class="d-block img-fluid" src="{{url($item)}}">
+                        <img class="d-block img-fluid" src="url($item">
                     </div>
-                @endforeach
+                endforeach
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -78,5 +78,5 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
-    </div>
+    </div>-->
 </div>

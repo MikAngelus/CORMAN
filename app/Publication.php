@@ -77,11 +77,11 @@ class Publication extends Model
         return $this->hasMany('App\PublicationGroup');
     }
 
-    public function carouselLoop()
+/*    public function carouselLoop()
     {
 
         $result = array();
-        $folder = public_path() . "/images/publicationMedia/" . $this->multimedia_path;
+        $folder = "images/publicationMedia" . $this->multimedia_path;
         $cdir = scandir($folder);
         foreach ($cdir as $key => $value)
         {
@@ -101,5 +101,5 @@ class Publication extends Model
 
         return $result;
     }
-
+*/
 }
