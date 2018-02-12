@@ -53,7 +53,7 @@
 
     <hr>
         <div class="row justify-content-center">
-            <a href="#" id="btn-pdf" class="btn btn-primary" role="button" data-toggle="modal" data-target="#addPublication">
+            <a href="{{url($publication->getPublicationPDF())}}" target="_blank" id="btn-pdf" class="btn btn-primary" role="button" >
                 <span class="ion-android-download"> PDF</span>
             </a>
         </div>
@@ -65,21 +65,21 @@
             <ol class="carousel-indicators">
                 @foreach( $publication->carouselLoop() as $i => $item)
                     @if ($loop->first)
-                    <li data-target="#carouselExampleIndicators_{{$publication->id}}" data-slide-to="{{$i}}" class="active"></li>
+                        <li data-target="#carouselExampleIndicators_{{$publication->id}}" data-slide-to="{{$i}}" class="active"></li>
+                    @else
+                        <li data-target="#carouselExampleIndicators_{{$publication->id}}" data-slide-to="{{$i}}"></li>
                     @endif
 
-                    <li data-target="#carouselExampleIndicators_{{$publication->id}}" data-slide-to="{{$i}}"></li>
+                   
                 @endforeach
             </ol>
             <div class="carousel-inner" role="listbox">
                 @foreach( $publication->carouselLoop() as $item)
                     @if ($loop->first)
-                    <div class="carousel-item active">
-                        <img class="d-block img-fluid" src="{{ url($item) }}">
-                    </div>
+                        <div class="carousel-item active">
+                    @else
+                        <div class="carousel-item">
                     @endif
-                    
-                    <div class="carousel-item">
                         <img class="d-block img-fluid" src="{{ url($item) }}">
                     </div>
                 @endforeach
