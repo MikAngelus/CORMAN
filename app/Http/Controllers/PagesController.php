@@ -17,7 +17,7 @@ class PagesController extends Controller
     */
     public function __construct()
     {
-        $this->middleware('auth')->except(['landingPage','tutorial','about']);
+        $this->middleware('auth')->except(['landingPage','tutorial','about', 'sitemap']);
     }
 
     public function landingPage(){
@@ -29,8 +29,8 @@ class PagesController extends Controller
         return view('Pages.tutorial', ['publication' => $publication]);
     }
 
-    public function about(){
-        return view('Pages.about');
+    public function sitemap(){
+        return view('Pages.sitemap');
     }
 
     public function memberProfile(){

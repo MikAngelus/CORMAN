@@ -21,7 +21,7 @@ use GuzzleHttp\Client;
 /** Pages Controller Routes **/
 Route::get('/', 'PagesController@landingPage');
 Route::get('/tutorial', 'PagesController@tutorial');
-Route::get('/about', 'PagesController@about');
+Route::get('/sitemap', 'PagesController@sitemap');
 Route::get('/memberProfile', 'PagesController@memberProfile');
 
 

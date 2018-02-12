@@ -6,7 +6,7 @@
     padding: 0;
 }
 
-html {
+html, body, .container-fluid {
     height: 100%;
 }
 
@@ -44,6 +44,7 @@ body {
 }
 
 #loginBox {
+    padding: 3rem;
     margin: auto auto;
 }
 
