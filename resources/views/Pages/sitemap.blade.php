@@ -7,7 +7,7 @@
 @section('content')
 <div id="sitemap-container" class="mt-4 ml-3">
     <ul class="sitemap">
-        <li><a href="{{url('landing')}}">Homepage - CORMAN.com</a></li>
+        <li><a href="{{route('landing')}}">Homepage - CORMAN.com</a></li>
         <ul>
             <li><a href="#">How it works</a></li>
             <li><a href="{{url('login')}}">Login</a></li>

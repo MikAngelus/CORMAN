@@ -19,7 +19,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 
 /** Pages Controller Routes **/
-Route::get('/', 'PagesController@landingPage');
+Route::get('/', 'PagesController@landingPage')->name('landing');
 Route::get('/tutorial', 'PagesController@tutorial');
 Route::get('/sitemap', 'PagesController@sitemap');
 Route::get('/memberProfile', 'PagesController@memberProfile');
