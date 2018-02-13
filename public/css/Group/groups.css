@@ -134,6 +134,10 @@ h6{
     color: white;
 }
 
+#noLeaveGroup, #yesLeaveGroup{
+    color:white;
+}
+
 #specialButton:hover {
     background-color: orange;
     border-color: orange;
