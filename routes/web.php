@@ -54,6 +54,7 @@ Route::resource('groups','GroupController');
 // Ajax routes
 Route::get('ajaxGroupInfo', 'GroupController@ajaxInfo');
 Route::post('share', 'GroupController@share');
+Route::post('leave', 'GroupController@leave');
 
 
 

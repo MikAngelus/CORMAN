@@ -309,6 +309,14 @@ class GroupController extends Controller
 
     }
 
+    public function leave(Request $request){
+        $group = Group::find($request->input('groupID'));
+
+        $group->users()->detach(Auth::user()->id);
+
+        return response()->json(['redirectTo' => '/groups']);
+    }
+
 
     public function ajaxInfo(Request $request)
     {

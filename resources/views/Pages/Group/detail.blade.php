@@ -32,12 +32,12 @@
                     </div>
                     <div class="col-2 col-sm-2 col-md-2 col-lg-3 col-xl-1">
                         @if($theGroup->public === "public")
-                            <a href="#"><i class="ion-eye col-lg-4"></i></a>
+                            <i class="ion-eye col-lg-4"></i>
                         @else
-                            <a href="#"><i class="ion-eye-disabled col-lg-4" align="right"></i></a>
+                            <i class="ion-eye-disabled col-lg-4" align="right"></i>
                         @endif 
                         <a href="{{route('groups.edit', ['id'=>$theGroup->id])}}"><i class="ion-edit col-lg-4"></i></a>
-                        <i id="exit" class="ion-android-exit col-lg-4" role="button" data-toggle="modal" data-target="#exitGroup"></i>
+                        <i  id="exit" class="ion-android-exit col-lg-4" role="button" data-toggle="modal" data-target="#exitGroup"></i>
                     </div>
                 </div>    
             </div>
@@ -116,7 +116,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h6 class="modal-title" id="addPublication">Add Publications in this Group</h6>
+                        <h6 class="modal-title" id="addPublication">Leave Group</h6>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -124,11 +124,11 @@
                     <div class="modal-body">
                         <div class="row justify-content-center">
                             <div class="col-lg-12" align="center">
-                                <p>Your Publication has been added in group</p>
+                                <p>Are you sure to leave this group?</p>
                             </div>
                             <div class="col-lg-12" align="center">
-                                <a href="#" id="yesLeaveGroup" class="btn btn-success" role="button">Yes</a>
-                                <a href="#" id="noLeaveGroup" class="btn btn-danger" role="button">No</a>
+                                <a id="yesLeaveGroup" class="btn btn-success" role="button">Yes</a>
+                                <a id="noLeaveGroup" class="btn btn-danger" role="button">No</a>
                             </div>
                         </div>   
                     </div>

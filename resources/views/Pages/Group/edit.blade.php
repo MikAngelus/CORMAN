@@ -28,6 +28,15 @@
             <fieldset id="edit_group" class="edit_group">
                 <h2 class="fs-title">Edit Group</h2>
                 <h3 class="fs-subtitle">Edit informations of the group</h3>
+               
+                <div class="form-group">
+                    <img src="{{url($group->picture_path)}}" alt="" width="200" height="200">
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-12 col-md-3 col-lg-3" align="right">Profile Photo</label>
+                    <input class="col-sm-12 col-md-9 col-lg-8" id="upload" name="profile_photo" type="file" placeholder="{{$group->picture_path}}" value="{{$group->picture_path}}"/>
+                </div>
 
                 <div class="form-group">
                     <label class="col-sm-12 col-md-3 col-lg-3" align="right" >Group Name</label>
@@ -37,15 +46,6 @@
                 <div class="form-group row align-items-center">
                     <label class="col-sm-12 col-md-3 col-lg-3" align="right">Description</label>
                     <textarea class="col-sm-12 col-md-9 col-lg-8" rows="4" name="description" placeholder="{{$group->description}}">{{$group->description}}</textarea>
-                </div>
-
-                <div class="form-group">
-                    <img src="{{url($group->picture_path)}}" alt="">
-                </div>
-
-                <div class="form-group">
-                    <label class="col-sm-12 col-md-3 col-lg-3" align="right">Profile Photo</label>
-                    <input class="col-sm-12 col-md-9 col-lg-8" id="upload" name="profile_photo" type="file" placeholder="{{$group->picture_path}}" value="{{$group->picture_path}}"/>
                 </div>
 
                 <div class="form-group">
