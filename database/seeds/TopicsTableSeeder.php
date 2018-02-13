@@ -22,15 +22,15 @@ class TopicsTableSeeder extends Seeder
         $topic2->save();
 
         $topic3 = new Topic;
-        $topic3->name = 'Entrepreneurship';
+        $topic3->name = 'Human Computer Interaction';
         $topic3->save();
 
 		$topic4 = new Topic;
-        $topic4->name = 'Life';
+        $topic4->name = 'Usability';
         $topic4->save();
 
         $topic5 = new Topic;
-        $topic5->name = 'Startup';
+        $topic5->name = 'User Interface';
         $topic5->save();
 
         $topic6 = new Topic;
@@ -38,7 +38,7 @@ class TopicsTableSeeder extends Seeder
         $topic6->save();
 
         $topic7 = new Topic;
-        $topic7->name = 'Marketing';
+        $topic7->name = 'Interaction Design';
         $topic7->save();
 
         $topic8 = new Topic;
@@ -46,7 +46,7 @@ class TopicsTableSeeder extends Seeder
         $topic8->save();
 
         $topic9 = new Topic;
-        $topic9->name = 'Philosophy';
+        $topic9->name = 'IoT';
         $topic9->save();
 
         $topic10 = new Topic;
@@ -54,35 +54,35 @@ class TopicsTableSeeder extends Seeder
         $topic10->save();
 
         $topic11 = new Topic;
-        $topic11->name = 'Business';
+        $topic11->name = 'Accessibility';
         $topic11->save();
 
         $topic12 = new Topic;
-        $topic12->name = 'Writing';
+        $topic12->name = 'Word Sense Disambiguation';
         $topic12->save();
 
         $topic13 = new Topic;
-        $topic13->name = 'Google';
+        $topic13->name = 'Automatic Reasoning';
         $topic13->save();
 
         $topic14 = new Topic;
-        $topic14->name = 'Comics';
+        $topic14->name = 'Machine Learning';
         $topic14->save();
 
         $topic15 = new Topic;
-        $topic15->name = 'Education';
+        $topic15->name = 'Semantic Web';
         $topic15->save();
 
         $topic16 = new Topic;
-        $topic16->name = 'Art';
+        $topic16->name = 'Linked Open Data';
         $topic16->save();
 
         $topic16 = new Topic;
-        $topic16->name = 'Photography';
+        $topic16->name = 'Software Engineering';
         $topic16->save();
 
         $topic17 = new Topic;
-        $topic17->name = 'Innovation';
+        $topic17->name = 'Prototyping';
         $topic17->save();
 
 		$topic18 = new Topic;
@@ -94,7 +94,7 @@ class TopicsTableSeeder extends Seeder
         $topic19->save();
 
         $topic20 = new Topic;
-        $topic20->name = 'Science';
+        $topic20->name = 'Information Engineering';
         $topic20->save();
 
     }

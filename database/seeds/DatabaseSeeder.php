@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+/*
         $this->call([
             AffiliationTableSeeder::class,
             RoleTableSeeder::class,
@@ -33,12 +34,12 @@ class DatabaseSeeder extends Seeder
             PublicationGroupTableSeeder::class
 
         ]);
-
-
-/*
-        //TODO Seeder to implement
-
-
 */
+
+        $this->call([
+            AffiliationTableSeeder::class,
+            RoleTableSeeder::class,
+            TopicsTableSeeder::class
+        ]);
     }
 }

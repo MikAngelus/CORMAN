@@ -14,7 +14,6 @@ class bootstrapSeeder extends Seeder
         $this->call([
             AffiliationTableSeeder::class,
             RoleTableSeeder::class,
-            AuthorTableSeeder::class,
             TopicsTableSeeder::class
         ]);
 
