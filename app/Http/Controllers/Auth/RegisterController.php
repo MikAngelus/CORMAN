@@ -149,25 +149,27 @@ class RegisterController extends Controller
         $newAuthor = Author::firstOrNew(['name' => $authorName]);
         $newAuthor->user_id = $newUser->id;
         $newAuthor->save();
+        
         // Handling topics  
-        $topicInputList = $formData['topics'];
-        foreach( $topicInputList as $topicKey => $topicInput ){
-            $topicInput = strtolower($topicInput);
-            //Search and retrieve the topic from db
-            $topic = Topic::where('name', $topicInput)->first();
-            //Check if the topic is already in the db, otherwise create a new one and attach to the user
-            if($topic != null){
-                $newUser->topics()->attach($topic->id);
-            }
-            else{
-                $newTopic = new Topic;
-                $newTopic->name = $topicInput;
-                $newTopic->save();
+        if (array_key_exists('topics',$formData)){
+            $topicInputList = $formData['topics'];
+            foreach( $topicInputList as $topicKey => $topicInput ){
+                $topicInput = strtolower($topicInput);
+                //Search and retrieve the topic from db
+                $topic = Topic::where('name', $topicInput)->first();
+                //Check if the topic is already in the db, otherwise create a new one and attach to the user
+                if($topic != null){
+                    $newUser->topics()->attach($topic->id);
+                }
+                else{
+                    $newTopic = new Topic;
+                    $newTopic->name = $topicInput;
+                    $newTopic->save();
 
-                $newUser->topics()->attach($newTopic->id);
+                    $newUser->topics()->attach($newTopic->id);
+                }
             }
         }
-
         return $newUser;
     }
 }
