@@ -37,7 +37,7 @@
                             <a href="#"><i class="ion-eye-disabled col-lg-4" align="right"></i></a>
                         @endif 
                         <a href="{{route('groups.edit', ['id'=>$theGroup->id])}}"><i class="ion-edit col-lg-4"></i></a>
-                        <i class="ion-android-exit col-lg-4"></i>
+                        <i id="exit" class="ion-android-exit col-lg-4" role="button" data-toggle="modal" data-target="#exitGroup"></i>
                     </div>
                 </div>    
             </div>
@@ -86,6 +86,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Modal CONFIRM Add Publications in Group -->
         <div class="modal fade" id="confirmAddPublication" tabindex="-1" role="dialog" aria-labelledby="addPublication" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -105,6 +106,31 @@
                                 <a href="{{route('groups.show', ['id'=>$theGroup->id]) }}" id="btn-newgroup" class="btn btn-primary btn-sm" role="button">OK</a>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal CONFIRM exit Group -->
+        <div class="modal fade" id="exitGroup" tabindex="-1" role="dialog" aria-labelledby="addPublication" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h6 class="modal-title" id="addPublication">Add Publications in this Group</h6>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-12" align="center">
+                                <p>Your Publication has been added in group</p>
+                            </div>
+                            <div class="col-lg-12" align="center">
+                                <a href="#" id="yesLeaveGroup" class="btn btn-success" role="button">Yes</a>
+                                <a href="#" id="noLeaveGroup" class="btn btn-danger" role="button">No</a>
+                            </div>
+                        </div>   
                     </div>
                 </div>
             </div>
