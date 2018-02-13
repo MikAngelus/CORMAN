@@ -77,6 +77,27 @@ class Publication extends Model
         return $this->hasMany('App\PublicationGroup');
     }
 
+    public function getPublicationPDF(){
+        $result = '';
+        $mediaFolderPath= realpath(public_path('images/publicationMedia') . $this->multimedia_path);
+        if( scandir($mediaFolderPath))
+        {
+            $mediaFolder = scandir($mediaFolderPath);
+            foreach ($mediaFolder as $key => $value){
+                $extension = pathinfo($value,PATHINFO_EXTENSION);
+                if( !in_array($value,array(".","..")) &&  $extension == 'pdf')
+                {
+                    $absolute = realpath( $mediaFolderPath . '/' .$value);
+                    $public = realpath(public_path());
+                    $relativePath = str_replace($public,"",$absolute);
+                    $result = $relativePath;
+                }
+            }
+        }
+
+        return $result;
+    }
+
     public function carouselLoop()
     {
 
@@ -88,7 +109,8 @@ class Publication extends Model
         {
             $mediaFolder = scandir($mediaFolderPath);
             foreach ($mediaFolder as $key => $value){
-                if( !in_array($value,array(".","..")) )
+                $extension = pathinfo($value,PATHINFO_EXTENSION);
+                if( !in_array($value,array(".","..")) &&  $extension != 'pdf')
                 {
                     $absolute = realpath( $mediaFolderPath . '/' .$value);
                     $public = realpath(public_path());

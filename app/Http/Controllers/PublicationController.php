@@ -302,10 +302,13 @@ class PublicationController extends Controller
 
         if ($request->hasFile('pdf_file')) {
             if ( isset($request->pdf_file) ) {
-
-
+                $oldPdf = $publication->getPublicationPDF();
+                //dd(realpath(public_path($oldPdf)));
+                if ( empty($oldPDF) ){
+                    unlink(realpath(public_path($oldPdf)));
+                }
+                
                 $fileName = str_random(15) . '.' . $request->file('pdf_file')->getClientOriginalExtension();
-                //$request->file('pdf_file')->store(public_path() . "/images/publicationMedia/" . $folderName.'/'.$fileName);
                 $request->file('pdf_file')->move(public_path() . "/images/publicationMedia/" . $folderName.'/', $fileName);
 
             }
