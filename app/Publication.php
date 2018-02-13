@@ -90,7 +90,7 @@ class Publication extends Model
                     $absolute = realpath( $mediaFolderPath . '/' .$value);
                     $public = realpath(public_path());
                     $relativePath = str_replace($public,"",$absolute);
-                    $result = $relativePath;
+                    $result = ltrim($relativePath,'\\'); // hack for windows
                 }
             }
         }
@@ -115,6 +115,7 @@ class Publication extends Model
                     $absolute = realpath( $mediaFolderPath . '/' .$value);
                     $public = realpath(public_path());
                     $relativePath = str_replace($public,"",$absolute);
+                    $relativePath = ltrim($relativePath,'\\'); // hack for windows
                     array_push($result,$relativePath);
                 }
             }
