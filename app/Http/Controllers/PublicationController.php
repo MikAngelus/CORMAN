@@ -304,7 +304,7 @@ class PublicationController extends Controller
             if ( isset($request->pdf_file) ) {
                 $oldPdf = $publication->getPublicationPDF();
                 //dd(realpath(public_path($oldPdf)));
-                if ( empty($oldPDF) ){
+                if ( !empty($oldPdf) ){
                     unlink(realpath(public_path($oldPdf)));
                 }
                 
