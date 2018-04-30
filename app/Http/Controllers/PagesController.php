@@ -24,11 +24,6 @@ class PagesController extends Controller
         return view('Pages.landing');
     }
 
-    public function tutorial(){
-        $publication=Auth::user()->publications->first();
-        return view('Pages.tutorial', ['publication' => $publication]);
-    }
-
     public function sitemap(){
         return view('Pages.sitemap');
     }

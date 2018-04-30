@@ -163,6 +163,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+       // Collective\Html\HtmlServiceProvider,
         
 
         /*
@@ -234,6 +235,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class
+        /*'Form' => Collective\Html\FormFacade,
+        'Html' => Collective\Html\HtmlFacade*/
 
     ],
 
